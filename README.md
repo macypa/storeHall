@@ -1,5 +1,8 @@
 # StoreHall
 
+To install Phoenix:
+  https://medium.com/@rpw952/elixir-development-on-windows-10-ff7ca03769d
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
