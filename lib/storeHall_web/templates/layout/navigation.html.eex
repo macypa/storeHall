@@ -1,0 +1,34 @@
+<div class="top-bar" id="my-menu">
+  <div class="top-bar-left">
+    <ul class="menu">
+      <li class="menu-text"><%= link "StoreHall", to: Routes.item_path(@conn, :index) %></li>
+    </ul>
+  </div>
+<div class="top-bar-right">
+    <ul class="menu">
+      <%= if @conn.assigns[:user] do %>
+        <li class="menu-text">
+          Welcome, <%= @conn.assigns.user.first_name %>!
+        </li>
+      <% end %>
+      <li>
+        <%= link "Users", to: Routes.user_path(@conn, :index) %>
+      </li>
+      <li>
+        <%= link "Items", to: Routes.item_path(@conn, :index) %>
+      </li>
+      <%= if @conn.assigns[:user] do %>
+      <li>
+        <%= link "Add item", to: Routes.item_path(@conn, :new) %>
+      </li>
+      <li>
+        <%= link "Sign out", to: Routes.auth_path(@conn, :delete), class: "button" %>
+      </li>
+      <% else %>
+        <li>
+          <%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google", scope: "email profile"), class: "button" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
