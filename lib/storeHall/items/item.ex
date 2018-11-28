@@ -5,7 +5,7 @@ defmodule StoreHall.Items.Item do
   schema "items" do
     field :details, :map, default: %{}
     field :name, :string
-    field :user_id, :integer
+    field :user_id, :string
 
     timestamps()
   end
@@ -15,5 +15,7 @@ defmodule StoreHall.Items.Item do
     item
     |> cast(attrs, [:name, :user_id, :details])
     |> validate_required([:name, :user_id, :details])
+
+    # |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
   end
 end

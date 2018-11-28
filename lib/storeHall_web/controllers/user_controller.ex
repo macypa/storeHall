@@ -65,7 +65,7 @@ defmodule StoreHallWeb.UserController do
   defp check_owner(conn, _params) do
     %{params: %{"id" => user_id}} = conn
 
-    if conn.assigns && conn.assigns.user && to_string(user_id) === to_string(conn.assigns.user.id) do
+    if conn.assigns && conn.assigns.user && user_id === conn.assigns.user.id do
       conn
     else
       conn

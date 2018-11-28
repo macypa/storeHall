@@ -4,7 +4,8 @@ defmodule StoreHall.Items.Filters do
 
 
   schema "item_filters" do
-    field :list, :map
+    field :count, :integer
+    field :name, :string
     field :type, :string
 
     timestamps()
@@ -13,7 +14,7 @@ defmodule StoreHall.Items.Filters do
   @doc false
   def changeset(filters, attrs) do
     filters
-    |> cast(attrs, [:type, :list])
-    |> validate_required([:type, :list])
+    |> cast(attrs, [:name, :type, :count])
+    |> validate_required([:name, :type, :count])
   end
 end

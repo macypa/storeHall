@@ -1,6 +1,7 @@
 defmodule StoreHallWeb.AuthController do
   use StoreHallWeb, :controller
   plug Ueberauth
+  import Ecto.Query, warn: false
   alias StoreHall.Users.User
   alias StoreHall.Repo
 
@@ -13,7 +14,7 @@ defmodule StoreHallWeb.AuthController do
       provider: "google"
     }
 
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.changeset(%User{id: genId(user_params)}, user_params)
 
     create(conn, changeset)
   end
@@ -36,10 +37,43 @@ defmodule StoreHallWeb.AuthController do
   defp insert_or_update_user(changeset) do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
-        Repo.insert(changeset)
+        case Repo.insert(changeset) do
+          {:ok, user} ->
+            {:ok, user}
+
+          {:error, changeset} ->
+            User.changeset(%User{id: genNextId(changeset.changes)}, changeset.changes)
+            |> Repo.insert()
+        end
 
       user ->
         {:ok, user}
+    end
+  end
+
+  def genId(info) do
+    info
+    |> Map.take([:first_name, :last_name])
+    |> Map.values()
+    |> Enum.join(".")
+  end
+
+  def genNextId(info) do
+    id = genId(info)
+
+    lastUser =
+      User
+      |> where([u], like(u.id, ^"#{id}%"))
+      |> order_by([u], desc: u.id)
+      |> limit(1)
+      |> Repo.one()
+
+    case lastUser do
+      nil ->
+        id
+
+      user ->
+        user.id <> to_string(:rand.uniform(7))
     end
   end
 

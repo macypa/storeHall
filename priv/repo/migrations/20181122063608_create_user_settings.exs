@@ -3,7 +3,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserSettings do
 
   def change do
     create table(:user_settings) do
-      add :user_id, :integer
+      add :user_id, :string
       add :settings, :map
 
       timestamps()

@@ -3,7 +3,7 @@ defmodule StoreHall.Users.Settings do
   import Ecto.Changeset
 
   schema "user_settings" do
-    field :user_id, :integer
+    field :user_id, :string
     field :settings, :map, default: %{}
 
     timestamps()
