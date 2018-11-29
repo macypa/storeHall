@@ -19,5 +19,6 @@ defmodule StoreHall.Users.User do
     user
     |> cast(attrs, [:first_name, :last_name, :email, :provider, :user_settings_id])
     |> validate_required([:first_name, :email, :provider])
+    |> unique_constraint(:email)
   end
 end

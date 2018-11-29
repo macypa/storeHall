@@ -37,11 +37,11 @@ defmodule StoreHallWeb.AuthController do
   defp insert_or_update_user(changeset) do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
-        case Repo.insert(changeset) do
-          {:ok, user} ->
-            {:ok, user}
-
-          {:error, changeset} ->
+        try do
+          changeset
+          |> Repo.insert()
+        rescue
+          _ ->
             User.changeset(%User{id: genNextId(changeset.changes)}, changeset.changes)
             |> Repo.insert()
         end
@@ -55,25 +55,22 @@ defmodule StoreHallWeb.AuthController do
     info
     |> Map.take([:first_name, :last_name])
     |> Map.values()
+    |> Enum.reject(&is_nil/1)
     |> Enum.join(".")
   end
 
   def genNextId(info) do
     id = genId(info)
 
-    lastUser =
+    user_count =
       User
       |> where([u], like(u.id, ^"#{id}%"))
-      |> order_by([u], desc: u.id)
-      |> limit(1)
+      |> select([u], count(u.id))
       |> Repo.one()
 
-    case lastUser do
-      nil ->
-        id
-
-      user ->
-        user.id <> to_string(:rand.uniform(7))
+    case user_count do
+      nil -> id
+      user_count -> id <> to_string(user_count + 1)
     end
   end
 
