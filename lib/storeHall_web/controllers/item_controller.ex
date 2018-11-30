@@ -18,8 +18,14 @@ defmodule StoreHallWeb.ItemController do
 
   def create(conn, %{"item" => item_params}) do
     case item_params
+         |> IO.inspect()
          |> Map.put("user_id", conn.assigns.user.id)
-         |> Map.put("details", StoreHall.EncodeHelper.decode(item_params, "details"))
+         # |> put_in(["details", :merchant], conn.assigns.user.id)
+         |> put_in(
+           ["details", "tags"],
+           Poison.decode!(get_in(item_params, ["details", "tags"]) |> IO.inspect())
+         )
+         # |> Map.put(:details, StoreHall.EncodeHelper.decode(item_params, "details"))
          |> Items.create_item() do
       {:ok, item} ->
         conn
@@ -45,7 +51,14 @@ defmodule StoreHallWeb.ItemController do
   def update(conn, %{"id" => id, "item" => item_params}) do
     item = Items.get_item!(id)
 
-    case Items.update_item(item, item_params) do
+    case Items.update_item(
+           item,
+           item_params
+           |> put_in(
+             ["details", "tags"],
+             Poison.decode!(get_in(item_params, ["details", "tags"]) |> IO.inspect())
+           )
+         ) do
       {:ok, item} ->
         conn
         |> put_flash(:info, "Item updated successfully.")
