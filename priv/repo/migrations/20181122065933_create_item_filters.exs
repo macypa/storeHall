@@ -9,6 +9,7 @@ defmodule StoreHall.Repo.Migrations.CreateItemFilters do
 
       timestamps()
     end
+    create unique_index(:item_filters, [:name, :type], name: :name_type_index)
 
   end
 end

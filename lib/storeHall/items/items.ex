@@ -5,8 +5,10 @@ defmodule StoreHall.Items do
 
   import Ecto.Query, warn: false
   alias StoreHall.Repo
+  alias Ecto.Multi
 
   alias StoreHall.Items.Item
+  alias StoreHall.Items.Filters
 
   @doc """
   Returns the list of items.
@@ -50,9 +52,36 @@ defmodule StoreHall.Items do
 
   """
   def create_item(attrs \\ %{}) do
-    %Item{}
-    |> Item.changeset(attrs)
-    |> Repo.insert()
+    "attrs: #{inspect(attrs)}"
+
+    Ecto.Multi.new()
+    |> Multi.append(update_filters(attrs))
+    |> Multi.insert(:insert, Item.changeset(%Item{}, attrs))
+    |> Repo.transaction()
+    |> case do
+      {:ok, multi} ->
+        {:ok, multi.insert}
+    end
+  end
+
+  def update_filters(attrs \\ %{}) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(
+      :insert_merchant_filter,
+      %Filters{count: 1, name: attrs["user_id"], type: "merchant"},
+      on_conflict: [inc: [count: 1]],
+      conflict_target: [:name, :type]
+    )
+    |> Ecto.Multi.run(:insert_tag_filter, fn repo, _ ->
+      for t <- attrs["details"]["tags"] do
+        repo.insert(%Filters{count: 1, name: t, type: "tag"},
+          on_conflict: [inc: [count: 1]],
+          conflict_target: [:name, :type]
+        )
+      end
+
+      {:ok, "tags"}
+    end)
   end
 
   @doc """
