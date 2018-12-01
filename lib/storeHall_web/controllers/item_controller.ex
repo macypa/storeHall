@@ -54,8 +54,8 @@ defmodule StoreHallWeb.ItemController do
            item,
            item_params
            |> put_in(
-             [:details, :tags],
-             Poison.decode!(get_in(item_params, [:details, :tags]))
+             ["details", "tags"],
+             Poison.decode!(get_in(item_params, ["details", "tags"]))
            )
          ) do
       {:ok, item} ->
