@@ -3,12 +3,14 @@ defmodule StoreHallWeb.ItemController do
 
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Items.Filters
 
   plug :check_owner when action in [:edit, :delete]
 
   def index(conn, _params) do
     items = Items.list_items()
-    render(conn, :index, items: items)
+    filters = Items.item_filters()
+    render(conn, :index, items: items, filters: filters)
   end
 
   def new(conn, _params) do

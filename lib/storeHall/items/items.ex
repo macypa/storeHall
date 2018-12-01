@@ -166,4 +166,8 @@ defmodule StoreHall.Items do
   def change_item(%Item{} = item) do
     Item.changeset(item, %{})
   end
+
+  def item_filters() do
+    Filters |> Repo.all() |> Filters.to_map()
+  end
 end

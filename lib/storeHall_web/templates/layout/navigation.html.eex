@@ -31,4 +31,8 @@
       <% end %>
     </ul>
   </div>
+  <div class="top-bar-right">
+    <%= if Map.has_key?(@conn.assigns, :filters)  do @conn.assigns.filters end %>
+
+  </div>
 </div>

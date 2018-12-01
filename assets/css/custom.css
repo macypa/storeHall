@@ -2,3 +2,9 @@
   color: #ffffff;
   background-color: black;
 }
+
+navigation {
+  float: left;
+  max-width: 15%;
+  word-wrap: break-word;
+}
