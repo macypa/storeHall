@@ -1,16 +1,16 @@
 defmodule StoreHallWeb.ItemController do
   use StoreHallWeb, :controller
+  use Rummage.Phoenix.Controller
 
   alias StoreHall.Items
   alias StoreHall.Items.Item
-  alias StoreHall.Items.Filters
 
   plug :check_owner when action in [:edit, :delete]
 
-  def index(conn, _params) do
-    items = Items.list_items()
+  def index(conn, params) do
+    {items, rummage} = Items.list_items(params)
     filters = Items.item_filters()
-    render(conn, :index, items: items, filters: filters)
+    render(conn, :index, items: items, filters: filters, rummage: rummage)
   end
 
   def new(conn, _params) do

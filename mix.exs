@@ -33,9 +33,10 @@ defmodule StoreHall.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.4.0", override: true},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      {:ecto, "~> 3.0.3", override: true},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
@@ -45,7 +46,9 @@ defmodule StoreHall.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 3.1"},
       {:ueberauth, "~> 0.5"},
-      {:ueberauth_google, "~> 0.7"}
+      {:ueberauth_google, "~> 0.7"},
+      {:rummage_ecto, "~> 1.0"},
+      {:rummage_phoenix, "~> 1.2.0"}
     ]
   end
 

@@ -17,8 +17,19 @@ defmodule StoreHall.Users do
       [%User{}, ...]
 
   """
-  def list_users do
-    Repo.all(User)
+  def list_users(params) do
+    # Repo.all(User)
+    params |> IO.inspect()
+
+    {users, rummage} =
+      User
+      |> Rummage.Ecto.rummage(params["rummage"])
+
+    users =
+      users
+      |> Repo.all()
+
+    {users, rummage}
   end
 
   @doc """

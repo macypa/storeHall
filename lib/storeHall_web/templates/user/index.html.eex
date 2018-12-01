@@ -1,13 +1,19 @@
 <h1>Listing Users</h1>
 
+<%= search_form(@conn, @rummage, [fields:
+[
+  email: %{label: "Search by email", search_type: "ilike"},
+], button_class: "btn",
+]) %>
+
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Provider</th>
-
+      <th><%= sort_link @conn, @rummage, [field: :first_name, ci: true] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :last_name] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :email] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :provider] %></th>
+      
       <th></th>
     </tr>
   </thead>
@@ -29,4 +35,4 @@
   </tbody>
 </table>
 
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+<%= pagination_link(@conn, @rummage) %>

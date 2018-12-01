@@ -1,14 +1,15 @@
 defmodule StoreHallWeb.UserController do
   use StoreHallWeb, :controller
+  use Rummage.Phoenix.Controller
 
   alias StoreHall.Users
   alias StoreHall.Users.User
 
   plug :check_owner when action in [:edit, :delete]
 
-  def index(conn, _params) do
-    users = Users.list_users()
-    render(conn, :index, users: users)
+  def index(conn, params) do
+    {users, rummage} = Users.list_users(params)
+    render(conn, :index, users: users, rummage: rummage)
   end
 
   def new(conn, _params) do

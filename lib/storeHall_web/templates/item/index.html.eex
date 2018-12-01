@@ -1,11 +1,17 @@
 <h1>Listing Items</h1>
 
+<%= search_form(@conn, @rummage, [fields:
+[
+  name: %{label: "Search by name", search_type: "ilike"},
+], button_class: "btn",
+]) %>
+
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>Details</th>
+      <th><%= sort_link @conn, @rummage, [field: :name] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :user_id] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :details] %></th>
 
       <th></th>
     </tr>
@@ -27,4 +33,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Item", to: Routes.item_path(@conn, :new) %></span>
+<%= pagination_link(@conn, @rummage) %>
