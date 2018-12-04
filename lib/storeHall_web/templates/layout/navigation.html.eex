@@ -26,13 +26,25 @@
       </li>
       <% else %>
         <li>
+          <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
           <%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google", scope: "email profile"), class: "button" %>
         </li>
       <% end %>
     </ul>
   </div>
   <div class="top-bar-right">
-    <%= if Map.has_key?(@conn.assigns, :filters)  do @conn.assigns.filters end %>
+    <%= if Map.has_key?(@conn.assigns, :filters)  do
 
+      # Rummage.Phoenix.SearchView.search_form(@conn, @conn.assigns.rummage, [fields:
+      # [
+      #   name: %{label: "Search by name", search_type: "ilike"},
+      # ], button_class: "btn",
+      # ])
+
+      @conn.assigns.filters
+
+    end %>
+          <!-- TODO:maybe use some spellchecker or suggestions -->
+<!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
   </div>
 </div>

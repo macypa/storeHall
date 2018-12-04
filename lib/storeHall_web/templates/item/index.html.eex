@@ -1,5 +1,6 @@
 <h1>Listing Items</h1>
 
+<!-- TODO:maybe use some spellchecker or suggestions -->
 <%= search_form(@conn, @rummage, [fields:
 [
   name: %{label: "Search by name", search_type: "ilike"},
