@@ -8,6 +8,7 @@
   <%= label f, :name %>
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
+  <%= error_tag f, :not_unique_name_for_user %>
 
   <%= label f, :details %>
   <%= error_tag f, :details %>

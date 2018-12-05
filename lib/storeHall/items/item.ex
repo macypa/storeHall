@@ -15,7 +15,6 @@ defmodule StoreHall.Items.Item do
     item
     |> cast(attrs, [:name, :user_id, :details])
     |> validate_required([:name, :user_id, :details])
-
-    # |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
+    |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
   end
 end

@@ -73,6 +73,9 @@ defmodule StoreHall.Items do
     |> case do
       {:ok, multi} ->
         {:ok, multi.insert}
+
+      {:error, _op, value, _changes} ->
+        {:error, value}
     end
   end
 
@@ -148,6 +151,9 @@ defmodule StoreHall.Items do
     |> case do
       {:ok, multi} ->
         {:ok, multi.update}
+
+      {:error, _op, value, _changes} ->
+        {:error, value}
     end
   end
 
@@ -191,6 +197,9 @@ defmodule StoreHall.Items do
     |> case do
       {:ok, multi} ->
         {:ok, multi.delete}
+
+      {:error, _op, value, _changes} ->
+        {:error, value}
     end
   end
 

@@ -11,6 +11,6 @@ defmodule StoreHall.Repo.Migrations.CreateItems do
       timestamps()
     end
 
-    # create unique_index(:items, [:name, :user_id], name: :unique_name_for_user)
+    create unique_index(:items, [:name, :user_id], name: :unique_name_for_user)
   end
 end
