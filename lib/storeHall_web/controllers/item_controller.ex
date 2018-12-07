@@ -44,13 +44,20 @@ defmodule StoreHallWeb.ItemController do
     comments = Comments.get_comments_for_item(id)
 
     comment_changeset =
-      Comments.construct_comment(%{
+      Comments.construct_item_comment(%{
         item_id: id,
         author_id: conn.assigns.user.id,
         user_id: item.user_id
       })
 
-    render(conn, :show, item: item, comments: comments, comment_changeset: comment_changeset)
+    comment_path = Routes.item_comment_path(conn, :create, item)
+
+    render(conn, :show,
+      item: item,
+      comments: comments,
+      comment_changeset: comment_changeset,
+      comment_path: comment_path
+    )
   end
 
   def edit(conn, %{"id" => id}) do

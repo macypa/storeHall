@@ -4,6 +4,7 @@ defmodule StoreHallWeb.UserController do
 
   alias StoreHall.Users
   alias StoreHall.Users.User
+  alias StoreHall.Comments
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -31,7 +32,22 @@ defmodule StoreHallWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    render(conn, :show, user: user)
+    comments = Comments.get_comments_for_user(id)
+
+    comment_changeset =
+      Comments.construct_user_comment(%{
+        author_id: conn.assigns.user.id,
+        user_id: id
+      })
+
+    comment_path = Routes.user_comment_path(conn, :create, user)
+
+    render(conn, :show,
+      user: user,
+      comments: comments,
+      comment_changeset: comment_changeset,
+      comment_path: comment_path
+    )
   end
 
   def edit(conn, %{"id" => id}) do

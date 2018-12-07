@@ -30,7 +30,10 @@ defmodule StoreHallWeb.Router do
     pipe_through :browser
 
     get "/", ItemController, :index
-    resources "/users", UserController, only: [:index, :show]
+
+    resources "/users", UserController, only: [:index, :show] do
+      resources "/comments", CommentController, only: [:index, :create]
+    end
 
     resources "/items", ItemController, only: [:index, :show] do
       resources "/comments", CommentController, only: [:index, :create]

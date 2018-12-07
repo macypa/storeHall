@@ -9,7 +9,7 @@
   <%= hidden_input f, :item_id %>
   <%= hidden_input f, :author_id %>
   <%= hidden_input f, :comment_id %>
-  <%= text_input f, :details_body, name: "comment[details][body]", value: f.data.details["body"]%>
+  <%= text_input f, :details_body, name: input_name(f, :details) <> "[body]", value: f.data.details["body"]%>
 
   <%= submit "Save" %>
 <% end %>

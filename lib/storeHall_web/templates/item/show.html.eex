@@ -22,7 +22,7 @@
 <span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
 <span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
 
-<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comment_changeset: @comment_changeset, comments: @comments, item: @item %>
+<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comment_changeset: @comment_changeset, comments: @comments, comment_path: @comment_path, item: @item %>
 
 <h3>Add Comment</h3>
-<%= render StoreHallWeb.CommentView, "form.html", changeset: @comment_changeset, action: Routes.item_comment_path(@conn, :create, @item) %>
+<%= render StoreHallWeb.CommentView, "form.html", changeset: @comment_changeset, action: @comment_path %>

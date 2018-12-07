@@ -13,11 +13,10 @@ function show_hide(element_id) {
 </script>
 <%= for comment <- @comments do %>
   <div>
-    <%= comment.id %>
     <%= comment.details %>
     <button onclick='show_hide("comment_<%=comment.id%>")'>comment</button>
     <span id="comment_<%=comment.id%>" style="display: none">
-      <%= render StoreHallWeb.CommentView, "form.html", changeset: Ecto.Changeset.put_change(@comment_changeset, :comment_id, comment.id), action: Routes.item_comment_path(@conn, :create, @item) %>
+      <%= render StoreHallWeb.CommentView, "form.html", changeset: Ecto.Changeset.put_change(@comment_changeset, :comment_id, comment.id), action: @comment_path %>
     </span>
 
   </div>
