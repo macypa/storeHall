@@ -22,7 +22,23 @@
 <span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
 <span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
 
-<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comment_changeset: @comment_changeset, comments: @comments, comment_path: @comment_path, item: @item %>
+<script>
 
-<h3>Add Comment</h3>
-<%= render StoreHallWeb.CommentView, "form.html", changeset: @comment_changeset, action: @comment_path %>
+function show_hide(element_id) {
+    var x = document.getElementById(element_id);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+</script>
+<button onclick='show_hide("show_hide_comments")'>show/hide comments</button>
+<span id="show_hide_comments" style="display: none">
+
+  <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comment_changeset: @comment_changeset, comments: @comments, comment_path: @comment_path, item: @item %>
+
+  <h3>Add Comment</h3>
+  <%= render StoreHallWeb.CommentView, "form.html", changeset: @comment_changeset, action: @comment_path %>
+</span>
