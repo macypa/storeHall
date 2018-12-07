@@ -21,8 +21,6 @@ defmodule StoreHall.Items do
   """
   def list_items(params) do
     # Repo.all(Item)
-    params |> IO.inspect()
-
     {items, rummage} =
       Item
       |> Rummage.Ecto.rummage(params["rummage"])
@@ -116,11 +114,10 @@ defmodule StoreHall.Items do
     end
   end
 
-  def get_parents(".", accumulator) do
-    accumulator
-  end
+  def get_parents(path, accumulator \\ [])
+  def get_parents(".", accumulator), do: accumulator
 
-  def get_parents(path, accumulator \\ []) do
+  def get_parents(path, accumulator) do
     get_parents(Path.dirname(path), [path] ++ accumulator)
   end
 

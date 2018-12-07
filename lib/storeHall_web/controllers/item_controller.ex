@@ -4,6 +4,7 @@ defmodule StoreHallWeb.ItemController do
 
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Comments
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -40,7 +41,16 @@ defmodule StoreHallWeb.ItemController do
 
   def show(conn, %{"id" => id}) do
     item = Items.get_item!(id)
-    render(conn, :show, item: item)
+    comments = Comments.get_comments_for_item(id)
+
+    comment_changeset =
+      Comments.construct_comment(%{
+        item_id: id,
+        author_id: conn.assigns.user.id,
+        user_id: item.user_id
+      })
+
+    render(conn, :show, item: item, comments: comments, comment_changeset: comment_changeset)
   end
 
   def edit(conn, %{"id" => id}) do

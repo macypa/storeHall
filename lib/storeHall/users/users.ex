@@ -19,8 +19,6 @@ defmodule StoreHall.Users do
   """
   def list_users(params) do
     # Repo.all(User)
-    params |> IO.inspect()
-
     {users, rummage} =
       User
       |> Rummage.Ecto.rummage(params["rummage"])

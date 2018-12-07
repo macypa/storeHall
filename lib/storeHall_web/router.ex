@@ -22,6 +22,7 @@ defmodule StoreHallWeb.Router do
     pipe_through [:browser, :auth]
 
     resources "/users", UserController, only: [:new, :create, :edit, :update, :delete]
+
     resources "/items", ItemController, only: [:new, :create, :edit, :update, :delete]
   end
 
@@ -30,7 +31,10 @@ defmodule StoreHallWeb.Router do
 
     get "/", ItemController, :index
     resources "/users", UserController, only: [:index, :show]
-    resources "/items", ItemController, only: [:index, :show]
+
+    resources "/items", ItemController, only: [:index, :show] do
+      resources "/comments", CommentController, only: [:index, :create]
+    end
   end
 
   scope "/auth", StoreHallWeb do
