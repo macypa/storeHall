@@ -16,7 +16,7 @@ defmodule StoreHallWeb.CommentController do
     case Comments.create_user_comment(comment_params) do
       {:ok, _comment} ->
         conn
-        |> put_flash(:info, "ItemComment created successfully.")
+        |> put_flash(:info, "UserComment created successfully.")
         |> redirect(to: Routes.user_path(conn, :show, user_id))
     end
   end

@@ -5,6 +5,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Items
   alias StoreHall.Items.Item
   alias StoreHall.Comments
+  alias StoreHall.Ratings
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -41,23 +42,38 @@ defmodule StoreHallWeb.ItemController do
 
   def show(conn, %{"id" => id}) do
     item = Items.get_item!(id)
-    comments = Comments.get_comments_for_item(id)
-
-    comment_changeset =
-      Comments.construct_item_comment(%{
-        item_id: id,
-        author_id: conn.assigns.user.id,
-        user_id: item.user_id
-      })
-
-    comment_path = Routes.item_comment_path(conn, :create, item)
 
     render(conn, :show,
       item: item,
-      comments: comments,
-      comment_changeset: comment_changeset,
-      comment_path: comment_path
+      comments_info: collect_comments_info(conn, item),
+      ratings_info: collect_ratings_info(conn, item)
     )
+  end
+
+  def collect_comments_info(conn, item) do
+    %{
+      comments: Comments.for_item(item.id),
+      comment_path: Routes.item_comment_path(conn, :create, item),
+      comment_changeset:
+        Comments.construct_item_comment(%{
+          item_id: item.id,
+          author_id: conn.assigns.user.id,
+          user_id: item.user_id
+        })
+    }
+  end
+
+  def collect_ratings_info(conn, item) do
+    %{
+      ratings: Ratings.for_item(item.id),
+      rating_path: Routes.item_rating_path(conn, :create, item),
+      rating_changeset:
+        Ratings.construct_item_rating(%{
+          item_id: item.id,
+          author_id: conn.assigns.user.id,
+          user_id: item.id
+        })
+    }
   end
 
   def edit(conn, %{"id" => id}) do

@@ -19,13 +19,13 @@ defmodule StoreHall.Comments do
 
   def get_item_comment!(id), do: Repo.get!(ItemComment, id)
 
-  def get_comments_for_item(id) do
+  def for_item(id) do
     ItemComment
     |> where(item_id: ^id)
     |> Repo.all()
   end
 
-  def get_comments_for_user(id) do
+  def for_user(id) do
     UserComment
     |> where(user_id: ^id)
     |> Repo.all()

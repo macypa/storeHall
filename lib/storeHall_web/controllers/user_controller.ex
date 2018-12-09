@@ -5,6 +5,7 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Comments
+  alias StoreHall.Ratings
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -32,22 +33,36 @@ defmodule StoreHallWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    comments = Comments.get_comments_for_user(id)
-
-    comment_changeset =
-      Comments.construct_user_comment(%{
-        author_id: conn.assigns.user.id,
-        user_id: id
-      })
-
-    comment_path = Routes.user_comment_path(conn, :create, user)
 
     render(conn, :show,
       user: user,
-      comments: comments,
-      comment_changeset: comment_changeset,
-      comment_path: comment_path
+      comments_info: collect_comments_info(conn, user),
+      ratings_info: collect_ratings_info(conn, user)
     )
+  end
+
+  def collect_comments_info(conn, user) do
+    %{
+      comments: Comments.for_user(user.id),
+      comment_path: Routes.user_comment_path(conn, :create, user),
+      comment_changeset:
+        Comments.construct_user_comment(%{
+          author_id: conn.assigns.user.id,
+          user_id: user.id
+        })
+    }
+  end
+
+  def collect_ratings_info(conn, user) do
+    %{
+      ratings: Ratings.for_user(user.id),
+      rating_path: Routes.user_rating_path(conn, :create, user),
+      rating_changeset:
+        Ratings.construct_user_rating(%{
+          author_id: conn.assigns.user.id,
+          user_id: user.id
+        })
+    }
   end
 
   def edit(conn, %{"id" => id}) do

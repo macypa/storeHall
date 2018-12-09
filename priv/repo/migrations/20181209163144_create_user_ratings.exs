@@ -3,11 +3,10 @@ defmodule StoreHall.Repo.Migrations.CreateUserRatings do
 
   def change do
     create table(:user_ratings) do
-      add :user_id, :integer
-      add :type, :string
-      add :parent_rating_id, :integer
-      add :from_user_id, :integer
-      add :content, :map
+      add :author_id, :string
+      add :rating_id, :integer
+      add :user_id, :string
+      add :details, :map
 
       timestamps()
     end
