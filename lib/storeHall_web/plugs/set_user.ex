@@ -2,6 +2,7 @@ defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
 
   alias StoreHall.Repo
+  alias StoreHall.Users
   alias StoreHall.Users.User
 
   def init(_params) do
@@ -11,15 +12,7 @@ defmodule StoreHall.Plugs.SetUser do
     if conn.assigns[:user] do
       conn
     else
-      user_id = get_session(conn, :user_id)
-
-      cond do
-        user = user_id && Repo.get(User, to_string(user_id)) ->
-          assign(conn, :user, user)
-
-        true ->
-          assign(conn, :user, nil)
-      end
+      assign(conn, :user, get_session(conn, :user))
     end
   end
 end
