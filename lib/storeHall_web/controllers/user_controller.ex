@@ -32,7 +32,7 @@ defmodule StoreHallWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = get_user!(conn, id)
 
     render(conn, :show,
       user: user,
@@ -66,13 +66,20 @@ defmodule StoreHallWeb.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = get_user!(conn, id)
     changeset = Users.change_user(user)
     render(conn, :edit, user: user, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
+    user = get_user!(conn, id)
+
+    user_params =
+      user_params
+      |> put_in(
+        ["settings", "labels"],
+        Poison.decode!(get_in(user_params, ["settings", "labels"]))
+      )
 
     case Users.update_user(user, user_params) do
       {:ok, user} ->
@@ -86,7 +93,7 @@ defmodule StoreHallWeb.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = get_user!(conn, id)
     {:ok, _user} = Users.delete_user(user)
 
     conn
@@ -94,16 +101,32 @@ defmodule StoreHallWeb.UserController do
     |> redirect(to: Routes.user_path(conn, :index))
   end
 
-  defp check_owner(conn, _params) do
-    %{params: %{"id" => user_id}} = conn
-
-    if conn.assigns && conn.assigns.user && user_id === conn.assigns.user.id do
+  defp check_owner(conn, params) do
+    if check_owner?(conn, params) do
       conn
     else
       conn
       |> put_flash(:error, "You cannot do that")
       |> redirect(to: Routes.user_path(conn, :index))
       |> halt()
+    end
+  end
+
+  defp check_owner?(conn, _params) do
+    %{params: %{"id" => user_id}} = conn
+
+    if conn.assigns && conn.assigns.user && user_id === conn.assigns.user.id do
+      true
+    else
+      false
+    end
+  end
+
+  defp get_user!(conn, id) do
+    if check_owner?(conn, id) do
+      user = Users.get_user_with_settings!(id)
+    else
+      user = Users.get_user!(id)
     end
   end
 end

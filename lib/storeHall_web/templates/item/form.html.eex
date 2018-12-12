@@ -14,7 +14,7 @@
   <%= error_tag f, :details %>
 
   <%= label f, :tags %>
-  <%= text_input f, :details_tags, name: "item[details][tags]", value: Poison.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %>
+  <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Poison.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %>
 
   <div>
     <%= submit "Save" %>
