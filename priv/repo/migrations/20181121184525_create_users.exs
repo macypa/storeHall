@@ -8,7 +8,6 @@ defmodule StoreHall.Repo.Migrations.CreateUsers do
       add :last_name, :string
       add :email, :string
       add :provider, :string
-      add :user_settings_id, :string
 
       timestamps()
     end

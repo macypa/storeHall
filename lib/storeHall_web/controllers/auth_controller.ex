@@ -2,6 +2,7 @@ defmodule StoreHallWeb.AuthController do
   use StoreHallWeb, :controller
   plug Ueberauth
   import Ecto.Query, warn: false
+  alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Repo
 
@@ -24,7 +25,7 @@ defmodule StoreHallWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Thank you for signing in!")
-        |> put_session(:user_id, user.id)
+        |> put_session(:user, Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
       {:error, _reason} ->

@@ -1,24 +1,11 @@
 defmodule StoreHall.Users do
-  @moduledoc """
-  The Users context.
-  """
-
   import Ecto.Query, warn: false
   alias StoreHall.Repo
 
   alias StoreHall.Users.User
+  alias StoreHall.Users.Settings
 
-  @doc """
-  Returns the list of users.
-
-  ## Examples
-
-      iex> list_users()
-      [%User{}, ...]
-
-  """
   def list_users(params) do
-    # Repo.all(User)
     {users, rummage} =
       User
       |> Rummage.Ecto.rummage(params["rummage"])
@@ -30,83 +17,71 @@ defmodule StoreHall.Users do
     {users, rummage}
   end
 
-  @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
-  ## Examples
-
-      iex> get_user!(123)
-      %User{}
-
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
-
-  """
   def get_user!(id), do: Repo.get!(User, id)
 
-  @doc """
-  Creates a user.
+  def get_user_with_settings!(id) do
+    user = Repo.get!(User, id)
 
-  ## Examples
+    settings =
+      Repo.get!(Settings, id)
+      |> Map.get(:settings)
 
-      iex> create_user(%{field: value})
-      {:ok, %User{}}
+    Map.put(user, :settings, settings)
+  end
 
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a user.
-
-  ## Examples
-
-      iex> update_user(user, %{field: new_value})
-      {:ok, %User{}}
-
-      iex> update_user(user, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_user(%User{} = user, attrs) do
+    upsert_settings(user, Map.get(attrs, "settings"))
+
     user
     |> User.changeset(attrs)
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a User.
+  defp deep_merge(left, nil), do: left
+  defp deep_merge(left, right), do: Map.merge(left, right, &deep_resolve/3)
+  defp deep_resolve(_key, left = %{}, right = %{}), do: deep_merge(left, right)
+  defp deep_resolve(_key, _left, right), do: right
 
-  ## Examples
+  def load_settings(%User{} = user) do
+    settings =
+      upsert_settings(user)
+      |> Map.get(:settings)
 
-      iex> delete_user(user)
-      {:ok, %User{}}
-
-      iex> delete_user(user)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_user(%User{} = user) do
-    Repo.delete(user)
+    Map.put(user, :settings, settings)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user changes.
+  defp upsert_settings(user, changes \\ %{}) do
+    settings =
+      case Repo.get(Settings, user.id) do
+        nil -> %Settings{id: user.id}
+        settings -> settings
+      end
 
-  ## Examples
+    changes =
+      %Settings{id: user.id}
+      |> deep_merge(settings)
+      |> deep_merge(Map.put(%{}, :settings, changes))
+      |> Map.get(:settings)
 
-      iex> change_user(user)
-      %Ecto.Changeset{source: %User{}}
+    settings
+    |> Settings.changeset(Map.put(%{}, :settings, changes))
+    |> Repo.insert_or_update()
+    |> case do
+      {:ok, model} -> model
+    end
+  end
 
-  """
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+    Repo.delete(Repo.get!(Settings, user.id))
+  end
+
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
