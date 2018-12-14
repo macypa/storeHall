@@ -8,7 +8,7 @@ defmodule StoreHallWeb.Plugs.RequireAuth do
   end
 
   def call(conn, _params) do
-    if conn.assigns[:user] do
+    if conn.assigns[:logged_user] do
       conn
     else
       conn

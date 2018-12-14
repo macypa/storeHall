@@ -107,7 +107,7 @@ defmodule StoreHall.Items do
   def update_list_filters(multi, filter_type, filters, increase_by \\ 1) do
     case filters do
       nil ->
-        {:ok, filters}
+        multi
 
       filters ->
         count = if increase_by > 0, do: 1, else: 0
@@ -125,8 +125,6 @@ defmodule StoreHall.Items do
               )
             end)
           end
-
-          {:ok, filters}
         end)
     end
   end

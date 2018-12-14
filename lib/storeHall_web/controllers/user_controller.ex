@@ -2,6 +2,7 @@ defmodule StoreHallWeb.UserController do
   use StoreHallWeb, :controller
   use Rummage.Phoenix.Controller
 
+  alias StoreHallWeb.AuthController
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Comments
@@ -47,7 +48,7 @@ defmodule StoreHallWeb.UserController do
       comment_path: Routes.user_comment_path(conn, :create, user),
       comment_changeset:
         Comments.construct_user_comment(%{
-          author_id: conn.assigns.user.id,
+          author_id: AuthController.get_user_id_from_conn(conn),
           user_id: user.id
         })
     }
@@ -59,7 +60,7 @@ defmodule StoreHallWeb.UserController do
       rating_path: Routes.user_rating_path(conn, :create, user),
       rating_changeset:
         Ratings.construct_user_rating(%{
-          author_id: conn.assigns.user.id,
+          author_id: AuthController.get_user_id_from_conn(conn),
           user_id: user.id
         })
     }
@@ -102,7 +103,9 @@ defmodule StoreHallWeb.UserController do
   end
 
   defp check_owner(conn, params) do
-    if check_owner?(conn, params) do
+    %{params: %{"id" => user_id}} = conn
+
+    if AuthController.check_owner?(conn, user_id) do
       conn
     else
       conn
@@ -112,18 +115,8 @@ defmodule StoreHallWeb.UserController do
     end
   end
 
-  defp check_owner?(conn, _params) do
-    %{params: %{"id" => user_id}} = conn
-
-    if conn.assigns && conn.assigns.user && user_id === conn.assigns.user.id do
-      true
-    else
-      false
-    end
-  end
-
   defp get_user!(conn, id) do
-    if check_owner?(conn, id) do
+    if AuthController.check_owner?(conn, id) do
       Users.get_user_with_settings!(id)
     else
       Users.get_user!(id)

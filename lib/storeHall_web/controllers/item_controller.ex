@@ -2,6 +2,7 @@ defmodule StoreHallWeb.ItemController do
   use StoreHallWeb, :controller
   use Rummage.Phoenix.Controller
 
+  alias StoreHallWeb.AuthController
   alias StoreHall.Items
   alias StoreHall.Items.Item
   alias StoreHall.Comments
@@ -22,8 +23,8 @@ defmodule StoreHallWeb.ItemController do
 
   def create(conn, %{"item" => item_params}) do
     case item_params
-         |> Map.put("user_id", conn.assigns.user.id)
-         # |> put_in([:details, :merchant], conn.assigns.user.id)
+         |> Map.put("user_id", conn.assigns.logged_user.id)
+         # |> put_in([:details, :merchant], conn.assigns.logged_user.id)
          |> put_in(
            ["details", "tags"],
            Poison.decode!(get_in(item_params, ["details", "tags"]))
@@ -57,7 +58,7 @@ defmodule StoreHallWeb.ItemController do
       comment_changeset:
         Comments.construct_item_comment(%{
           item_id: item.id,
-          author_id: conn.assigns.user.id,
+          author_id: AuthController.get_user_id_from_conn(conn),
           user_id: item.user_id
         })
     }
@@ -70,7 +71,7 @@ defmodule StoreHallWeb.ItemController do
       rating_changeset:
         Ratings.construct_item_rating(%{
           item_id: item.id,
-          author_id: conn.assigns.user.id,
+          author_id: AuthController.get_user_id_from_conn(conn),
           user_id: item.user_id
         })
     }
@@ -112,13 +113,11 @@ defmodule StoreHallWeb.ItemController do
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
-  defp check_owner(conn, _params) do
+  defp check_owner(conn, params) do
     %{params: %{"id" => item_id}} = conn
+    user_id = Items.get_item!(item_id).user_id
 
-    itemUserId = Items.get_item!(item_id).user_id
-
-    if conn.assigns && conn.assigns.user &&
-         (itemUserId == conn.assigns.user.id || itemUserId == nil) do
+    if AuthController.check_owner?(conn, user_id) do
       conn
     else
       conn

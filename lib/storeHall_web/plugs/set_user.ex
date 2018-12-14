@@ -9,10 +9,10 @@ defmodule StoreHall.Plugs.SetUser do
   end
 
   def call(conn, _params) do
-    if conn.assigns[:user] do
+    if conn.assigns[:logged_user] do
       conn
     else
-      assign(conn, :user, get_session(conn, :user))
+      assign(conn, :logged_user, get_session(conn, :logged_user))
     end
   end
 end

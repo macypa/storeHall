@@ -25,7 +25,7 @@ defmodule StoreHallWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Thank you for signing in!")
-        |> put_session(:user, Users.load_settings(user))
+        |> put_session(:logged_user, Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
       {:error, _reason} ->
@@ -79,5 +79,22 @@ defmodule StoreHallWeb.AuthController do
     conn
     |> configure_session(drop: true)
     |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
+  end
+
+  def check_owner?(conn, user_id) do
+    if conn.assigns && conn.assigns.logged_user &&
+         (user_id == conn.assigns.logged_user.id || user_id == nil) do
+      true
+    else
+      false
+    end
+  end
+
+  def get_user_id_from_conn(conn) do
+    if conn.assigns && conn.assigns.logged_user && conn.assigns.logged_user.id do
+      conn.assigns.logged_user.id
+    else
+      -1
+    end
   end
 end

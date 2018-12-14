@@ -17,7 +17,7 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= if @conn.assigns[:user] do %>
+  <%= if @conn.assigns[:logged_user] do %>
     <%= label f, :labels %>
     <%= text_input f, :settings_labels, name: input_name(f, :settings) <>"[labels]", value: Poison.encode!(f.data.settings["labels"]) |> String.replace(",\"", ",\n\"") %>
   <% end %>
