@@ -9,7 +9,8 @@
   <%= hidden_input f, :item_id %>
   <%= hidden_input f, :author_id %>
   <%= hidden_input f, :rating_id %>
-  <%= text_input f, :details_body, name: input_name(f, :details) <> "[body]", value: f.data.details["body"]%>
+  Ratings: <%= text_input f, :details_scores, name: input_name(f, :details) <> "[scores]", value: f.data.details["scores"]%>
+  Body: <%= text_input f, :details_body, name: input_name(f, :details) <> "[body]", value: f.data.details["body"]%>
 
   <%= submit "Save" %>
 <% end %>

@@ -1,6 +1,7 @@
 defmodule StoreHall.Users do
   import Ecto.Query, warn: false
   alias StoreHall.Repo
+  alias StoreHall.DeepMerge
 
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
@@ -17,9 +18,23 @@ defmodule StoreHall.Users do
     {users, rummage}
   end
 
-  def get_user!(id) do
-    user = Repo.get!(User, id)
-    deep_merge(%User{}, user)
+  def get_user!(id, repo \\ Repo) do
+    user = repo.get!(User, id)
+    update_default_user_details(user, repo)
+  end
+
+  defp update_default_user_details(user, repo \\ Repo) do
+    details =
+      %User{}.details
+      |> DeepMerge.merge(user.details)
+
+    user
+    |> User.changeset(%{details: details})
+    |> repo.update()
+    |> case do
+      {:ok, updated_user} -> updated_user
+      {:error, _error} -> user
+    end
   end
 
   def get_user_with_settings!(id) do
@@ -46,12 +61,6 @@ defmodule StoreHall.Users do
     |> Repo.update()
   end
 
-  defp deep_merge(left, nil), do: left
-  defp deep_merge(left, right), do: Map.merge(left, right, &deep_resolve/3)
-  defp deep_resolve(_key, left = %{}, right = %{}), do: deep_merge(left, right)
-  defp deep_resolve(_key, left, nil), do: left
-  defp deep_resolve(_key, _left, right), do: right
-
   def load_settings(%User{} = user) do
     settings =
       upsert_settings(user)
@@ -69,8 +78,8 @@ defmodule StoreHall.Users do
 
     changes =
       %Settings{id: user.id}
-      |> deep_merge(settings)
-      |> deep_merge(Map.put(%{}, :settings, changes))
+      |> DeepMerge.merge(settings)
+      |> DeepMerge.merge(Map.put(%{}, :settings, changes))
       |> Map.get(:settings)
 
     settings

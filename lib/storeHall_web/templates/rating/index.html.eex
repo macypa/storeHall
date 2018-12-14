@@ -14,11 +14,6 @@ function show_hide(element_id) {
 <%= for rating <- @ratings do %>
   <div>
     <%= rating.details %>
-    <button onclick='show_hide("rating_<%=rating.id%>")'>rating</button>
-    <span id="rating_<%=rating.id%>" style="display: none">
-      <%= render StoreHallWeb.RatingView, "form.html", changeset: Ecto.Changeset.put_change(@rating_changeset, :rating_id, rating.id), action: @rating_path %>
-    </span>
-
   </div>
 <% end %>
 </table>

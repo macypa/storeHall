@@ -13,6 +13,11 @@
   </li>
 
   <li>
+    <strong>Rating:</strong>
+    <%= @item.details["rating"]["score"] %> from <%= @item.details["rating"]["count"] %> votes
+  </li>
+
+  <li>
     <strong>Details:</strong>
     <%= @item.details %>
   </li>

@@ -5,8 +5,10 @@ defmodule StoreHall.Items do
 
   import Ecto.Query, warn: false
   alias StoreHall.Repo
+  alias StoreHall.DeepMerge
   alias Ecto.Multi
 
+  alias StoreHall.Items
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
 
@@ -46,7 +48,24 @@ defmodule StoreHall.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_item!(id), do: Repo.get!(Item, id)
+  def get_item!(id, repo \\ Repo) do
+    item = repo.get!(Item, id)
+    update_default_item_details(item, repo)
+  end
+
+  defp update_default_item_details(item, repo \\ Repo) do
+    details =
+      %Item{}.details
+      |> DeepMerge.merge(item.details)
+
+    item
+    |> Item.changeset(%{details: details})
+    |> repo.update()
+    |> case do
+      {:ok, updated_item} -> updated_item
+      {:error, _error} -> item
+    end
+  end
 
   @doc """
   Creates a item.
