@@ -4,7 +4,7 @@ defmodule StoreHall.Ratings.UserRating do
 
   schema "user_ratings" do
     field :author_id, :string
-    field :details, :map, default: %{}
+    field :details, :map, default: %{"scores" => %{}}
     field :rating_id, :integer
     field :user_id, :string
 

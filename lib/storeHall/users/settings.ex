@@ -7,7 +7,7 @@ defmodule StoreHall.Users.Settings do
   schema "user_settings" do
     field :settings, :map,
       default: %{
-        "labels" => %{"liked" => 0, "interesed" => 0, "got" => 0, "wish" => 0},
+        "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0}
       }
 
