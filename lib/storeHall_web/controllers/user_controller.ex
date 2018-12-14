@@ -124,9 +124,9 @@ defmodule StoreHallWeb.UserController do
 
   defp get_user!(conn, id) do
     if check_owner?(conn, id) do
-      user = Users.get_user_with_settings!(id)
+      Users.get_user_with_settings!(id)
     else
-      user = Users.get_user!(id)
+      Users.get_user!(id)
     end
   end
 end

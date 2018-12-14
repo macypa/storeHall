@@ -17,10 +17,13 @@ defmodule StoreHall.Users do
     {users, rummage}
   end
 
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    user = Repo.get!(User, id)
+    deep_merge(%User{}, user)
+  end
 
   def get_user_with_settings!(id) do
-    user = Repo.get!(User, id)
+    user = get_user!(id)
 
     settings =
       Repo.get!(Settings, id)
@@ -46,6 +49,7 @@ defmodule StoreHall.Users do
   defp deep_merge(left, nil), do: left
   defp deep_merge(left, right), do: Map.merge(left, right, &deep_resolve/3)
   defp deep_resolve(_key, left = %{}, right = %{}), do: deep_merge(left, right)
+  defp deep_resolve(_key, left, nil), do: left
   defp deep_resolve(_key, _left, right), do: right
 
   def load_settings(%User{} = user) do
