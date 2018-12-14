@@ -61,8 +61,6 @@ defmodule StoreHall.Items do
 
   """
   def create_item(attrs \\ %{}) do
-    "attrs: #{inspect(attrs)}"
-
     Ecto.Multi.new()
     |> update_filter(%Filters{name: attrs["user_id"], type: "merchant", count: 1})
     |> update_list_filters("tags", attrs["details"]["tags"])
@@ -94,10 +92,10 @@ defmodule StoreHall.Items do
 
       filters ->
         count = if increase_by > 0, do: 1, else: 0
+        multi_name = "upsert_list_filter_" <> filter_type <> to_string(filters)
 
         multi
-        |> Ecto.Multi.run("upsert_list_filter_" <> filter_type <> to_string(filters), fn repo,
-                                                                                         _ ->
+        |> Ecto.Multi.run(multi_name, fn repo, _ ->
           for filter <- filters do
             filter
             |> get_parents
