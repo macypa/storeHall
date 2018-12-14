@@ -71,7 +71,7 @@ defmodule StoreHallWeb.ItemController do
         Ratings.construct_item_rating(%{
           item_id: item.id,
           author_id: conn.assigns.user.id,
-          user_id: item.id
+          user_id: item.user_id
         })
     }
   end
