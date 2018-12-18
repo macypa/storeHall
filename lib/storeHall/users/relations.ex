@@ -15,5 +15,6 @@ defmodule StoreHall.Users.Relations do
     relations
     |> cast(attrs, [:user_id, :related_to_user_id, :type])
     |> validate_required([:user_id, :related_to_user_id, :type])
+    |> unique_constraint(:relation_exists, name: :unique_relation)
   end
 end

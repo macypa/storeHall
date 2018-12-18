@@ -10,5 +10,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserRelations do
       timestamps()
     end
 
+    create unique_index(:user_relations, [:type, :related_to_user_id, :user_id], name: :unique_relation)
+
   end
 end

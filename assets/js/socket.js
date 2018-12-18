@@ -70,4 +70,9 @@ Array.from(all_channel_push_attr).forEach(function(element) {
   element.addEventListener(element.getAttribute("channel_push_event"), channel_push);
 });
 
+channel.on("update_rating", payload => {
+  document.querySelector("#rating_score").innerText = payload.new_rating
+  document.querySelector("#rating_count").innerText = parseInt(document.querySelector("#rating_count").innerText) + 1
+})
+
 export default socket

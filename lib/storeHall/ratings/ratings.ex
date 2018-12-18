@@ -85,17 +85,21 @@ defmodule StoreHall.Ratings do
     end)
   end
 
+  def calculate_rating_score(rating, repo, query, item_or_user) when is_map(rating) do
+    calculate_rating_score(Map.values(rating["details"]["scores"]), repo, query, item_or_user)
+  end
+
   def calculate_rating_score(rating, repo, query, item_or_user) do
     score =
       to_string(
         calc_rating(
-          Map.values(rating["details"]["scores"]),
+          rating,
           item_or_user.details["rating"]["count"],
           item_or_user.details["rating"]["score"]
         )
       )
 
-    count = Map.size(rating["details"]["scores"])
+    count = length(rating)
 
     query =
       from u in query,
@@ -113,23 +117,8 @@ defmodule StoreHall.Ratings do
           ]
         ]
 
-    {:ok, repo.update_all(query, [])}
-  end
-
-  def update_rating_score() do
-    # query =
-    #   from f in Settings,
-    #     where: f.id == ^id,
-    #     update: [
-    #       set: [
-    #         settings:
-    #           fragment(
-    #             " jsonb_set(settings, '{labels, liked}', (COALESCE(settings->'labels'->>'liked','0')::int + 1)::text::jsonb) "
-    #           )
-    #       ]
-    #     ]
-    #
-    # Repo.update_all(query, [])
+    repo.update_all(query, [])
+    {:ok, score}
   end
 
   def construct_item_rating(attrs \\ %{}) do
