@@ -55,7 +55,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel(window.location.pathname, {})
+let channel = socket.channel(decodeURI(window.location.pathname), {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
@@ -73,6 +73,10 @@ Array.from(all_channel_push_attr).forEach(function(element) {
 channel.on("update_rating", payload => {
   document.querySelector("#rating_score").innerText = payload.new_rating
   document.querySelector("#rating_count").innerText = parseInt(document.querySelector("#rating_count").innerText) + 1
+})
+
+channel.on("error", payload => {
+  alert(payload.message)
 })
 
 export default socket

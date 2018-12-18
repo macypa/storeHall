@@ -17,7 +17,7 @@ defmodule StoreHallWeb.UsersChannel do
 
   def handle_in(
         "reaction:" <> reaction,
-        %{"data" => data},
+        %{"data" => _data},
         %{topic: @topic_prefix <> user_id} = socket
       ) do
     Multi.new()
@@ -30,17 +30,20 @@ defmodule StoreHallWeb.UsersChannel do
         {:reply, :ok, socket}
 
       {:error, _op, _value, _changes} ->
+        push(socket, "error", %{message: "must be logged in to do that, or you already did it :)"})
+
         {:reply, :ok, socket}
     end
   end
 
   def reaction_to_rating(reaction) when reaction in ["wow"], do: 5
   def reaction_to_rating(reaction) when reaction in ["lol"], do: 0
-  def reaction_to_rating(reaction), do: -1
+  def reaction_to_rating(_reaction), do: -1
 
+  def update_user_rating(multi, user_id, rating \\ 5)
   def update_user_rating(multi, _user_id, -1), do: multi
 
-  def update_user_rating(multi, user_id, rating \\ 5) do
+  def update_user_rating(multi, user_id, rating) do
     multi
     |> Multi.run(:user, fn repo, %{} ->
       {:ok, Users.get_user!(user_id, repo)}
@@ -50,9 +53,10 @@ defmodule StoreHallWeb.UsersChannel do
     end)
   end
 
+  def add_relation(multi, user_id, current_user_id, reaction \\ 5)
   def add_relation(multi, _user_id, _current_user_id, -1), do: multi
 
-  def add_relation(multi, user_id, current_user_id, reaction \\ 5) do
+  def add_relation(multi, user_id, current_user_id, reaction) do
     multi
     |> Multi.insert(
       :insert,
