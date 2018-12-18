@@ -13,7 +13,12 @@ defmodule StoreHall.Plugs.SetUser do
       conn
     else
       user = get_session(conn, :logged_user)
-      token = Phoenix.Token.sign(conn, "user token", user.id)
+
+      token =
+        case user do
+          nil -> Phoenix.Token.sign(conn, "user token", "guest")
+          user -> Phoenix.Token.sign(conn, "user token", user.id)
+        end
 
       conn
       |> assign(:logged_user, user)
