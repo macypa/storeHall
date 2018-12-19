@@ -32,18 +32,6 @@
 </span>
 
 
-<script>
-
-function show_hide(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-</script>
 <button onclick='show_hide("show_hide_comments")'>show/hide comments</button>
 <span id="show_hide_comments" style="display: none">
 
