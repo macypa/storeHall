@@ -41,7 +41,11 @@ defmodule StoreHall.Users do
     user = get_user!(id)
 
     settings =
-      Repo.get!(Settings, id)
+      Repo.get(Settings, id)
+      |> case do
+        nil -> %Settings{id: user.id}
+        settings -> settings
+      end
       |> Map.get(:settings)
 
     Map.put(user, :settings, settings)
