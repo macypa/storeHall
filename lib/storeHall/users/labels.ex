@@ -15,5 +15,6 @@ defmodule StoreHall.Users.Labels do
     labels
     |> cast(attrs, [:label, :item_id, :user_id])
     |> validate_required([:label, :item_id, :user_id])
+    |> unique_constraint(:label_exists, name: :unique_label)
   end
 end

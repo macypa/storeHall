@@ -10,5 +10,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserLabels do
       timestamps()
     end
 
+    create unique_index(:user_labels, [:label, :item_id, :user_id], name: :unique_label)
+
   end
 end

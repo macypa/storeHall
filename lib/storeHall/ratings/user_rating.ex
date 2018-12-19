@@ -5,7 +5,6 @@ defmodule StoreHall.Ratings.UserRating do
   schema "user_ratings" do
     field :author_id, :string
     field :details, :map, default: %{"scores" => %{}}
-    field :rating_id, :integer
     field :user_id, :string
 
     timestamps()
@@ -14,7 +13,8 @@ defmodule StoreHall.Ratings.UserRating do
   @doc false
   def changeset(user_rating, attrs) do
     user_rating
-    |> cast(attrs, [:author_id, :rating_id, :user_id, :details])
+    |> cast(attrs, [:author_id, :user_id, :details])
     |> validate_required([:author_id, :user_id, :details])
+    |> unique_constraint(:user_rating_exists, name: :unique_user_rating)
   end
 end

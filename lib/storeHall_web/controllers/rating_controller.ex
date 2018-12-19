@@ -16,6 +16,11 @@ defmodule StoreHallWeb.RatingController do
         conn
         |> put_flash(:info, "ItemRating created successfully.")
         |> redirect(to: Routes.item_path(conn, :show, item_id))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "Already rated.")
+        |> redirect(to: Routes.item_path(conn, :show, item_id))
     end
   end
 
@@ -31,6 +36,11 @@ defmodule StoreHallWeb.RatingController do
       {:ok, _rating} ->
         conn
         |> put_flash(:info, "UserRating created successfully.")
+        |> redirect(to: Routes.user_path(conn, :show, user_id))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "Already rated.")
         |> redirect(to: Routes.user_path(conn, :show, user_id))
     end
   end

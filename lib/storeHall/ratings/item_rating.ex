@@ -6,7 +6,6 @@ defmodule StoreHall.Ratings.ItemRating do
     field :author_id, :string
     field :details, :map, default: %{"scores" => %{}}
     field :item_id, :integer
-    field :rating_id, :integer
     field :user_id, :string
 
     timestamps()
@@ -15,7 +14,8 @@ defmodule StoreHall.Ratings.ItemRating do
   @doc false
   def changeset(item_rating, attrs) do
     item_rating
-    |> cast(attrs, [:author_id, :item_id, :rating_id, :user_id, :details])
+    |> cast(attrs, [:author_id, :item_id, :user_id, :details])
     |> validate_required([:author_id, :item_id, :user_id, :details])
+    |> unique_constraint(:item_rating_exists, name: :unique_item_rating)
   end
 end

@@ -125,6 +125,8 @@ defmodule StoreHall.Items do
               )
             end)
           end
+
+          {:ok, filters}
         end)
     end
   end
