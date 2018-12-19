@@ -32,5 +32,5 @@
   <img channel_push="reaction:lol" channel_push_event="click" channel_push_data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
 </span>
 
-<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info, item: @item %>
-<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info, item: @item %>
+<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>
+<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>

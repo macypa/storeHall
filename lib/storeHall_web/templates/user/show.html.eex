@@ -32,5 +32,5 @@
 </span>
 
 
-<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info, user: @user %>
-<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info, user: @user %>
+<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>
+<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>
