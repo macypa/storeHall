@@ -1,19 +1,28 @@
-<h1>Listing Ratings</h1>
-<script>
+<button onclick='show_hide("show_hide_ratings")'>show/hide ratings</button>
+<span id="show_hide_ratings" style="display: none">
 
-function show_hide(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
+  <h1>Listing Ratings</h1>
+  <script>
 
-</script>
-<%= for rating <- @ratings do %>
-  <div>
-    <%= rating.details %>
-  </div>
-<% end %>
-</table>
+  function show_hide(element_id) {
+      var x = document.getElementById(element_id);
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
+  }
+
+  </script>
+  <%= for rating <- @ratings_info.ratings do %>
+    <div>
+      <%= rating.details %>
+    </div>
+  <% end %>
+  </table>
+
+  <h3>Add Rating</h3>
+  <%= render  "form.html",
+              changeset: @ratings_info.rating_changeset,
+              action: @ratings_info.rating_path %>
+</span>

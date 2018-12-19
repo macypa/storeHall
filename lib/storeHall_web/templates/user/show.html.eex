@@ -32,21 +32,5 @@
 </span>
 
 
-<button onclick='show_hide("show_hide_comments")'>show/hide comments</button>
-<span id="show_hide_comments" style="display: none">
-
-  <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comment_changeset: @comments_info.comment_changeset, comments: @comments_info.comments, comment_path: @comments_info.comment_path, user: @user %>
-
-  <h3>Add Comment</h3>
-  <%= render StoreHallWeb.CommentView, "form.html", changeset: @comments_info.comment_changeset, action: @comments_info.comment_path %>
-
-</span>
-
-<button onclick='show_hide("show_hide_ratings")'>show/hide ratings</button>
-<span id="show_hide_ratings" style="display: none">
-
-  <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, rating_changeset: @ratings_info.rating_changeset, ratings: @ratings_info.ratings, rating_path: @ratings_info.rating_path, user: @user %>
-
-  <h3>Add Rating</h3>
-  <%= render StoreHallWeb.RatingView, "form.html", changeset: @ratings_info.rating_changeset, action: @ratings_info.rating_path %>
-</span>
+<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info, user: @user %>
+<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info, user: @user %>

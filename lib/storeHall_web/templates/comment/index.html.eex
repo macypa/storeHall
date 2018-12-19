@@ -1,24 +1,39 @@
-<h1>Listing Comments</h1>
-<script>
 
-function show_hide(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
+<button onclick='show_hide("show_hide_comments")'>show/hide comments</button>
+<span id="show_hide_comments" style="display: none">
+  <h1>Listing Comments</h1>
+  <script>
 
-</script>
-<%= for comment <- @comments do %>
-  <div>
-    <%= comment.details %>
-    <button onclick='show_hide("comment_<%=comment.id%>")'>comment</button>
-    <span id="comment_<%=comment.id%>" style="display: none">
-      <%= render StoreHallWeb.CommentView, "form.html", changeset: Ecto.Changeset.put_change(@comment_changeset, :comment_id, comment.id), action: @comment_path %>
-    </span>
+  function show_hide(element_id) {
+      var x = document.getElementById(element_id);
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
+  }
 
-  </div>
-<% end %>
-</table>
+  </script>
+  <%= for comment <- @comments_info.comments do %>
+    <div>
+      <%= comment.details %>
+      <button onclick='show_hide("comment_<%=comment.id%>")'>comment</button>
+      <span id="comment_<%=comment.id%>" style="display: none">
+        <%= render StoreHallWeb.CommentView,
+                  "form.html",
+                  changeset: Ecto.Changeset.put_change(
+                              @comments_info.comment_changeset,
+                              :comment_id,
+                              comment.id),
+                  action: @comments_info.comment_path %>
+      </span>
+
+    </div>
+  <% end %>
+  </table>
+
+
+  <h3>Add Comment</h3>
+  <%= render "form.html", changeset: @comments_info.comment_changeset, action: @comments_info.comment_path %>
+
+</span>
