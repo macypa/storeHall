@@ -28,6 +28,11 @@ defmodule StoreHallWeb.ItemsChannel do
     |> case do
       {:ok, multi} ->
         broadcast!(socket, "update_rating", %{new_rating: multi.calc_item_rating})
+
+        StoreHallWeb.UsersChannel.broadcast_msg!(multi.item.user_id, "update_rating", %{
+          new_rating: multi.calc_user_rating
+        })
+
         {:reply, :ok, socket}
 
       {:error, _op, _value, _changes} ->
@@ -35,5 +40,13 @@ defmodule StoreHallWeb.ItemsChannel do
 
         {:reply, :ok, socket}
     end
+  end
+
+  def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do
+    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> user_id, message, body)
+  end
+
+  def broadcast_msg(user_id, message, body) when is_bitstring(user_id) do
+    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> user_id, message, body)
   end
 end

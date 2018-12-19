@@ -36,4 +36,12 @@ defmodule StoreHallWeb.UsersChannel do
         {:reply, :ok, socket}
     end
   end
+
+  def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do
+    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> user_id, message, body)
+  end
+
+  def broadcast_msg(user_id, message, body) when is_bitstring(user_id) do
+    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> user_id, message, body)
+  end
 end
