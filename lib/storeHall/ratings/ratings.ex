@@ -39,7 +39,7 @@ defmodule StoreHall.Ratings do
   def create_item_rating(rating \\ %{}) do
     Multi.new()
     |> update_item_rating(rating)
-    |> update_user_rating(rating)
+    |> update_user_rating(rating["user_id"], rating)
     |> Multi.insert(:insert, ItemRating.changeset(%ItemRating{}, rating))
     |> Repo.transaction()
     |> case do
@@ -53,7 +53,7 @@ defmodule StoreHall.Ratings do
 
   def create_user_rating(rating \\ %{}) do
     Multi.new()
-    |> update_user_rating(rating)
+    |> update_user_rating(rating["user_id"], rating)
     |> Multi.insert(:insert, UserRating.changeset(%UserRating{}, rating))
     |> Repo.transaction()
     |> case do
@@ -75,10 +75,13 @@ defmodule StoreHall.Ratings do
     end)
   end
 
-  def update_user_rating(multi, rating \\ %{}) do
+  def update_user_rating(multi, user_id, rating \\ [5])
+  def update_user_rating(multi, _user_id, nil), do: multi
+
+  def update_user_rating(multi, user_id, rating) do
     multi
     |> Multi.run(:user, fn repo, %{} ->
-      {:ok, Users.get_user!(rating["user_id"], repo)}
+      {:ok, Users.get_user!(user_id, repo)}
     end)
     |> Multi.run(:calc_user_rating, fn repo, %{user: user} ->
       calculate_rating_score(rating, repo, User, user)

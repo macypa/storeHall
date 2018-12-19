@@ -5,8 +5,25 @@ defmodule StoreHall.Users.Action do
 
   import Ecto.Query, warn: false
   alias StoreHall.Repo
+  alias Ecto.Multi
 
+  alias StoreHall.Ratings
+  alias StoreHall.Users.Relations
   alias StoreHall.Users.Settings
+
+  def add_relation(multi, user_id, current_user_id, reaction \\ 5)
+
+  def add_relation(multi, user_id, current_user_id, reaction) do
+    multi
+    |> Multi.insert(
+      :insert,
+      Relations.changeset(%Relations{}, %{
+        user_id: user_id,
+        related_to_user_id: current_user_id,
+        type: reaction
+      })
+    )
+  end
 
   def inc_label_count(label, user_id) do
     query =
