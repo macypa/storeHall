@@ -113,7 +113,7 @@ defmodule StoreHallWeb.ItemController do
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
-  defp check_owner(conn, params) do
+  defp check_owner(conn, _params) do
     %{params: %{"id" => item_id}} = conn
     user_id = Items.get_item!(item_id).user_id
 
