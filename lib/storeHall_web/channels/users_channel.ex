@@ -23,7 +23,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     Multi.new()
     |> Action.add_relation(user_id, socket.assigns.current_user_id, reaction)
-    |> Ratings.update_user_rating(user_id, [reaction_to_rating(reaction)])
+    |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -35,25 +35,5 @@ defmodule StoreHallWeb.UsersChannel do
 
         {:reply, :ok, socket}
     end
-  end
-
-  def reaction_to_rating(reaction) when reaction in ["wow"], do: 5
-  def reaction_to_rating(reaction) when reaction in ["lol"], do: 0
-  def reaction_to_rating(_reaction), do: nil
-
-  def update_user_labels() do
-    # query =
-    #   from f in Settings,
-    #     where: f.id == ^id,
-    #     update: [
-    #       set: [
-    #         settings:
-    #           fragment(
-    #             " jsonb_set(settings, '{labels, liked}', (COALESCE(settings->'labels'->>'liked','0')::int + 1)::text::jsonb) "
-    #           )
-    #       ]
-    #     ]
-    #
-    # Repo.update_all(query, [])
   end
 end

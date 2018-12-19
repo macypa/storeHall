@@ -9,9 +9,8 @@ defmodule StoreHall.Users.Action do
 
   alias StoreHall.Ratings
   alias StoreHall.Users.Relations
+  alias StoreHall.Users.Labels
   alias StoreHall.Users.Settings
-
-  def add_relation(multi, user_id, current_user_id, reaction \\ 5)
 
   def add_relation(multi, user_id, current_user_id, reaction) do
     multi
@@ -25,7 +24,22 @@ defmodule StoreHall.Users.Action do
     )
   end
 
-  def inc_label_count(label, user_id) do
+  def add_label(multi, item_id, user_id, label) do
+    multi
+    |> Multi.insert(
+      :insert,
+      Labels.changeset(%Labels{}, %{
+        user_id: user_id,
+        item_id: item_id,
+        label: label
+      })
+    )
+    |> Multi.run(:label_count, fn repo, _ ->
+      inc_label_count_in_user_settings(label, repo, user_id)
+    end)
+  end
+
+  defp inc_label_count_in_user_settings(label, repo, user_id) do
     query =
       from f in Settings,
         where: f.id == ^user_id,
@@ -33,14 +47,18 @@ defmodule StoreHall.Users.Action do
           set: [
             settings:
               fragment(
-                " jsonb_set(settings, '{labels, ?}',
-                 (COALESCE(settings->'labels'->>'?','0')::int + 1)::text::jsonb) ",
-                ^label,
+                " jsonb_set(settings, ?,
+                 (COALESCE(settings->'labels'->>?,'0')::int + 1)::text::jsonb) ",
+                ["labels", ^label],
                 ^label
               )
           ]
         ]
 
-    Repo.update_all(query, [])
+    {:ok, repo.update_all(query, [])}
   end
+
+  def reaction_to_rating(reaction) when reaction in ["wow"], do: 5
+  def reaction_to_rating(reaction) when reaction in ["lol"], do: 0
+  def reaction_to_rating(_reaction), do: nil
 end

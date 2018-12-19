@@ -1,5 +1,8 @@
 <h1>Show Item</h1>
 
+<span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
+<span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
+
 <ul>
 
   <li>
@@ -13,19 +16,21 @@
   </li>
 
   <li>
-    <strong>Rating:</strong>
-    <%= @item.details["rating"]["score"] %> from <%= @item.details["rating"]["count"] %> votes
-  </li>
-
-  <li>
     <strong>Details:</strong>
     <%= @item.details %>
   </li>
 
+  <li>
+    <strong>Rating:</strong>
+    <span id="rating_score"><%= @item.details["rating"]["score"] %></span> from <span id="rating_count"><%= @item.details["rating"]["count"] %></span> votes
+  </li>
+
 </ul>
 
-<span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
-<span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
+<span id="reactions">
+  <img channel_push="reaction:wow" channel_push_event="click" channel_push_data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+  <img channel_push="reaction:lol" channel_push_event="click" channel_push_data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+</span>
 
 <script>
 
