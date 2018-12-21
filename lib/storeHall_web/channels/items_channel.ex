@@ -49,6 +49,43 @@ defmodule StoreHallWeb.ItemsChannel do
   end
 
   def handle_in(
+        "rating:add",
+        %{"data" => rating},
+        socket
+      ) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: "must be logged in"})
+
+      _logged_user ->
+        case Ratings.create_item_rating(rating) do
+          {:ok, rating} ->
+            broadcast!(
+              socket,
+              "new_rating",
+              %{
+                new_rating:
+                  Phoenix.View.render_to_string(
+                    StoreHallWeb.RatingView,
+                    "show.html",
+                    %{
+                      rating: rating
+                    }
+                  )
+              }
+            )
+
+          {:error, _rating} ->
+            push(socket, "error", %{
+              message: "you already did it :)"
+            })
+        end
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
         "reaction:" <> reaction,
         %{"data" => _data},
         %{topic: @topic_prefix <> item_id} = socket

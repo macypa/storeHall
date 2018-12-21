@@ -56,12 +56,11 @@ defmodule StoreHallWeb.UserController do
   def collect_ratings_info(conn, user) do
     %{
       ratings: Ratings.for_user(user.id),
-      rating_path: Routes.user_rating_path(conn, :create, user),
-      rating_changeset:
-        Ratings.construct_user_rating(%{
-          author_id: AuthController.get_user_id_from_conn(conn),
-          user_id: user.id
-        })
+      rating: %{
+        author_id: AuthController.get_user_id_from_conn(conn),
+        user_id: user.id,
+        scores: %{}
+      }
     }
   end
 

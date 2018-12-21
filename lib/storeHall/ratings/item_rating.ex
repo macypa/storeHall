@@ -2,6 +2,7 @@ defmodule StoreHall.Ratings.ItemRating do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:id, :details, :item_id, :user_id, :author_id]}
   schema "item_ratings" do
     field :author_id, :string
     field :details, :map, default: %{"scores" => %{}}

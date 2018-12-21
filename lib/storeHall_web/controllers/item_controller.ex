@@ -66,13 +66,12 @@ defmodule StoreHallWeb.ItemController do
   def collect_ratings_info(conn, item) do
     %{
       ratings: Ratings.for_item(item.id),
-      rating_path: Routes.item_rating_path(conn, :create, item),
-      rating_changeset:
-        Ratings.construct_item_rating(%{
-          item_id: item.id,
-          author_id: AuthController.get_user_id_from_conn(conn),
-          user_id: item.user_id
-        })
+      rating: %{
+        item_id: item.id,
+        author_id: AuthController.get_user_id_from_conn(conn),
+        user_id: item.user_id,
+        scores: %{}
+      }
     }
   end
 

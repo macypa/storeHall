@@ -91,7 +91,6 @@ add_events("[comment_topic]", "click", function() {
 });
 
 channel.on("new_comment", payload => {
-// find comment and append after or at the end if not found
   var new_comment_html = payload.new_comment
   var new_comment_node = document.createElement("span")
   new_comment_node.innerHTML = new_comment_html
@@ -104,6 +103,25 @@ channel.on("new_comment", payload => {
       comment_parent.appendChild(new_comment_node)
     }
   }
+})
+
+add_events("[rating_topic]", "click", function() {
+  var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+  var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
+  var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
+
+  rating_field_value.details = {}
+  rating_field_value.details.body = body_field_value
+  rating_field_value.details.scores = JSON.parse(scores_field_value)
+  channel.push(this.getAttribute("rating_topic"), { data: rating_field_value })
+});
+
+channel.on("new_rating", payload => {
+  var new_rating_html = payload.new_rating
+  var new_rating_node = document.createElement("span")
+  new_rating_node.innerHTML = new_rating_html
+
+  document.querySelector("ratings").appendChild(new_rating_node)
 })
 
 channel.on("error", payload => {
