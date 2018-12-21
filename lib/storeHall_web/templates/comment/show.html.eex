@@ -1,14 +1,9 @@
 <comment>
-  <%= @comment.details %>
-  <button onclick='show_hide("comment_<%=@comment.id%>")'>comment</button>
-  <span id="comment_<%=@comment.id%>" style="display: none">
+  <comment_body><%= @comment.details %></comment_body>
+
     <%= render StoreHallWeb.CommentView,
               "form.html",
-              changeset: Ecto.Changeset.put_change(
-                          @comments_info.comment_changeset,
-                          :comment_id,
-                          @comment.id),
-              action: @comments_info.comment_path %>
-  </span>
+              comment: Map.put(@comments_info.comment,
+                          :comment_id, @comment.id)%>
 
 </comment>

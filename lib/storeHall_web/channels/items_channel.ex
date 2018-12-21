@@ -5,15 +5,47 @@ defmodule StoreHallWeb.ItemsChannel do
   alias StoreHall.Repo
   alias Ecto.Multi
   alias StoreHall.Ratings
-  alias StoreHall.Users
-  alias StoreHall.Users.User
-  alias StoreHall.Users.Relations
+  alias StoreHall.Comments
   alias StoreHall.Users.Action
 
   @topic_prefix "/items/"
 
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
+  end
+
+  def handle_in(
+        "comment:add",
+        %{"data" => comment},
+        socket
+      ) do
+    case Comments.create_item_comment(comment) do
+      {:ok, comment} ->
+        broadcast!(
+          socket,
+          "new_comment",
+          %{
+            comment_parent_id: comment.comment_id,
+            new_comment:
+              Phoenix.View.render_to_string(
+                StoreHallWeb.CommentView,
+                "show.html",
+                %{
+                  comment: comment,
+                  comments_info: %{
+                    comment: %{
+                      item_id: comment.item_id,
+                      author_id: socket.assigns.current_user_id,
+                      user_id: comment.user_id
+                    }
+                  }
+                }
+              )
+          }
+        )
+    end
+
+    {:reply, :ok, socket}
   end
 
   def handle_in(

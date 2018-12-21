@@ -35,13 +35,8 @@ defmodule StoreHallWeb.Router do
 
     get "/", ItemController, :index
 
-    resources "/users", UserController, only: [:index, :show] do
-      resources "/comments", CommentController, only: [:index, :create]
-    end
-
-    resources "/items", ItemController, only: [:index, :show] do
-      resources "/comments", CommentController, only: [:index, :create]
-    end
+    resources "/users", UserController, only: [:index, :show]
+    resources "/items", ItemController, only: [:index, :show]
   end
 
   scope "/auth", StoreHallWeb do

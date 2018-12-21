@@ -5,6 +5,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHallWeb.AuthController
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Comments.ItemComment
   alias StoreHall.Comments
   alias StoreHall.Ratings
 
@@ -54,13 +55,11 @@ defmodule StoreHallWeb.ItemController do
   def collect_comments_info(conn, item) do
     %{
       comments: Comments.for_item(item.id),
-      comment_path: Routes.item_comment_path(conn, :create, item),
-      comment_changeset:
-        Comments.construct_item_comment(%{
-          item_id: item.id,
-          author_id: AuthController.get_user_id_from_conn(conn),
-          user_id: item.user_id
-        })
+      comment: %{
+        item_id: item.id,
+        author_id: AuthController.get_user_id_from_conn(conn),
+        user_id: item.user_id
+      }
     }
   end
 

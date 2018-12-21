@@ -6,6 +6,7 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Comments
+  alias StoreHall.Comments.UserComment
   alias StoreHall.Ratings
 
   plug :check_owner when action in [:edit, :delete]
@@ -45,12 +46,10 @@ defmodule StoreHallWeb.UserController do
   def collect_comments_info(conn, user) do
     %{
       comments: Comments.for_user(user.id),
-      comment_path: Routes.user_comment_path(conn, :create, user),
-      comment_changeset:
-        Comments.construct_user_comment(%{
-          author_id: AuthController.get_user_id_from_conn(conn),
-          user_id: user.id
-        })
+      comment: %{
+        author_id: AuthController.get_user_id_from_conn(conn),
+        user_id: user.id
+      }
     }
   end
 

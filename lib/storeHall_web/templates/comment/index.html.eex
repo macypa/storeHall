@@ -3,13 +3,14 @@
 <span id="show_hide_comments" style="display: none">
   <h1>Listing Comments</h1>
 
-  <%= for comment <- @comments_info.comments do %>
-    <%= render "show.html", comment: comment, comments_info: @comments_info %>
-  <% end %>
-  </table>
-
+  <comments>
+    <%= for comment <- @comments_info.comments do %>
+      <%= render "show.html", comment: comment, comments_info: @comments_info %>
+    <% end %>
+  </comments>
 
   <h3>Add Comment</h3>
-  <%= render "form.html", changeset: @comments_info.comment_changeset, action: @comments_info.comment_path %>
+  <%= render "form.html", comment: Map.put(@comments_info.comment,
+              :comment_id, nil) %>
 
 </span>

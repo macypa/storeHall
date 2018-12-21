@@ -1,15 +1,7 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+<button onclick='show_hide("comment_<%=@comment.comment_id%>")'>comment</button>
+<comment_form id="comment_<%=@comment.comment_id%>" style="display: none">
 
-  <%= hidden_input f, :user_id %>
-  <%= hidden_input f, :item_id %>
-  <%= hidden_input f, :author_id %>
-  <%= hidden_input f, :comment_id %>
-  <%= text_input f, :details_body, name: input_name(f, :details) <> "[body]", value: f.data.details["body"]%>
-
-  <%= submit "Save" %>
-<% end %>
+  <input class="body" type="text" name="body", value="">
+  <input class="comment" type="hidden" name="comment", value="<%= Poison.encode! @comment %>">
+  <button comment_topic="comment:add" type="button">Send</button>
+</comment_form>

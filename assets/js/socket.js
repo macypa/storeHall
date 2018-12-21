@@ -60,19 +60,50 @@ channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-// channel.push('message:add', "test")
-
-var all_channel_push_attr = document.querySelectorAll("[channel_push]");
-var channel_push = function() {
-  channel.push(this.getAttribute("channel_push"), { data: this.getAttribute("channel_push_data") })
+// channel_push('message:add', "test")
+var channel_push = function(topic, data) {
+  channel.push(topic, { data: data })
 };
-Array.from(all_channel_push_attr).forEach(function(element) {
-  element.addEventListener(element.getAttribute("channel_push_event"), channel_push);
+
+var add_events = function(selector, on_event, fun) {
+  Array.from(document.querySelectorAll(selector)).forEach(function(element) {
+    element.addEventListener(on_event, fun);
+  });
+};
+
+add_events("[reaction_topic]", "click", function() {
+  channel.push(this.getAttribute("reaction_topic"), { data: this.getAttribute("data") })
 });
 
 channel.on("update_rating", payload => {
   document.querySelector("#rating_score").innerText = payload.new_rating
   document.querySelector("#rating_count").innerText = parseInt(document.querySelector("#rating_count").innerText) + 1
+})
+
+add_events("[comment_topic]", "click", function() {
+  var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+  var comment_field_value = JSON.parse(this.parentNode.getElementsByClassName("comment")[0].value)
+  comment_field_value.details = {}
+  comment_field_value.details.body = body_field_value
+  channel.push(this.getAttribute("comment_topic"), { data: comment_field_value })
+
+  show_hide(this.parentNode.getAttribute("id"))
+});
+
+channel.on("new_comment", payload => {
+// find comment and append after or at the end if not found
+  var new_comment_html = payload.new_comment
+  var new_comment_node = document.createElement("span")
+  new_comment_node.innerHTML = new_comment_html
+
+  if (payload.comment_parent_id == null) {
+    document.querySelector("comments").appendChild(new_comment_node)
+  } else {
+    var comment_parent = document.querySelector("#comment_" + payload.comment_parent_id).parentNode
+    if (comment_parent !== null) {
+      comment_parent.appendChild(new_comment_node)
+    }
+  }
 })
 
 channel.on("error", payload => {
