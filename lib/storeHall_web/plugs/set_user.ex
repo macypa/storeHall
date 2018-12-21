@@ -16,7 +16,7 @@ defmodule StoreHall.Plugs.SetUser do
 
       token =
         case user do
-          nil -> Phoenix.Token.sign(conn, "user token", "guest")
+          nil -> "guest"
           user -> Phoenix.Token.sign(conn, "user token", user.id)
         end
 
