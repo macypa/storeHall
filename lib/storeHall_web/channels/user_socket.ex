@@ -28,7 +28,7 @@ defmodule StoreHallWeb.UserSocket do
           {:ok, user_id} ->
             {:ok, assign(socket, :current_user_id, user_id)}
 
-          {:error, reason} ->
+          {:error, _reason} ->
             :error
         end
     end

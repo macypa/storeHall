@@ -1,10 +1,6 @@
 defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
 
-  alias StoreHall.Repo
-  alias StoreHall.Users
-  alias StoreHall.Users.User
-
   def init(_params) do
   end
 

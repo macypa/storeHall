@@ -31,7 +31,7 @@ to start psql:
 
 List of technologies that could be useful:
 https://letsencrypt.org/getting-started/
-https://github.com/annkissam/rummage_phoenix
+https://github.com/annkissam/rummage_phoenix or https://github.com/duffelhq/paginator
 https://tg.pl/drab
 https://github.com/nico-amsterdam/phoenix_form_awesomplete
 https://select2.org/getting-started/basic-usage

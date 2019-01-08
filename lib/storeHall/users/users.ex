@@ -23,7 +23,7 @@ defmodule StoreHall.Users do
     update_default_user_details(user, repo)
   end
 
-  defp update_default_user_details(user, repo \\ Repo) do
+  defp update_default_user_details(user, repo) do
     details =
       %User{}.details
       |> DeepMerge.merge(user.details)

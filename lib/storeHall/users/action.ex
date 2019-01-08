@@ -4,10 +4,8 @@ defmodule StoreHall.Users.Action do
   """
 
   import Ecto.Query, warn: false
-  alias StoreHall.Repo
   alias Ecto.Multi
 
-  alias StoreHall.Ratings
   alias StoreHall.Users.Relations
   alias StoreHall.Users.Labels
   alias StoreHall.Users.Settings

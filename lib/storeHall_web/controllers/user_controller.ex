@@ -6,7 +6,6 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Comments
-  alias StoreHall.Comments.UserComment
   alias StoreHall.Ratings
 
   plug :check_owner when action in [:edit, :delete]
@@ -100,7 +99,7 @@ defmodule StoreHallWeb.UserController do
     |> redirect(to: Routes.user_path(conn, :index))
   end
 
-  defp check_owner(conn, params) do
+  defp check_owner(conn, _params) do
     %{params: %{"id" => user_id}} = conn
 
     if AuthController.check_owner?(conn, user_id) do

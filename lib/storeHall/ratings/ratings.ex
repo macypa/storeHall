@@ -75,7 +75,7 @@ defmodule StoreHall.Ratings do
     |> Multi.run(:calc_item_rating, fn repo, %{item: item} ->
       calculate_rating_score(rating, repo, Item, item)
     end)
-    |> update_user_rating(@user_id, rating)
+    |> update_user_rating(nil, rating)
   end
 
   def update_user_rating(multi, user_id, rating \\ [5])
