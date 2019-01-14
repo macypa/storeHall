@@ -5,6 +5,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const adminator = require('./adminator_theme/config');
+
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [
@@ -29,8 +31,20 @@ module.exports = (env, options) => ({
         }
       },
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        test: /\.(sa|sc|c)ss$/,
+        use: [MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use     : [{
+            loader: 'file-loader',
+            options: {
+                outputPath: '../css/'
+            }
+        }],
       }
     ]
   },

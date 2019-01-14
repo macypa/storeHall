@@ -35,3 +35,17 @@
 </table>
 
 <%= pagination_link(@conn, @rummage) %>
+
+<%= if Map.has_key?(@conn.assigns, :filters)  do
+
+  # Rummage.Phoenix.SearchView.search_form(@conn, @conn.assigns.rummage, [fields:
+  # [
+  #   name: %{label: "Search by name", search_type: "ilike"},
+  # ], button_class: "btn",
+  # ])
+
+  @conn.assigns.filters
+
+end %>
+      <!-- TODO:maybe use some spellchecker or suggestions -->
+<!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
