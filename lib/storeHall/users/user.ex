@@ -8,6 +8,7 @@ defmodule StoreHall.Users.User do
     field :email, :string, unique: true
     field :first_name, :string
     field :last_name, :string
+    field :image, :string, default: ""
     field :provider, :string
     field :details, :map, default: %{"rating" => %{"count" => 0, "score" => -1}}
 
@@ -17,7 +18,7 @@ defmodule StoreHall.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :email, :provider, :details])
+    |> cast(attrs, [:first_name, :last_name, :email, :image, :provider, :details])
     |> validate_required([:first_name, :email, :provider, :details])
     |> unique_constraint(:email)
   end

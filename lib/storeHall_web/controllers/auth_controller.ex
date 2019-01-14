@@ -12,16 +12,19 @@ defmodule StoreHallWeb.AuthController do
       first_name: auth.info.first_name,
       last_name: auth.info.last_name,
       email: auth.info.email,
+      image: auth.info.image,
       provider: "google"
     }
 
-    changeset = User.changeset(%User{id: genId(user_params)}, user_params)
-
-    create(conn, changeset)
+    create(conn, user_params)
   end
 
-  def create(conn, changeset) do
-    case insert_or_update_user(changeset) do
+  defp changeset(gen_id_fun, user_params) do
+    User.changeset(%User{id: gen_id_fun.(user_params)}, user_params)
+  end
+
+  def create(conn, user_params) do
+    case insert_or_update_user(user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Thank you for signing in!")
@@ -35,20 +38,20 @@ defmodule StoreHallWeb.AuthController do
     end
   end
 
-  defp insert_or_update_user(changeset) do
-    case Repo.get_by(User, email: changeset.changes.email) do
+  defp insert_or_update_user(user_params) do
+    case Repo.get_by(User, email: user_params.email) do
       nil ->
         try do
-          changeset
+          changeset(&genId/1, user_params)
           |> Repo.insert()
         rescue
           _ ->
-            User.changeset(%User{id: genNextId(changeset.changes)}, changeset.changes)
+            changeset(&genNextId/1, user_params)
             |> Repo.insert()
         end
 
       user ->
-        {:ok, user}
+        Users.update_user(user, user_params)
     end
   end
 
