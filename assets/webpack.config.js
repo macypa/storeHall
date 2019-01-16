@@ -15,10 +15,10 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-      './js/app.js': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
+      'app': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
   },
   output: {
-    filename: 'app.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, '../priv/static/js')
   },
   module: {
@@ -39,13 +39,17 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
+        exclude: /node_modules/,
         use     : [{
             loader: 'file-loader',
             options: {
                 outputPath: '../css/'
             }
         }],
-      }
+      },
+      { test: /\.hbs$/,
+        exclude: /node_modules/,
+        loader: "handlebars-loader" }
     ]
   },
   plugins: [

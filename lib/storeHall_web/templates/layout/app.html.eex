@@ -7,7 +7,7 @@
     <title>StoreHall</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body class="app is-collapsed">
+  <body class="app">
     <div>
       <sidebar class="sidebar">
         <%= render "sidebar.html", conn: @conn %>
