@@ -20,6 +20,11 @@
   </li>
 
   <li>
+    <strong>Details:</strong>
+    <%= @user.details %>
+  </li>
+
+  <li>
     <strong>Rating:</strong>
     <span id="rating_score"><%= @user.details["rating"]["score"] %></span> from <span id="rating_count"><%= @user.details["rating"]["count"] %></span> votes
   </li>

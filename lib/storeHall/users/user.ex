@@ -10,7 +10,9 @@ defmodule StoreHall.Users.User do
     field :last_name, :string
     field :image, :string, default: ""
     field :provider, :string
-    field :details, :map, default: %{"rating" => %{"count" => 0, "score" => -1}}
+
+    field :details, :map,
+      default: %{"rating" => %{"count" => 0, "score" => -1}, "comments_count" => 0}
 
     timestamps()
   end

@@ -43,7 +43,7 @@ defmodule StoreHall.Ratings do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert}
+        {:ok, multi.insert, multi.calc_item_rating, multi.calc_user_rating}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -57,7 +57,7 @@ defmodule StoreHall.Ratings do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert}
+        {:ok, multi.insert, multi.calc_user_rating}
 
       {:error, _op, value, _changes} ->
         {:error, value}

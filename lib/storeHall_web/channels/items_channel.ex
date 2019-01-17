@@ -45,7 +45,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
       _logged_user ->
         case Ratings.create_item_rating(rating) do
-          {:ok, rating} ->
+          {:ok, rating, item_rating, user_rating} ->
             broadcast!(
               socket,
               "new_rating",
@@ -53,6 +53,12 @@ defmodule StoreHallWeb.ItemsChannel do
                 new_rating: Poison.encode!(rating)
               }
             )
+
+            broadcast!(socket, "update_rating", %{new_rating: item_rating})
+
+            StoreHallWeb.UsersChannel.broadcast_msg!(rating.user_id, "update_rating", %{
+              new_rating: user_rating
+            })
 
           {:error, _rating} ->
             push(socket, "error", %{

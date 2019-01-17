@@ -12,6 +12,7 @@
       <th><%= sort_link @conn, @rummage, [field: :first_name, ci: true] %></th>
       <th><%= sort_link @conn, @rummage, [field: :last_name] %></th>
       <th><%= sort_link @conn, @rummage, [field: :email] %></th>
+      <th><%= sort_link @conn, @rummage, [field: :details] %></th>
 
       <th></th>
     </tr>
@@ -22,6 +23,7 @@
       <td><%= user.first_name %></td>
       <td><%= user.last_name %></td>
       <td><%= user.email %></td>
+      <td><%= user.details %></td>
 
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
