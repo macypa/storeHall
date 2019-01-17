@@ -26,21 +26,7 @@ defmodule StoreHallWeb.ItemsChannel do
           "new_comment",
           %{
             comment_parent_id: comment.comment_id,
-            new_comment:
-              Phoenix.View.render_to_string(
-                StoreHallWeb.CommentView,
-                "show.html",
-                %{
-                  comment: comment,
-                  comments_info: %{
-                    comment: %{
-                      item_id: comment.item_id,
-                      author_id: socket.assigns.current_user_id,
-                      user_id: comment.user_id
-                    }
-                  }
-                }
-              )
+            new_comment: Poison.encode!(comment)
           }
         )
     end
@@ -64,14 +50,7 @@ defmodule StoreHallWeb.ItemsChannel do
               socket,
               "new_rating",
               %{
-                new_rating:
-                  Phoenix.View.render_to_string(
-                    StoreHallWeb.RatingView,
-                    "show.html",
-                    %{
-                      rating: rating
-                    }
-                  )
+                new_rating: Poison.encode!(rating)
               }
             )
 

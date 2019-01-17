@@ -22,6 +22,7 @@ defmodule StoreHall.Comments do
   def for_item(id) do
     ItemComment
     |> where(item_id: ^id)
+    # |> where([i], is_nil(i.comment_id))
     |> Repo.all()
   end
 

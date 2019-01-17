@@ -67,7 +67,9 @@ var channel_push = function(topic, data) {
 
 var add_events = function(selector, on_event, fun) {
   Array.from(document.querySelectorAll(selector)).forEach(function(element) {
-    element.addEventListener(on_event, fun);
+    if (on_event == "click") {
+      element.onclick = fun;
+    }
   });
 };
 
@@ -80,48 +82,58 @@ channel.on("update_rating", payload => {
   document.querySelector("#rating_count").innerText = parseInt(document.querySelector("#rating_count").innerText) + 1
 })
 
-add_events("[comment_topic]", "click", function() {
-  var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
-  var comment_field_value = JSON.parse(this.parentNode.getElementsByClassName("comment")[0].value)
-  comment_field_value.details = {}
-  comment_field_value.details.body = body_field_value
-  channel.push(this.getAttribute("comment_topic"), { data: comment_field_value })
+function add_comment_events() {
+  add_events("[comment_topic]", "click", function() {
+    var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+    var comment_field_value = JSON.parse(this.parentNode.getElementsByClassName("comment")[0].value)
+    comment_field_value.details = {}
+    comment_field_value.details.body = body_field_value
+    channel.push(this.getAttribute("comment_topic"), { data: comment_field_value })
 
-  show_hide(this.parentNode.getAttribute("id"))
+    show_hide(this.parentNode.getAttribute("id"))
+  });
+}
+add_comment_events();
+
+var Handlebars = require('handlebars/runtime');
+Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
 });
-
+import comment_template from "../hbs/comment.hbs"
 channel.on("new_comment", payload => {
-  var new_comment_html = payload.new_comment
-  var new_comment_node = document.createElement("span")
-  new_comment_node.innerHTML = new_comment_html
+  var new_comment_html = comment_template( JSON.parse(payload.new_comment) )
 
   if (payload.comment_parent_id == null) {
-    document.querySelector("comments").appendChild(new_comment_node)
+    document.querySelector("comments").insertAdjacentHTML( 'beforeend', new_comment_html)
   } else {
     var comment_parent = document.querySelector("#comment_" + payload.comment_parent_id).parentNode
     if (comment_parent !== null) {
-      comment_parent.appendChild(new_comment_node)
+      comment_parent.insertAdjacentHTML( 'beforeend', new_comment_html)
     }
   }
+  add_comment_events();
 })
 
-add_events("[rating_topic]", "click", function() {
-  var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
-  var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
-  var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
+function add_rating_events() {
+  add_events("[rating_topic]", "click", function() {
+    var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+    var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
+    var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
 
-  rating_field_value.details = {}
-  rating_field_value.details.body = body_field_value
-  rating_field_value.details.scores = JSON.parse(scores_field_value)
-  channel.push(this.getAttribute("rating_topic"), { data: rating_field_value })
-});
+    rating_field_value.details = {}
+    rating_field_value.details.body = body_field_value
+    rating_field_value.details.scores = JSON.parse(scores_field_value)
+    channel.push(this.getAttribute("rating_topic"), { data: rating_field_value })
+  });
+}
+add_rating_events();
 
+import rating_template from "../hbs/rating.hbs"
 channel.on("new_rating", payload => {
-  var new_rating_html = payload.new_rating
-  var new_rating_node = document.createElement("span")
-  new_rating_node.innerHTML = new_rating_html
+  var new_rating_html = rating_template( JSON.parse(payload.new_rating) )
 
-  document.querySelector("ratings").appendChild(new_rating_node)
+  document.querySelector("ratings").insertAdjacentHTML( 'beforeend', new_rating_html);
+  add_rating_events();
 })
 
 channel.on("error", payload => {

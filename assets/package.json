@@ -14,8 +14,6 @@
     "lint": "npm run lint:js && npm run lint:scss"
   },
   "dependencies": {
-    "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0",
     "bootstrap-datepicker": "^1.7.1",
@@ -24,6 +22,8 @@
     "easy-pie-chart": "^2.1.7",
     "file-loader": "^1.1.5",
     "fullcalendar": "^3.6.2",
+    "handlebars": "^4.0.12",
+    "handlebars-loader": "^1.7.1",
     "jquery": "^3.2.1",
     "jquery-sparkline": "^2.4.0",
     "jvectormap": "^2.0.4",
@@ -32,6 +32,8 @@
     "masonry-layout": "^4.2.0",
     "moment": "^2.19.1",
     "perfect-scrollbar": "^1.1.0",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
     "popper.js": "^1.12.6",
     "skycons": "^1.0.0"
   },

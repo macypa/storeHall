@@ -17,6 +17,6 @@ defmodule StoreHall.Comments.ItemComment do
   def changeset(item_comment, attrs) do
     item_comment
     |> cast(attrs, [:item_id, :comment_id, :author_id, :user_id, :details])
-    |> validate_required([:author_id, :item_id, :user_id, :details])
+    |> validate_required([:item_id, :user_id, :details])
   end
 end
