@@ -97,7 +97,7 @@ defmodule StoreHall.Comments do
           set: [
             details:
               fragment(
-                " jsonb_set(details, '{comments_count}', (COALESCE(details->'comments_count'->>'count','0')::int + 1)::text::jsonb) "
+                " jsonb_set(details, '{comments_count}', (COALESCE(details->>'comments_count','0')::int + 1)::text::jsonb) "
               )
           ]
         ]
