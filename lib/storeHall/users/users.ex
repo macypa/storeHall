@@ -6,16 +6,9 @@ defmodule StoreHall.Users do
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
 
-  def list_users(params) do
-    {users, rummage} =
-      User
-      |> Rummage.Ecto.rummage(params["rummage"])
-
-    users =
-      users
-      |> Repo.all()
-
-    {users, rummage}
+  def list_users(_params) do
+    User
+    |> Repo.all()
   end
 
   def get_user!(id, repo \\ Repo) do

@@ -30,9 +30,6 @@ config :ueberauth, Ueberauth,
     google: {Ueberauth.Strategy.Google, [default_scope: "emails profile plus.me"]}
   ]
 
-config :rummage_ecto, Rummage.Ecto, default_repo: StoreHall.Repo
-config :rummage_phoenix, Rummage.Phoenix, default_per_page: 5
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -20,17 +20,8 @@ defmodule StoreHall.Items do
       [%Item{}, ...]
 
   """
-  def list_items(params) do
-    # Repo.all(Item)
-    {items, rummage} =
-      Item
-      |> Rummage.Ecto.rummage(params["rummage"])
-
-    items =
-      items
-      |> Repo.all()
-
-    {items, rummage}
+  def list_items(_params) do
+    Repo.all(Item)
   end
 
   @doc """
