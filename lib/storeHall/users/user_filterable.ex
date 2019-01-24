@@ -5,10 +5,10 @@ defmodule StoreHall.Users.UserFilterable do
 
   paginateable(per_page: 10)
 
-  @options param: [:fields, :order],
-           default: [sort: :id, order: :asc],
+  @options param: [:sort, :order],
+           default: [sort: "id", order: :desc],
            cast_errors: true
-  filter sort(query, %{fields: fields, order: order}, _conn) do
+  filter sort(query, %{sort: fields, order: order}, _conn) do
     String.split(fields, ",")
     |> Enum.reduce(query, fn field, q ->
       field_atom =
