@@ -5,28 +5,28 @@ defmodule StoreHall.Items.ItemFilterable do
 
   paginateable(per_page: 10)
 
-  @options param: [:sort, :order],
-           default: [sort: :id, order: :asc],
+  @options param: [:field, :order],
+           default: [field: :id, order: :asc],
            cast_errors: true
-  filter search(query, %{sort: field, order: order}, _conn) do
-    String.split(field, ",")
-    |> Enum.reduce(query, fn f, q ->
-      f_atom =
-        case f do
+  filter sort(query, %{field: fields, order: order}, _conn) do
+    String.split(fields, ",")
+    |> Enum.reduce(query, fn field, q ->
+      field_atom =
+        case field do
           "id" -> :id
           "name" -> :name
           "user_id" -> :user_id
           _ -> :id
         end
 
-      o_atom =
+      order_atom =
         case order do
           "asc" -> :asc
           "desc" -> :desc
           _ -> :asc
         end
 
-      q |> order_by([{^o_atom, ^f_atom}])
+      q |> order_by([{^order_atom, ^field_atom}])
     end)
   end
 end

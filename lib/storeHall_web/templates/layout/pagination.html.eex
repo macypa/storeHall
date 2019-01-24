@@ -1,0 +1,57 @@
+
+<% page_params = @conn.params
+    |> Map.delete("page")
+    |> URI.encode_query()
+    |> case do
+        "" -> ""
+        params -> params <> "&"
+      end %>
+
+<% per_page = case @conn.params["per_page"] do
+  nil -> 1
+  p -> String.to_integer(p)
+end %>
+
+<% current_page = case @conn.params["page"] do
+  nil -> 1
+  p -> String.to_integer(p)
+end %>
+
+<nav>
+  <ul class="pagination">
+
+    <%= for page <- 1..current_page do %>
+      <%= case page do %>
+
+        <%= p when p == 1 and current_page > 1 -> %>
+          <li class="page-item">
+            <a class="page-link" href="?<%= page_params %>page=1" rel="first">first</a>
+          </li>
+
+        <%= p when p < current_page-1 and p > 0 -> %>
+          <li class="page-item">
+            <a class="page-link" href="?<%= page_params %>page=<%= p %>" ><%= p %></a>
+          </li>
+
+        <%= p when current_page-1 == p -> %>
+          <li class="page-item">
+            <a class="page-link" href="?<%= page_params %>page=<%= p %>" rel="prev"><%= p %></a>
+          </li>
+
+        <%= p -> %>
+          <br />
+      <% end %>
+    <% end %>
+
+    <li class="page-item active"><a class="page-link"><%= current_page %></a></li>
+
+    <%= unless length(@model) < per_page do %>
+        <li class="page-item">
+          <a class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next">&gt;&gt;</a>
+        </li>
+    <% end %>
+
+  </ul>
+</nav>
+
+<%= inspect @metadata %>

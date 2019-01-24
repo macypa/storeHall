@@ -29,7 +29,8 @@
   </tbody>
 </table>
 
-<%= inspect @metadata %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, metadata: @metadata , model: @items %>
+
 <%= if Map.has_key?(@conn.assigns, :filters)  do
 
   # Rummage.Phoenix.SearchView.search_form(@conn, @conn.assigns.rummage, [fields:

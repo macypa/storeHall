@@ -10,3 +10,14 @@ rating {
 comment {
   display: block;
 }
+
+.pagination li a {
+   border: none;
+    background: #000;
+    color: lightBlue;
+}
+.page-item.active .page-link {
+   background: #000;
+   background-color: #000;
+   color: grey;
+}

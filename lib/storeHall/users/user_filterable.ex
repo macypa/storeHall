@@ -5,14 +5,14 @@ defmodule StoreHall.Users.UserFilterable do
 
   paginateable(per_page: 10)
 
-  @options param: [:sort, :order],
+  @options param: [:fields, :order],
            default: [sort: :id, order: :asc],
            cast_errors: true
-  filter search(query, %{sort: field, order: order}, _conn) do
-    String.split(field, ",")
-    |> Enum.reduce(query, fn f, q ->
-      f_atom =
-        case f do
+  filter sort(query, %{fields: fields, order: order}, _conn) do
+    String.split(fields, ",")
+    |> Enum.reduce(query, fn field, q ->
+      field_atom =
+        case field do
           "id" -> :id
           "email" -> :email
           "first_name" -> :first_name
@@ -20,14 +20,14 @@ defmodule StoreHall.Users.UserFilterable do
           _ -> :id
         end
 
-      o_atom =
+      order_atom =
         case order do
           "asc" -> :asc
           "desc" -> :desc
           _ -> :asc
         end
 
-      q |> order_by([{^o_atom, ^f_atom}])
+      q |> order_by([{^order_atom, ^field_atom}])
     end)
   end
 end

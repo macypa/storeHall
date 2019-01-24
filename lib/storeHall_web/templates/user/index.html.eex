@@ -28,4 +28,5 @@
 <% end %>
   </tbody>
 </table>
-<%= inspect @metadata %>
+
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, metadata: @metadata , model: @users %>
