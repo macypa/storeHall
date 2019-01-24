@@ -5,6 +5,13 @@ defmodule StoreHall.Users.UserFilterable do
 
   paginateable(per_page: 10)
 
+  @options param: :q
+  filter search(query, value, _conn) do
+    query
+    |> where([u], ilike(u.first_name, ^"%#{value}%"))
+    |> or_where([u], ilike(u.last_name, ^"%#{value}%"))
+  end
+
   @options param: [:sort, :order],
            default: [sort: "id", order: :desc],
            cast_errors: true

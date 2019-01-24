@@ -5,6 +5,21 @@ defmodule StoreHall.Items.ItemFilterable do
 
   paginateable(per_page: 10)
 
+  @options param: :q
+  filter search(query, search_terms, _conn) do
+    dynamic =
+      String.split(search_terms, " ")
+      |> Enum.reduce(true, fn search, acc ->
+        dynamic(
+          [u],
+          ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
+        )
+      end)
+
+    query
+    |> where(^dynamic)
+  end
+
   @options param: [:sort, :order],
            default: [sort: "id", order: :desc],
            cast_errors: true
