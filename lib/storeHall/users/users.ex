@@ -6,9 +6,10 @@ defmodule StoreHall.Users do
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
 
-  def list_users(_params) do
-    User
-    |> Repo.all()
+  def list_users(conn, _params) do
+    with {:ok, query, filter_values} <- User.apply_filters(conn),
+         users <- Repo.all(query),
+         do: %{users: users, metadata: filter_values}
   end
 
   def get_user!(id, repo \\ Repo) do

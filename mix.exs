@@ -47,7 +47,7 @@ defmodule StoreHall.MixProject do
       {:poison, "~> 3.1"},
       {:ueberauth, "~> 0.5"},
       {:ueberauth_google, "~> 0.7"},
-      {:paginator, "~> 0.6"}
+      {:filterable, "~> 0.7.1"}
     ]
   end
 

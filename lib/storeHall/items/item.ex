@@ -1,6 +1,10 @@
 defmodule StoreHall.Items.Item do
   use Ecto.Schema
+  use Filterable.Phoenix.Model
+
   import Ecto.Changeset
+
+  filterable(StoreHall.Items.ItemFilterable)
 
   schema "items" do
     field :name, :string

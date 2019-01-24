@@ -1,6 +1,10 @@
 defmodule StoreHall.Users.User do
   use Ecto.Schema
+  use Filterable.Phoenix.Model
+
   import Ecto.Changeset
+
+  filterable(StoreHall.Users.UserFilterable)
 
   @primary_key {:id, :string, []}
   @derive {Phoenix.Param, key: :id}

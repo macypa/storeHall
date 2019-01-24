@@ -29,6 +29,7 @@
   </tbody>
 </table>
 
+<%= inspect @metadata %>
 <%= if Map.has_key?(@conn.assigns, :filters)  do
 
   # Rummage.Phoenix.SearchView.search_form(@conn, @conn.assigns.rummage, [fields:
