@@ -1,4 +1,4 @@
-defmodule StoreHall.Items.UserFilterable do
+defmodule StoreHall.Users.UserFilterable do
   use Filterable.DSL
   use Filterable.Ecto.Helpers
   import Ecto.Query, warn: false

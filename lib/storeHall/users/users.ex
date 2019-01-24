@@ -8,8 +8,11 @@ defmodule StoreHall.Users do
 
   def list_users(conn, _params) do
     with {:ok, query, filter_values} <- User.apply_filters(conn),
-         users <- Repo.all(query),
-         do: %{users: users, metadata: filter_values}
+         users <- Repo.all(query) do
+      %{users: users, metadata: filter_values}
+    else
+      {:error, err} -> %{users: %{}, metadata: err}
+    end
   end
 
   def get_user!(id, repo \\ Repo) do

@@ -10,15 +10,7 @@ defmodule StoreHallWeb.UserController do
   plug :check_owner when action in [:edit, :delete]
 
   def index(conn, params) do
-    %{users: users, metadata: metadata} =
-      case Users.list_users(conn, params) do
-        %{users: users, metadata: metadata} ->
-          %{users: users, metadata: metadata}
-
-        {:error, err} ->
-          %{users: %{}, metadata: %{error: err}}
-          # users -> %{users: users, metadata: %{}}
-      end
+    %{users: users, metadata: metadata} = Users.list_users(conn, params)
 
     render(conn, :index, users: users, metadata: metadata)
   end

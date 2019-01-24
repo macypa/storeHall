@@ -22,8 +22,11 @@ defmodule StoreHall.Items do
   """
   def list_items(conn, _params) do
     with {:ok, query, filter_values} <- Item.apply_filters(conn),
-         items <- Repo.all(query),
-         do: %{items: items, metadata: filter_values}
+         items <- Repo.all(query) do
+      %{items: items, metadata: filter_values}
+    else
+      {:error, err} -> %{items: %{}, metadata: err}
+    end
   end
 
   @doc """
