@@ -3,8 +3,23 @@ defmodule StoreHall.Users.User do
   use Filterable.Phoenix.Model
 
   import Ecto.Changeset
+  import StoreHall.UserFilterable
+  import StoreHall.DefaultFilterable
+  import Ecto.Query, warn: false
 
-  filterable(StoreHall.Users.UserFilterable)
+  filterable do
+    paginateable(per_page: 10)
+
+    @options param: :q
+    filter search(query, search_terms, conn) do
+      search_filter(query, search_terms, conn)
+    end
+
+    @options default: "id:desc"
+    filter sort(query, value, conn) do
+      sort_filter(query, value, conn)
+    end
+  end
 
   @primary_key {:id, :string, []}
   @derive {Phoenix.Param, key: :id}
