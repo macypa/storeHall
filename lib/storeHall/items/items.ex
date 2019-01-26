@@ -11,6 +11,9 @@ defmodule StoreHall.Items do
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
 
+  alias StoreHall.ItemFilter
+  alias StoreHall.DefaultFilter
+
   @doc """
   Returns the list of items.
 
@@ -21,12 +24,15 @@ defmodule StoreHall.Items do
 
   """
   def list_items(conn, _params) do
-    with {:ok, query, filter_values} <- Item.apply_filters(conn),
-         items <- Repo.all(query) do
-      %{items: items, metadata: filter_values}
-    else
-      {:error, err} -> %{items: %{}, metadata: err}
-    end
+    apply_filters(conn)
+    |> Repo.all()
+  end
+
+  def apply_filters(conn) do
+    Item
+    |> DefaultFilter.sort_filter(conn)
+    |> DefaultFilter.paging_filter(conn)
+    |> ItemFilter.search_filter(conn)
   end
 
   @doc """

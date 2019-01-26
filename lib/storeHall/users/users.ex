@@ -6,13 +6,19 @@ defmodule StoreHall.Users do
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
 
+  alias StoreHall.UserFilter
+  alias StoreHall.DefaultFilter
+
   def list_users(conn, _params) do
-    with {:ok, query, filter_values} <- User.apply_filters(conn),
-         users <- Repo.all(query) do
-      %{users: users, metadata: filter_values}
-    else
-      {:error, err} -> %{users: %{}, metadata: err}
-    end
+    apply_filters(conn)
+    |> Repo.all()
+  end
+
+  def apply_filters(conn) do
+    User
+    |> DefaultFilter.sort_filter(conn)
+    |> DefaultFilter.paging_filter(conn)
+    |> UserFilter.search_filter(conn)
   end
 
   def get_user!(id, repo \\ Repo) do

@@ -1,3 +1,7 @@
+<%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get], fn f -> %>
+  <%= text_input f, :q, placeholder: "Search by title, content, etc." %>
+<% end %>
+
 <h1>Listing Users</h1>
 
 <table>
@@ -29,4 +33,4 @@
   </tbody>
 </table>
 
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, metadata: @metadata , model: @users %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users %>

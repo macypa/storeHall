@@ -28,21 +28,21 @@ end %>
             <a class="page-link" href="?<%= page_params %>page=1" rel="first">1</a>
           </li>
 
-        <%= p when p < current_page-1-per_page -> %>
+        <% p when p < current_page-1-per_page -> %>
           <% p %>
 
-        <%= p when p < current_page-1 and p > 0 -> %>
+        <% p when p < current_page-1 and p > 0 -> %>
           <li class="page-item">
             <a class="page-link" href="?<%= page_params %>page=<%= p %>" ><%= p %></a>
           </li>
 
-        <%= p when current_page-1 == p -> %>
+        <% p when current_page-1 == p -> %>
           <li class="page-item">
             <a class="page-link" href="?<%= page_params %>page=<%= p %>" rel="prev"><%= p %></a>
           </li>
 
-        <%= p -> %>
-          <br />
+        <% p -> %>
+          <% p %>
       <% end %>
     <% end %>
 
@@ -56,5 +56,3 @@ end %>
 
   </ul>
 </nav>
-
-<%= inspect @metadata %>

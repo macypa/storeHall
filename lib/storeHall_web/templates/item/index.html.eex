@@ -1,3 +1,7 @@
+<%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get], fn f -> %>
+  <%= text_input f, :q, placeholder: "Search by title, content, etc." %>
+<% end %>
+
 <h1>Listing Items</h1>
 
 <!-- TODO:maybe use some spellchecker or suggestions -->
@@ -29,7 +33,7 @@
   </tbody>
 </table>
 
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, metadata: @metadata , model: @items %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items %>
 
 <%= if Map.has_key?(@conn.assigns, :filters)  do
 

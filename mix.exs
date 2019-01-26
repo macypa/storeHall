@@ -46,8 +46,7 @@ defmodule StoreHall.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 3.1"},
       {:ueberauth, "~> 0.5"},
-      {:ueberauth_google, "~> 0.7"},
-      {:filterable, "~> 0.7.1"}
+      {:ueberauth_google, "~> 0.7"}
     ]
   end
 

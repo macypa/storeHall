@@ -1,25 +1,7 @@
 defmodule StoreHall.Items.Item do
   use Ecto.Schema
-  use Filterable.Phoenix.Model
 
   import Ecto.Changeset
-  import StoreHall.ItemFilterable
-  import StoreHall.DefaultFilterable
-  import Ecto.Query, warn: false
-
-  filterable do
-    paginateable(per_page: 10)
-
-    @options param: :q
-    filter search(query, search_terms, conn) do
-      search_filter(query, search_terms, conn)
-    end
-
-    @options default: "id:desc"
-    filter sort(query, value, conn) do
-      sort_filter(query, value, conn)
-    end
-  end
 
   schema "items" do
     field :name, :string
