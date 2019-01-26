@@ -1,5 +1,14 @@
 <%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get], fn f -> %>
   <%= text_input f, :q, placeholder: "Search by title, content, etc." %>
+
+  <%= for param <- @conn.params
+    |> Map.delete("_utf8")
+    |> Map.delete("filter")
+    |> Map.delete("page")
+    |> Map.keys() do
+      hidden_input f, "p", name: param, value: @conn.params[param]
+  end %>
+
 <% end %>
 
 <h1>Listing Users</h1>
