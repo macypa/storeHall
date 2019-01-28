@@ -143,7 +143,7 @@ import * as $ from 'jquery';
 
 add_events(".auto_submit_item", "change", function() {
   channel.push("filter", { data: $("#form_filter").serialize() })
-  location.href = location.protocol + "//" + location.host + location.pathname
+  window.history.replaceState({}, document.title, location.pathname);
 });
 
 import items_template from "../hbs/items.hbs"
