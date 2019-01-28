@@ -55,6 +55,9 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:rating, dynamic, %{"min" => value} = v) do
     case Float.parse(value) do
+      {0.0, ""} ->
+        dynamic
+
       {min_rating, ""} ->
         dynamic(
           [u],
@@ -67,13 +70,16 @@ defmodule StoreHall.ItemFilter do
   end
 
   defp filter(:tags, dynamic, value) do
-    value
-    |> Enum.reduce(dynamic, fn tag, acc ->
-      dynamic(
-        [u],
-        ^acc and fragment(" (details -> 'tags' \\? ?) ", ^tag)
-      )
-    end)
+    tags_condition =
+      value
+      |> Enum.reduce(false, fn tag, acc ->
+        dynamic(
+          [u],
+          ^acc or fragment(" (details -> 'tags' \\? ?) ", ^tag)
+        )
+      end)
+
+    dynamic([q], ^tags_condition and ^dynamic)
   end
 
   defp filter(:merchant, dynamic, value) do
