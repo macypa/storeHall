@@ -14,7 +14,11 @@ defmodule StoreHall.ItemFilter do
           search_terms
           |> Map.keys()
           |> Enum.reduce(true, fn search_key, acc ->
-            filter(search_key, acc, Map.get(search_terms, search_key))
+            try do
+              filter(String.to_existing_atom(search_key), acc, Map.get(search_terms, search_key))
+            rescue
+              _ -> acc
+            end
           end)
 
         query
@@ -49,7 +53,7 @@ defmodule StoreHall.ItemFilter do
     end
   end
 
-  defp filter(:rating, dynamic, %{score: %{:min => value}}) do
+  defp filter(:rating, dynamic, %{"min" => value} = v) do
     case Float.parse(value) do
       {min_rating, ""} ->
         dynamic(
@@ -70,6 +74,13 @@ defmodule StoreHall.ItemFilter do
         ^acc and fragment(" (details -> 'tags' \\? ?) ", ^tag)
       )
     end)
+  end
+
+  defp filter(:merchant, dynamic, value) do
+    case value do
+      "all" -> dynamic
+      value -> dynamic([u], ^dynamic and u.user_id == ^value)
+    end
   end
 
   defp filter(_Key, dynamic, _value), do: dynamic

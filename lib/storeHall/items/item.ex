@@ -3,6 +3,7 @@ defmodule StoreHall.Items.Item do
 
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:id, :name, :details, :user_id]}
   schema "items" do
     field :name, :string
     field :user_id, :string

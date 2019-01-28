@@ -3,8 +3,8 @@ defmodule StoreHallWeb.UserSocket do
 
   ## Channels
   channel "/*", StoreHallWeb.DefaultChannel
-  channel "/users/*", StoreHallWeb.UsersChannel
-  channel "/items/*", StoreHallWeb.ItemsChannel
+  channel "/users*", StoreHallWeb.UsersChannel
+  channel "/items*", StoreHallWeb.ItemsChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

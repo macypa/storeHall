@@ -33,7 +33,7 @@ defmodule StoreHallWeb.Router do
   scope "/", StoreHallWeb do
     pipe_through :browser
 
-    get "/", ItemController, :index
+    get "/", Redirector, to: "/items"
 
     resources "/users", UserController, only: [:index, :show]
     resources "/items", ItemController, only: [:index, :show]
@@ -51,4 +51,14 @@ defmodule StoreHallWeb.Router do
   # scope "/api", StoreHallWeb do
   #   pipe_through :api
   # end
+end
+
+defmodule StoreHallWeb.Redirector do
+  def init(opts), do: opts
+
+  def call(conn, opts) do
+    conn
+    |> Phoenix.Controller.redirect(opts)
+    |> Plug.Conn.halt()
+  end
 end

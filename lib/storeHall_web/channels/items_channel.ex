@@ -6,12 +6,25 @@ defmodule StoreHallWeb.ItemsChannel do
   alias Ecto.Multi
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Items
   alias StoreHall.Users.Action
 
-  @topic_prefix "/items/"
+  @topic_prefix "/items"
 
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter},
+        socket
+      ) do
+    filtered = Items.list_items(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+
+    push(socket, "filtered_items", %{filtered: Poison.encode!(filtered)})
+
+    {:reply, :ok, socket}
   end
 
   def handle_in(

@@ -1,0 +1,13 @@
+{{#each this}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{user_id}}</td>
+      <td>{{json details}}</td>
+
+      <td>
+        <a href="/items/{{id}}">Show</a>
+        <a href="/items/{{id}}/edit">Edit</a>
+        <a data-confirm="Are you sure?" data-csrf="bx1MCAgkMUIgDCcbJj4GGhcCBnl8AAAAD+8RdIr3FtlxLlAwdhA3Ow==" data-method="delete" data-to="/items/{{id}}" href="/items/{{id}}" rel="nofollow">Delete</a>
+      </td>
+    </tr>
+{{/each}}

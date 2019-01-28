@@ -70,6 +70,9 @@ var add_events = function(selector, on_event, fun) {
     if (on_event == "click") {
       element.onclick = fun;
     }
+    if (on_event == "change") {
+      element.onchange = fun;
+    }
   });
 };
 
@@ -134,6 +137,25 @@ channel.on("new_rating", payload => {
 
   document.querySelector("ratings").insertAdjacentHTML( 'beforeend', new_rating_html);
   add_rating_events();
+})
+
+import * as $ from 'jquery';
+
+add_events(".auto_submit_item", "change", function() {
+  channel.push("filter", { data: $("#form_filter").serialize() })
+  location.href = location.protocol + "//" + location.host + location.pathname
+});
+
+import items_template from "../hbs/items.hbs"
+channel.on("filtered_items", payload => {
+  var filtered_items = items_template( JSON.parse(payload.filtered) )
+  document.querySelector("#items_listing").innerHTML = filtered_items;
+})
+
+import users_template from "../hbs/users.hbs"
+channel.on("filtered_users", payload => {
+  var filtered_users = users_template( JSON.parse(payload.filtered) )
+  document.querySelector("#users_listing").innerHTML = filtered_users;
 })
 
 channel.on("error", payload => {

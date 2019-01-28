@@ -13,7 +13,7 @@ defmodule StoreHall.DefaultFilter do
   @accepted_fields [:id, :name, :user_id, :first_name, :last_name]
 
   def sort_filter(query, conn) do
-    value = conn.params["filter"]["sort"]
+    value = conn.params["sort"]
 
     value
     |> case do

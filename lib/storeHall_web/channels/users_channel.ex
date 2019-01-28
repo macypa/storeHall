@@ -6,12 +6,25 @@ defmodule StoreHallWeb.UsersChannel do
   alias Ecto.Multi
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Users
   alias StoreHall.Users.Action
 
-  @topic_prefix "/users/"
+  @topic_prefix "/users"
 
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter},
+        socket
+      ) do
+    filtered = Users.list_users(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+
+    push(socket, "filtered_users", %{filtered: Poison.encode!(filtered)})
+
+    {:reply, :ok, socket}
   end
 
   def handle_in(
