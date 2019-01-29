@@ -70,16 +70,10 @@ defmodule StoreHall.ItemFilter do
   end
 
   defp filter(:tags, dynamic, value) do
-    tags_condition =
-      value
-      |> Enum.reduce(false, fn tag, acc ->
-        dynamic(
-          [u],
-          ^acc or fragment(" (details -> 'tags' \\? ?) ", ^tag)
-        )
-      end)
-
-    dynamic([q], ^tags_condition and ^dynamic)
+    dynamic(
+      [u],
+      ^dynamic and fragment(" (details -> 'tags' \\?| ?) ", ^value)
+    )
   end
 
   defp filter(:merchant, dynamic, value) do
