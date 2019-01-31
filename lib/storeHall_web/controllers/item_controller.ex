@@ -28,6 +28,10 @@ defmodule StoreHallWeb.ItemController do
            ["details", "tags"],
            Poison.decode!(get_in(item_params, ["details", "tags"]))
          )
+         |> put_in(
+           ["details", "images"],
+           Poison.decode!(get_in(item_params, ["details", "images"]))
+         )
          # |> Map.put(:details, StoreHall.EncodeHelper.decode(item_params, :details))
          |> Items.create_item() do
       {:ok, item} ->
@@ -88,6 +92,10 @@ defmodule StoreHallWeb.ItemController do
            |> put_in(
              ["details", "tags"],
              Poison.decode!(get_in(item_params, ["details", "tags"]))
+           )
+           |> put_in(
+             ["details", "images"],
+             Poison.decode!(get_in(item_params, ["details", "images"]))
            )
          ) do
       {:ok, item} ->

@@ -23,13 +23,12 @@ end %>
     <%= for page <- 1..current_page do %>
       <%= case page do %>
 
-        <%= p when p == 1 and current_page > 1 -> %>
+        <% p when p == 1 and current_page > 1 -> %>
           <li class="page-item">
             <a class="page-link" href="?<%= page_params %>page=1" rel="first">1</a>
           </li>
 
         <% p when p < current_page-1-per_page -> %>
-          <% p %>
 
         <% p when p < current_page-1 and p > 0 -> %>
           <li class="page-item">
@@ -41,8 +40,7 @@ end %>
             <a class="page-link" href="?<%= page_params %>page=<%= p %>" rel="prev"><%= p %></a>
           </li>
 
-        <% p -> %>
-          <% p %>
+        <% _p -> %>
       <% end %>
     <% end %>
 

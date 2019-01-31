@@ -11,6 +11,7 @@ defmodule StoreHall.Items do
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
 
+  alias StoreHall.FileUploader
   alias StoreHall.ItemFilter
   alias StoreHall.DefaultFilter
 
@@ -80,11 +81,12 @@ defmodule StoreHall.Items do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_item(attrs \\ %{}) do
+  def create_item(item \\ %{}) do
     Ecto.Multi.new()
-    |> update_filter(%Filters{name: attrs["user_id"], type: "merchant", count: 1})
-    |> update_list_filters("tags", attrs["details"]["tags"])
-    |> Multi.insert(:insert, Item.changeset(%Item{}, attrs))
+    |> update_filter(%Filters{name: item["user_id"], type: "merchant", count: 1})
+    |> update_list_filters("tags", item["details"]["tags"])
+    |> Multi.insert(:insert, Item.changeset(%Item{}, prepare_images(item)))
+    |> upsert_images(item, :insert)
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -93,6 +95,51 @@ defmodule StoreHall.Items do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  def prepare_images(item) do
+    case item["images"] do
+      nil ->
+        item
+
+      images ->
+        new_images = images |> Enum.map(fn image -> image.filename end)
+
+        item
+        |> put_in(["details", "images"], item["details"]["images"] ++ new_images)
+    end
+  end
+
+  def upsert_images(multi, item, multi_name) do
+    case item["images"] do
+      nil ->
+        multi
+
+      images ->
+        multi
+        |> Multi.run(:upsert_images, fn _repo, %{^multi_name => item_with_user_id} ->
+          images
+          |> Enum.reduce({:ok, "no error"}, fn image, acc ->
+            case FileUploader.store({image, item_with_user_id}) do
+              {:ok, _value} -> acc
+              {:error, value} -> {:error, value}
+            end
+          end)
+        end)
+    end
+  end
+
+  def clean_images(multi, item, images_to_remove) do
+    multi
+    |> Multi.run(:clean_images, fn _repo, _ ->
+      images_to_remove
+      |> Enum.reduce({:ok, "no error"}, fn image, _acc ->
+        FileUploader.delete({image, item})
+      end)
+
+      # File.rmdir(FileUploader.storage_dir(nil, {nil, item}))
+      {:ok, "no error"}
+    end)
   end
 
   def update_filter(multi, filter, increase_by \\ 1) do
@@ -112,7 +159,9 @@ defmodule StoreHall.Items do
 
       filters ->
         count = if increase_by > 0, do: 1, else: 0
-        multi_name = "upsert_list_filter_" <> filter_type <> to_string(filters)
+
+        multi_name =
+          "upsert_list_filter_" <> filter_type <> to_string(filters) <> to_string(increase_by)
 
         multi
         |> Ecto.Multi.run(multi_name, fn repo, _ ->
@@ -158,9 +207,10 @@ defmodule StoreHall.Items do
   """
   def update_item(%Item{} = item, attrs) do
     Ecto.Multi.new()
-    |> update_list_filters("tags", filters_to_add(item, attrs, "tags"))
-    |> update_list_filters("tags", filters_to_remove(item, attrs, "tags"), -1)
-    |> Multi.update(:update, item |> Item.changeset(attrs))
+    |> update_list_tags(item, attrs)
+    |> Multi.update(:update, Item.changeset(item, prepare_images(attrs)))
+    |> clean_images(item, details_to_remove(item, attrs, "images"))
+    |> upsert_images(attrs, :update)
     |> clean_filters()
     |> Repo.transaction()
     |> case do
@@ -172,19 +222,25 @@ defmodule StoreHall.Items do
     end
   end
 
-  def filters_to_add(item, attrs, filter_type) do
-    old_filters = item.details[filter_type]
-    new_filters = attrs["details"][filter_type]
+  def update_list_tags(multi, item, attrs) do
+    multi
+    |> update_list_filters("tags", details_to_add(item, attrs, "tags"))
+    |> update_list_filters("tags", details_to_remove(item, attrs, "tags"), -1)
+  end
 
-    MapSet.difference(MapSet.new(new_filters), MapSet.new(old_filters))
+  def details_to_add(item, attrs, detail_type) do
+    old_details = item.details[detail_type]
+    new_details = attrs["details"][detail_type]
+
+    MapSet.difference(MapSet.new(new_details), MapSet.new(old_details))
     |> MapSet.to_list()
   end
 
-  def filters_to_remove(item, attrs, filter_type) do
-    old_filters = item.details[filter_type]
-    new_filters = attrs["details"][filter_type]
+  def details_to_remove(item, attrs, detail_type) do
+    old_details = item.details[detail_type]
+    new_details = attrs["details"][detail_type]
 
-    MapSet.difference(MapSet.new(old_filters), MapSet.new(new_filters))
+    MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
     |> MapSet.to_list()
   end
 
@@ -208,6 +264,7 @@ defmodule StoreHall.Items do
     |> update_list_filters("tags", item.details["tags"], -1)
     |> Multi.delete(:delete, item)
     |> clean_filters()
+    |> clean_images(item, item.details["images"])
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->

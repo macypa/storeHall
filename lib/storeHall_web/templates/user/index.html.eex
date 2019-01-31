@@ -25,25 +25,25 @@
 <table>
   <thead>
     <tr>
+      <th></th>
+
       <th><a href="?<%= page_params %>sort=first_name"><%= :first_name %></a></th>
       <th><a href="?<%= page_params %>sort=last_name"><%= :last_name %></a></th>
       <th><%= :details %></th>
-
-      <th></th>
     </tr>
   </thead>
   <tbody id="users_listing">
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.first_name %></td>
-      <td><%= user.last_name %></td>
-      <td><%= user.details %></td>
-
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
         <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
         <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>
+
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.details %></td>
     </tr>
 <% end %>
   </tbody>

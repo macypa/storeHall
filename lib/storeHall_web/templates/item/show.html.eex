@@ -25,6 +25,16 @@
     <span id="rating_score"><%= @item.details["rating"]["score"] %></span> from <span id="rating_count"><%= @item.details["rating"]["count"] %></span> votes
   </li>
 
+  <!-- links to mark image as inappropriate -->
+  <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
+  <li>
+    <strong>Images:</strong>
+    <%= for image <- @item.details["images"] do %>
+      <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
+        <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
+      </a>
+    <% end %>
+  </li>
 </ul>
 
 <span id="reactions">

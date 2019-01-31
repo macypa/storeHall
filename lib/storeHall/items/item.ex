@@ -9,7 +9,12 @@ defmodule StoreHall.Items.Item do
     field :user_id, :string
 
     field :details, :map,
-      default: %{"tags" => [], "rating" => %{"count" => 0, "score" => -1}, "comments_count" => 0}
+      default: %{
+        "tags" => [],
+        "images" => [],
+        "rating" => %{"count" => 0, "score" => -1},
+        "comments_count" => 0
+      }
 
     timestamps()
   end

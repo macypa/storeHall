@@ -53,7 +53,7 @@ defmodule StoreHall.ItemFilter do
     end
   end
 
-  defp filter(:rating, dynamic, %{"min" => value} = v) do
+  defp filter(:rating, dynamic, %{"min" => value}) do
     case Float.parse(value) do
       {0.0, ""} ->
         dynamic

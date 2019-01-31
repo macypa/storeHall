@@ -51,25 +51,25 @@
   <table>
     <thead>
       <tr>
+        <th>Actions</th>
+
         <th><a href="?<%= page_params %>sort=name"><%= :name %></a></th>
         <th><a href="?<%= page_params %>sort=user_id"><%= :user_id %></a></th>
         <th><%= :details %></th>
-
-        <th></th>
       </tr>
     </thead>
     <tbody id="items_listing">
   <%= for item <- @items do %>
       <tr>
-        <td><%= item.name %></td>
-        <td><%= item.user_id %></td>
-        <td><%= item.details %></td>
-
         <td>
           <%= link "Show", to: Routes.item_path(@conn, :show, item) %>
           <%= link "Edit", to: Routes.item_path(@conn, :edit, item) %>
           <%= link "Delete", to: Routes.item_path(@conn, :delete, item), method: :delete, data: [confirm: "Are you sure?"] %>
         </td>
+
+        <td><%= item.name %></td>
+        <td><%= item.user_id %></td>
+        <td><%= item.details %></td>
       </tr>
   <% end %>
     </tbody>
