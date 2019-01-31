@@ -12,6 +12,9 @@
       min: 0, max: 5, step: 0.1,
       value: f.params["rating"]["min"] || 0 %>
 
+    <filter-label for="sort">sort:</filter-label>
+    <%= text_input f, :sort, class: :auto_submit_item, value: "id"  %>
+
     <filter-label for="merchants">Merchants:</filter-label>
     <%= select f, :merchant,
       ["all" | @conn.assigns.filters["merchant"]

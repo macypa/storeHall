@@ -10,15 +10,15 @@ defmodule StoreHall.DefaultFilter do
     :desc_nulls_first
   ]
 
-  @accepted_fields [:id, :name, :user_id, :first_name, :last_name]
+  @accepted_fields [:id, :inserted_at, :updated_at, :name, :user_id, :first_name, :last_name]
 
   def sort_filter(query, conn) do
-    value = conn.params["sort"]
+    value = conn.params["filter"]["sort"] || ""
 
     value
     |> case do
-      nil ->
-        query
+      "" ->
+        query |> order_by([{:desc, :inserted_at}])
 
       value ->
         value
@@ -29,15 +29,15 @@ defmodule StoreHall.DefaultFilter do
                  {:ok,
                   split_field
                   |> hd
-                  |> to_existing_atom(:id)
-                  |> to_atom_fields()},
+                  |> to_existing_atom(:inserted_at)
+                  |> to_accepted_fields()},
                {:ok, order_atom} <-
                  {:ok,
                   split_field
                   |> Enum.reverse()
                   |> hd
                   |> to_existing_atom(:asc)
-                  |> to_atom_orders()} do
+                  |> to_accepted_orders()} do
             q |> order_by([{^order_atom, ^field_atom}])
           end
         end)
@@ -68,8 +68,10 @@ defmodule StoreHall.DefaultFilter do
     end
   end
 
-  defp to_atom_fields(atom) when atom in @accepted_fields, do: atom
-  defp to_atom_fields(_string), do: :id
-  defp to_atom_orders(atom) when atom in @accepted_orders, do: atom
-  defp to_atom_orders(_string), do: :asc
+  defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
+  defp to_accepted_fields(_string), do: :id
+  def accepted_fields(), do: @accepted_fields
+  defp to_accepted_orders(atom) when atom in @accepted_orders, do: atom
+  defp to_accepted_orders(_string), do: :asc
+  def accepted_orders(), do: @accepted_orders
 end
