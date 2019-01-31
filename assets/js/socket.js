@@ -141,9 +141,32 @@ channel.on("new_rating", payload => {
 
 import * as $ from 'jquery';
 
+window.onpopstate = function (event) {
+  if (event.state) {
+    render(event.state);
+
+    var form = $('#form_filter');
+    $.each(event.state.filter_params_array, function(field, value) {
+        form.find('[name="' + value.name + '"]').val(value.value);
+    });
+
+  }
+}
+
+window.history.replaceState({filter_params_array: $("#form_filter").serializeArray(),
+ filter_params: $("#form_filter").serialize()}, document.title,
+  ($("#form_filter").serialize() == "") location.pathname : location.pathname + "?" + $("#form_filter").serialize());
+function render(state) {
+  channel.push("filter", { data: state.filter_params })
+}
+
 add_events(".auto_submit_item", "change", function() {
-  channel.push("filter", { data: $("#form_filter").serialize() })
-  window.history.replaceState({}, document.title, location.pathname);
+  var filter_params = $("#form_filter").serialize();
+  channel.push("filter", { data: filter_params })
+
+  window.history.pushState({filter_params_array: $("#form_filter").serializeArray(), filter_params: filter_params},
+  document.title,
+  ($("#form_filter").serialize() == "") location.pathname : location.pathname + "?" + $("#form_filter").serialize());
 });
 
 import items_template from "../hbs/items.hbs"
