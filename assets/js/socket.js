@@ -155,7 +155,7 @@ window.onpopstate = function (event) {
 
 window.history.replaceState({filter_params_array: $("#form_filter").serializeArray(),
  filter_params: $("#form_filter").serialize()}, document.title,
-  ($("#form_filter").serialize() == "") location.pathname : location.pathname + "?" + $("#form_filter").serialize());
+  location.pathname);
 function render(state) {
   channel.push("filter", { data: state.filter_params })
 }
@@ -166,7 +166,7 @@ add_events(".auto_submit_item", "change", function() {
 
   window.history.pushState({filter_params_array: $("#form_filter").serializeArray(), filter_params: filter_params},
   document.title,
-  ($("#form_filter").serialize() == "") location.pathname : location.pathname + "?" + $("#form_filter").serialize());
+  (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
 });
 
 import items_template from "../hbs/items.hbs"
