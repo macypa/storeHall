@@ -51,6 +51,7 @@ defmodule StoreHall.Items do
 
   """
   def get_item!(id, repo \\ Repo) do
+    {id, _} = id |> Integer.parse()
     item = repo.get!(Item, id)
     update_default_item_details(item, repo)
   end

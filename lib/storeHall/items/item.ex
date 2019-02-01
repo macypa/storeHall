@@ -27,3 +27,9 @@ defmodule StoreHall.Items.Item do
     |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
   end
 end
+
+defimpl Phoenix.Param, for: StoreHall.Items.Item do
+  def to_param(%{id: id, name: name}) do
+    "#{id}-#{Slug.slugify(name)}"
+  end
+end
