@@ -25,7 +25,13 @@ defmodule StoreHall.FileUploader do
       |> Enum.map(fn x -> String.replace(x, ~r".*\/", "") end)
       |> Enum.join("-")
 
-    slug = Slug.slugify(file.file_name |> String.replace(~r"\..*", ""), ignore: "-")
+    slug =
+      Slug.slugify(
+        file.file_name
+        |> String.replace(~r"\..*", "")
+        |> String.replace(~r"[^A-Za-z0-9-]+", "-"),
+        ignore: "-"
+      )
 
     case name do
       "" -> "#{version}-#{slug}"
