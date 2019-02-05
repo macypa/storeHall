@@ -22,7 +22,15 @@ defmodule StoreHallWeb.ItemsChannel do
       ) do
     filtered = Items.list_items(%{params: filter |> Plug.Conn.Query.decode()}, nil)
 
-    push(socket, "filtered_items", %{filtered: Poison.encode!(filtered)})
+    case filtered do
+      [] ->
+        push(socket, "error", %{
+          message: "nothing to show :)"
+        })
+
+      filtered ->
+        push(socket, "filtered_items", %{filtered: Poison.encode!(filtered)})
+    end
 
     {:reply, :ok, socket}
   end
