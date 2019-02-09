@@ -1,32 +1,32 @@
 <div class="sidebar-filters">
-  <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form_filter"], fn f -> %>
+  <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
 
     <!-- TODO:maybe use some spellchecker or suggestions -->
     <%= text_input f, :q, placeholder: "Search by title, content, etc.",
-      class: :auto_submit_item %>
+      class: "auto-submit-item" %>
 
     <filter-label for="rating-min">Rating:</filter-label>
     <%= range_input f, :rating,
-      class: :auto_submit_item,
+      class: "auto-submit-item",
       name: "filter[rating][min]",
       min: 0, max: 5, step: 0.1,
       value: f.params["rating"]["min"] || 0 %>
 
     <filter-label for="sort">sort:</filter-label>
-    <%= text_input f, :sort, class: :auto_submit_item, value: "id"  %>
+    <%= text_input f, :sort, class: "auto-submit-item", value: "id"  %>
 
     <filter-label for="merchants">Merchants:</filter-label>
     <%= select f, :merchant,
       ["all" | @conn.assigns.filters["merchant"]
       |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end) ],
-      class: :auto_submit_item, selected: "all"  %>
+      class: "auto-submit-item", selected: "all"  %>
 
     <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
     <filter-label for="tags">Tags:</filter-label>
     <%= multiple_select f, :tags,
       @conn.assigns.filters["tags"]
       |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
-      class: :auto_submit_item  %>
+      class: "auto-submit-item"  %>
 
     <%= for param <- @conn.params
       |> Map.delete("_utf8")
@@ -61,7 +61,7 @@
         <th><%= :details %></th>
       </tr>
     </thead>
-    <tbody id="items_listing">
+    <tbody id="items-listing">
   <%= for item <- @items do %>
       <tr>
         <td>

@@ -7,7 +7,7 @@
         params -> params <> "&"
       end %>
 
-<% per_page = case @conn.params["per_page"] do
+<% per_page = case @conn.params["per-page"] do
   nil -> 1
   p -> String.to_integer(p)
 end %>
@@ -44,11 +44,13 @@ end %>
       <% end %>
     <% end %>
 
-    <li class="page-item active"><a class="page-link"><%= current_page %></a></li>
+    <%= unless page = 1 do %>
+      <li class="page-item active"><a class="page-link"><%= current_page %></a></li>
+    <%= end %>
 
     <%= unless length(@model) < per_page do %>
         <li class="page-item">
-          <a class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next">&gt;&gt;</a>
+          <a id="next-page-link" class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next">&gt;&gt;</a>
         </li>
     <% end %>
 

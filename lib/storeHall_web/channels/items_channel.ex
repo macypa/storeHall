@@ -29,7 +29,7 @@ defmodule StoreHallWeb.ItemsChannel do
         })
 
       filtered ->
-        push(socket, "filtered_items", %{filtered: Poison.encode!(filtered)})
+        push(socket, "filtered_items", %{filter: filter, filtered: Poison.encode!(filtered)})
     end
 
     {:reply, :ok, socket}
@@ -69,7 +69,7 @@ defmodule StoreHallWeb.ItemsChannel do
           {:ok, rating, item_rating, user_rating} ->
             broadcast!(
               socket,
-              "new_rating",
+              "new-rating",
               %{
                 new_rating: Poison.encode!(rating)
               }

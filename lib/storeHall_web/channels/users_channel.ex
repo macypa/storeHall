@@ -22,7 +22,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     filtered = Users.list_users(%{params: filter |> Plug.Conn.Query.decode()}, nil)
 
-    push(socket, "filtered_users", %{filtered: Poison.encode!(filtered)})
+    push(socket, "filtered_users", %{filter: filter, filtered: Poison.encode!(filtered)})
 
     {:reply, :ok, socket}
   end

@@ -1,6 +1,6 @@
-<%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form_filter"], fn f -> %>
+<%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
   <%= text_input f, :q, placeholder: "Search by title, content, etc.",
-    class: :auto_submit_item %>
+    class: "auto-submit-item" %>
 
   <%= for param <- @conn.params
     |> Map.delete("_utf8")
@@ -32,7 +32,7 @@
       <th><%= :details %></th>
     </tr>
   </thead>
-  <tbody id="users_listing">
+  <tbody id="users-listing">
 <%= for user <- @users do %>
     <tr>
       <td>

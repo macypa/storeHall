@@ -1,6 +1,6 @@
 
-<button onclick='show_hide("show_hide_comments")'>show/hide comments</button>
-<span id="show_hide_comments" style="display: none">
+<button onclick='show_hide("show-hide-comments")'>show/hide comments</button>
+<span id="show-hide-comments" style="display: none">
   <h1>Listing Comments</h1>
 
   <comments>

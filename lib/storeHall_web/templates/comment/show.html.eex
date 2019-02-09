@@ -1,5 +1,5 @@
 <comment>
-  <comment_body><%= @comment.details %></comment_body>
+  <comment-body><%= @comment.details %></comment-body>
 
     <%= render StoreHallWeb.CommentView,
               "form.html",

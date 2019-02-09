@@ -22,7 +22,7 @@
 
   <li>
     <strong>Rating:</strong>
-    <span id="rating_score"><%= @item.details["rating"]["score"] %></span> from <span id="rating_count"><%= @item.details["rating"]["count"] %></span> votes
+    <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
   </li>
 
   <!-- links to mark image as inappropriate -->
@@ -38,8 +38,8 @@
 </ul>
 
 <span id="reactions">
-  <img reaction_topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-  <img reaction_topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+  <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+  <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
 </span>
 
 <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>

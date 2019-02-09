@@ -1,8 +1,8 @@
-<rating_form id="rating">
+<rating-form id="rating">
   Body:
   <input class="body" type="text" name="body", value="">
   Scores:
   <input class="scores" type="text" name="scores", value="<%= Poison.encode! @rating.scores %>">
   <input class="rating" type="hidden" name="rating", value="<%= Poison.encode! @rating %>">
-  <button rating_topic="rating:add" type="button">Send</button>
-</rating_form>
+  <button rating-topic="rating:add" type="button">Send</button>
+</rating-form>

@@ -1,6 +1,6 @@
 
-<button onclick='show_hide("show_hide_ratings")'>show/hide ratings</button>
-<span id="show_hide_ratings" style="display: none">
+<button onclick='show_hide("show-hide-ratings")'>show/hide ratings</button>
+<span id="show-hide-ratings" style="display: none">
   <h1>Listing Ratings</h1>
 
   <ratings>
