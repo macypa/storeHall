@@ -76,22 +76,22 @@ var add_events = function(selector, on_event, fun) {
   });
 };
 
-add_events("[reaction_topic]", "click", function() {
-  channel.push(this.getAttribute("reaction_topic"), { data: this.getAttribute("data") })
+add_events("[reaction-topic]", "click", function() {
+  channel.push(this.getAttribute("reaction-topic"), { data: this.getAttribute("data") })
 });
 
 channel.on("update_rating", payload => {
-  document.querySelector("#rating_score").innerText = payload.new_rating
-  document.querySelector("#rating_count").innerText = parseInt(document.querySelector("#rating_count").innerText) + 1
+  document.querySelector("#rating-score").innerText = payload.new_rating
+  document.querySelector("#rating-count").innerText = parseInt(document.querySelector("#rating-count").innerText) + 1
 })
 
 function add_comment_events() {
-  add_events("[comment_topic]", "click", function() {
+  add_events("[comment-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
     var comment_field_value = JSON.parse(this.parentNode.getElementsByClassName("comment")[0].value)
     comment_field_value.details = {}
     comment_field_value.details.body = body_field_value
-    channel.push(this.getAttribute("comment_topic"), { data: comment_field_value })
+    channel.push(this.getAttribute("comment-topic"), { data: comment_field_value })
 
     show_hide(this.parentNode.getAttribute("id"))
   });
@@ -109,7 +109,7 @@ channel.on("new_comment", payload => {
   if (payload.comment_parent_id == null) {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', new_comment_html)
   } else {
-    var comment_parent = document.querySelector("#comment_" + payload.comment_parent_id).parentNode
+    var comment_parent = document.querySelector("#comment-" + payload.comment_parent_id).parentNode
     if (comment_parent !== null) {
       comment_parent.insertAdjacentHTML( 'beforeend', new_comment_html)
     }
@@ -118,7 +118,7 @@ channel.on("new_comment", payload => {
 })
 
 function add_rating_events() {
-  add_events("[rating_topic]", "click", function() {
+  add_events("[rating-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
     var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
     var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
@@ -126,7 +126,7 @@ function add_rating_events() {
     rating_field_value.details = {}
     rating_field_value.details.body = body_field_value
     rating_field_value.details.scores = JSON.parse(scores_field_value)
-    channel.push(this.getAttribute("rating_topic"), { data: rating_field_value })
+    channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
   });
 }
 add_rating_events();
@@ -145,40 +145,67 @@ window.onpopstate = function (event) {
   if (event.state) {
     render(event.state);
 
-    var form = $('#form_filter');
+    var form = $('#form-filter');
     $.each(event.state.filter_params_array, function(field, value) {
         form.find('[name="' + value.name + '"]').val(value.value);
     });
 
   }
 }
+//
+// window.history.replaceState({filter_params_array: $("#form-filter").serializeArray(),
+//  filter_params: $("#form-filter").serialize()}, document.title, location.pathname + "?" + $("#form-filter").serialize());
 
-window.history.replaceState({filter_params_array: $("#form_filter").serializeArray(),
- filter_params: $("#form_filter").serialize()}, document.title,
-  location.pathname);
 function render(state) {
   channel.push("filter", { data: state.filter_params })
 }
 
-add_events(".auto_submit_item", "change", function() {
-  var filter_params = $("#form_filter").serialize();
+add_events(".auto-submit-item", "change", function() {
+  var filter_params = $("#form-filter").serialize();
   channel.push("filter", { data: filter_params })
 
-  window.history.pushState({filter_params_array: $("#form_filter").serializeArray(), filter_params: filter_params},
+  window.history.pushState({filter_params_array: $("#form-filter").serializeArray(), filter_params: filter_params},
   document.title,
   (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
+  update_next_page_link(filter_params);
 });
+
+$('#next-page-link').on('click', e => {
+  var next_page = e.target.href.slice(e.target.href.indexOf('?') + 1);
+  channel.push("filter", { data: next_page })
+  e.preventDefault();
+});
+
+function update_next_page_link(filter_params) {
+  filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
+  
+  $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function(page_param) {
+    return page_param.replace(/\d+/, function(n) {
+      return ++n;
+    })
+  }));
+}
 
 import items_template from "../hbs/items.hbs"
 channel.on("filtered_items", payload => {
   var filtered_items = items_template( JSON.parse(payload.filtered) )
-  document.querySelector("#items_listing").innerHTML = filtered_items;
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("#items-listing").innerHTML = filtered_items;
+  } else {
+    document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
+  }
+  update_next_page_link(payload.filter);
 })
 
 import users_template from "../hbs/users.hbs"
 channel.on("filtered_users", payload => {
   var filtered_users = users_template( JSON.parse(payload.filtered) )
-  document.querySelector("#users_listing").innerHTML = filtered_users;
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("#users-listing").innerHTML = filtered_users;
+  } else {
+    document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
+  }
+  update_next_page_link(payload.filter);
 })
 
 channel.on("error", payload => {
