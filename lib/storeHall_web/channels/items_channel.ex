@@ -86,7 +86,7 @@ defmodule StoreHallWeb.ItemsChannel do
           {:ok, rating, item_rating, user_rating} ->
             broadcast!(
               socket,
-              "new-rating",
+              "new_rating",
               %{
                 new_rating: Poison.encode!(rating)
               }
