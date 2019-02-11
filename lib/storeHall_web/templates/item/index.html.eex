@@ -12,6 +12,9 @@
     <%= text_input f, :q, placeholder: "Search by title, content, etc.",
       class: "auto-submit-item" %>
 
+    <filter-label for="with-image">With image:</filter-label>
+    <%= checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
+
     <filter-label for="rating-min">Rating:</filter-label>
     <%= range_input f, :rating,
       class: "auto-submit-item",
@@ -20,7 +23,7 @@
       value: f.params["rating"]["min"] || 0 %>
 
     <filter-label for="sort">sort:</filter-label>
-    <%= text_input f, :sort, class: "auto-submit-item", value: "id"  %>
+    <%= text_input f, :sort, class: "auto-submit-item", value: "inserted_at:desc"  %>
 
     <filter-label for="merchants">Merchants:</filter-label>
     <%= multiple_select f, :merchant,
