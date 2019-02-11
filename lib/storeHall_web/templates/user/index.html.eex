@@ -12,41 +12,33 @@
 
 <% end %>
 
+<input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
+<label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
+
+<input type="radio" name="view-filter" id="grid-view" class="grid-view-radio view-radio" checked>
+<label for="grid-view"><i class="fa fa-th"></i> Grid View</label>
+
+<div class="listing">
 <h1>Listing Users</h1>
 
-  <% page_params = @conn.params
-      |> Map.delete("sort")
-      |> Plug.Conn.Query.encode()
-      |> case do
-          "" -> ""
-          params -> params <> "&"
-        end %>
+  <div id="users-listing">
+    <%= for user <- @users do %>
+      <user class="block-item">
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
+        <img src="<%= user.image %>"/>
+        <div class="entry-content">
+          <h1 class="entry-title"><%= user.first_name %> &nbsp; <%= user.last_name %></h1>
+          <p><%= user.details %></p>
+          <span>
+            <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
+            <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
+            <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
+          </span>
+        </div>
+      </user>
+    <% end %>
+  </div>
 
-      <th><a href="?<%= page_params %>sort=first_name"><%= :first_name %></a></th>
-      <th><a href="?<%= page_params %>sort=last_name"><%= :last_name %></a></th>
-      <th><%= :details %></th>
-    </tr>
-  </thead>
-  <tbody id="users-listing">
-<%= for user <- @users do %>
-    <tr>
-      <td>
-        <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
-        <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
-        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
+  <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users %>
 
-      <td><%= user.first_name %></td>
-      <td><%= user.last_name %></td>
-      <td><%= user.details %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users %>
+</div>

@@ -178,7 +178,7 @@ $('#next-page-link').on('click', e => {
 
 function update_next_page_link(filter_params) {
   filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
-  
+
   $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function(page_param) {
     return page_param.replace(/\d+/, function(n) {
       return ++n;
@@ -188,7 +188,10 @@ function update_next_page_link(filter_params) {
 
 import items_template from "../hbs/items.hbs"
 channel.on("filtered_items", payload => {
-  var filtered_items = items_template( JSON.parse(payload.filtered) )
+  var json_payload = JSON.parse(payload.filtered)
+  json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
+
+  var filtered_items = items_template( json_payload )
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#items-listing").innerHTML = filtered_items;
   } else {

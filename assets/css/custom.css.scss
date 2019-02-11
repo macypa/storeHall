@@ -3,6 +3,10 @@
   background-color: black;
 }
 
+.alert:empty {
+  display: none;
+}
+
 .is-collapsed .sidebar {
     width: 180px;
 }

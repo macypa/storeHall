@@ -1,3 +1,10 @@
+
+<input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
+<label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
+
+<input type="radio" name="view-filter" id="grid-view" class="grid-view-radio view-radio" checked>
+<label for="grid-view"><i class="fa fa-th"></i> Grid View</label>
+
 <div class="sidebar-filters">
   <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
 
@@ -16,10 +23,10 @@
     <%= text_input f, :sort, class: "auto-submit-item", value: "id"  %>
 
     <filter-label for="merchants">Merchants:</filter-label>
-    <%= select f, :merchant,
-      ["all" | @conn.assigns.filters["merchant"]
-      |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end) ],
-      class: "auto-submit-item", selected: "all"  %>
+    <%= multiple_select f, :merchant,
+      @conn.assigns.filters["merchant"]
+      |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
+      class: "auto-submit-item"  %>
 
     <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
     <filter-label for="tags">Tags:</filter-label>
@@ -43,40 +50,25 @@
 <div class="listing">
   <h1>Listing Items</h1>
 
-  <% page_params = @conn.params
-      |> Map.delete("sort")
-      |> Plug.Conn.Query.encode()
-      |> case do
-          "" -> ""
-          params -> params <> "&"
-        end %>
+  <div id="items-listing">
+    <%= for item <- @items do %>
+      <item class="block-item">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Actions</th>
+        <img src="<%= StoreHall.Items.cover_image(item) %>" >
 
-        <th><a href="?<%= page_params %>sort=name"><%= :name %></a></th>
-        <th><a href="?<%= page_params %>sort=user_id"><%= :user_id %></a></th>
-        <th><%= :details %></th>
-      </tr>
-    </thead>
-    <tbody id="items-listing">
-  <%= for item <- @items do %>
-      <tr>
-        <td>
-          <%= link "Show", to: Routes.item_path(@conn, :show, item) %>
-          <%= link "Edit", to: Routes.item_path(@conn, :edit, item) %>
-          <%= link "Delete", to: Routes.item_path(@conn, :delete, item), method: :delete, data: [confirm: "Are you sure?"] %>
-        </td>
-
-        <td><%= item.name %></td>
-        <td><%= item.user_id %></td>
-        <td><%= item.details %></td>
-      </tr>
-  <% end %>
-    </tbody>
-  </table>
-
-  <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items %>
+        <div class="entry-content">
+          <h1 class="entry-title"><%= item.name %></h1>
+          <h5><%= item.user_id %></h5>
+          <p><%= item.details %></p>
+          <span>
+            <%= link "Show", to: Routes.item_path(@conn, :show, item) %>
+            <%= link "Edit", to: Routes.item_path(@conn, :edit, item) %>
+            <%= link "Delete", to: Routes.item_path(@conn, :delete, item), method: :delete, data: [confirm: "Are you sure?"] %>
+          </span>
+        </div>
+      </item>
+    <% end %>
+  </div>
 </div>
+
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items %>

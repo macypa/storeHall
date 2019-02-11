@@ -36,6 +36,33 @@ defmodule StoreHall.Items do
     |> ItemFilter.search_filter(conn)
   end
 
+  def cover_image(item, version \\ :thumb) do
+    first_image =
+      case item.details["images"] do
+        nil -> ""
+        "[]" -> ""
+        "null" -> ""
+        [] -> ""
+        images -> Enum.at(images, 0)
+      end
+
+    first_image = StoreHall.FileUploader.url({first_image, item}, version)
+
+    case File.exists?("." <> first_image) do
+      false -> ""
+      true -> first_image
+    end
+  end
+
+  def image_url(item, image, version \\ :thumb) do
+    image = StoreHall.FileUploader.url({image, item}, version)
+
+    case File.exists?("." <> image) do
+      false -> ""
+      true -> image
+    end
+  end
+
   @doc """
   Gets a single item.
 

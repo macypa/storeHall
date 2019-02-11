@@ -20,7 +20,24 @@ defmodule StoreHallWeb.ItemsChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Items.list_items(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+    filtered =
+      Items.list_items(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+      |> Enum.map(fn item ->
+        Map.put(
+          item,
+          :details,
+          item.details
+          |> put_in(
+            ["images"],
+            item.details["images"]
+            |> Enum.map(fn image ->
+              StoreHall.Items.image_url(item, image)
+            end)
+          )
+        )
+
+        # Map.put(item.details, "images", StoreHall.Items.cover_image(item))
+      end)
 
     case filtered do
       [] ->

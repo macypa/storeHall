@@ -1,13 +1,17 @@
 {{#each this}}
-    <tr>
-      <td>
+  <item class="block-item">
+
+    <img src="{{#if details.images}}{{details.images}}{{/if}}" />
+
+    <div class="entry-content">
+      <h1 class="entry-title">{{name}}</h1>
+      <h5>{{user_id}}</h5>
+      <p>{{json details}}</p>
+      <span>
         <a href="/items/{{id}}">Show</a>
         <a href="/items/{{id}}/edit">Edit</a>
-        <a data-confirm="Are you sure?" data-csrf="bx1MCAgkMUIgDCcbJj4GGhcCBnl8AAAAD+8RdIr3FtlxLlAwdhA3Ow==" data-method="delete" data-to="/items/{{id}}" href="/items/{{id}}" rel="nofollow">Delete</a>
-      </td>
-
-      <td>{{name}}</td>
-      <td>{{user_id}}</td>
-      <td>{{json details}}</td>
-    </tr>
+        <a data-confirm="Are you sure?" data-csrf="{{../csrf_token}}" data-method="delete" data-to="/items/{{id}}" href="/items/{{id}}" rel="nofollow">Delete</a>
+      </span>
+    </div>
+  </item>
 {{/each}}

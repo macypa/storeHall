@@ -78,8 +78,8 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:merchant, dynamic, value) do
     case value do
-      "all" -> dynamic
-      value -> dynamic([u], ^dynamic and u.user_id == ^value)
+      [""] -> dynamic
+      value -> dynamic([u], ^dynamic and u.user_id in ^value)
     end
   end
 
