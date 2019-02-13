@@ -83,7 +83,7 @@ defmodule StoreHall.ItemFilter do
     end
   end
 
-  defp filter(:"with-image", dynamic, value) do
+  defp filter(:"with-image", dynamic, _value) do
     dynamic(
       [u],
       ^dynamic and fragment(" jsonb_array_length(details -> 'images') > 0 ")

@@ -1,4 +1,4 @@
-
+<!-- https://codepen.io/anon/pen/VgXVdq?editors=1100 css list grid view  -->
 <input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
 <label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
 
