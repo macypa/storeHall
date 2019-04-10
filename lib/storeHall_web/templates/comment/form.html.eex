@@ -2,6 +2,6 @@
 <comment-form id="comment-<%=@comment.comment_id%>" style="display: none">
 
   <input class="body" type="text" name="body", value="">
-  <input class="comment" type="hidden" name="comment", value="<%= Poison.encode! @comment %>">
+  <input class="comment" type="hidden" name="comment", value="<%= Jason.encode! @comment %>">
   <button comment-topic="comment:add" type="button">Send</button>
 </comment-form>

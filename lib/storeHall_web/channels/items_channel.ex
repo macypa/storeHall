@@ -46,7 +46,7 @@ defmodule StoreHallWeb.ItemsChannel do
         })
 
       filtered ->
-        push(socket, "filtered_items", %{filter: filter, filtered: Poison.encode!(filtered)})
+        push(socket, "filtered_items", %{filter: filter, filtered: Jason.encode!(filtered)})
     end
 
     {:reply, :ok, socket}
@@ -64,7 +64,7 @@ defmodule StoreHallWeb.ItemsChannel do
           "new_comment",
           %{
             comment_parent_id: comment.comment_id,
-            new_comment: Poison.encode!(comment)
+            new_comment: Jason.encode!(comment)
           }
         )
     end
@@ -88,7 +88,7 @@ defmodule StoreHallWeb.ItemsChannel do
               socket,
               "new_rating",
               %{
-                new_rating: Poison.encode!(rating)
+                new_rating: Jason.encode!(rating)
               }
             )
 

@@ -17,11 +17,11 @@
     <%= error_tag f, :details %>
 
     <%= label f, :tags %>
-    <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Poison.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %>
+    <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Jason.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %>
 
     <div class="form-image-group">
       <%= label f, :images %>
-      <%= text_input f, :images, name: input_name(f, :details) <> "[images]", value: Poison.encode!(f.data.details["images"]) |> String.replace(",\"", ",\n\"") %>
+      <%= text_input f, :images, name: input_name(f, :details) <> "[images]", value: Jason.encode!(f.data.details["images"]) |> String.replace(",\"", ",\n\"") %>
       <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple" %>
       <%= error_tag f, :images %>
     </div>

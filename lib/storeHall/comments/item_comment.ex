@@ -2,7 +2,7 @@ defmodule StoreHall.Comments.ItemComment do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:id, :comment_id, :details, :item_id, :user_id, :author_id]}
+  @derive {Jason.Encoder, only: [:id, :comment_id, :details, :item_id, :user_id, :author_id]}
   schema "item_comments" do
     field :comment_id, :integer
     field :details, :map, default: %{}

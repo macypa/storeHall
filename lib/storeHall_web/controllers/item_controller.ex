@@ -26,11 +26,11 @@ defmodule StoreHallWeb.ItemController do
          # |> put_in([:details, :merchant], conn.assigns.logged_user.id)
          |> put_in(
            ["details", "tags"],
-           Poison.decode!(get_in(item_params, ["details", "tags"]))
+           Jason.decode!(get_in(item_params, ["details", "tags"]))
          )
          |> put_in(
            ["details", "images"],
-           Poison.decode!(get_in(item_params, ["details", "images"]))
+           Jason.decode!(get_in(item_params, ["details", "images"]))
          )
          # |> Map.put(:details, StoreHall.EncodeHelper.decode(item_params, :details))
          |> Items.create_item() do
@@ -91,11 +91,11 @@ defmodule StoreHallWeb.ItemController do
            item_params
            |> put_in(
              ["details", "tags"],
-             Poison.decode!(get_in(item_params, ["details", "tags"]))
+             Jason.decode!(get_in(item_params, ["details", "tags"]))
            )
            |> put_in(
              ["details", "images"],
-             Poison.decode!(get_in(item_params, ["details", "images"]))
+             Jason.decode!(get_in(item_params, ["details", "images"]))
            )
          ) do
       {:ok, item} ->

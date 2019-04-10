@@ -22,7 +22,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     filtered = Users.list_users(%{params: filter |> Plug.Conn.Query.decode()}, nil)
 
-    push(socket, "filtered_users", %{filter: filter, filtered: Poison.encode!(filtered)})
+    push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
 
     {:reply, :ok, socket}
   end
@@ -39,7 +39,7 @@ defmodule StoreHallWeb.UsersChannel do
           "new_comment",
           %{
             comment_parent_id: comment.comment_id,
-            new_comment: Poison.encode!(comment)
+            new_comment: Jason.encode!(comment)
           }
         )
     end
@@ -63,7 +63,7 @@ defmodule StoreHallWeb.UsersChannel do
               socket,
               "new_rating",
               %{
-                new_rating: Poison.encode!(rating)
+                new_rating: Jason.encode!(rating)
               }
             )
 
