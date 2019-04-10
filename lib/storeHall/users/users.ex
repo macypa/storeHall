@@ -54,12 +54,6 @@ defmodule StoreHall.Users do
     Map.put(user, :settings, settings)
   end
 
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-  end
-
   def update_user(%User{} = user, attrs) do
     upsert_settings(user, Map.get(attrs, "settings"))
 
@@ -99,10 +93,22 @@ defmodule StoreHall.Users do
 
   def delete_user(%User{} = user) do
     Repo.delete(user)
-    Repo.delete(Repo.get!(Settings, user.id))
+
+    case Repo.get(Settings, user.id) do
+      nil -> {:ok}
+      user_setting -> Repo.delete(user_setting)
+    end
   end
 
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def decode_user_params(user_params) do
+    user_params
+    |> put_in(
+      ["settings", "labels"],
+      Jason.decode!(get_in(user_params, ["settings", "labels"]))
+    )
   end
 end

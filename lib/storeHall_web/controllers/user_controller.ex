@@ -3,7 +3,6 @@ defmodule StoreHallWeb.UserController do
 
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
-  alias StoreHall.Users.User
   alias StoreHall.Comments
   alias StoreHall.Ratings
 
@@ -13,23 +12,6 @@ defmodule StoreHallWeb.UserController do
     users = Users.list_users(conn, params)
 
     render(conn, :index, users: users)
-  end
-
-  def new(conn, _params) do
-    changeset = Users.change_user(%User{})
-    render(conn, :new, changeset: changeset)
-  end
-
-  def create(conn, %{"user" => user_params}) do
-    case Users.create_user(user_params) do
-      {:ok, user} ->
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.user_path(conn, :show, user))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
-    end
   end
 
   def show(conn, %{"id" => id}) do
@@ -72,14 +54,7 @@ defmodule StoreHallWeb.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = get_user!(conn, id)
 
-    user_params =
-      user_params
-      |> put_in(
-        ["settings", "labels"],
-        Poison.decode!(get_in(user_params, ["settings", "labels"]))
-      )
-
-    case Users.update_user(user, user_params) do
+    case Users.update_user(user, Users.decode_user_params(user_params)) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
@@ -92,7 +67,7 @@ defmodule StoreHallWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = get_user!(conn, id)
-    {:ok, _user} = Users.delete_user(user)
+    {:ok} = Users.delete_user(user)
 
     conn
     |> put_flash(:info, "User deleted successfully.")

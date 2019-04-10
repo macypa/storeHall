@@ -21,7 +21,7 @@ defmodule StoreHallWeb.Router do
   scope "/", StoreHallWeb do
     pipe_through [:browser, :auth]
 
-    resources "/users", UserController, only: [:new, :create, :edit, :update, :delete] do
+    resources "/users", UserController, only: [:edit, :update, :delete] do
       resources "/ratings", RatingController, only: [:index, :create]
     end
 
