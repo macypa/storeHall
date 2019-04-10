@@ -16,3 +16,8 @@ config :storeHall, StoreHall.Repo,
   database: "storehall_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Configure Google OAuth
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: "561597658888-jf8k47pmjvnuo362h8kjg2cb389khroa.apps.googleusercontent.com",
+  client_secret: "LWT6NmLgy33tTXoIyRkrVG5b"
