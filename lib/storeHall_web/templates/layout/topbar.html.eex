@@ -226,7 +226,7 @@
           <% else %>
             <li>
               <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
-              <%= link to: Routes.auth_path(@conn, :request, "google", scope: "email profile"), class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
+              <%= link to: Routes.auth_path(@conn, :request, "google"), class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
                 <i class="ti-power-off mR-10"></i>
                 <span>Sign in with Google</span>
               <% end %>

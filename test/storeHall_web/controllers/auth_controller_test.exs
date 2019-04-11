@@ -29,7 +29,7 @@ defmodule StoreHallWeb.AuthControllerTest do
   end
 
   test "redirects user to Google for authentication", %{conn: conn} do
-    conn = get(conn, "/auth/google?scope=email%20profile")
+    conn = get(conn, "/auth/google")
     assert redirected_to(conn, 302)
   end
 
