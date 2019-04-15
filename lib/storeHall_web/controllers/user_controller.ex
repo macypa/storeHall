@@ -8,8 +8,8 @@ defmodule StoreHallWeb.UserController do
 
   plug :check_owner when action in [:edit, :delete]
 
-  def index(conn, params) do
-    users = Users.list_users(conn, params)
+  def index(conn, _params) do
+    users = Users.list_users(conn.params)
 
     render(conn, :index, users: users)
   end

@@ -21,7 +21,7 @@ defmodule StoreHallWeb.ItemsChannel do
         socket
       ) do
     filtered =
-      Items.list_items(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+      Items.list_items(filter |> Plug.Conn.Query.decode())
       |> Enum.map(fn item ->
         Map.put(
           item,

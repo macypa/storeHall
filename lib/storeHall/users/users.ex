@@ -9,16 +9,16 @@ defmodule StoreHall.Users do
   alias StoreHall.UserFilter
   alias StoreHall.DefaultFilter
 
-  def list_users(conn, _params) do
-    apply_filters(conn)
+  def list_users(params \\ nil) do
+    apply_filters(params)
     |> Repo.all()
   end
 
-  def apply_filters(conn) do
+  def apply_filters(params) do
     User
-    |> DefaultFilter.sort_filter(conn)
-    |> DefaultFilter.paging_filter(conn)
-    |> UserFilter.search_filter(conn)
+    |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.paging_filter(params)
+    |> UserFilter.search_filter(params)
   end
 
   def get_user!(id, repo \\ Repo) do

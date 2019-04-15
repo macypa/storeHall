@@ -24,16 +24,16 @@ defmodule StoreHall.Items do
       [%Item{}, ...]
 
   """
-  def list_items(conn, _params) do
-    apply_filters(conn)
+  def list_items(params \\ nil) do
+    apply_filters(params)
     |> Repo.all()
   end
 
-  def apply_filters(conn) do
+  defp apply_filters(params) do
     Item
-    |> DefaultFilter.sort_filter(conn)
-    |> DefaultFilter.paging_filter(conn)
-    |> ItemFilter.search_filter(conn)
+    |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.paging_filter(params)
+    |> ItemFilter.search_filter(params)
   end
 
   def cover_image(item, version \\ :thumb) do

@@ -1,8 +1,8 @@
 defmodule StoreHall.ItemFilter do
   import Ecto.Query, warn: false
 
-  def search_filter(query, conn) do
-    search_terms = conn.params["filter"]
+  def search_filter(query, params) do
+    search_terms = get_in(params, ["filter"])
 
     search_terms
     |> case do

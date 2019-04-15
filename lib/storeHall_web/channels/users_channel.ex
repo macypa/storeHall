@@ -20,7 +20,7 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Users.list_users(%{params: filter |> Plug.Conn.Query.decode()}, nil)
+    filtered = Users.list_users(filter |> Plug.Conn.Query.decode())
 
     push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
 

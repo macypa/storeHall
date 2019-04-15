@@ -12,11 +12,14 @@ defmodule StoreHall.DefaultFilter do
 
   @accepted_fields [:id, :inserted_at, :updated_at, :name, :user_id, :first_name, :last_name]
 
-  def sort_filter(query, conn) do
-    value = conn.params["filter"]["sort"] || ""
+  def sort_filter(query, params) do
+    value = get_in(params, ["filter", "sort"])
 
     value
     |> case do
+      nil ->
+        query |> order_by([{:desc, :inserted_at}])
+
       "" ->
         query |> order_by([{:desc, :inserted_at}])
 
@@ -44,9 +47,9 @@ defmodule StoreHall.DefaultFilter do
     end
   end
 
-  def paging_filter(query, conn) do
-    page = parse_int(conn.params["page"], 1)
-    page_size = parse_int(conn.params["page-size"], 10)
+  def paging_filter(query, params) do
+    page = parse_int(params["page"], 1)
+    page_size = parse_int(params["page-size"], 10)
     offset = page_size * (page - 1)
 
     query

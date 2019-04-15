@@ -1,8 +1,8 @@
 defmodule StoreHall.UserFilter do
   import Ecto.Query, warn: false
 
-  def search_filter(query, conn) do
-    value = conn.params["filter"]["q"]
+  def search_filter(query, params) do
+    value = get_in(params, ["filter", "q"])
 
     value
     |> case do

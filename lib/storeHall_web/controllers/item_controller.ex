@@ -9,8 +9,8 @@ defmodule StoreHallWeb.ItemController do
 
   plug :check_owner when action in [:edit, :delete]
 
-  def index(conn, params) do
-    items = Items.list_items(conn, params)
+  def index(conn, _params) do
+    items = Items.list_items(conn.params)
     filters = Items.item_filters()
     render(conn, :index, items: items, filters: filters)
   end
