@@ -39,8 +39,10 @@ defmodule StoreHallWeb.AuthControllerTest do
       |> assign(:ueberauth_auth, @ueberauth_auth)
       |> get("/auth/google/callback")
 
-    users = Users.list_users(conn, nil)
-    assert Enum.count(users) == 1
+    user_id = @ueberauth_auth.info.first_name <> "." <> @ueberauth_auth.info.last_name
+    user = Users.get_user!(user_id)
+
+    assert user.id == user_id
     assert get_flash(conn, :info) == "Thank you for signing in!"
   end
 

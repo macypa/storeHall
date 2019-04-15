@@ -1,7 +1,11 @@
 defmodule StoreHall.ItemsTest do
   use StoreHall.DataCase
+  use ExUnitProperties
 
+  alias StoreHall.Fixture
   alias StoreHall.Items
+
+  @items_count 100
 
   describe "items" do
     alias StoreHall.Items.Item
@@ -65,8 +69,8 @@ defmodule StoreHall.ItemsTest do
     end
 
     test "list_items/0 returns all items" do
-      item = item_fixture()
-      assert Repo.all(Item) == [item]
+      items = Fixture.insert_items(@items_count)
+      assert length(Repo.all(Item)) == length(items)
     end
 
     test "get_item!/1 returns the item with given id" do
