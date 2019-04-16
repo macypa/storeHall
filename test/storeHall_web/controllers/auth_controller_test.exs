@@ -17,9 +17,15 @@ defmodule StoreHallWeb.AuthControllerTest do
         |> assign(:ueberauth_auth, ueberauth_auth)
         |> get("/auth/google/callback")
 
-      assert conn.private.plug_session["logged_user"].id != ""
-      assert conn.private.plug_session["logged_user"].inserted_at != ""
-      assert get_flash(conn, :info) == "Thank you for signing in!"
+      case conn.private.plug_session["phoenix_flash"]["error_reason"] do
+        nil ->
+          assert conn.private.plug_session["logged_user"].id != ""
+          assert conn.private.plug_session["logged_user"].inserted_at != ""
+          assert get_flash(conn, :info) == "Thank you for signing in!"
+
+        reason ->
+          assert reason == nil
+      end
     end
   end
 
