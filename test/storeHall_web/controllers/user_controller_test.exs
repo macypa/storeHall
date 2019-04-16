@@ -4,6 +4,7 @@ defmodule StoreHallWeb.UserControllerTest do
 
   alias StoreHall.Fixture
   alias StoreHall.Users
+  alias StoreHall.Users.User
 
   @update_attrs %{
     id: "some_id",
@@ -22,9 +23,10 @@ defmodule StoreHallWeb.UserControllerTest do
   }
 
   describe "index" do
-    test "lists all users", %{conn: conn} do
+    test "lists users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Users"
+      assert conn.assigns.users != nil
     end
   end
 
@@ -40,6 +42,17 @@ defmodule StoreHallWeb.UserControllerTest do
       conn = conn |> assign(:logged_user, user)
       conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "Edit User"
+
+      assert %User{} = conn.assigns.user
+      assert %Ecto.Changeset{} = conn.assigns.changeset
+    end
+
+    test "restrict editing other user", %{conn: conn, user: user} do
+      conn = conn |> assign(:logged_user, user)
+      conn = get(conn, Routes.user_path(conn, :edit, Fixture.generate_user()))
+
+      assert conn.private.phoenix_flash["error"] == "You cannot do that"
+      assert redirected_to(conn) == Routes.user_path(conn, :index)
     end
   end
 
@@ -69,10 +82,22 @@ defmodule StoreHallWeb.UserControllerTest do
       conn = conn |> assign(:logged_user, user)
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.user_path(conn, :index)
+      assert get_flash(conn, :info) == "User deleted successfully."
 
       assert_error_sent 404, fn ->
         get(conn, Routes.user_path(conn, :show, user))
       end
+    end
+
+    test "restrict deleting other user", %{conn: conn, user: user} do
+      conn = conn |> assign(:logged_user, user)
+      conn = delete(conn, Routes.user_path(conn, :delete, Fixture.generate_user()))
+
+      assert conn.private.phoenix_flash["error"] == "You cannot do that"
+      assert redirected_to(conn) == Routes.user_path(conn, :index)
+
+      conn = get(conn, Routes.user_path(conn, :show, user))
+      assert html_response(conn, 200) =~ "Show User"
     end
   end
 
