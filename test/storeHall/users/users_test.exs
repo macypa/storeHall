@@ -31,7 +31,7 @@ defmodule StoreHall.UsersTest do
 
   describe "update" do
     test "update_user/2 with valid data updates the user" do
-      check all user <- StoreHall.Fixture.user_generator() do
+      check all user <- Fixture.user_generator() do
         assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
         assert user.email == "some updated email"
         assert user.first_name == "some updated first_name"
@@ -41,14 +41,14 @@ defmodule StoreHall.UsersTest do
     end
 
     test "update_user/2 with invalid data returns error changeset" do
-      user = StoreHall.Fixture.generate_user()
+      user = Fixture.generate_user()
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, @invalid_attrs)
       assert user == Users.get_user!(user.id)
     end
   end
 
   test "delete_user/1 deletes the user" do
-    check all user <- StoreHall.Fixture.user_generator() do
+    check all user <- Fixture.user_generator() do
       assert {:ok} = Users.delete_user(user)
       assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id) end
     end

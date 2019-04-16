@@ -31,9 +31,10 @@ defmodule StoreHallWeb.AuthController do
         |> put_session(:logged_user, Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
-      {:error, _reason} ->
+      {:error, reason} ->
         conn
         |> put_flash(:error, "Error signing in")
+        |> put_flash(:error_reason, reason)
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
     end
   end

@@ -1,18 +1,10 @@
 defmodule StoreHallWeb.UserControllerTest do
   use StoreHallWeb.ConnCase
+  use ExUnitProperties
 
-  alias StoreHall.Repo
+  alias StoreHall.Fixture
   alias StoreHall.Users
-  alias StoreHall.Users.User
 
-  @create_attrs %{
-    id: "some_id",
-    email: "some email",
-    first_name: "some first_name",
-    last_name: "some last_name",
-    provider: "some provider",
-    settings: %{labels: "{\"got\":0,\"interested\":0,\"liked\":0,\"wish\":0}"}
-  }
   @update_attrs %{
     id: "some_id",
     email: "some updated email",
@@ -28,14 +20,6 @@ defmodule StoreHallWeb.UserControllerTest do
     provider: nil,
     settings: %{labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}"}
   }
-
-  def user_fixture(attrs \\ @create_attrs) do
-    {:ok, user} =
-      User.changeset(%User{id: attrs.id}, attrs)
-      |> Repo.insert()
-
-    Users.get_user_with_settings!(user.id)
-  end
 
   describe "index" do
     test "lists all users", %{conn: conn} do
@@ -93,7 +77,7 @@ defmodule StoreHallWeb.UserControllerTest do
   end
 
   defp create_user(_) do
-    user = user_fixture(@create_attrs)
+    user = Users.get_user_with_settings!(Fixture.generate_user().id)
     {:ok, user: user}
   end
 end

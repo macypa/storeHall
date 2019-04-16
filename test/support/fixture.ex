@@ -1,5 +1,4 @@
 defmodule StoreHall.Fixture do
-  use ExUnit.CaseTemplate
   use ExUnitProperties
 
   alias StoreHall.Repo
@@ -11,30 +10,26 @@ defmodule StoreHall.Fixture do
   @users_count 100
   @items_count 100
 
-  setup_all do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(StoreHall.Repo)
-    # we are setting :auto here so that the data persists for all tests,
-    # normally (with :shared mode) every process runs in a transaction
-    # and rolls back when it exits. setup_all runs in a distinct process
-    # from each test so the data doesn't exist for each test.
-    Ecto.Adapters.SQL.Sandbox.mode(StoreHall.Repo, :auto)
-    IO.puts("Generate #{@users_count} users in db")
-    users = insert_users()
+  def ueberauth_generator() do
+    ExUnitProperties.gen all token <- StreamData.string(:alphanumeric),
+                             first_name <- StreamData.string(:alphanumeric),
+                             last_name <- StreamData.string(:alphanumeric),
+                             email <- StreamData.string(:alphanumeric) do
+      %{
+        credentials: %{token: token},
+        info: %{
+          email: "#{email}@gmail.com",
+          first_name: "test_#{first_name}",
+          last_name: last_name,
+          image: ""
+        },
+        provider: :google
+      }
+    end
+  end
 
-    on_exit(fn ->
-      IO.puts("Remove generated users from db")
-      # this callback needs to checkout its own connection since it
-      # runs in its own process
-      :ok = Ecto.Adapters.SQL.Sandbox.checkout(StoreHall.Repo)
-      Ecto.Adapters.SQL.Sandbox.mode(StoreHall.Repo, :auto)
-
-      # we also need to re-fetch the %User struct since Ecto otherwise
-      # complains it's "stale"
-      delete_users()
-      :ok
-    end)
-
-    [users: users]
+  def generate_ueberauth() do
+    ExUnitProperties.pick(ueberauth_generator())
   end
 
   def user_generator() do
