@@ -5,8 +5,11 @@ defmodule StoreHallWeb.UserControllerTest do
   alias StoreHall.Fixture
   alias StoreHall.Users
   alias StoreHall.Users.User
+  alias StoreHall.Comments
+  alias StoreHall.Ratings
+  alias StoreHallWeb.AuthController
 
-  @update_attrs %{
+  @user_attrs %{
     id: "some_id",
     email: "some updated email",
     first_name: "some updated first_name",
@@ -29,6 +32,48 @@ defmodule StoreHallWeb.UserControllerTest do
       assert get_flash(conn, :error) == nil
       assert html_response(conn, 200) =~ "Listing Users"
       assert conn.assigns.users != nil
+    end
+  end
+
+  describe "show user" do
+    setup [:create_user]
+
+    test "exists", %{conn: conn, user: user} do
+      conn = conn |> assign(:logged_user, user)
+      conn = get(conn, Routes.user_path(conn, :show, user))
+
+      assert html_response(conn, 200) =~ "Show User"
+      assert %User{} = conn.assigns.user
+
+      assert conn.assigns.comments_info == %{
+               comments: Comments.for_user(user.id),
+               comment: %{
+                 author_id: AuthController.get_user_id_from_conn(conn),
+                 user_id: user.id
+               }
+             }
+
+      assert conn.assigns.ratings_info == %{
+               ratings: Ratings.for_user(user.id),
+               rating: %{
+                 author_id: AuthController.get_user_id_from_conn(conn),
+                 user_id: user.id,
+                 scores: %{}
+               }
+             }
+    end
+
+    test "does not exists", %{conn: conn} do
+      assert_error_sent 404, fn ->
+        get(
+          conn,
+          Routes.user_path(conn, :show, %User{
+            id: "non-existing-user",
+            first_name: @user_attrs["first_name"],
+            email: @user_attrs["email"]
+          })
+        )
+      end
     end
   end
 
@@ -74,7 +119,7 @@ defmodule StoreHallWeb.UserControllerTest do
 
     test "redirects when data is valid", %{conn: conn, user: user} do
       conn = conn |> assign(:logged_user, user)
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+      conn = put(conn, Routes.user_path(conn, :update, user), user: @user_attrs)
 
       assert get_flash(conn, :error) == nil
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)

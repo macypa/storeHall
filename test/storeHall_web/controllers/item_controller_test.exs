@@ -6,8 +6,11 @@ defmodule StoreHallWeb.ItemControllerTest do
   alias StoreHall.Users
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Comments
+  alias StoreHall.Ratings
+  alias StoreHallWeb.AuthController
 
-  @update_attrs %{
+  @item_attrs %{
     "details" => %{
       "tags" => "[]",
       "images" => "[]",
@@ -41,6 +44,65 @@ defmodule StoreHallWeb.ItemControllerTest do
 
       assert get_flash(conn, :error) == nil
       assert redirected_to(conn) == Routes.item_path(conn, :index)
+    end
+  end
+
+  describe "show item" do
+    setup [:create_item]
+
+    test "exists", %{conn: conn, item: item} do
+      conn = conn |> assign(:logged_user, Users.get_user!(item.user_id))
+      conn = get(conn, Routes.item_path(conn, :show, item))
+
+      assert html_response(conn, 200) =~ "Show Item"
+      assert %Item{} = conn.assigns.item
+
+      assert conn.assigns.comments_info == %{
+               comments: Comments.for_item(item.id),
+               comment: %{
+                 item_id: item.id,
+                 author_id: AuthController.get_user_id_from_conn(conn),
+                 user_id: item.user_id
+               }
+             }
+
+      assert conn.assigns.ratings_info == %{
+               ratings: Ratings.for_item(item.id),
+               rating: %{
+                 item_id: item.id,
+                 author_id: AuthController.get_user_id_from_conn(conn),
+                 user_id: item.user_id,
+                 scores: %{}
+               }
+             }
+    end
+
+    test "does not exists", %{conn: conn} do
+      assert_error_sent 404, fn ->
+        get(conn, Routes.item_path(conn, :show, %Item{id: 1, name: @item_attrs["name"]}))
+      end
+    end
+  end
+
+  describe "create item" do
+    setup [:create_user]
+
+    test "when data is valid", %{conn: conn, user: user} do
+      conn = conn |> assign(:logged_user, user)
+      conn = post(conn, Routes.item_path(conn, :create, %{"item" => @item_attrs}))
+
+      assert get_flash(conn, :error) == nil
+      assert get_flash(conn, :info) == "Item created successfully."
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, user: user} do
+      conn = conn |> assign(:logged_user, user)
+      conn = post(conn, Routes.item_path(conn, :create, %{"item" => @invalid_attrs}))
+
+      assert get_flash(conn, :error) == nil
+      assert html_response(conn, 200) =~ "New Item"
+      assert %Ecto.Changeset{} = conn.assigns.changeset
+      assert conn.assigns.changeset.errors == [name: {"can't be blank", [validation: :required]}]
     end
   end
 
@@ -87,12 +149,13 @@ defmodule StoreHallWeb.ItemControllerTest do
 
     test "redirects when data is valid", %{conn: conn, item: item} do
       conn = conn |> assign(:logged_user, Users.get_user!(item.user_id))
-      conn = put(conn, Routes.item_path(conn, :update, item), item: @update_attrs)
+      conn = put(conn, Routes.item_path(conn, :update, item), item: @item_attrs)
 
       updated_item = Items.get_item!(item.id)
 
-      assert updated_item.name == @update_attrs["name"]
+      assert updated_item.name == @item_attrs["name"]
       assert get_flash(conn, :error) == nil
+
       assert redirected_to(conn) == Routes.item_path(conn, :show, updated_item)
     end
 
@@ -102,6 +165,9 @@ defmodule StoreHallWeb.ItemControllerTest do
 
       assert get_flash(conn, :error) == nil
       assert html_response(conn, 200) =~ "Edit Item"
+      assert %Item{} = conn.assigns.item
+      assert %Ecto.Changeset{} = conn.assigns.changeset
+      assert conn.assigns.changeset.errors == [name: {"can't be blank", [validation: :required]}]
     end
   end
 
