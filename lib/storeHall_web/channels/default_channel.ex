@@ -10,10 +10,18 @@ defmodule StoreHallWeb.DefaultChannel do
   def handle_in(message, content, socket) do
     path = socket.assigns[:path]
 
-    IO.inspect(
-      "DefaultChannel #{inspect(socket)} got #{inspect(message)} : #{inspect(content)} : #{path}"
-    )
+    case content["inspect"] do
+      false ->
+        {:reply, :ok, socket}
 
-    {:reply, :ok, socket}
+      _ ->
+        IO.inspect(
+          "DefaultChannel #{inspect(socket)} got #{inspect(message)} : #{inspect(content)} : #{
+            path
+          }"
+        )
+
+        {:reply, :ok, socket}
+    end
   end
 end
