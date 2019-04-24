@@ -66,6 +66,7 @@ defmodule StoreHall.Ratings do
 
   def update_item_rating(multi, item_id, rating \\ [5])
   def update_item_rating(multi, _item_id, nil), do: multi
+  def update_item_rating(multi, _item_id, [nil]), do: multi
 
   def update_item_rating(multi, item_id, rating) do
     multi
