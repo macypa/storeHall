@@ -82,22 +82,31 @@ defmodule StoreHallWeb.UsersChannel do
   def handle_in(
         "reaction:" <> reaction,
         %{"data" => _data},
-        %{topic: @topic_prefix <> user_id} = socket
+        %{topic: @topic_prefix <> "/" <> user_id} = socket
       ) do
-    Multi.new()
-    |> Action.add_relation(user_id, socket.assigns.current_user_id, reaction)
-    |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
-    |> Repo.transaction()
-    |> case do
-      {:ok, multi} ->
-        broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
-        {:reply, :ok, socket}
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: "must be logged in"})
 
-      {:error, _op, _value, _changes} ->
-        push(socket, "error", %{message: "must be logged in to do that, or you already did it :)"})
+      _logged_user ->
+        Multi.new()
+        |> Action.add_relation(user_id, socket.assigns.current_user_id, reaction)
+        |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
+        |> Repo.transaction()
+        |> case do
+          {:ok, multi} ->
+            if Map.has_key?(multi, :calc_user_rating) do
+              broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
+            end
 
-        {:reply, :ok, socket}
+          {:error, _op, _value, _changes} ->
+            push(socket, "error", %{
+              message: "you already did it :)"
+            })
+        end
     end
+
+    {:reply, :ok, socket}
   end
 
   def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do
