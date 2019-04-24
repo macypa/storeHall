@@ -6,6 +6,7 @@ defmodule StoreHall.Users.Action do
   import Ecto.Query, warn: false
   alias Ecto.Multi
 
+  alias StoreHall.Items
   alias StoreHall.Users.Relations
   alias StoreHall.Users.Labels
   alias StoreHall.Users.Settings
@@ -28,7 +29,7 @@ defmodule StoreHall.Users.Action do
       :insert,
       Labels.changeset(%Labels{}, %{
         user_id: user_id,
-        item_id: item_id,
+        item_id: Items.get_item_id(item_id),
         label: label
       })
     )

@@ -77,6 +77,11 @@ defmodule StoreHall.Items do
       ** (Ecto.NoResultsError)
 
   """
+  def get_item_id(id) do
+    {id, _} = to_string(id) |> Integer.parse()
+    id
+  end
+
   def get_item!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
     item = repo.get!(Item, id)
