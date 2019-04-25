@@ -82,9 +82,9 @@ defmodule StoreHall.Fixture do
                                StreamData.list_of(StreamData.string(:alphanumeric, max_length: 5),
                                  max_length: 5
                                ),
-                             count <- StreamData.integer(),
+                             count <- StreamData.positive_integer(),
                              score <- StreamData.integer(0..5),
-                             comments_count <- StreamData.integer() do
+                             comments_count <- StreamData.positive_integer() do
       {:ok, item} =
         %{
           "details" => %{
