@@ -178,7 +178,7 @@ defmodule StoreHall.Items do
   def update_filter(multi, filter, increase_by \\ 1) do
     Ecto.Multi.insert(
       multi,
-      "upsert_Filters" <> Map.get(filter, :name),
+      "upsert_filters" <> Map.get(filter, :name),
       filter,
       on_conflict: [inc: [count: increase_by]],
       conflict_target: [:name, :type]
@@ -221,7 +221,7 @@ defmodule StoreHall.Items do
     get_parents(Path.dirname(path), [path] ++ accumulator)
   end
 
-  def clean_filters(multi) do
+  defp clean_filters(multi) do
     queryable = from(f in Filters, where: f.count < 1)
     multi |> Multi.delete_all(:delete_empty, queryable)
   end

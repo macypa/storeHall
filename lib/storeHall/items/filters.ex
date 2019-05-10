@@ -18,15 +18,15 @@ defmodule StoreHall.Items.Filters do
     |> unique_constraint(:item_filters, name: :name_type_index)
   end
 
+  @empty_map %{"merchant" => %{}, "tags" => %{}}
   def to_map(data) do
     case data do
       [] ->
-        %{"merchant" => %{}, "tags" => %{}}
+        @empty_map
 
       data ->
-        Enum.reduce(data, %{}, fn data, acc ->
+        Enum.reduce(data, @empty_map, fn data, acc ->
           acc
-          |> Map.put_new(data.type, %{})
           |> put_in([data.type, data.name], data.count)
         end)
     end

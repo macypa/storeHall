@@ -36,11 +36,25 @@ defmodule StoreHall.ItemsTest do
     end
 
     test "get_item!/1 returns the item with given id" do
-      items = Fixture.insert_items(@items_count)
-
-      check all item <- StreamData.member_of(items) do
+      check all item <- Fixture.item_generator() do
         assert Items.get_item!(item.id) == item
       end
+    end
+
+    test "get_item!/1 merges default details" do
+      item = Fixture.generate_item()
+
+      Items.update_item(item, %{
+        "details" => %{
+          "tags" => [],
+          "images" => [],
+          "rating" => %{"score" => -1},
+          "comments_count" => 1
+        }
+      })
+
+      assert Items.get_item!(item.id).details["rating"] == %{"count" => 0, "score" => -1}
+      assert Items.get_item!(item.id).details["comments_count"] == 1
     end
 
     test "create_item/1 with valid data creates a item" do
@@ -63,6 +77,39 @@ defmodule StoreHall.ItemsTest do
 
     test "create_item/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Items.create_item(@invalid_attrs)
+    end
+
+    test "create_item/1 updates item filters table" do
+      user = Fixture.generate_user()
+
+      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
+        filters_before = Items.item_filters()
+
+        item_attrs
+        |> Items.create_item()
+        |> case do
+          {:error, _changeset} ->
+            nil
+
+          {:ok, item} ->
+            tags =
+              Enum.reduce(item.details["tags"], filters_before["tags"], fn tag, acc ->
+                Map.put(
+                  acc,
+                  tag,
+                  case Map.get(acc, tag) do
+                    nil -> 1
+                    count -> count + 1
+                  end
+                )
+              end)
+
+            case item_attrs do
+              [] -> assert Items.item_filters()["tags"] != filters_before["tags"]
+              _ -> assert Items.item_filters()["tags"] == tags
+            end
+        end
+      end
     end
 
     test "update_item/2 with valid data updates the item" do
@@ -93,10 +140,54 @@ defmodule StoreHall.ItemsTest do
       end
     end
 
-    test "change_item/1 returns a item changeset" do
-      items = Fixture.insert_items(@items_count)
+    test "delete_item/1 updates item filters table" do
+      user = Fixture.generate_user()
+      # Fixture.insert_items(@items_count)
+      Fixture.insert_items(5)
 
-      check all item <- StreamData.member_of(items) do
+      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
+        item_attrs
+        |> Items.create_item()
+        |> case do
+          {:error, _changeset} ->
+            nil
+
+          {:ok, item} ->
+            filters_before = Items.item_filters()
+
+            assert {:ok, %Item{}} = Items.delete_item(item)
+
+            tags =
+              Enum.reduce(item.details["tags"], filters_before["tags"], fn tag, acc ->
+                case Map.get(acc, tag) do
+                  nil ->
+                    acc
+
+                  count ->
+                    case count do
+                      1 ->
+                        Map.delete(acc, tag)
+
+                      count ->
+                        Map.put(
+                          acc,
+                          tag,
+                          count - 1
+                        )
+                    end
+                end
+              end)
+
+            case item_attrs do
+              [] -> assert Items.item_filters()["tags"] != filters_before["tags"]
+              _ -> assert Items.item_filters()["tags"] == tags
+            end
+        end
+      end
+    end
+
+    test "change_item/1 returns a item changeset" do
+      check all item <- Fixture.item_generator() do
         assert %Ecto.Changeset{} = Items.change_item(item)
       end
     end

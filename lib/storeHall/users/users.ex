@@ -43,12 +43,12 @@ defmodule StoreHall.Users do
   def get_user_with_settings!(id) do
     user = get_user!(id)
 
+    load_settings(user)
+  end
+
+  def load_settings(%User{} = user) do
     settings =
-      Repo.get(Settings, id)
-      |> case do
-        nil -> %Settings{id: user.id}
-        settings -> settings
-      end
+      upsert_settings(user)
       |> Map.get(:settings)
 
     Map.put(user, :settings, settings)
@@ -60,14 +60,6 @@ defmodule StoreHall.Users do
     user
     |> User.changeset(attrs)
     |> Repo.update()
-  end
-
-  def load_settings(%User{} = user) do
-    settings =
-      upsert_settings(user)
-      |> Map.get(:settings)
-
-    Map.put(user, :settings, settings)
   end
 
   defp upsert_settings(user, changes \\ %{}) do
@@ -95,8 +87,12 @@ defmodule StoreHall.Users do
     Repo.delete(user)
 
     case Repo.get(Settings, user.id) do
-      nil -> {:ok}
-      user_setting -> Repo.delete(user_setting)
+      nil ->
+        {:ok}
+
+      user_setting ->
+        Repo.delete(user_setting)
+        {:ok}
     end
   end
 
