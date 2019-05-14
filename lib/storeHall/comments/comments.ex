@@ -65,7 +65,7 @@ defmodule StoreHall.Comments do
     end
   end
 
-  def update_item_comment_count(multi, item_id) do
+  defp update_item_comment_count(multi, item_id) do
     multi
     |> Multi.run(:item, fn repo, %{} ->
       {:ok, Items.get_item!(item_id, repo)}
@@ -76,7 +76,7 @@ defmodule StoreHall.Comments do
     |> update_user_comment_count(nil)
   end
 
-  def update_user_comment_count(multi, user_id) do
+  defp update_user_comment_count(multi, user_id) do
     multi
     |> Multi.run(:user, fn repo, changes ->
       case changes do
@@ -89,7 +89,7 @@ defmodule StoreHall.Comments do
     end)
   end
 
-  def calculate_comment_count(repo, query, item_or_user) do
+  defp calculate_comment_count(repo, query, item_or_user) do
     query =
       from u in query,
         where: u.id == ^item_or_user.id,

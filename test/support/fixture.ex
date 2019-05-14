@@ -4,10 +4,13 @@ defmodule StoreHall.Fixture do
   alias StoreHall.Repo
   alias StoreHall.Items
   alias StoreHall.Users.User
+  alias StoreHall.Comments.ItemComment
+  alias StoreHall.Comments.UserComment
   import Ecto.Query, warn: false
 
   @users_count 100
   @items_count 100
+  @item_comments_count 100
 
   def ueberauth_generator() do
     ExUnitProperties.gen all token <- StreamData.string(:alphanumeric),
@@ -125,6 +128,71 @@ defmodule StoreHall.Fixture do
 
   def generate_item(user \\ nil) do
     ExUnitProperties.pick(item_generator(user))
+  end
+
+  def item_comment_generator(author, item \\ nil, user \\ nil, fun \\ &Repo.insert/1) do
+    item =
+      case item do
+        nil -> generate_item(user)
+        item -> item
+      end
+
+    ExUnitProperties.gen all comment_id <- StreamData.positive_integer() do
+      {:ok, item_comment} =
+        fun.(
+          ItemComment.changeset(%ItemComment{}, %{
+            comment_id: comment_id,
+            item_id: item.id,
+            user_id: item.user_id,
+            author_id: author.id,
+            details: %{}
+          })
+        )
+
+      item_comment
+
+      # |> Repo.insert()
+    end
+  end
+
+  def insert_item_comments(author, item \\ nil, count \\ @item_comments_count) do
+    Enum.take(item_comment_generator(author, item), count)
+  end
+
+  def generate_item_comment(author, item \\ nil) do
+    ExUnitProperties.pick(item_comment_generator(author, item))
+  end
+
+  def user_comment_generator(author, user \\ nil, fun \\ &Repo.insert/1) do
+    user =
+      case user do
+        nil -> generate_user()
+        user -> user
+      end
+
+    ExUnitProperties.gen all comment_id <- StreamData.positive_integer() do
+      {:ok, user_comment} =
+        fun.(
+          UserComment.changeset(%UserComment{}, %{
+            comment_id: comment_id,
+            user_id: user.id,
+            author_id: author.id,
+            details: %{}
+          })
+        )
+
+      user_comment
+
+      # |> Repo.insert()
+    end
+  end
+
+  def insert_user_comments(author, user \\ nil, count \\ @item_comments_count) do
+    Enum.take(user_comment_generator(author, user), count)
+  end
+
+  def generate_user_comment(author, user \\ nil) do
+    ExUnitProperties.pick(user_comment_generator(author, user))
   end
 
   def unused_generate() do
