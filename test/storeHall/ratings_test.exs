@@ -66,4 +66,54 @@ defmodule StoreHall.RatingsTest do
       end
     end
   end
+
+  describe "user ratings" do
+    test "for_user/1 returns all ratings" do
+      user = Fixture.generate_user()
+
+      check all author <- Fixture.user_generator() do
+        user_ratings_count = length(Ratings.for_user(user.id))
+
+        Ratings.create_user_rating(%{
+          "user_id" => user.id,
+          "author_id" => author.id,
+          "details" => %{"scores" => %{"clean" => "3"}}
+        })
+
+        assert length(Ratings.for_user(user.id)) == user_ratings_count + 1
+      end
+    end
+
+    test "create_rating/1 updates rating count for user" do
+      user = Fixture.generate_user()
+
+      check all author <- Fixture.user_generator() do
+        user_ratings_count = Users.get_user!(user.id).details["rating"]["count"]
+
+        Ratings.create_user_rating(%{
+          "user_id" => user.id,
+          "author_id" => author.id,
+          "details" => %{"scores" => %{"clean" => "3"}}
+        })
+
+        assert Users.get_user!(user.id).details["rating"]["count"] == user_ratings_count + 1
+      end
+    end
+
+    test "create_rating/1 updates rating score between 0 and 5" do
+      user = Fixture.generate_user()
+
+      check all author <- Fixture.user_generator(),
+                score <- StreamData.integer(0..5) do
+        Ratings.create_user_rating(%{
+          "user_id" => user.id,
+          "author_id" => author.id,
+          "details" => %{"scores" => %{"clean" => score}}
+        })
+
+        assert Users.get_user!(user.id).details["rating"]["score"] >= 0
+        assert Users.get_user!(user.id).details["rating"]["score"] <= 5
+      end
+    end
+  end
 end

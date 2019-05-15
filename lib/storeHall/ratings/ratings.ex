@@ -142,9 +142,9 @@ defmodule StoreHall.Ratings do
     |> UserRating.changeset(attrs)
   end
 
-  defp calc_rating(value, count \\ 0, rating \\ 4, c \\ 2)
+  def calc_rating(value, count \\ 0, rating \\ 4, c \\ 2)
 
-  defp calc_rating(data, count, rating, c) when is_list(data) do
+  def calc_rating(data, count, rating, c) when is_list(data) do
     data
     |> Enum.reduce(%{count: count, rating: rating}, fn value, acc ->
       %{count: acc.count + 1, rating: calc_rating(value, acc.count, acc.rating, c)}
@@ -152,7 +152,12 @@ defmodule StoreHall.Ratings do
     |> Map.get(:rating)
   end
 
-  defp calc_rating(value, count, rating, c) do
+  def calc_rating(value, count, rating, c) when is_binary(value) do
+    {value, _} = value |> Integer.parse()
+    calc_rating(value, count, rating, c)
+  end
+
+  def calc_rating(value, count, rating, c) when is_integer(value) do
     multiplier = c / (count + 2)
     Float.round((value - rating) * multiplier + rating, 2)
   end
