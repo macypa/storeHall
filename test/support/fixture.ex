@@ -92,13 +92,18 @@ defmodule StoreHall.Fixture do
                                  StreamData.string(:alphanumeric, max_length: 5),
                                  max_length: 5
                                ),
+                             images <-
+                               StreamData.uniq_list_of(
+                                 StreamData.string(:alphanumeric, max_length: 5),
+                                 max_length: 5
+                               ),
                              count <- StreamData.positive_integer(),
                              score <- StreamData.integer(0..5),
                              comments_count <- StreamData.positive_integer() do
       %{
         "details" => %{
           "tags" => tags |> Enum.reject(&is_nil/1) |> Enum.reject(fn x -> x == "" end),
-          "images" => [],
+          "images" => images |> Enum.reject(&is_nil/1) |> Enum.reject(fn x -> x == "" end),
           "rating" => %{"count" => count, "score" => score},
           "comments_count" => comments_count
         },

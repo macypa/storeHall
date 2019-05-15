@@ -69,6 +69,22 @@ defmodule StoreHall.ItemFilter do
     end
   end
 
+  defp filter(:rating, dynamic, %{"max" => value}) do
+    case Float.parse(value) do
+      {5.0, ""} ->
+        dynamic
+
+      {max_rating, ""} ->
+        dynamic(
+          [u],
+          ^dynamic and fragment(" (details->'rating'->>'score')::float <= ? ", ^max_rating)
+        )
+
+      _ ->
+        dynamic
+    end
+  end
+
   defp filter(:tags, dynamic, value) do
     dynamic(
       [u],

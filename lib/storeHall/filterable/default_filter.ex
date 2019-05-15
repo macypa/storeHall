@@ -10,7 +10,7 @@ defmodule StoreHall.DefaultFilter do
     :desc_nulls_first
   ]
 
-  @accepted_fields [:id, :inserted_at, :updated_at, :name, :user_id, :first_name, :last_name]
+  @accepted_fields [:id, :inserted_at, :updated_at, :name]
 
   def sort_filter(query, params) do
     value = get_in(params, ["filter", "sort"])

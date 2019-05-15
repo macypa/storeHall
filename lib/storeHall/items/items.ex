@@ -130,7 +130,7 @@ defmodule StoreHall.Items do
     end
   end
 
-  def prepare_images(item) do
+  defp prepare_images(item) do
     case item["images"] do
       nil ->
         item
@@ -143,7 +143,7 @@ defmodule StoreHall.Items do
     end
   end
 
-  def upsert_images(multi, item, multi_name) do
+  defp upsert_images(multi, item, multi_name) do
     case item["images"] do
       nil ->
         multi
@@ -162,7 +162,7 @@ defmodule StoreHall.Items do
     end
   end
 
-  def clean_images(multi, item, images_to_remove) do
+  defp clean_images(multi, item, images_to_remove) do
     multi
     |> Multi.run(:clean_images, fn _repo, _ ->
       images_to_remove
