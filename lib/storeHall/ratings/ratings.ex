@@ -96,11 +96,11 @@ defmodule StoreHall.Ratings do
     end)
   end
 
-  def calculate_rating_score(rating, repo, query, item_or_user) when is_map(rating) do
+  defp calculate_rating_score(rating, repo, query, item_or_user) when is_map(rating) do
     calculate_rating_score(Map.values(rating["details"]["scores"]), repo, query, item_or_user)
   end
 
-  def calculate_rating_score(rating, repo, query, item_or_user) do
+  defp calculate_rating_score(rating, repo, query, item_or_user) do
     score =
       to_string(
         calc_rating(
@@ -142,9 +142,9 @@ defmodule StoreHall.Ratings do
     |> UserRating.changeset(attrs)
   end
 
-  def calc_rating(value, count \\ 0, rating \\ 4, c \\ 2)
+  defp calc_rating(value, count \\ 0, rating \\ 4, c \\ 2)
 
-  def calc_rating(data, count, rating, c) when is_list(data) do
+  defp calc_rating(data, count, rating, c) when is_list(data) do
     data
     |> Enum.reduce(%{count: count, rating: rating}, fn value, acc ->
       %{count: acc.count + 1, rating: calc_rating(value, acc.count, acc.rating, c)}
@@ -152,7 +152,7 @@ defmodule StoreHall.Ratings do
     |> Map.get(:rating)
   end
 
-  def calc_rating(value, count, rating, c) do
+  defp calc_rating(value, count, rating, c) do
     multiplier = c / (count + 2)
     Float.round((value - rating) * multiplier + rating, 2)
   end
