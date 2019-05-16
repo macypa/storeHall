@@ -158,7 +158,12 @@ defmodule StoreHall.Ratings do
   end
 
   def calc_rating(value, count, rating, c) when is_integer(value) do
-    multiplier = c / (count + 2)
+    multiplier =
+      case rating do
+        -1 -> c / (count + 2)
+        _rating -> c / (count + 3)
+      end
+
     Float.round((value - rating) * multiplier + rating, 2)
   end
 end

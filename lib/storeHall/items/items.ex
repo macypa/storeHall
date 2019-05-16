@@ -8,6 +8,7 @@ defmodule StoreHall.Items do
   alias StoreHall.DeepMerge
   alias Ecto.Multi
 
+  alias StoreHall.Users
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
 
@@ -110,6 +111,8 @@ defmodule StoreHall.Items do
 
   """
   def create_item(item \\ %{}) do
+    item = item |> init_rating
+
     Ecto.Multi.new()
     |> update_filter(%Filters{name: item["user_id"], type: "merchant", count: 1})
     |> update_list_filters("tags", item["details"]["tags"])
@@ -123,6 +126,16 @@ defmodule StoreHall.Items do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  defp init_rating(item) do
+    score = Users.get_user!(Map.get(item, "user_id")).details["rating"]["score"]
+
+    item
+    |> put_in(
+      ["details", "rating"],
+      %{"count" => 0, "score" => score}
+    )
   end
 
   defp prepare_images(item) do

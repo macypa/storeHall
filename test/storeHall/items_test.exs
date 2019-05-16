@@ -26,8 +26,7 @@ defmodule StoreHall.ItemsTest do
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 0
       },
-      "name" => "",
-      "user_id" => "some_invalid_id"
+      "name" => ""
     }
 
     test "list_items/0 returns all items" do
@@ -57,26 +56,41 @@ defmodule StoreHall.ItemsTest do
       assert Items.get_item!(item.id).details["comments_count"] == 1
     end
 
-    test "create_item/1 with valid data creates a item" do
-      assert {:ok, %Item{} = item} =
-               Items.create_item(%{
-                 "name" => "some name",
-                 "user_id" => "some_id"
-               })
+    test "create_item/1 with valid data creates an item" do
+      user = Fixture.generate_user()
 
-      assert item.details == %{
-               "tags" => [],
-               "images" => [],
-               "rating" => %{"count" => 0, "score" => -1},
-               "comments_count" => 0
-             }
+      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
+        item_attrs
+        |> Items.create_item()
+        |> case do
+          {:error, _changeset} ->
+            nil
 
-      assert item.name == "some name"
-      assert item.user_id == "some_id"
+          {:ok, item} ->
+            assert %Item{} = item
+
+            assert item.details == %{
+                     "tags" => item_attrs["details"]["tags"],
+                     "images" => item_attrs["details"]["images"],
+                     "rating" => %{
+                       "count" => 0,
+                       "score" => user.details["rating"]["score"]
+                     },
+                     "comments_count" => item_attrs["details"]["comments_count"]
+                   }
+
+            assert item.name == item_attrs["name"]
+            assert item.user_id == item_attrs["user_id"]
+        end
+      end
     end
 
     test "create_item/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Items.create_item(@invalid_attrs)
+      item_attr =
+        ExUnitProperties.pick(Fixture.item_generator(nil, &Fixture.item_generator_fun_do_none/2))
+        |> Map.put("name", "")
+
+      assert {:error, %Ecto.Changeset{}} = Items.create_item(item_attr)
     end
 
     test "create_item/1 updates item filters table" do
