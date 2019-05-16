@@ -131,10 +131,43 @@ defmodule StoreHall.Items do
         item
 
       images ->
-        new_images = images |> Enum.map(fn image -> image.filename end)
+        new_images =
+          images
+          |> Enum.map(fn image ->
+            rename_duplicated(image, item).filename
+          end)
 
         item
         |> put_in(["details", "images"], item["details"]["images"] ++ new_images)
+    end
+  end
+
+  defp strip_ext(image_name) do
+    image_name |> Path.basename() |> Path.rootname()
+  end
+
+  defp rename_duplicated(image, item) do
+    case Map.get(item, "details")["images"] do
+      nil ->
+        image
+
+      saved_images ->
+        saved_images
+        |> Enum.filter(fn saved_image ->
+          String.contains?(strip_ext(saved_image), strip_ext(image.filename))
+        end)
+        |> case do
+          [] ->
+            image
+
+          similar_images ->
+            new_name =
+              "#{strip_ext(image.filename)}-#{length(similar_images) + 1}#{
+                Path.extname(image.filename)
+              }"
+
+            Map.put(image, :filename, new_name)
+        end
     end
   end
 
@@ -147,8 +180,9 @@ defmodule StoreHall.Items do
         multi
         |> Multi.run(:upsert_images, fn _repo, %{^multi_name => item_with_user_id} ->
           images
+          |> rename_duplicated(item_with_user_id)
           |> Enum.reduce({:ok, "no error"}, fn image, acc ->
-            case FileUploader.store({image, item_with_user_id}) do
+            case FileUploader.store({rename_duplicated(image, item), item_with_user_id}) do
               {:ok, _value} -> acc
               {:error, value} -> {:error, value}
             end
