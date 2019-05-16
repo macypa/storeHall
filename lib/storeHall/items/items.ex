@@ -46,12 +46,7 @@ defmodule StoreHall.Items do
         images -> Enum.at(images, 0)
       end
 
-    first_image = StoreHall.FileUploader.url({first_image, item}, version)
-
-    case File.exists?("." <> first_image) do
-      false -> ""
-      true -> first_image
-    end
+    image_url(item, first_image, version)
   end
 
   def image_url(item, image, version \\ :thumb) do
