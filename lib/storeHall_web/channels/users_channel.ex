@@ -37,23 +37,29 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => chat_msg},
         socket
       ) do
-    case Chats.create_chat_message(chat_msg) do
-      {:ok, chat_msg} ->
-        broadcast_msg!(
-          chat_msg.user_id,
-          "new_msg",
-          %{
-            new_msg: Jason.encode!(chat_msg)
-          }
-        )
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: "must be logged in"})
 
-        broadcast_msg!(
-          chat_msg.item_owner_id,
-          "new_msg",
-          %{
-            new_msg: Jason.encode!(chat_msg)
-          }
-        )
+      _logged_user ->
+        case Chats.create_chat_message(chat_msg) do
+          {:ok, chat_msg} ->
+            broadcast_msg!(
+              chat_msg.user_id,
+              "new_msg",
+              %{
+                new_msg: Jason.encode!(chat_msg)
+              }
+            )
+
+            broadcast_msg!(
+              chat_msg.item_owner_id,
+              "new_msg",
+              %{
+                new_msg: Jason.encode!(chat_msg)
+              }
+            )
+        end
     end
 
     {:reply, :ok, socket}
