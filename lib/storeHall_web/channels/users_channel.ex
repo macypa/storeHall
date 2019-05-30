@@ -6,10 +6,15 @@ defmodule StoreHallWeb.UsersChannel do
   alias Ecto.Multi
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Chats
   alias StoreHall.Users
   alias StoreHall.Users.Action
 
   @topic_prefix "/users"
+
+  def topic_prefix() do
+    @topic_prefix
+  end
 
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
@@ -23,6 +28,33 @@ defmodule StoreHallWeb.UsersChannel do
     filtered = Users.list_users(filter |> Plug.Conn.Query.decode())
 
     push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "msg:add",
+        %{"data" => chat_msg},
+        socket
+      ) do
+    case Chats.create_chat_message(chat_msg) do
+      {:ok, chat_msg} ->
+        broadcast_msg!(
+          chat_msg.user_id,
+          "new_msg",
+          %{
+            new_msg: Jason.encode!(chat_msg)
+          }
+        )
+
+        broadcast_msg!(
+          chat_msg.item_owner_id,
+          "new_msg",
+          %{
+            new_msg: Jason.encode!(chat_msg)
+          }
+        )
+    end
 
     {:reply, :ok, socket}
   end
@@ -110,10 +142,10 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do
-    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> user_id, message, body)
+    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> "/" <> user_id, message, body)
   end
 
   def broadcast_msg(user_id, message, body) when is_bitstring(user_id) do
-    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> user_id, message, body)
+    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> "/" <> user_id, message, body)
   end
 end

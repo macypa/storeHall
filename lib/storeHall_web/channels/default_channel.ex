@@ -3,6 +3,10 @@ defmodule StoreHallWeb.DefaultChannel do
 
   @topic_prefix "/"
 
+  def topic_prefix() do
+    @topic_prefix
+  end
+
   def join(@topic_prefix <> path, _message, socket) do
     {:ok, %{channel: "/#{path}"}, assign(socket, :path, path)}
   end

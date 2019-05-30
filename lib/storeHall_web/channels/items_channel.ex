@@ -11,6 +11,10 @@ defmodule StoreHallWeb.ItemsChannel do
 
   @topic_prefix "/items"
 
+  def topic_prefix() do
+    @topic_prefix
+  end
+
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
   end
@@ -142,11 +146,11 @@ defmodule StoreHallWeb.ItemsChannel do
     {:reply, :ok, socket}
   end
 
-  def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do
-    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> user_id, message, body)
+  def broadcast_msg!(item_id_with_slug, message, body) when is_bitstring(item_id_with_slug) do
+    StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> "/" <> item_id_with_slug, message, body)
   end
 
-  def broadcast_msg(user_id, message, body) when is_bitstring(user_id) do
-    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> user_id, message, body)
+  def broadcast_msg(item_id_with_slug, message, body) when is_bitstring(item_id_with_slug) do
+    StoreHallWeb.Endpoint.broadcast(@topic_prefix <> "/" <> item_id_with_slug, message, body)
   end
 end
