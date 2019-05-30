@@ -44,3 +44,6 @@
 
 <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>
 <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>
+
+<h3>Init chat</h3>
+<%= render StoreHallWeb.ChatView, "form.html", chat_msg: @chat_msg %>

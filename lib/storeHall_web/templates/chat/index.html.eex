@@ -1,0 +1,10 @@
+
+<h1>Listing Chats</h1>
+
+  <chats>
+    <%= for chat <- @chats do %>
+      <%= render  "show.html", chat: chat %>
+    <% end %>
+  </chats>
+
+</span>

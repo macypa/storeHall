@@ -19,9 +19,18 @@ defmodule StoreHallWeb.UserController do
 
     render(conn, :show,
       user: user,
+      chat_msg: collect_chat_info(conn, user),
       comments_info: collect_comments_info(conn, user),
       ratings_info: collect_ratings_info(conn, user)
     )
+  end
+
+  def collect_chat_info(conn, user) do
+    %{
+      item_owner_id: user.id,
+      author_id: AuthController.get_user_id_from_conn(conn),
+      user_id: AuthController.get_user_id_from_conn(conn)
+    }
   end
 
   def collect_comments_info(conn, user) do
