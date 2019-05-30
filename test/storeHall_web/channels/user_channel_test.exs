@@ -8,6 +8,7 @@ defmodule StoreHallWeb.UserChannelTest do
 
   alias StoreHall.Comments.UserComment
   alias StoreHall.Ratings.UserRating
+  alias StoreHall.Chats.ChatMessage
 
   test "retruns filtered users", %{socket: socket} do
     push(socket, "filter", %{"data" => "[]"})
@@ -47,6 +48,22 @@ defmodule StoreHallWeb.UserChannelTest do
       push(socket, "rating:add", %{"data" => rating})
 
       assert_push("error", %{message: "you already did it :)"})
+    end
+  end
+
+  describe "chat" do
+    test "add when not logged", %{guest_socket: guest_socket} do
+      chat = dencode(%ChatMessage{})
+      push(guest_socket, "msg:add", %{"data" => chat})
+
+      assert_push("error", %{message: "must be logged in"})
+    end
+
+    test "add", %{socket: socket, user: user} do
+      chat = dencode(%ChatMessage{user_id: user.id, item_owner_id: user.id, author_id: user.id})
+      push(socket, "msg:add", %{"data" => chat})
+
+      assert_broadcast "new_msg", %{new_msg: _}
     end
   end
 

@@ -61,6 +61,12 @@ defmodule StoreHallWeb.UserControllerTest do
                  scores: %{}
                }
              }
+
+      assert conn.assigns.chat_msg == %{
+               item_owner_id: user.id,
+               author_id: AuthController.get_user_id_from_conn(conn),
+               user_id: AuthController.get_user_id_from_conn(conn)
+             }
     end
 
     test "does not exists", %{conn: conn} do
