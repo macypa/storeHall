@@ -1,14 +1,11 @@
 
-<button onclick='show_hide("show-hide-ratings")'>show/hide ratings</button>
-<span id="show-hide-ratings" style="display: none">
-  <h1>Listing Ratings</h1>
+<h1>Listing Ratings</h1>
 
-  <ratings>
-    <%= for rating <- @ratings_info.ratings do %>
-      <%= render  "show.html", rating: rating %>
-    <% end %>
-  </ratings>
+<ratings>
+  <%= for rating <- @ratings_info.ratings do %>
+    <%= render  "show.html", rating: rating %>
+  <% end %>
+</ratings>
 
-  <h3>Add Rating</h3>
-  <%= render  "form.html", rating: @ratings_info.rating%>
-</span>
+<h3>Add Rating</h3>
+<%= render  "form.html", rating: @ratings_info.rating%>

@@ -1,16 +1,12 @@
 
-<button onclick='show_hide("show-hide-comments")'>show/hide comments</button>
-<span id="show-hide-comments" style="display: none">
-  <h1>Listing Comments</h1>
+<h1>Listing Comments</h1>
 
-  <comments>
-    <%= for comment <- @comments_info.comments do %>
-      <%= render "show.html", comment: comment, comments_info: @comments_info %>
-    <% end %>
-  </comments>
+<comments>
+  <%= for comment <- @comments_info.comments do %>
+    <%= render "show.html", comment: comment, comments_info: @comments_info %>
+  <% end %>
+</comments>
 
-  <h3>Add Comment</h3>
-  <%= render "form.html", comment: Map.put(@comments_info.comment,
-              :comment_id, nil) %>
-
-</span>
+<h3>Add Comment</h3>
+<%= render "form.html", comment: Map.put(@comments_info.comment,
+            :comment_id, nil) %>

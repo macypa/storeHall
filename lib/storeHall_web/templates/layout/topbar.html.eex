@@ -81,22 +81,25 @@
         </a>
         <ul class="dropdown-menu fsz-sm">
           <li>
-            <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-settings",
+                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
               <i class="ti-settings mR-10"></i>
               <span>Setting</span>
-            </a>
+            <% end %>
           </li>
           <li>
-            <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show",
+                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
               <i class="ti-user mR-10"></i>
               <span>Profile</span>
-            </a>
+            <% end %>
           </li>
           <li>
-            <a href="email.html" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages",
+                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
               <i class="ti-email mR-10"></i>
               <span>Messages</span>
-            </a>
+            <% end %>
           </li>
           <li role="separator" class="divider"></li>
 

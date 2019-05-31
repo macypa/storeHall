@@ -1,49 +1,83 @@
-<h1>Show Item</h1>
+<ul class="tabs">
 
-<span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
-<span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
+  <li class="tab">
+      <input type="radio" name="tabs" id="tab-show" class="default" />
+      <label for="tab-show">Show Item</label>
+      <div id="tab-content-show" class="content">
+        <h1>Show Item</h1>
 
-<ul>
+        <span><%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %></span>
+        <span><%= link "Back", to: Routes.item_path(@conn, :index) %></span>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @item.name %>
+        <ul>
+
+          <li>
+            <strong>Name:</strong>
+            <%= @item.name %>
+          </li>
+
+          <li>
+            <strong>User:</strong>
+            <%= @item.user_id %>
+          </li>
+
+          <li>
+            <strong>Details:</strong>
+            <%= @item.details %>
+          </li>
+
+          <li>
+            <strong>Rating:</strong>
+            <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
+          </li>
+
+          <!-- links to mark image as inappropriate -->
+          <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
+          <li>
+            <strong>Images:</strong>
+            <%= for image <- @item.details["images"] do %>
+              <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
+                <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
+              </a>
+            <% end %>
+          </li>
+        </ul>
+
+        <span id="reactions">
+          <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+          <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+        </span>
+
+      </div>
   </li>
 
-  <li>
-    <strong>User:</strong>
-    <%= @item.user_id %>
-  </li>
+  <li class="tab">
+    <input type="radio" name="tabs" id="tab-comments" />
+    <label for="tab-comments">Comments</label>
+    <div id="tab-content-comments" class="content">
 
-  <li>
-    <strong>Details:</strong>
-    <%= @item.details %>
-  </li>
+      <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>
+    </div>
+ </li>
 
-  <li>
-    <strong>Rating:</strong>
-    <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
-  </li>
+  <li class="tab">
+   <input type="radio" name="tabs" id="tab-ratings" />
+   <label for="tab-ratings">Ratings</label>
+   <div id="tab-content-ratings" class="content">
 
-  <!-- links to mark image as inappropriate -->
-  <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
-  <li>
-    <strong>Images:</strong>
-    <%= for image <- @item.details["images"] do %>
-      <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
-        <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
-      </a>
-    <% end %>
-  </li>
-</ul>
+     <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>
 
-<span id="reactions">
-  <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-  <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
-</span>
+         </div>
+       </li>
 
-<%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments_info: @comments_info %>
-<%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>
+       <li class="tab">
+         <input type="radio" name="tabs" id="tab-messages" />
+         <label for="tab-messages">Chat</label>
+         <div id="tab-content-messages" class="content">
 
-<h3>Init chat</h3>
-<%= render StoreHallWeb.ChatView, "form.html", chat_msg: @chat_msg %>
+          <h3>Init chat</h3>
+          <%= render StoreHallWeb.ChatView, "form.html", chat_msg: @chat_msg %>
+         </div>
+       </li>
+
+     </ul>
