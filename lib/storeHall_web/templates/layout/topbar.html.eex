@@ -105,6 +105,13 @@
                 <span>Messages</span>
               <% end %>
             </li>
+            <li>
+              <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant][]=" <> @conn.assigns.logged_user.id,
+                  class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
+                <i class="ti-briefcase mR-10"></i>
+                <span>My Items</span>
+              <% end %>
+            </li>
             <li role="separator" class="divider"></li>
             <li>
               <%= link to: Routes.auth_path(@conn, :delete), class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
