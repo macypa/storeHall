@@ -1,17 +1,13 @@
 {{#each this}}
   <item class="block-item">
 
-    <img src="{{#if details.images}}{{details.images}}{{/if}}" />
-
     <div class="entry-content">
-      <h1 class="entry-title">{{name}}</h1>
+      <a href="/items/{{id}}">
+        <img src="{{#if details.images}}{{details.images}}{{/if}}" />
+        <h1 class="entry-title">{{name}}</h1>
+      </a>
       <h5>{{user_id}}</h5>
       <p>{{json details}}</p>
-      <span>
-        <a href="/items/{{id}}">Show</a>
-        <a href="/items/{{id}}/edit">Edit</a>
-        <a data-confirm="Are you sure?" data-csrf="{{../csrf_token}}" data-method="delete" data-to="/items/{{id}}" href="/items/{{id}}" rel="nofollow">Delete</a>
-      </span>
     </div>
   </item>
 {{/each}}

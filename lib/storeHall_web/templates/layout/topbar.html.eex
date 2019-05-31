@@ -80,30 +80,29 @@
           </div>
         </a>
         <ul class="dropdown-menu fsz-sm">
-          <li>
-            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-settings",
-                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
-              <i class="ti-settings mR-10"></i>
-              <span>Setting</span>
-            <% end %>
-          </li>
-          <li>
-            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show",
-                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
-              <i class="ti-user mR-10"></i>
-              <span>Profile</span>
-            <% end %>
-          </li>
-          <li>
-            <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages",
-                class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
-              <i class="ti-email mR-10"></i>
-              <span>Messages</span>
-            <% end %>
-          </li>
-          <li role="separator" class="divider"></li>
-
           <%= if @conn.assigns[:logged_user] do %>
+            <li>
+              <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user),
+                  class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
+                <i class="ti-settings mR-10"></i>
+                <span>Setting</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show",
+                  class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
+                <i class="ti-user mR-10"></i>
+                <span>Profile</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages",
+                  class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
+                <i class="ti-email mR-10"></i>
+                <span>Messages</span>
+              <% end %>
+            </li>
+            <li role="separator" class="divider"></li>
             <li>
               <%= link to: Routes.auth_path(@conn, :delete), class: "d-b td-n pY-5 bgcH-grey-100 c-grey-700" do %>
                 <i class="ti-power-off mR-10"></i>

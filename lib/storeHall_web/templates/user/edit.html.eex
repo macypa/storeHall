@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
 
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<%= link "Delete", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "Are you sure?"] %>
