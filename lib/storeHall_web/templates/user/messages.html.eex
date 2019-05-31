@@ -1,0 +1,117 @@
+<chat-box-container>
+
+	<div class='list'>
+		<ul>
+			<li>UserList</li>
+			<li><a href='#user_1'>User_1</a></li>
+			<li><a href='#user_2'>User_2</a></li>
+			<li><a href='#user_3'>User_3</a></li>
+		</ul>
+	</div>
+
+	<!-- User Number 1 -->
+	<div class='chat-box'>
+		<ul id='user_1'>
+			<li><div class='title'>User_1</div></li>
+			<li>
+				<div class='me'>
+					<div>
+						<div class='name'>Akshay</div>
+						<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+						<div class='text'>
+							<div>
+								Hello
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class='you'>
+				<div>
+					<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/4.jpg" alt=""></div>
+					<div class='name'>User_1</div>
+					<div class='text'>
+						<div>
+							Get lost, Akshay.
+						</div>
+					</div>
+				</div>
+				</div>
+			</li>
+		</ul>
+
+		<!-- User Number 2 -->
+		<ul id='user_2'>
+			<li><div class='title'>User_2</div></li>
+			<li>
+				<div class='me'>
+					<div>
+						<div class='name'>Akshay</div>
+						<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+						<div class='text'>
+							<div>
+								Hey!<br />
+								Were u sleeping?
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class='you'>
+				<div>
+					<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""></div>
+					<div class='name'>User_2</div>
+					<div class='text'>
+						<div>
+							No. I was just training my dinosaurs to fight for the government.
+						</div>
+					</div>
+				</div>
+				</div>
+			</li>
+		</ul>
+
+		<!-- User Number 3 -->
+		<ul id='user_3'>
+			<li><div class='title'>User_3</div></li>
+			<li>
+				<div class='me'>
+					<div>
+						<div class='name'>Akshay</div>
+						<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+						<div class='text'>
+							<div>
+								Hey. <br />
+								How are you doing?
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class='you'>
+				<div>
+					<div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt=""></div>
+					<div class='name'>User_3</div>
+					<div class='text'>
+						<div>
+							I'm fine. What about you?
+						</div>
+					</div>
+				</div>
+				</div>
+			</li>
+  </ul>
+
+  <msg-form class="msg-form" >
+    <input class="body" type="text" name="body", value="">
+    <input class="msg" type="hidden" name="msg", value="chat_msg">
+    <button msg-topic="msg:add" type="button">Send</button>
+  </msg-form>
+
+	</div>
+
+
+</chat-box-container>

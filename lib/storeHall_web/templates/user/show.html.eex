@@ -66,6 +66,7 @@
     <label for="tab-messages">Messages</label>
     <div id="tab-content-messages" class="content">
 
+      <%= render "messages.html", @user %>
     </div>
   </div>
 
