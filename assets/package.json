@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.7.1",
     "chart.js": "^2.7.1",
     "datatables": "^1.10.13",
@@ -24,7 +24,7 @@
     "fullcalendar": "^3.6.2",
     "handlebars": "^4.0.14",
     "handlebars-loader": "^1.7.1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.4.0",
     "jquery-sparkline": "^2.4.0",
     "jvectormap": "^2.0.4",
     "load-google-maps-api": "^1.0.0",
