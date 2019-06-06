@@ -51,7 +51,17 @@ defmodule StoreHall.Items do
   end
 
   def image_url(item, image, version \\ :thumb) do
-    StoreHall.FileUploader.url({image, item}, version)
+    image = StoreHall.FileUploader.url({image, item}, version)
+
+    case String.ends_with?(image, to_string(version) <> "-") do
+      false -> image
+      true -> ""
+    end
+
+    # case File.exists?("." <> image) do
+    #   false -> ""
+    #   true -> image
+    # end
   end
 
   @doc """
