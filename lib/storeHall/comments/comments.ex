@@ -20,9 +20,10 @@ defmodule StoreHall.Comments do
     |> Map.put(
       :comments,
       Ecto.assoc(item_user, :comments)
-      |> preload([:author, :user])
+      |> where([c], is_nil(c.comment_id))
       |> DefaultFilter.sort_filter(params)
       |> DefaultFilter.paging_filter(params)
+      |> preload([:author, :user])
       |> Repo.all()
     )
   end
