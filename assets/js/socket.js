@@ -121,7 +121,7 @@ function on_new_msg_event(payload) {
   }
 
   if (new_msg.item_id) {
-    topic_id + "_" + new_msg.item_id
+    topic_id = topic_id + "_" + new_msg.item_id
   }
   var topic = document.getElementById(topic_id)
   if (topic) {
