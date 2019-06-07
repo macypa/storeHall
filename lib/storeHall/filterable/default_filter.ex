@@ -18,10 +18,10 @@ defmodule StoreHall.DefaultFilter do
     value
     |> case do
       nil ->
-        query |> order_by([{:desc, :inserted_at}])
+        query |> order_by([{:asc, :inserted_at}])
 
       "" ->
-        query |> order_by([{:desc, :inserted_at}])
+        query |> order_by([{:asc, :inserted_at}])
 
       value ->
         value
