@@ -14,22 +14,11 @@ defmodule StoreHall.Comments do
   alias StoreHall.Users
   alias StoreHall.Users.User
 
-  def preload_for_item(item) do
-    item
+  def preload(item_user) do
+    item_user
     |> Map.put(
       :comments,
-      Ecto.assoc(item, :comments)
-      |> preload([:author, :user])
-      |> limit(5)
-      |> Repo.all()
-    )
-  end
-
-  def preload_for_user(user) do
-    user
-    |> Map.put(
-      :comments,
-      Ecto.assoc(user, :comments)
+      Ecto.assoc(item_user, :comments)
       |> preload([:author, :user])
       |> limit(5)
       |> Repo.all()

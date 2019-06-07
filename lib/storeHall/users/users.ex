@@ -27,7 +27,7 @@ defmodule StoreHall.Users do
       User
       # |> preload(:comments)
       |> repo.get!(id)
-      |> Comments.preload_for_user()
+      |> Comments.preload()
 
     update_default_user_details(user, repo)
   end

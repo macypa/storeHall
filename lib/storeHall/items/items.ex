@@ -91,7 +91,7 @@ defmodule StoreHall.Items do
       Item
       # |> preload(:comments)
       |> repo.get!(id)
-      |> Comments.preload_for_item()
+      |> Comments.preload()
 
     update_default_item_details(item, repo)
   end
