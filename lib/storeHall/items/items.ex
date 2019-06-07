@@ -28,11 +28,27 @@ defmodule StoreHall.Items do
   def list_items(params \\ nil) do
     apply_filters(params)
     |> Repo.all()
+    |> Enum.map(fn item ->
+      Map.put(
+        item,
+        :details,
+        item.details
+        |> put_in(
+          ["images"],
+          item.details["images"]
+          |> Enum.map(fn image ->
+            StoreHall.Items.image_url(item, image)
+          end)
+        )
+      )
+
+      # Map.put(item.details, "images", StoreHall.Items.cover_image(item))
+    end)
   end
 
   defp apply_filters(params) do
     Item
-    |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.paging_filter(params)
     |> ItemFilter.search_filter(params)
   end
@@ -47,7 +63,7 @@ defmodule StoreHall.Items do
         images -> Enum.at(images, 0)
       end
 
-    image_url(item, first_image, version)
+    # image_url(item, first_image, version)
   end
 
   def image_url(item, image, version \\ :thumb) do
