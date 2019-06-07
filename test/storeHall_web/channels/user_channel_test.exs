@@ -60,7 +60,7 @@ defmodule StoreHallWeb.UserChannelTest do
     end
 
     test "add", %{socket: socket, user: user} do
-      chat = dencode(%ChatMessage{user_id: user.id, item_owner_id: user.id, author_id: user.id})
+      chat = dencode(%ChatMessage{user_id: user.id, owner_id: user.id, author_id: user.id})
       push(socket, "msg:add", %{"data" => chat})
 
       assert_broadcast "new_msg", %{new_msg: _}

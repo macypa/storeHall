@@ -1,8 +1,15 @@
-<chat>
-  {{json details}}
-  <msg-form id="msg-form" >
-    <input class="body" type="text" name="body", value="">
-    <input class="msg" type="hidden" name="msg", value="{{json this}}">
-    <button msg-topic="msg:add" type="button">Send</button>
-  </msg-form>
-</chat>
+
+  <li>
+    <div class='{{me_you}}'>
+        <div>
+          <div class='name'>{{json author_id}}</div>
+          <div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+          <div class='text'>
+            <div>
+              {{json details.body}}
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </li>

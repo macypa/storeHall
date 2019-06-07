@@ -1,10 +1,47 @@
 
-<h1>Listing Chats</h1>
+<chat-box-container>
 
-  <chats>
-    <%= for chat <- @chats do %>
-      <%= render  "show.html", chat: chat %>
-    <% end %>
-  </chats>
+	<div class='list'>
+		<ul>
+			<li>UserList</li>
 
-</span>
+      <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
+        <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
+          <% topic = case item do
+              nil ->  user
+              item -> user <> "_" <> to_string(item)
+          end %>
+          <li><a href='#<%= topic %>'><%= topic %></a></li>
+        <% end %>
+      <% end %>
+		</ul>
+	</div>
+
+
+  <div class='chat-box'>
+  <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
+
+
+      <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
+        <% topic = case item do
+            nil ->  user
+            item -> user <> "_" <> to_string(item)
+        end %>
+        <chat-container id='<%= topic %>'>
+					<ul>
+		        <li><div class='title'><%= topic %></div></li>
+
+		        <%= for chat <- @chat_msgs_info.chats[user][item] do %>
+							<%= render "show.html", chat_msg: chat, user: user %>
+		        <% end %>
+	        </ul>
+
+					<%= render "form.html", chat_msg: hd @chat_msgs_info.chats[user][item] %>
+				</chat-container>
+      <% end %>
+  <% end %>
+
+	</div>
+
+
+</chat-box-container>

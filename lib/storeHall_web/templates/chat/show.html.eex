@@ -1,3 +1,21 @@
-<chat>
-  <%= @chat_msg.details %>
-</chat>
+
+  <li>
+    <%
+      me_you = if @chat_msg.author_id != @user do
+        'me'
+      else
+        'you'
+      end
+    %>
+    <div class='<%= me_you %>'>
+      <div>
+        <div class='name'><%= @chat_msg.author_id %></div>
+        <div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+        <div class='text'>
+          <div>
+            <%= @chat_msg.details["body"] %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>

@@ -3,6 +3,7 @@ defmodule StoreHallWeb.UserController do
 
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
+  alias StoreHall.Chats
   alias StoreHall.Comments
   alias StoreHall.Ratings
 
@@ -19,7 +20,7 @@ defmodule StoreHallWeb.UserController do
 
     render(conn, :show,
       user: user,
-      chat_msg: collect_chat_info(conn, user),
+      chat_msgs_info: collect_chat_info(conn, user),
       comments_info: collect_comments_info(conn, user),
       ratings_info: collect_ratings_info(conn, user)
     )
@@ -27,9 +28,12 @@ defmodule StoreHallWeb.UserController do
 
   def collect_chat_info(conn, user) do
     %{
-      item_owner_id: user.id,
-      author_id: AuthController.get_user_id_from_conn(conn),
-      user_id: AuthController.get_user_id_from_conn(conn)
+      chats: Chats.for_user_sorted_by_topic(user.id, AuthController.get_user_id_from_conn(conn)),
+      chat_msg: %{
+        owner_id: user.id,
+        author_id: AuthController.get_user_id_from_conn(conn),
+        user_id: AuthController.get_user_id_from_conn(conn)
+      }
     }
   end
 

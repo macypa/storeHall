@@ -76,6 +76,13 @@ channel_user.join()
   .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
+// Now that you are connected, you can join channels with a topic:
+var channel_topic = decodeURI(window.location.pathname)
+let channel = socket.channel(channel_topic, {})
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })
+
 
 function add_chat_events() {
   add_events("[msg-topic]", "click", function() {
@@ -83,33 +90,54 @@ function add_chat_events() {
     var msg_field_value = JSON.parse(this.parentNode.getElementsByClassName("msg")[0].value)
     msg_field_value.details = {}
     msg_field_value.details.body = body_field_value
-    channel_user.push(this.getAttribute("msg-topic"), { data: msg_field_value})
+
+    if (channel_user.state == "joined") {
+      channel_user.push(this.getAttribute("msg-topic"), { data: msg_field_value})
+    } else {
+      channel.push(this.getAttribute("msg-topic"), { data: msg_field_value})
+    }
   });
 }
 add_chat_events()
 
 import chat_msg_template from "../hbs/chat.hbs"
-channel_user.on("new_msg", payload => {
+function on_new_msg_event(payload) {
   var new_msg = JSON.parse(payload.new_msg)
-  new_msg.author_id = window.loggedUserId
+
+  if (window.loggedUserId == new_msg.author_id) {
+    new_msg.me_you = 'me'
+  } else {
+    new_msg.me_you = 'you'
+  }
 
   var new_msg_html = chat_msg_template( new_msg )
   document.querySelector("chats").insertAdjacentHTML( 'beforeend', new_msg_html )
 
+  var topic_id = ""
+  if (window.loggedUserId == new_msg.user_id) {
+    topic_id = topic_id + new_msg.owner_id
+  } else {
+    topic_id = topic_id + new_msg.user_id
+  }
+
+  if (new_msg.item_id) {
+    topic_id + "_" + new_msg.item_id
+  }
+  var topic = document.getElementById(topic_id)
+  if (topic) {
+    topic.getElementsByTagName("ul")[0].insertAdjacentHTML( 'beforeend', new_msg_html )
+  }
+
   add_chat_events()
-})
+}
+
+channel_user.on("new_msg", payload => {on_new_msg_event(payload)})
+channel.on("new_msg", payload => {on_new_msg_event(payload)})
 
 channel_user.on("error", payload => {
   alert(payload.message)
 })
 
-
-// Now that you are connected, you can join channels with a topic:
-var channel_topic = decodeURI(window.location.pathname)
-let channel = socket.channel(channel_topic, {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
 
 // channel_push('message:add', "test")
 var channel_push = function(topic, data) {

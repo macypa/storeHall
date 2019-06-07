@@ -22,6 +22,7 @@ defmodule StoreHall.ImagesTest do
       end
     end
 
+    @tag :skip
     test "cover image of nonexisting images is empty string" do
       check all item <- Fixture.item_generator() do
         cover_img_url = Items.cover_image(item)

@@ -41,8 +41,8 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: "must be logged in"})
 
-      _logged_user ->
-        case Chats.create_chat_message(chat_msg) do
+      logged_user ->
+        case Chats.create_chat_message(chat_msg |> Map.put("author_id", logged_user)) do
           {:ok, chat_msg} ->
             broadcast_msg!(
               chat_msg.user_id,
@@ -53,7 +53,7 @@ defmodule StoreHallWeb.UsersChannel do
             )
 
             broadcast_msg!(
-              chat_msg.item_owner_id,
+              chat_msg.owner_id,
               "new_msg",
               %{
                 new_msg: Jason.encode!(chat_msg)

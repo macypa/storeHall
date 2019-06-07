@@ -52,7 +52,7 @@
      </div>
   </div>
 
-   <div class="tab">
+  <div class="tab">
     <input type="radio" name="tabs" id="tab-ratings" />
     <label for="tab-ratings">Ratings</label>
     <div id="tab-content-ratings" class="content">
@@ -66,8 +66,9 @@
     <label for="tab-messages">Messages</label>
     <div id="tab-content-messages" class="content">
 
-      <%= render "messages.html", @user %>
+      <%= render StoreHallWeb.ChatView, "index.html", chat_msgs_info: @chat_msgs_info %>
     </div>
   </div>
+
 
 </ul>

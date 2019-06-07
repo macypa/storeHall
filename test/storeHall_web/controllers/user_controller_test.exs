@@ -5,6 +5,7 @@ defmodule StoreHallWeb.UserControllerTest do
   alias StoreHall.Fixture
   alias StoreHall.Users
   alias StoreHall.Users.User
+  alias StoreHall.Chats
   alias StoreHall.Comments
   alias StoreHall.Ratings
   alias StoreHallWeb.AuthController
@@ -62,10 +63,17 @@ defmodule StoreHallWeb.UserControllerTest do
                }
              }
 
-      assert conn.assigns.chat_msg == %{
-               item_owner_id: user.id,
-               author_id: AuthController.get_user_id_from_conn(conn),
-               user_id: AuthController.get_user_id_from_conn(conn)
+      assert conn.assigns.chat_msgs_info == %{
+               chats:
+                 Chats.for_user_sorted_by_topic(
+                   user.id,
+                   AuthController.get_user_id_from_conn(conn)
+                 ),
+               chat_msg: %{
+                 owner_id: user.id,
+                 author_id: AuthController.get_user_id_from_conn(conn),
+                 user_id: AuthController.get_user_id_from_conn(conn)
+               }
              }
     end
 

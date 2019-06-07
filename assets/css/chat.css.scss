@@ -5,7 +5,7 @@ chat-box-container {
 	.list {
 		width:30%;
 		float:left;
-		height:400px;
+		// height:400px;
 		border-radius:10px 0 0 10px;
 		border-right:1px solid #fff;
 
@@ -43,11 +43,11 @@ chat-box-container {
 	.chat-box {
 		float:left;
 		width:69%;
-		height:400px;
+		overflow-y: scroll;
+		height:200px;
 		border-radius:0 10px 10px 0;
 
-		ul {
-			list-style-type:none;
+		chat-container {
 			padding:0;
 			display:none;
 
@@ -55,86 +55,89 @@ chat-box-container {
 				display:block;
 			}
 
-			li {
-				.msg-form {
-					display:flex;
-					justify-content:flex-end;
-					align-items:center;
-				}
-				.title {
-					color:#888;
-					text-align:center;
-					// border-bottom:1px solid #88;
-					margin-bottom:3px;
-				}
-				.me {
-					display:flex;
-					justify-content:flex-end;
-					align-items:center;
-				}
-				.you {
-					display:flex;
-					align-items:center;
-				}
+			ul {
+				list-style-type:none;
 
-				&>div {
-
-					.img {
-						display:inline-block;
-						width:50px;
-						height:50px;
-						background:$blue;
-						border-radius:50%;
-						margin-bottom:-25px;
-						border:2px solid $blue;
-						z-index:100;
-						position:relative;
+				li {
+					.msg-form {
+						display:flex;
+						justify-content:flex-end;
+						align-items:center;
 					}
-					.name {
-						display:inline-block;
-						padding:5px 50px 5px 20px;
-						margin-top:-20px;
-						margin-right:-30px;
-						background-color:$blue;
-						color:#fff;
-						border-radius:15px 0 0 0;
-						font-size:13px;
-						position:relative;
+					.title {
+						color:#888;
+						text-align:center;
+						// border-bottom:1px solid #88;
+						margin-bottom:3px;
 					}
-					.text {
+					.me {
+						display:flex;
+						justify-content:flex-end;
+						align-items:center;
+					}
+					.you {
+						display:flex;
+						align-items:center;
+					}
 
-						div {
-							background-color:grey;
+					&>div {
+
+						.img {
 							display:inline-block;
-							padding:15px 20px;
-							max-width:300px;
-							min-width:150px;
-							margin-left:-55px;
-							border-radius:10px 0 10px 10px;
-							z-index:10;
+							width:50px;
+							height:50px;
+							background:$blue;
+							border-radius:50%;
+							margin-bottom:-25px;
+							border:2px solid $blue;
+							z-index:100;
 							position:relative;
-							text-align:right;
+						}
+						.name {
+							display:inline-block;
+							padding:5px 50px 5px 20px;
+							margin-top:-20px;
+							margin-right:-30px;
+							background-color:$blue;
+							color:#fff;
+							border-radius:15px 0 0 0;
+							font-size:13px;
+							position:relative;
+						}
+						.text {
+
+							div {
+								background-color:grey;
+								display:inline-block;
+								padding:15px 20px;
+								max-width:300px;
+								min-width:150px;
+								margin-left:-55px;
+								border-radius:10px 0 10px 10px;
+								z-index:10;
+								position:relative;
+								text-align:right;
+							}
 						}
 					}
-				}
 
-				.you {
-					.name {
-						padding:5px 25px 5px 50px;
-						margin-left:-30px;
-						border-radius:0 15px 0 0;
-					}
-					.text {
-						div {
-							margin-left:6px;
-							border-radius:0 10px 10px 10px;
-							text-align:left;
+					.you {
+						.name {
+							padding:5px 25px 5px 50px;
+							margin-left:-30px;
+							border-radius:0 15px 0 0;
+						}
+						.text {
+							div {
+								margin-left:6px;
+								border-radius:0 10px 10px 10px;
+								text-align:left;
+							}
 						}
 					}
-				}
 
+				}
 			}
 		}
-
 	}
 }
