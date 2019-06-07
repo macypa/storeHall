@@ -5,7 +5,6 @@ defmodule StoreHall.Users do
 
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
-  alias StoreHall.Comments
 
   alias StoreHall.UserFilter
   alias StoreHall.DefaultFilter
@@ -23,11 +22,7 @@ defmodule StoreHall.Users do
   end
 
   def get_user!(id, repo \\ Repo) do
-    user =
-      User
-      # |> preload(:comments)
-      |> repo.get!(id)
-      |> Comments.preload()
+    user = User |> repo.get!(id)
 
     update_default_user_details(user, repo)
   end

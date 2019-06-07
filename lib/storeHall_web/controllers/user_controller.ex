@@ -5,6 +5,7 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Users
   alias StoreHall.Chats
   alias StoreHall.Ratings
+  alias StoreHall.Comments
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -15,7 +16,9 @@ defmodule StoreHallWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = get_user!(conn, id)
+    user =
+      get_user!(conn, id)
+      |> Comments.preload()
 
     render(conn, :show,
       user: user,

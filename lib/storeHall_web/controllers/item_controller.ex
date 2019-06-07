@@ -6,6 +6,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Chats
   alias StoreHall.Items.Item
   alias StoreHall.Ratings
+  alias StoreHall.Comments
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -45,7 +46,9 @@ defmodule StoreHallWeb.ItemController do
   end
 
   def show(conn, %{"id" => id}) do
-    item = Items.get_item!(id)
+    item =
+      Items.get_item!(id)
+      |> Comments.preload()
 
     render(conn, :show,
       item: item,
