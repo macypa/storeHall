@@ -48,7 +48,11 @@
     <label for="tab-comments">Comments</label>
     <div id="tab-content-comments" class="content">
 
-      <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, user: @user %>
+      <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @user.comments, comment_template: %{
+        id: nil,
+        author_id: @conn.assigns[:logged_user].id,
+        user_id: @user.id
+      } %>
      </div>
   </div>
 
