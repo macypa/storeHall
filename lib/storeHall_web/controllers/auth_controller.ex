@@ -101,4 +101,12 @@ defmodule StoreHallWeb.AuthController do
       -1
     end
   end
+
+  def get_user_from_conn(conn) do
+    if conn.assigns && conn.assigns.logged_user && conn.assigns.logged_user.id do
+      conn.assigns.logged_user
+    else
+      -1
+    end
+  end
 end

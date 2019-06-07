@@ -3,9 +3,9 @@ defmodule StoreHall.Repo.Migrations.CreateUserComments do
 
   def change do
     create table(:user_comments) do
-      add :author_id, :string
+      add :author_id, references(:users, [type: :string])
+      add :user_id, references(:users, [type: :string])
       add :comment_id, :integer
-      add :user_id, :string
       add :details, :map
 
       timestamps()

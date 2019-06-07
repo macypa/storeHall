@@ -2,11 +2,14 @@
 <h1>Listing Comments</h1>
 
 <comments>
-  <%= for comment <- @comments_info.comments do %>
-    <%= render "show.html", comment: comment, comments_info: @comments_info %>
+  <%= for comment <- @user.comments do %>
+    <%= render "show.html", comment: comment %>
   <% end %>
 </comments>
 
 <h3>Add Comment</h3>
-<%= render "form.html", comment: Map.put(@comments_info.comment,
-            :comment_id, nil) %>
+<%= render "form.html", comment: %{
+  id: nil,
+  author_id: @conn.assigns[:logged_user].id,
+  user_id: @user.id
+} %>

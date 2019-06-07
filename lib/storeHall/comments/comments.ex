@@ -14,27 +14,26 @@ defmodule StoreHall.Comments do
   alias StoreHall.Users
   alias StoreHall.Users.User
 
-  def list_item_comments do
-    Repo.all(ItemComment)
+  def preload_for_item(item) do
+    item
+    |> Map.put(
+      :comments,
+      Ecto.assoc(item, :comments)
+      |> preload([:author, :user])
+      |> limit(5)
+      |> Repo.all()
+    )
   end
 
-  def list_user_comments do
-    Repo.all(UserComment)
-  end
-
-  def get_item_comment!(id), do: Repo.get!(ItemComment, id)
-
-  def for_item(id) do
-    ItemComment
-    |> where(item_id: ^id)
-    # |> where([i], is_nil(i.comment_id))
-    |> Repo.all()
-  end
-
-  def for_user(id) do
-    UserComment
-    |> where(user_id: ^id)
-    |> Repo.all()
+  def preload_for_user(user) do
+    user
+    |> Map.put(
+      :comments,
+      Ecto.assoc(user, :comments)
+      |> preload([:author, :user])
+      |> limit(5)
+      |> Repo.all()
+    )
   end
 
   def create_item_comment(comment \\ %{}) do

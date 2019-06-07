@@ -1,7 +1,7 @@
-<button onclick='show_hide("comment-<%=@comment.comment_id%>")'>comment</button>
-<comment-form id="comment-<%=@comment.comment_id%>" style="display: none">
+<button onclick='show_hide("comment-<%=@comment.id%>")'>comment</button>
+<comment-form id="comment-<%=@comment.id%>" style="display: none">
 
-  <input class="body" type="text" name="body", value="">
-  <input class="comment" type="hidden" name="comment", value="<%= Jason.encode! @comment %>">
+  <input class="body" type="text" name="body" value="">
+  <input class="comment" type="hidden" name="comment" value="<%= Jason.encode! @comment %>">
   <button comment-topic="comment:add" type="button">Send</button>
 </comment-form>

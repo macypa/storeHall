@@ -4,11 +4,11 @@ defmodule StoreHall.Comments.ItemComment do
 
   @derive {Jason.Encoder, only: [:id, :comment_id, :details, :item_id, :user_id, :author_id]}
   schema "item_comments" do
+    belongs_to :author, StoreHall.Items.Item
+    belongs_to :user, StoreHall.Items.Item
+    field :item_id, :integer
     field :comment_id, :integer
     field :details, :map, default: %{}
-    field :item_id, :integer
-    field :user_id, :string
-    field :author_id, :string
 
     timestamps()
   end

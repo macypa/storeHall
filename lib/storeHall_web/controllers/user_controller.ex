@@ -4,7 +4,6 @@ defmodule StoreHallWeb.UserController do
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
   alias StoreHall.Chats
-  alias StoreHall.Comments
   alias StoreHall.Ratings
 
   plug :check_owner when action in [:edit, :delete]
@@ -21,7 +20,6 @@ defmodule StoreHallWeb.UserController do
     render(conn, :show,
       user: user,
       chat_msgs_info: collect_chat_info(conn, user),
-      comments_info: collect_comments_info(conn, user),
       ratings_info: collect_ratings_info(conn, user)
     )
   end
@@ -33,16 +31,6 @@ defmodule StoreHallWeb.UserController do
         owner_id: user.id,
         author_id: AuthController.get_user_id_from_conn(conn),
         user_id: AuthController.get_user_id_from_conn(conn)
-      }
-    }
-  end
-
-  def collect_comments_info(conn, user) do
-    %{
-      comments: Comments.for_user(user.id),
-      comment: %{
-        author_id: AuthController.get_user_id_from_conn(conn),
-        user_id: user.id
       }
     }
   end

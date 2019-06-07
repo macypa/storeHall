@@ -16,6 +16,8 @@ defmodule StoreHall.Users.User do
     field :details, :map,
       default: %{"rating" => %{"count" => 0, "score" => -1}, "comments_count" => 0}
 
+    has_many :comments, StoreHall.Comments.UserComment
+
     timestamps()
   end
 

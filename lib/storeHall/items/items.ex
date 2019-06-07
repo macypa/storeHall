@@ -11,6 +11,7 @@ defmodule StoreHall.Items do
   alias StoreHall.Users
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
+  alias StoreHall.Comments
 
   alias StoreHall.FileUploader
   alias StoreHall.ItemFilter
@@ -85,7 +86,13 @@ defmodule StoreHall.Items do
 
   def get_item!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
-    item = repo.get!(Item, id)
+
+    item =
+      Item
+      # |> preload(:comments)
+      |> repo.get!(id)
+      |> Comments.preload_for_item()
+
     update_default_item_details(item, repo)
   end
 

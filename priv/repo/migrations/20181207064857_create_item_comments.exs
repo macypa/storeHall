@@ -3,10 +3,10 @@ defmodule StoreHall.Repo.Migrations.CreateItemComments do
 
   def change do
     create table(:item_comments) do
+      add :author_id, references(:items)
+      add :user_id, references(:items)
       add :item_id, :integer
       add :comment_id, :integer
-      add :user_id, :string
-      add :author_id, :string
       add :details, :map
 
       timestamps()

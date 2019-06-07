@@ -16,6 +16,8 @@ defmodule StoreHall.Items.Item do
         "comments_count" => 0
       }
 
+    has_many :comments, StoreHall.Comments.ItemComment
+
     timestamps()
   end
 
