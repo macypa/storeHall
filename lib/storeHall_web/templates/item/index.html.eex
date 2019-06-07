@@ -71,4 +71,4 @@
   </div>
 </div>
 
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items, add_params: "" %>

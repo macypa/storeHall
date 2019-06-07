@@ -36,6 +36,6 @@
     <% end %>
   </div>
 
-  <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users %>
+  <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users, add_params: "" %>
 
 </div>
