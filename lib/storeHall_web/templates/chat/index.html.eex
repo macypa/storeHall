@@ -1,47 +1,51 @@
 
-<chat-box-container>
+<%= if map_size(@chat_msgs_info.chats) > 0 do %>
 
-	<div class='list'>
-		<ul>
-			<li>UserList</li>
+	<chat-box-container>
 
-      <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
-        <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
-          <% topic = case item do
-              nil ->  user
-              item -> user <> "_" <> to_string(item)
-          end %>
-          <li><a href='#<%= topic %>'><%= topic %></a></li>
-        <% end %>
-      <% end %>
-		</ul>
-	</div>
+		<div class='list'>
+			<ul>
+				<li>UserList</li>
 
+	      <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
+	        <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
+	          <% topic = case item do
+	              nil ->  user
+	              item -> user <> "_" <> to_string(item)
+	          end %>
+	          <li><a href='#<%= topic %>'><%= topic %></a></li>
+	        <% end %>
+	      <% end %>
+			</ul>
+		</div>
 
-  <div class='chat-box'>
-  <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
+	  <div class='chat-box'>
+		  <%= for user <- Map.keys(@chat_msgs_info.chats) do %>
 
+		    <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
+		      <% topic = case item do
+		          nil ->  user
+		          item -> user <> "_" <> to_string(item)
+		      end %>
+		      <chat-container id='<%= topic %>'>
+						<ul>
+			        <li><div class='title'><%= topic %></div></li>
 
-      <%= for item <- Map.keys(@chat_msgs_info.chats[user]) do %>
-        <% topic = case item do
-            nil ->  user
-            item -> user <> "_" <> to_string(item)
-        end %>
-        <chat-container id='<%= topic %>'>
-					<ul>
-		        <li><div class='title'><%= topic %></div></li>
+			        <%= for chat <- @chat_msgs_info.chats[user][item] do %>
+								<%= render "show.html", chat_msg: chat, user: user %>
+			        <% end %>
+		        </ul>
 
-		        <%= for chat <- @chat_msgs_info.chats[user][item] do %>
-							<%= render "show.html", chat_msg: chat, user: user %>
-		        <% end %>
-	        </ul>
+						<%= render "form.html", chat_msg: hd @chat_msgs_info.chats[user][item] %>
+					</chat-container>
+		    <% end %>
+		  <% end %>
 
-					<%= render "form.html", chat_msg: hd @chat_msgs_info.chats[user][item] %>
-				</chat-container>
-      <% end %>
-  <% end %>
+		</div>
+	</chat-box-container>
 
-	</div>
+<% else %>
 
-
-</chat-box-container>
+  <h3>Init chat</h3>
+	<%= render "form.html", chat_msg: @chat_msgs_info.chat_msg %>
+<% end %>

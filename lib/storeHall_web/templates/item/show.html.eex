@@ -93,7 +93,6 @@
       <label for="tab-messages">Chat</label>
       <div id="tab-content-messages" class="content">
 
-        <h3>Init chat</h3>
         <%= render StoreHallWeb.ChatView, "index.html", chat_msgs_info: @chat_msgs_info %>
       </div>
     </div>
