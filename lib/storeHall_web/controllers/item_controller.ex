@@ -45,10 +45,10 @@ defmodule StoreHallWeb.ItemController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, params = %{"id" => id}) do
     item =
       Items.get_item!(id)
-      |> Comments.preload()
+      |> Comments.preload_for(params)
 
     render(conn, :show,
       item: item,

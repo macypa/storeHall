@@ -7,5 +7,7 @@
   <% end %>
 </comments>
 
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @comments, add_params: "for=comments" %>
+
 <h3>Add Comment</h3>
 <%= render "form.html", comment: @comment_template %>

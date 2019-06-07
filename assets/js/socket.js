@@ -236,7 +236,8 @@ add_events(".auto-submit-item", "change", function() {
 
 $('#next-page-link').on('click', e => {
   var next_page = e.target.href.slice(e.target.href.indexOf('?') + 1);
-  channel.push("filter", { data: next_page })
+  var pag_for = e.target.href.slice(e.target.href.indexOf('&for=') + 5);
+  channel.push("filter", { data: next_page, pag_for: pag_for })
   e.preventDefault();
 });
 
@@ -271,6 +272,17 @@ channel.on("filtered_users", payload => {
     document.querySelector("#users-listing").innerHTML = filtered_users;
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
+  }
+  update_next_page_link(payload.filter);
+})
+
+import comments_template from "../hbs/comments.hbs"
+channel.on("filtered_comments", payload => {
+  var filtered_comments = comments_template( JSON.parse(payload.filtered) )
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("comments").innerHTML = filtered_comments;
+  } else {
+    document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   }
   update_next_page_link(payload.filter);
 })

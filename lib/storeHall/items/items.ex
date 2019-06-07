@@ -83,6 +83,10 @@ defmodule StoreHall.Items do
     id
   end
 
+  def get!(id, repo \\ Repo) do
+    get_item!(id, repo)
+  end
+
   def get_item!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
     item = Item |> repo.get!(id)

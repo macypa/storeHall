@@ -13,16 +13,27 @@ defmodule StoreHall.Comments do
   alias StoreHall.Items.Item
   alias StoreHall.Users
   alias StoreHall.Users.User
+  alias StoreHall.DefaultFilter
 
-  def preload(item_user) do
+  def preload_for(item_user, params) do
     item_user
     |> Map.put(
       :comments,
       Ecto.assoc(item_user, :comments)
       |> preload([:author, :user])
-      |> limit(5)
+      |> DefaultFilter.sort_filter(params)
+      |> DefaultFilter.paging_filter(params)
       |> Repo.all()
     )
+  end
+
+  def list_comments(module, params = %{"id" => id}) do
+    module.get!(id)
+    |> Ecto.assoc(:comments)
+    |> preload([:author, :user])
+    |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.paging_filter(params)
+    |> Repo.all()
   end
 
   def create_item_comment(comment \\ %{}) do

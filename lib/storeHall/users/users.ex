@@ -21,6 +21,10 @@ defmodule StoreHall.Users do
     |> UserFilter.search_filter(params)
   end
 
+  def get!(id, repo \\ Repo) do
+    get_user!(id, repo)
+  end
+
   def get_user!(id, repo \\ Repo) do
     user = User |> repo.get!(id)
 

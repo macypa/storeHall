@@ -15,10 +15,10 @@ defmodule StoreHallWeb.UserController do
     render(conn, :index, users: users)
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, params = %{"id" => id}) do
     user =
       get_user!(conn, id)
-      |> Comments.preload()
+      |> Comments.preload_for(params)
 
     render(conn, :show,
       user: user,

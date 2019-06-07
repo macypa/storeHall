@@ -1,5 +1,5 @@
 <comment>
-  <comment-body><%= @comment.author_id %>:<%= @comment.details %></comment-body>
+  <comment-body><%= @comment.id %>:<%= @comment.author_id %> - <%= @comment.details %></comment-body>
 
     <%= render StoreHallWeb.CommentView, "form.html",
               comment: Map.put(@comment, :comment_id, @comment.id)%>
