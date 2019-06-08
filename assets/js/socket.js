@@ -234,7 +234,7 @@ add_events(".auto-submit-item", "change", function() {
   update_next_page_link(filter_params);
 });
 
-$('#next-page-link').on('click', e => {
+$('.page-link').on('click', e => {
   var next_page = e.target.href.slice(e.target.href.indexOf('?') + 1);
   var page_more = e.target.href.slice(e.target.href.indexOf('&more_') + 6);
   channel.push("filter", { data: next_page, page_more: page_more })
@@ -319,6 +319,7 @@ channel.on("show_more_comments", payload => {
     link_node.parentNode.insertAdjacentHTML( 'beforeend', filtered_comments);
     link_node.innerHTML = "";
   }
+  add_load_more_events();
 })
 
 channel.on("error", payload => {
