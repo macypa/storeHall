@@ -21,12 +21,24 @@ defmodule StoreHallWeb.ItemsChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "pag_for" => "comments" <> _},
+        %{"data" => filter, "page_more" => "comments" <> _},
         socket
       ) do
     filtered = Comments.list_comments(Items, filter |> Plug.Conn.Query.decode())
 
     push(socket, "filtered_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter, "show_more" => _},
+        socket
+      ) do
+    filtered = Comments.list_comments(Items, filter |> Plug.Conn.Query.decode())
+
+    push(socket, "show_more_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
 
     {:reply, :ok, socket}
   end

@@ -1,6 +1,12 @@
 <comment>
   <comment-body><%= @comment.id %>:<%= @comment.author_id %> - <%= @comment.details %></comment-body>
 
+  <%= render StoreHallWeb.LayoutView,
+            "show_more.html",
+            conn: @conn,
+            model: @comment,
+            add_params: "show_for_comment_id=#{@comment.id}" %>
+
     <%= render StoreHallWeb.CommentView, "form.html",
               comment: Map.put(@comment, :comment_id, @comment.id)%>
 

@@ -28,13 +28,33 @@ defmodule StoreHall.Comments do
     )
   end
 
+  def list_comments(module, params = %{"id" => id, "show_for_comment_id" => comment_id}) do
+    module.get!(id)
+    |> Ecto.assoc(:comments)
+    |> where_comment_id(params, comment_id)
+    |> DefaultFilter.sort_filter(params)
+    |> preload([:author, :user])
+    |> Repo.all()
+  end
+
   def list_comments(module, params = %{"id" => id}) do
     module.get!(id)
     |> Ecto.assoc(:comments)
-    |> preload([:author, :user])
-    |> DefaultFilter.sort_filter(params)
+    |> where([c], is_nil(c.comment_id))
     |> DefaultFilter.paging_filter(params)
+    |> DefaultFilter.sort_filter(params)
+    |> preload([:author, :user])
     |> Repo.all()
+  end
+
+  def where_comment_id(query, _params, comment_id) do
+    query
+    |> where(comment_id: ^parse_comment_id(comment_id))
+  end
+
+  def parse_comment_id(id) do
+    {id, _} = to_string(id) |> Integer.parse()
+    id
   end
 
   def create_item_comment(comment \\ %{}) do

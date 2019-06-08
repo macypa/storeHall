@@ -1,0 +1,13 @@
+
+<% params = @conn.params
+    # |> Enum.reject(fn {k, _} -> String.match?(k, ~r/show_\w+_/) end)
+    # |> Map.new
+    |> Plug.Conn.Query.encode()
+    |> case do
+        "" -> @add_params
+        params -> params <> "&" <> @add_params
+      end %>
+
+<span class="load-more-topic" id="<%= @add_params %>">
+  <button load-more-topic="filter" params="?<%= params %>" >&gt;read more&gt;</button>
+</span>

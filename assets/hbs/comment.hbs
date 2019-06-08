@@ -1,6 +1,10 @@
 <comment>
   <comment-body>{{id}}:{{author_id}} - {{json details}}</comment-body>
 
+  <span class="load-more-topic" id="show_for_comment_id={{id}}">
+    <button load-more-topic="filter" params="?id={{#if item_id}}{{item_id}}{{else}}{{user_id}}{{/if}}&amp;show_for_comment_id={{id}}">&gt;read more&gt;</button>
+  </span>
+
   <button onclick='show_hide("comment-{{id}}")'>comment</button>
   <comment-form id="comment-{{id}}" style="display: none">
 

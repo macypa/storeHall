@@ -4,10 +4,7 @@
     |> Plug.Conn.Query.encode()
     |> case do
         "" -> ""
-        params -> case @add_params do
-          nil ->          params <> "&" <> @add_params <> "&"
-          add_params ->   params <> "&"
-        end
+        params -> params <> "&" <> @add_params <> "&"
       end %>
 
 <% per_page = case @conn.params["per-page"] do
