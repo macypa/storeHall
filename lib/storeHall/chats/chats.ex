@@ -12,13 +12,11 @@ defmodule StoreHall.Chats do
     |> Repo.all()
   end
 
-  def for_user(user_id) do
+  def for_user(id, user_id) do
     ChatMessage
     |> where(
       [c],
-      is_nil(c.item_id) and
-        (c.user_id == ^user_id or
-           c.owner_id == ^user_id)
+      is_nil(c.item_id) and c.user_id == ^id and c.owner_id == ^user_id
     )
     |> Repo.all()
   end
@@ -39,7 +37,7 @@ defmodule StoreHall.Chats do
     if id == current_id do
       all_msgs_for_user(current_id)
     else
-      for_user(id)
+      for_user(current_id, id)
     end
     |> sorte_by_topic(id)
   end

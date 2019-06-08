@@ -29,7 +29,7 @@ defmodule StoreHall.ChatsTest do
       user = Fixture.generate_user()
 
       check all author <- Fixture.user_generator() do
-        user_chats_count = length(Chats.for_user(user.id))
+        user_chats_count = length(Chats.for_user(user.id, user.id))
 
         Chats.create_chat_message(%{
           "user_id" => user.id,
@@ -38,7 +38,7 @@ defmodule StoreHall.ChatsTest do
           "details" => %{"scores" => %{"clean" => "3"}}
         })
 
-        assert length(Chats.for_user(user.id)) == user_chats_count + 1
+        assert length(Chats.for_user(user.id, user.id)) == user_chats_count + 1
       end
     end
   end
