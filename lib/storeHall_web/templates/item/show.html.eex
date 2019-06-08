@@ -56,7 +56,6 @@
       <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @item.comments, comment_template: %{
         id: nil,
         item_id: @item.id,
-        author_id: @conn.assigns[:logged_user].id,
         user_id: @item.user_id
       } %>
     </div>

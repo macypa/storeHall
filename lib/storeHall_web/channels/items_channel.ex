@@ -68,7 +68,10 @@ defmodule StoreHallWeb.ItemsChannel do
         %{"data" => comment},
         socket
       ) do
-    case Comments.create_item_comment(comment) do
+    case Comments.create_item_comment(
+           comment
+           |> Map.put("author_id", socket.assigns.current_user_id)
+         ) do
       {:ok, comment} ->
         broadcast!(
           socket,
