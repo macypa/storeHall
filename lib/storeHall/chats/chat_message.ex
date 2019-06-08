@@ -4,11 +4,11 @@ defmodule StoreHall.Chats.ChatMessage do
 
   @derive {Jason.Encoder, only: [:id, :item_id, :owner_id, :details, :user_id, :author_id]}
   schema "chat_messages" do
-    field :author_id, :string
-    field :owner_id, :string
+    belongs_to :author, StoreHall.Users.User, type: :string
+    belongs_to :user, StoreHall.Users.User, type: :string
+    belongs_to :owner, StoreHall.Users.User, type: :string
     field :item_id, :integer
     field :details, :map, default: %{}
-    field :user_id, :string
 
     timestamps()
   end

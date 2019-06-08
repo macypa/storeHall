@@ -16,7 +16,10 @@ defmodule StoreHall.Users.User do
     field :details, :map,
       default: %{"rating" => %{"count" => 0, "score" => -1}, "comments_count" => 0}
 
+    has_many :items, StoreHall.Items.Item
     has_many :comments, StoreHall.Comments.UserComment
+    has_many :ratings, StoreHall.Ratings.UserRating
+    has_many :messagess, StoreHall.Chats.ChatMessage
 
     timestamps()
   end

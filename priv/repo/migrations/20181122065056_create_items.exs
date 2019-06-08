@@ -5,7 +5,7 @@ defmodule StoreHall.Repo.Migrations.CreateItems do
   def change do
     create table(:items) do
       add :name, :string
-      add :user_id, :string
+      add :user_id, references(:users, [type: :string])
       add :details, :map
 
       timestamps()

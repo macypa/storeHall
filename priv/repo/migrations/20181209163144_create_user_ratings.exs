@@ -3,8 +3,8 @@ defmodule StoreHall.Repo.Migrations.CreateUserRatings do
 
   def change do
     create table(:user_ratings) do
-      add :author_id, :string
-      add :user_id, :string
+      add :author_id, references(:users, [type: :string])
+      add :user_id, references(:users, [type: :string])
       add :details, :map
 
       timestamps()

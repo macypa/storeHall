@@ -3,9 +3,9 @@ defmodule StoreHall.Users.Labels do
   import Ecto.Changeset
 
   schema "user_labels" do
+    belongs_to :user, StoreHall.Users.User, type: :string
     field :item_id, :integer
     field :label, :string
-    field :user_id, :string
 
     timestamps()
   end

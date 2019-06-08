@@ -4,10 +4,10 @@ defmodule StoreHall.Ratings.ItemRating do
 
   @derive {Jason.Encoder, only: [:id, :details, :item_id, :user_id, :author_id]}
   schema "item_ratings" do
-    field :author_id, :string
-    field :details, :map, default: %{"scores" => %{}}
+    belongs_to :author, StoreHall.Users.User, type: :string
+    belongs_to :user, StoreHall.Users.User, type: :string
     field :item_id, :integer
-    field :user_id, :string
+    field :details, :map, default: %{"scores" => %{}}
 
     timestamps()
   end

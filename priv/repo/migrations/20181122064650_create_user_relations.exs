@@ -3,8 +3,8 @@ defmodule StoreHall.Repo.Migrations.CreateUserRelations do
 
   def change do
     create table(:user_relations) do
-      add :user_id, :string
-      add :related_to_user_id, :string
+      add :user_id, references(:users, [type: :string])
+      add :related_to_user_id, references(:users, [type: :string])
       add :type, :string
 
       timestamps()

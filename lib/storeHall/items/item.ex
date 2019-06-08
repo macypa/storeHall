@@ -6,7 +6,7 @@ defmodule StoreHall.Items.Item do
   @derive {Jason.Encoder, only: [:id, :name, :details, :user_id]}
   schema "items" do
     field :name, :string
-    field :user_id, :string
+    belongs_to :user, StoreHall.Users.User, type: :string
 
     field :details, :map,
       default: %{
@@ -17,6 +17,8 @@ defmodule StoreHall.Items.Item do
       }
 
     has_many :comments, StoreHall.Comments.ItemComment
+    has_many :ratings, StoreHall.Ratings.ItemRating
+    has_many :messagess, StoreHall.Chats.ChatMessage
 
     timestamps()
   end

@@ -3,9 +3,9 @@ defmodule StoreHall.Users.Relations do
   import Ecto.Changeset
 
   schema "user_relations" do
-    field :related_to_user_id, :string
+    belongs_to :related_to_user, StoreHall.Users.User, type: :string
+    belongs_to :user, StoreHall.Users.User, type: :string
     field :type, :string
-    field :user_id, :string
 
     timestamps()
   end

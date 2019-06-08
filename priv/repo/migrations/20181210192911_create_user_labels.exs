@@ -5,7 +5,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserLabels do
     create table(:user_labels) do
       add :label, :string
       add :item_id, :integer
-      add :user_id, :string
+      add :user_id, references(:users, [type: :string])
 
       timestamps()
     end

@@ -4,8 +4,8 @@ defmodule StoreHall.Repo.Migrations.CreateItemRatings do
   def change do
     create table(:item_ratings) do
       add :item_id, :integer
-      add :author_id, :string
-      add :user_id, :string
+      add :author_id, references(:users, [type: :string])
+      add :user_id, references(:users, [type: :string])
       add :details, :map
 
       timestamps()
