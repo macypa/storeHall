@@ -41,8 +41,6 @@ defmodule StoreHall.Items do
           end)
         )
       )
-
-      # Map.put(item.details, "images", StoreHall.Items.cover_image(item))
     end)
   end
 
@@ -53,17 +51,14 @@ defmodule StoreHall.Items do
     |> ItemFilter.search_filter(params)
   end
 
-  def cover_image(item, version \\ :thumb) do
-    first_image =
-      case item.details["images"] do
-        nil -> ""
-        "[]" -> ""
-        "null" -> ""
-        [] -> ""
-        images -> Enum.at(images, 0)
-      end
-
-    # image_url(item, first_image, version)
+  def cover_image(item) do
+    case item.details["images"] do
+      nil -> ""
+      "[]" -> ""
+      "null" -> ""
+      [] -> ""
+      images -> Enum.at(images, 0)
+    end
   end
 
   def image_url(item, image, version \\ :thumb) do
