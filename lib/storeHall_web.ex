@@ -40,6 +40,7 @@ defmodule StoreHallWeb do
       use Phoenix.HTML
 
       import StoreHallWeb.ErrorHelpers
+      import StoreHallWeb.ViewHelpers
       import StoreHallWeb.Gettext
       alias StoreHallWeb.Router.Helpers, as: Routes
     end
