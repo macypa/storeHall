@@ -60,7 +60,11 @@
     <label for="tab-ratings">Ratings</label>
     <div id="tab-content-ratings" class="content">
 
-      <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings_info: @ratings_info %>
+      <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
+        id: nil,
+        user_id: @user.id,
+        scores: %{}
+      } %>
     </div>
   </div>
 

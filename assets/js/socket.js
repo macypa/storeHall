@@ -287,6 +287,18 @@ channel.on("filtered_users", payload => {
   update_next_page_link(payload.filter);
 })
 
+
+import ratings_template from "../hbs/ratings.hbs"
+channel.on("filtered_ratings", payload => {
+  var filtered_ratings = ratings_template( JSON.parse(payload.filtered) )
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("ratings").innerHTML = filtered_ratings;
+  } else {
+    document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
+  }
+  update_next_page_link(payload.filter);
+})
+
 import comments_template from "../hbs/comments.hbs"
 channel.on("filtered_comments", payload => {
   var filtered_comments = comments_template( JSON.parse(payload.filtered) )

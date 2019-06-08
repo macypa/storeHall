@@ -33,6 +33,18 @@ defmodule StoreHallWeb.ItemsChannel do
 
   def handle_in(
         "filter",
+        %{"data" => filter, "page_more" => "ratings" <> _},
+        socket
+      ) do
+    filtered = Ratings.list_ratings(Items, filter |> Plug.Conn.Query.decode())
+
+    push(socket, "filtered_ratings", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
         %{"data" => filter, "show_more" => _},
         socket
       ) do
@@ -95,8 +107,8 @@ defmodule StoreHallWeb.ItemsChannel do
       nil ->
         push(socket, "error", %{message: "must be logged in"})
 
-      _logged_user ->
-        case Ratings.create_item_rating(rating) do
+      logged_user ->
+        case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
           {:ok, rating, item_rating, user_rating} ->
             broadcast!(
               socket,

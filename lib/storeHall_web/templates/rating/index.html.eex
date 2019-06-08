@@ -2,10 +2,12 @@
 <h1>Listing Ratings</h1>
 
 <ratings>
-  <%= for rating <- @ratings_info.ratings do %>
+  <%= for rating <- @ratings do %>
     <%= render  "show.html", rating: rating %>
   <% end %>
 </ratings>
 
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @ratings, add_params: "more_ratings" %>
+
 <h3>Add Rating</h3>
-<%= render  "form.html", rating: @ratings_info.rating%>
+<%= render  "form.html", rating: @rating_template%>

@@ -1,3 +1,3 @@
 <rating>
-  <%= @rating.details %>
+  <rating-body><%= @rating.id %>:<%= @rating.author_id %> - <%= @rating.details %></rating-body>
 </rating>

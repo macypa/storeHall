@@ -49,11 +49,11 @@ defmodule StoreHallWeb.ItemController do
     item =
       Items.get_item!(id)
       |> Comments.preload_for(params)
+      |> Ratings.preload_for(params)
 
     render(conn, :show,
       item: item,
-      chat_msgs_info: collect_chat_info(conn, item),
-      ratings_info: collect_ratings_info(conn, item)
+      chat_msgs_info: collect_chat_info(conn, item)
     )
   end
 
@@ -65,18 +65,6 @@ defmodule StoreHallWeb.ItemController do
         owner_id: item.user_id,
         author_id: AuthController.get_user_id_from_conn(conn),
         user_id: AuthController.get_user_id_from_conn(conn)
-      }
-    }
-  end
-
-  def collect_ratings_info(conn, item) do
-    %{
-      ratings: Ratings.for_item(item.id),
-      rating: %{
-        item_id: item.id,
-        author_id: AuthController.get_user_id_from_conn(conn),
-        user_id: item.user_id,
-        scores: %{}
       }
     }
   end
