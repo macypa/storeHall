@@ -19,7 +19,7 @@
     <ul class="nav-right">
 
       <li class="notifications dropdown">
-        <span class="counter bgc-blue">3</span>
+        <span id="alert_new_msg_notif" class="bgc-blue"></span>
         <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
           <i class="ti-bell"></i>
         </a>

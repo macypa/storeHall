@@ -135,6 +135,13 @@ function on_new_msg_event(payload) {
   var new_msg_html = chat_msg_template( new_msg )
   document.querySelector("chats").insertAdjacentHTML( 'beforeend', new_msg_html )
 
+  update_counter_alert_new_msg()
+}
+
+function update_counter_alert_new_msg() {
+  var counter = document.querySelector("#alert_new_msg_notif")
+  counter.classList.add('counter')
+  counter.innerHTML = counter.parentNode.getElementsByTagName("chats")[0].getElementsByTagName("li").length
 }
 
 function add_new_msg_to_chat_room(new_msg) {
