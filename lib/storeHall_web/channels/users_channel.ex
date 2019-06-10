@@ -92,6 +92,26 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   def handle_in(
+        "msg:delete_chat_room",
+        %{"data" => chat_msg},
+        socket
+      ) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: "must be logged in"})
+
+      logged_user ->
+        unless logged_user != chat_msg["owner_id"] and
+                 logged_user != chat_msg["user_id"] do
+          chats_for_room =
+            Chats.delete_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
+        end
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
         "msg:add",
         %{"data" => chat_msg},
         socket

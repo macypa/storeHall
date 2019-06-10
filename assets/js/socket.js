@@ -119,6 +119,17 @@ function add_chat_container_events() {
 }
 add_chat_container_events()
 
+function add_chat_room_events() {
+  add_events("[delete_chat_room]", "click", function() {
+    var msg_field_value = JSON.parse(document.getElementById(this.getAttribute("delete_chat_room")).getElementsByClassName("msg")[0].value)
+    if (channel_user.state == "joined") {
+      channel_user.push("msg:delete_chat_room", { data: msg_field_value})
+    } else {
+      channel.push("msg:delete_chat_room", { data: msg_field_value})
+    }
+  });
+}
+add_chat_room_events()
 
 import chat_msg_template from "../hbs/chat.hbs"
 

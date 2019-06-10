@@ -7,18 +7,21 @@ defmodule StoreHall.Chats do
   alias StoreHall.Items.Item
   alias StoreHall.Users.User
 
-  def for_chat_room(nil, owner_id, user_id) do
+  def for_chat_room_query(nil, owner_id, user_id) do
     ChatMessage
     |> where(owner_id: ^owner_id)
     |> where(user_id: ^user_id)
-    |> Repo.all()
   end
 
-  def for_chat_room(item_id, owner_id, user_id) do
+  def for_chat_room_query(item_id, owner_id, user_id) do
     ChatMessage
     |> where(item_id: ^item_id)
     |> where(owner_id: ^owner_id)
     |> where(user_id: ^user_id)
+  end
+
+  def for_chat_room(item_id, owner_id, user_id) do
+    for_chat_room_query(item_id, owner_id, user_id)
     |> Repo.all()
   end
 
@@ -102,6 +105,19 @@ defmodule StoreHall.Chats do
     |> case do
       {:ok, multi} ->
         {:ok, multi.insert}
+
+      {:error, _op, value, _changes} ->
+        {:error, value}
+    end
+  end
+
+  def delete_chat_room(item_id, owner_id, user_id, repo \\ Repo) do
+    Multi.new()
+    |> Multi.delete_all(:delete_chat_room, for_chat_room_query(item_id, owner_id, user_id))
+    |> repo.transaction()
+    |> case do
+      {:ok, multi} ->
+        {:ok, multi.delete_chat_room}
 
       {:error, _op, value, _changes} ->
         {:error, value}

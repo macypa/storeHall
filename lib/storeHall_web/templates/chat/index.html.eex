@@ -29,7 +29,10 @@
 		      end %>
 		      <chat-container id='<%= topic %>'>
 						<ul>
-			        <li><div class='title'><%= topic %></div></li>
+			        <li><div class='title'>
+								<%= topic %>
+								<span delete_chat_room="<%= topic %>">delete</span></div>
+							</li>
 
 			        <!--%= for chat <- @chats[user][item] do %-->
 								<!--%= render "show.html", chat_msg: chat, user: user %-->
