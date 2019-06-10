@@ -54,6 +54,8 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, connect to the socket:
 socket.connect()
 
+import * as $ from 'jquery';
+
 
 var Handlebars = require('handlebars/runtime');
 Handlebars.registerHelper('json', function(context) {
@@ -67,6 +69,9 @@ var add_events = function(selector, on_event, fun) {
     }
     if (on_event == "change") {
       element.onchange = fun;
+    }
+    if (on_event == "load") {
+      element.onload = fun;
     }
   });
 };
@@ -100,9 +105,26 @@ function add_chat_events() {
 }
 add_chat_events()
 
+function add_chat_container_events() {
+  add_events("[load-chat-msgs]", "click", function() {
+    this.removeAttribute("load-chat-msgs")
+    this.onclick = null;
+    var msg_field_value = JSON.parse(document.getElementById(this.innerText).getElementsByClassName("msg")[0].value)
+    if (channel_user.state == "joined") {
+      channel_user.push("msg:load_chat_room", { data: msg_field_value})
+    } else {
+      channel.push("msg:load_chat_room", { data: msg_field_value})
+    }
+  });
+}
+add_chat_container_events()
+
+
 import chat_msg_template from "../hbs/chat.hbs"
+
 function on_new_msg_event(payload) {
   var new_msg = JSON.parse(payload.new_msg)
+  add_new_msg_to_chat_room(new_msg)
 
   if (window.loggedUserId == new_msg.author_id) {
     new_msg.me_you = 'me'
@@ -112,6 +134,18 @@ function on_new_msg_event(payload) {
 
   var new_msg_html = chat_msg_template( new_msg )
   document.querySelector("chats").insertAdjacentHTML( 'beforeend', new_msg_html )
+
+}
+
+function add_new_msg_to_chat_room(new_msg) {
+
+  if (window.loggedUserId == new_msg.author_id) {
+    new_msg.me_you = 'me'
+  } else {
+    new_msg.me_you = 'you'
+  }
+
+  var new_msg_html = chat_msg_template( new_msg )
 
   var topic_id = ""
   if (window.loggedUserId == new_msg.user_id) {
@@ -128,11 +162,18 @@ function on_new_msg_event(payload) {
     topic.getElementsByTagName("ul")[0].insertAdjacentHTML( 'beforeend', new_msg_html )
   }
 
-  add_chat_events()
+  // add_chat_events()
+}
+
+function on_chats_for_room_event(payload) {
+  JSON.parse(payload.chats_for_room).forEach(add_new_msg_to_chat_room)
 }
 
 channel_user.on("new_msg", payload => {on_new_msg_event(payload)})
+channel_user.on("chats_for_room", payload => {on_chats_for_room_event(payload)})
+
 channel.on("new_msg", payload => {on_new_msg_event(payload)})
+channel.on("chats_for_room", payload => {on_chats_for_room_event(payload)})
 
 channel_user.on("error", payload => {
   alert(payload.message)
@@ -202,8 +243,6 @@ channel.on("new_rating", payload => {
   document.querySelector("ratings").insertAdjacentHTML( 'beforeend', new_rating_html);
   add_rating_events();
 })
-
-import * as $ from 'jquery';
 
 window.onpopstate = function (event) {
   if (event.state) {

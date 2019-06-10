@@ -69,6 +69,29 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   def handle_in(
+        "msg:load_chat_room",
+        %{"data" => chat_msg},
+        socket
+      ) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: "must be logged in"})
+
+      logged_user ->
+        unless logged_user != chat_msg["owner_id"] and
+                 logged_user != chat_msg["user_id"] do
+          chats_for_room =
+            Chats.for_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
+            |> Chats.preload_author()
+
+          push(socket, "chats_for_room", %{chats_for_room: Jason.encode!(chats_for_room)})
+        end
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
         "msg:add",
         %{"data" => chat_msg},
         socket
@@ -80,6 +103,8 @@ defmodule StoreHallWeb.UsersChannel do
       logged_user ->
         case Chats.create_chat_message(chat_msg |> Map.put("author_id", logged_user)) do
           {:ok, chat_msg} ->
+            chat_msg = chat_msg |> Chats.preload_author()
+
             broadcast_msg!(
               chat_msg.user_id,
               "new_msg",

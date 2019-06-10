@@ -6,7 +6,7 @@ defmodule StoreHall.Repo.Migrations.CreateChatMessages do
         add :author_id, references(:users, [type: :string])
         add :owner_id, references(:users, [type: :string])
         add :user_id, references(:users, [type: :string])
-        add :item_id, :integer
+        add :item_id, references(:items)
         add :details, :map
 
         timestamps()

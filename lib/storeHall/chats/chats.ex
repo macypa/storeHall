@@ -4,11 +4,28 @@ defmodule StoreHall.Chats do
   alias Ecto.Multi
 
   alias StoreHall.Chats.ChatMessage
+  alias StoreHall.Items.Item
+  alias StoreHall.Users.User
+
+  def for_chat_room(nil, owner_id, user_id) do
+    ChatMessage
+    |> where(owner_id: ^owner_id)
+    |> where(user_id: ^user_id)
+    |> Repo.all()
+  end
+
+  def for_chat_room(item_id, owner_id, user_id) do
+    ChatMessage
+    |> where(item_id: ^item_id)
+    |> where(owner_id: ^owner_id)
+    |> where(user_id: ^user_id)
+    |> Repo.all()
+  end
 
   def for_item(id, user_id) do
     ChatMessage
     |> where(item_id: ^id)
-    |> where(user_id: ^to_string(user_id))
+    |> where(user_id: ^user_id)
     |> Repo.all()
   end
 
@@ -16,7 +33,7 @@ defmodule StoreHall.Chats do
     ChatMessage
     |> where(
       [c],
-      is_nil(c.item_id) and c.user_id == ^id and c.owner_id == ^user_id
+      is_nil(c.item_id) and c.owner_id == ^id and c.user_id == ^user_id
     )
     |> Repo.all()
   end
@@ -28,44 +45,53 @@ defmodule StoreHall.Chats do
     |> Repo.all()
   end
 
-  def for_item_sorted_by_topic(id, user_id) do
-    for_item(id, user_id)
-    |> sorte_by_topic(user_id)
+  def preload_author(chat) do
+    chat
+    |> Repo.preload(:author)
   end
 
-  def for_user_sorted_by_topic(id, current_id) do
-    if id == current_id do
-      all_msgs_for_user(current_id)
+  def preload_for(item_user, user_id) do
+    item_user
+    |> Map.put(
+      :messages,
+      item_user |> construct_topics(user_id)
+    )
+  end
+
+  defp assoc_chats(item_user = %Item{}, user_id) do
+    for_item(item_user.id, user_id)
+  end
+
+  defp assoc_chats(item_user = %User{}, user_id) do
+    if item_user.id == user_id do
+      all_msgs_for_user(user_id)
     else
-      for_user(current_id, id)
+      for_user(item_user.id, user_id)
     end
-    |> sorte_by_topic(id)
   end
 
-  def sorte_by_topic(chats, id) do
-    chats
+  def construct_topics(item_user, user_id) do
+    assoc_chats(item_user, user_id)
     |> Enum.reduce(%{}, fn chat, acc ->
       coresponder_id =
-        if id == chat.user_id do
+        if user_id == chat.user_id do
           chat.owner_id
         else
-          if id == chat.owner_id do
-            chat.user_id
-          end
+          chat.user_id
         end
 
-      msgs =
-        case get_in(acc, [coresponder_id, chat.item_id]) do
+      item_ids =
+        case get_in(acc, [coresponder_id]) do
           nil -> []
-          msgs -> msgs
+          item_ids -> item_ids
         end
 
       acc =
         acc
-        |> Map.put_new(coresponder_id, %{})
+        |> Map.put_new(coresponder_id, [])
 
       acc
-      |> put_in([coresponder_id, chat.item_id], msgs ++ [chat])
+      |> put_in([coresponder_id], (item_ids ++ [chat.item_id]) |> Enum.uniq())
     end)
   end
 

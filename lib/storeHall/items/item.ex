@@ -18,7 +18,7 @@ defmodule StoreHall.Items.Item do
 
     has_many :comments, StoreHall.Comments.ItemComment
     has_many :ratings, StoreHall.Ratings.ItemRating
-    has_many :messagess, StoreHall.Chats.ChatMessage
+    has_many :messages, StoreHall.Chats.ChatMessage
 
     timestamps()
   end

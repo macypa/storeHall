@@ -10,7 +10,7 @@
     <div class='<%= me_you %>'>
       <div>
         <div class='name'><%= @chat_msg.author_id %></div>
-        <div class='img'><img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""></div>
+        <div class='img'><img class="w-3r bdrs-50p" src="<%= @chat_msg.user.image %>" alt=""></div>
         <div class='text'>
           <div>
             <%= @chat_msg.details["body"] %>
