@@ -74,28 +74,37 @@ defmodule StoreHall.Chats do
   end
 
   def construct_topics(item_user, user_id) do
-    assoc_chats(item_user, user_id)
-    |> Enum.reduce(%{}, fn chat, acc ->
-      coresponder_id =
-        if user_id == chat.user_id do
-          chat.owner_id
-        else
-          chat.user_id
-        end
+    case user_id do
+      nil ->
+        %{}
 
-      item_ids =
-        case get_in(acc, [coresponder_id]) do
-          nil -> []
-          item_ids -> item_ids
-        end
+      -1 ->
+        %{}
 
-      acc =
-        acc
-        |> Map.put_new(coresponder_id, [])
+      user_id ->
+        assoc_chats(item_user, user_id)
+        |> Enum.reduce(%{}, fn chat, acc ->
+          coresponder_id =
+            if user_id == chat.user_id do
+              chat.owner_id
+            else
+              chat.user_id
+            end
 
-      acc
-      |> put_in([coresponder_id], (item_ids ++ [chat.item_id]) |> Enum.uniq())
-    end)
+          item_ids =
+            case get_in(acc, [coresponder_id]) do
+              nil -> []
+              item_ids -> item_ids
+            end
+
+          acc =
+            acc
+            |> Map.put_new(coresponder_id, [])
+
+          acc
+          |> put_in([coresponder_id], (item_ids ++ [chat.item_id]) |> Enum.uniq())
+        end)
+    end
   end
 
   def create_chat_message(chat_msg \\ %{}, repo \\ Repo) do

@@ -18,8 +18,8 @@ defmodule StoreHallWeb.UserController do
   def show(conn, params = %{"id" => id}) do
     user =
       get_user!(conn, id)
-      |> Comments.preload_for(params)
-      |> Ratings.preload_for(params)
+      |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
+      |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Chats.preload_for(AuthController.get_user_id_from_conn(conn))
 
     render(conn, :show, user: user)

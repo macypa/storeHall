@@ -15,39 +15,45 @@ defmodule StoreHall.Comments do
   alias StoreHall.Users.User
   alias StoreHall.DefaultFilter
 
-  def preload_for(item_user, params) do
+  def preload_for(item_user, current_user_id, params) do
     item_user
     |> Map.put(
       :comments,
       Ecto.assoc(item_user, :comments)
       |> where([c], is_nil(c.comment_id))
-      |> apply_filters(params)
+      |> apply_filters(current_user_id, params)
       |> DefaultFilter.paging_filter(params)
       |> Repo.all()
     )
   end
 
-  def list_comments(module, params = %{"id" => id, "show_for_comment_id" => comment_id}) do
+  def list_comments(
+        module,
+        current_user_id,
+        params = %{"id" => id, "show_for_comment_id" => comment_id}
+      ) do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where_comment_id(params, comment_id)
-    |> apply_filters(params)
+    |> apply_filters(current_user_id, params)
     |> Repo.all()
   end
 
-  def list_comments(module, params = %{"id" => id}) do
+  def list_comments(module, current_user_id, params = %{"id" => id}) do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where([c], is_nil(c.comment_id))
-    |> apply_filters(params)
+    |> apply_filters(params, current_user_id)
     |> DefaultFilter.paging_filter(params)
     |> Repo.all()
   end
 
-  def apply_filters(item_user, params) do
+  def apply_filters(item_user, current_user_id, params) do
     item_user
     |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
+    |> DefaultFilter.min_author_rating_filter(current_user_id)
+    |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)
   end
 

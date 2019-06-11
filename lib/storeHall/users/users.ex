@@ -111,5 +111,9 @@ defmodule StoreHall.Users do
       ["settings", "labels"],
       Jason.decode!(get_in(user_params, ["settings", "labels"]))
     )
+    |> put_in(
+      ["settings", "filters"],
+      Jason.decode!(get_in(user_params, ["settings", "filters"]))
+    )
   end
 end

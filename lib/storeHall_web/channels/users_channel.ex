@@ -25,7 +25,12 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter, "page_more" => "comments" <> _},
         socket
       ) do
-    filtered = Comments.list_comments(Users, filter |> Plug.Conn.Query.decode())
+    filtered =
+      Comments.list_comments(
+        Users,
+        socket.assigns.current_user_id,
+        filter |> Plug.Conn.Query.decode()
+      )
 
     push(socket, "filtered_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
 
@@ -37,7 +42,12 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter, "page_more" => "ratings" <> _},
         socket
       ) do
-    filtered = Ratings.list_ratings(Users, filter |> Plug.Conn.Query.decode())
+    filtered =
+      Ratings.list_ratings(
+        Users,
+        socket.assigns.current_user_id,
+        filter |> Plug.Conn.Query.decode()
+      )
 
     push(socket, "filtered_ratings", %{filter: filter, filtered: Jason.encode!(filtered)})
 
@@ -49,7 +59,12 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter, "show_more" => _},
         socket
       ) do
-    filtered = Comments.list_comments(Users, filter |> Plug.Conn.Query.decode())
+    filtered =
+      Comments.list_comments(
+        Users,
+        socket.assigns.current_user_id,
+        filter |> Plug.Conn.Query.decode()
+      )
 
     push(socket, "show_more_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
 

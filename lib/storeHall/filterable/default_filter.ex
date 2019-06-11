@@ -1,6 +1,8 @@
 defmodule StoreHall.DefaultFilter do
   import Ecto.Query, warn: false
 
+  alias StoreHall.Users
+
   @accepted_orders [
     :asc,
     :asc_nulls_last,
@@ -55,6 +57,57 @@ defmodule StoreHall.DefaultFilter do
     query
     |> limit([_], ^page_size)
     |> offset([_], ^offset)
+  end
+
+  def min_author_rating_filter(query, current_user_id) do
+    case current_user_id do
+      nil ->
+        query
+
+      -1 ->
+        query
+
+      current_user_id ->
+        min_rating =
+          Users.get_user_with_settings!(current_user_id).settings["filters"][
+            "show_with_min_rating"
+          ]
+
+        dynamic =
+          dynamic(
+            [c, u],
+            fragment(
+              " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::float >= ? ",
+              u,
+              u,
+              ^min_rating
+            )
+          )
+
+        query
+        |> where(^dynamic)
+    end
+  end
+
+  def hide_guests_filter(query, current_user_id) do
+    case current_user_id do
+      nil ->
+        query
+
+      -1 ->
+        query
+
+      current_user_id ->
+        hide_guests =
+          Users.get_user_with_settings!(current_user_id).settings["filters"]["hide_guests"]
+
+        if hide_guests do
+          query
+          |> where([c], not is_nil(c.author_id))
+        else
+          query
+        end
+    end
   end
 
   defp parse_int(nil, default), do: default

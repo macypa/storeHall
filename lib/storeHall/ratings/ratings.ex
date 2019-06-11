@@ -15,29 +15,30 @@ defmodule StoreHall.Ratings do
   alias StoreHall.Users.User
   alias StoreHall.DefaultFilter
 
-  def preload_for(item_user, params) do
+  def preload_for(item_user, current_user_id, params) do
     item_user
     |> Map.put(
       :ratings,
       Ecto.assoc(item_user, :ratings)
-      |> apply_filters(params)
+      |> apply_filters(current_user_id, params)
       |> Repo.all()
     )
   end
 
-  def list_ratings(module, params = %{"id" => id}) do
+  def list_ratings(module, current_user_id, params = %{"id" => id}) do
     module.get!(id)
     |> Ecto.assoc(:ratings)
-    |> apply_filters(params)
+    |> apply_filters(current_user_id, params)
     |> Repo.all()
   end
 
-  def apply_filters(item_user, params) do
+  def apply_filters(item_user, current_user_id, params) do
     item_user
     |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
     |> DefaultFilter.paging_filter(params)
     |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.min_author_rating_filter(current_user_id)
   end
 
   def create_item_rating(rating \\ %{}) do

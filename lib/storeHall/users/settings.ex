@@ -8,7 +8,8 @@ defmodule StoreHall.Users.Settings do
     field :settings, :map,
       default: %{
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
-        "relations" => %{"friends" => 0, "favorite" => 0}
+        "relations" => %{"friends" => 0, "favorite" => 0},
+        "filters" => %{"show_with_min_rating" => -1, "hide_guests" => false}
       }
 
     timestamps()
