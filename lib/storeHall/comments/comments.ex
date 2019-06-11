@@ -21,9 +21,8 @@ defmodule StoreHall.Comments do
       :comments,
       Ecto.assoc(item_user, :comments)
       |> where([c], is_nil(c.comment_id))
-      |> DefaultFilter.sort_filter(params)
+      |> apply_filters(params)
       |> DefaultFilter.paging_filter(params)
-      |> preload([:author, :user])
       |> Repo.all()
     )
   end
@@ -32,8 +31,7 @@ defmodule StoreHall.Comments do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where_comment_id(params, comment_id)
-    |> DefaultFilter.sort_filter(params)
-    |> preload([:author, :user])
+    |> apply_filters(params)
     |> Repo.all()
   end
 
@@ -41,10 +39,16 @@ defmodule StoreHall.Comments do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where([c], is_nil(c.comment_id))
+    |> apply_filters(params)
     |> DefaultFilter.paging_filter(params)
-    |> DefaultFilter.sort_filter(params)
-    |> preload([:author, :user])
     |> Repo.all()
+  end
+
+  def apply_filters(item_user, params) do
+    item_user
+    |> join(:left, [c], u in assoc(c, :author))
+    |> preload([:author])
+    |> DefaultFilter.sort_filter(params)
   end
 
   def where_comment_id(query, _params, comment_id) do

@@ -34,9 +34,10 @@ defmodule StoreHall.Ratings do
 
   def apply_filters(item_user, params) do
     item_user
+    |> join(:left, [c], u in assoc(c, :author))
+    |> preload([:author])
     |> DefaultFilter.paging_filter(params)
     |> DefaultFilter.sort_filter(params)
-    |> preload([:author, :user])
   end
 
   def create_item_rating(rating \\ %{}) do

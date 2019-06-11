@@ -103,8 +103,7 @@ defmodule StoreHallWeb.UsersChannel do
       logged_user ->
         unless logged_user != chat_msg["owner_id"] and
                  logged_user != chat_msg["user_id"] do
-          chats_for_room =
-            Chats.delete_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
+          Chats.delete_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
         end
     end
 
