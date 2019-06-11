@@ -12,7 +12,7 @@ defmodule StoreHallWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :storeHall,
-    gzip: false,
+    gzip: true,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   plug Plug.Static, at: "/uploads", from: Path.expand('./uploads'), gzip: false

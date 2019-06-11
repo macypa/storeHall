@@ -7,7 +7,14 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :storeHall, StoreHallWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 4000, compress: true],
+  https: [
+    port: 4001,
+    compress: true,
+    cipher_suite: :strong,
+    certfile: "priv/cert/selfsigned.pem",
+    keyfile: "priv/cert/selfsigned_key.pem"
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
