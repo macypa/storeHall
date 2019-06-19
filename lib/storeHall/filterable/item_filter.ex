@@ -1,64 +1,55 @@
 defmodule StoreHall.ItemFilter do
   import Ecto.Query, warn: false
 
-  def search_filter(query, params) do
-    search_terms = get_in(params, ["filter"])
+  def search_filter(query, nil), do: query
 
-    search_terms
-    |> case do
-      nil ->
-        query
+  def search_filter(query, %{"filter" => search_terms}) do
+    dynamic =
+      search_terms
+      |> Map.keys()
+      |> Enum.reduce(true, fn search_key, acc ->
+        try do
+          filter(String.to_existing_atom(search_key), acc, Map.get(search_terms, search_key))
+        rescue
+          _ -> acc
+        end
+      end)
 
-      search_terms ->
-        dynamic =
-          search_terms
-          |> Map.keys()
-          |> Enum.reduce(true, fn search_key, acc ->
-            try do
-              filter(String.to_existing_atom(search_key), acc, Map.get(search_terms, search_key))
-            rescue
-              _ -> acc
-            end
-          end)
-
-        query
-        |> where(^dynamic)
-    end
+    query
+    |> where(^dynamic)
   end
 
-  defp filter(:q, dynamic, value) do
-    value
-    |> case do
-      map when is_map(map) ->
-        map
-        |> Enum.reduce(dynamic, fn search, acc ->
-          dynamic(
-            [u],
-            ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
-          )
-        end)
+  def search_filter(query, _), do: query
 
-      string when is_binary(string) ->
-        string
-        |> String.split(" ")
-        |> Enum.reduce(dynamic, fn search, acc ->
-          dynamic(
-            [u],
-            ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
-          )
-        end)
-
-      _ ->
-        dynamic
-    end
+  defp filter(:q, dynamic, map) when is_map(map) do
+    map
+    |> Enum.reduce(dynamic, fn search, acc ->
+      dynamic(
+        [u],
+        ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
+      )
+    end)
   end
 
-  defp filter(:rating, dynamic, %{"min" => value}) do
-    case Float.parse(value) do
-      {0.0, ""} ->
+  defp filter(:q, dynamic, string) when is_binary(string) do
+    string
+    |> String.split(" ")
+    |> Enum.reduce(dynamic, fn search, acc ->
+      dynamic(
+        [u],
+        ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
+      )
+    end)
+  end
+
+  defp filter(:q, dynamic, _), do: dynamic
+
+  defp filter(:rating, dynamic, %{"min" => min_rating}) do
+    case Float.parse(min_rating) do
+      {0.0, _} ->
         dynamic
 
-      {min_rating, ""} ->
+      {min_rating, _} when is_float(min_rating) ->
         dynamic(
           [u],
           ^dynamic and fragment(" (details->'rating'->>'score')::float >= ? ", ^min_rating)
@@ -69,12 +60,12 @@ defmodule StoreHall.ItemFilter do
     end
   end
 
-  defp filter(:rating, dynamic, %{"max" => value}) do
-    case Float.parse(value) do
-      {5.0, ""} ->
+  defp filter(:rating, dynamic, %{"max" => max_rating}) do
+    case Float.parse(max_rating) do
+      {5.0, _} ->
         dynamic
 
-      {max_rating, ""} ->
+      {max_rating, _} when is_float(max_rating) ->
         dynamic(
           [u],
           ^dynamic and fragment(" (details->'rating'->>'score')::float <= ? ", ^max_rating)
@@ -84,6 +75,8 @@ defmodule StoreHall.ItemFilter do
         dynamic
     end
   end
+
+  defp filter(:rating, dynamic, _), do: dynamic
 
   defp filter(:tags, dynamic, value) do
     dynamic(
