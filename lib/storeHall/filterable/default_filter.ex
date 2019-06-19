@@ -114,7 +114,7 @@ defmodule StoreHall.DefaultFilter do
 
   defmacro where_fragment(query, binding \\ [], expr) do
     quote do
-      where(unquote(query), unquote(binding), ^unquote(expr))
+      where(unquote(query), unquote(binding), unquote(expr))
     end
   end
 end
