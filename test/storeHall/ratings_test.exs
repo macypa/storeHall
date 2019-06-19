@@ -8,12 +8,18 @@ defmodule StoreHall.RatingsTest do
   alias StoreHall.Ratings
 
   describe "item ratings" do
-    test "for_item/1 returns all ratings" do
+    test "list_ratings returns all ratings" do
       user = Fixture.generate_user()
       item = Fixture.generate_item(user)
 
       check all author <- Fixture.user_generator() do
-        item_ratings_count = length(Ratings.for_item(item.id))
+        item_ratings_count =
+          length(
+            Ratings.list_ratings(Items, author.id, %{
+              "id" => item.id,
+              "page-size" => "1111"
+            })
+          )
 
         Ratings.create_item_rating(%{
           "item_id" => item.id,
@@ -22,7 +28,10 @@ defmodule StoreHall.RatingsTest do
           "details" => %{"scores" => %{"clean" => "3"}}
         })
 
-        assert length(Ratings.for_item(item.id)) == item_ratings_count + 1
+        assert length(
+                 Ratings.list_ratings(Items, author.id, %{"id" => item.id, "page-size" => "1111"})
+               ) ==
+                 item_ratings_count + 1
       end
     end
 
@@ -68,11 +77,14 @@ defmodule StoreHall.RatingsTest do
   end
 
   describe "user ratings" do
-    test "for_user/1 returns all ratings" do
+    test "list_ratings returns all ratings" do
       user = Fixture.generate_user()
 
       check all author <- Fixture.user_generator() do
-        user_ratings_count = length(Ratings.for_user(user.id))
+        user_ratings_count =
+          length(
+            Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "1111"})
+          )
 
         Ratings.create_user_rating(%{
           "user_id" => user.id,
@@ -80,7 +92,9 @@ defmodule StoreHall.RatingsTest do
           "details" => %{"scores" => %{"clean" => "3"}}
         })
 
-        assert length(Ratings.for_user(user.id)) == user_ratings_count + 1
+        assert length(
+                 Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "1111"})
+               ) == user_ratings_count + 1
       end
     end
 

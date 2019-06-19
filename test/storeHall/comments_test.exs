@@ -10,14 +10,19 @@ defmodule StoreHall.CommentsTest do
   alias StoreHall.Comments.UserComment
 
   describe "item comments" do
-    test "for_item/1 returns all comments" do
+    test "list_comments returns all comments" do
       author = Fixture.generate_user()
 
       check all item <- Fixture.item_generator(),
                 comments_count <- StreamData.positive_integer() do
-        item_comments = Fixture.insert_item_comments(author, item, comments_count)
+        item_comments = Fixture.insert_item_comments(author, item, nil, nil, comments_count)
 
-        assert length(Comments.for_item(item.id)) == length(item_comments)
+        assert length(
+                 Comments.list_comments(Items, author.id, %{
+                   "id" => item.id,
+                   "page-size" => "1111"
+                 })
+               ) == length(item_comments)
       end
     end
 
@@ -48,14 +53,19 @@ defmodule StoreHall.CommentsTest do
   end
 
   describe "user comments" do
-    test "for_user/1 returns all comments" do
+    test "list_comments returns all comments" do
       author = Fixture.generate_user()
 
       check all user <- Fixture.user_generator(),
                 comments_count <- StreamData.positive_integer() do
-        user_comments = Fixture.insert_user_comments(author, user, comments_count)
+        user_comments = Fixture.insert_user_comments(author, user, nil, comments_count)
 
-        assert length(Comments.for_user(user.id)) == length(user_comments)
+        assert length(
+                 Comments.list_comments(Users, author.id, %{
+                   "id" => user.id,
+                   "page-size" => "1111"
+                 })
+               ) == length(user_comments)
       end
     end
 

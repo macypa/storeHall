@@ -53,14 +53,21 @@ defmodule StoreHallWeb.UserChannelTest do
 
   describe "chat" do
     test "add when not logged", %{guest_socket: guest_socket} do
-      chat = dencode(%ChatMessage{})
+      chat = dencode(%ChatMessage{author: nil})
       push(guest_socket, "msg:add", %{"data" => chat})
 
       assert_push("error", %{message: "must be logged in"})
     end
 
     test "add", %{socket: socket, user: user} do
-      chat = dencode(%ChatMessage{user_id: user.id, owner_id: user.id, author_id: user.id})
+      chat =
+        dencode(%ChatMessage{
+          user_id: user.id,
+          owner_id: user.id,
+          author_id: user.id,
+          author: user
+        })
+
       push(socket, "msg:add", %{"data" => chat})
 
       assert_broadcast "new_msg", %{new_msg: _}

@@ -135,14 +135,20 @@ defmodule StoreHall.Fixture do
     ExUnitProperties.pick(item_generator(user))
   end
 
-  def item_comment_generator(author, item \\ nil, user \\ nil, fun \\ &Repo.insert/1) do
+  def item_comment_generator(
+        author,
+        item \\ nil,
+        user \\ nil,
+        comment_id \\ nil,
+        fun \\ &Repo.insert/1
+      ) do
     item =
       case item do
         nil -> generate_item(user)
         item -> item
       end
 
-    ExUnitProperties.gen all comment_id <- StreamData.positive_integer() do
+    ExUnitProperties.gen all body <- StreamData.string(:alphanumeric) do
       {:ok, item_comment} =
         fun.(
           ItemComment.changeset(%ItemComment{}, %{
@@ -150,7 +156,8 @@ defmodule StoreHall.Fixture do
             item_id: item.id,
             user_id: item.user_id,
             author_id: author.id,
-            details: %{}
+            author: author,
+            details: %{"body" => body}
           })
         )
 
@@ -160,29 +167,36 @@ defmodule StoreHall.Fixture do
     end
   end
 
-  def insert_item_comments(author, item \\ nil, count \\ @item_comments_count) do
-    Enum.take(item_comment_generator(author, item), count)
+  def insert_item_comments(
+        author,
+        item \\ nil,
+        user \\ nil,
+        comment_id \\ nil,
+        count \\ @item_comments_count
+      ) do
+    Enum.take(item_comment_generator(author, item, user, comment_id), count)
   end
 
-  def generate_item_comment(author, item \\ nil) do
-    ExUnitProperties.pick(item_comment_generator(author, item))
+  def generate_item_comment(author, item \\ nil, user \\ nil, comment_id \\ nil) do
+    ExUnitProperties.pick(item_comment_generator(author, item, user, comment_id))
   end
 
-  def user_comment_generator(author, user \\ nil, fun \\ &Repo.insert/1) do
+  def user_comment_generator(author, user \\ nil, comment_id \\ nil, fun \\ &Repo.insert/1) do
     user =
       case user do
         nil -> generate_user()
         user -> user
       end
 
-    ExUnitProperties.gen all comment_id <- StreamData.positive_integer() do
+    ExUnitProperties.gen all body <- StreamData.string(:alphanumeric) do
       {:ok, user_comment} =
         fun.(
           UserComment.changeset(%UserComment{}, %{
             comment_id: comment_id,
             user_id: user.id,
             author_id: author.id,
-            details: %{}
+            author: author,
+            details: %{"body" => body}
           })
         )
 
@@ -192,12 +206,12 @@ defmodule StoreHall.Fixture do
     end
   end
 
-  def insert_user_comments(author, user \\ nil, count \\ @item_comments_count) do
-    Enum.take(user_comment_generator(author, user), count)
+  def insert_user_comments(author, user \\ nil, comment_id \\ nil, count \\ @item_comments_count) do
+    Enum.take(user_comment_generator(author, user, comment_id), count)
   end
 
-  def generate_user_comment(author, user \\ nil) do
-    ExUnitProperties.pick(user_comment_generator(author, user))
+  def generate_user_comment(author, user \\ nil, comment_id \\ nil) do
+    ExUnitProperties.pick(user_comment_generator(author, user, comment_id))
   end
 
   def unused_generate() do

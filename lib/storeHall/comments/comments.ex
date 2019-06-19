@@ -43,7 +43,7 @@ defmodule StoreHall.Comments do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where([c], is_nil(c.comment_id))
-    |> apply_filters(params, current_user_id)
+    |> apply_filters(current_user_id, params)
     |> DefaultFilter.paging_filter(params)
     |> Repo.all()
   end

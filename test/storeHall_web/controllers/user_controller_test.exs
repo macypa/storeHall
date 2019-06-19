@@ -5,10 +5,6 @@ defmodule StoreHallWeb.UserControllerTest do
   alias StoreHall.Fixture
   alias StoreHall.Users
   alias StoreHall.Users.User
-  alias StoreHall.Chats
-  alias StoreHall.Comments
-  alias StoreHall.Ratings
-  alias StoreHallWeb.AuthController
 
   @user_attrs %{
     id: "some_id",
@@ -16,14 +12,20 @@ defmodule StoreHallWeb.UserControllerTest do
     first_name: "some updated first_name",
     last_name: "some updated last_name",
     provider: "some updated provider",
-    settings: %{labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}"}
+    settings: %{
+      labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
+      filters: "{\"show_with_min_rating\":-1, \"hide_guests\":false}"
+    }
   }
   @invalid_attrs %{
     email: nil,
     first_name: nil,
     last_name: nil,
     provider: nil,
-    settings: %{labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}"}
+    settings: %{
+      labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
+      filters: "{\"show_with_min_rating\":-1, \"hide_guests\":false}"
+    }
   }
 
   describe "index" do
@@ -46,35 +48,9 @@ defmodule StoreHallWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "Show User"
       assert %User{} = conn.assigns.user
 
-      assert conn.assigns.comments_info == %{
-               comments: Comments.for_user(user.id),
-               comment: %{
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: user.id
-               }
-             }
-
-      assert conn.assigns.ratings_info == %{
-               ratings: Ratings.for_user(user.id),
-               rating: %{
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: user.id,
-                 scores: %{}
-               }
-             }
-
-      assert conn.assigns.chat_msgs_info == %{
-               chats:
-                 Chats.for_user_sorted_by_topic(
-                   user.id,
-                   AuthController.get_user_id_from_conn(conn)
-                 ),
-               chat_msg: %{
-                 owner_id: user.id,
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: AuthController.get_user_id_from_conn(conn)
-               }
-             }
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.user.comments
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.user.ratings
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.user.messages
     end
 
     test "does not exists", %{conn: conn} do

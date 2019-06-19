@@ -6,10 +6,6 @@ defmodule StoreHallWeb.ItemControllerTest do
   alias StoreHall.Users
   alias StoreHall.Items
   alias StoreHall.Items.Item
-  alias StoreHall.Chats
-  alias StoreHall.Comments
-  alias StoreHall.Ratings
-  alias StoreHallWeb.AuthController
 
   @item_attrs %{
     "details" => %{
@@ -58,38 +54,9 @@ defmodule StoreHallWeb.ItemControllerTest do
       assert html_response(conn, 200) =~ "Show Item"
       assert %Item{} = conn.assigns.item
 
-      assert conn.assigns.comments_info == %{
-               comments: Comments.for_item(item.id),
-               comment: %{
-                 item_id: item.id,
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: item.user_id
-               }
-             }
-
-      assert conn.assigns.ratings_info == %{
-               ratings: Ratings.for_item(item.id),
-               rating: %{
-                 item_id: item.id,
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: item.user_id,
-                 scores: %{}
-               }
-             }
-
-      assert conn.assigns.chat_msgs_info == %{
-               chats:
-                 Chats.for_item_sorted_by_topic(
-                   item.id,
-                   AuthController.get_user_id_from_conn(conn)
-                 ),
-               chat_msg: %{
-                 item_id: item.id,
-                 owner_id: item.user_id,
-                 author_id: AuthController.get_user_id_from_conn(conn),
-                 user_id: AuthController.get_user_id_from_conn(conn)
-               }
-             }
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.item.comments
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.item.ratings
+      assert %Ecto.Association.NotLoaded{} != conn.assigns.item.messages
     end
 
     test "does not exists", %{conn: conn} do
