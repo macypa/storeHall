@@ -1,5 +1,6 @@
 defmodule StoreHall.ItemFilter do
   import Ecto.Query, warn: false
+  alias StoreHall.FilterableQuery
 
   def search_filter(query, nil), do: query
 
@@ -50,9 +51,14 @@ defmodule StoreHall.ItemFilter do
         dynamic
 
       {min_rating, _} when is_float(min_rating) ->
-        dynamic(
-          [u],
-          ^dynamic and fragment(" (details->'rating'->>'score')::float >= ? ", ^min_rating)
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            gte: %{
+              field: ["rating", "score"],
+              value: min_rating
+            }
+          }
         )
 
       _ ->
@@ -66,9 +72,14 @@ defmodule StoreHall.ItemFilter do
         dynamic
 
       {max_rating, _} when is_float(max_rating) ->
-        dynamic(
-          [u],
-          ^dynamic and fragment(" (details->'rating'->>'score')::float <= ? ", ^max_rating)
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            lte: %{
+              field: ["rating", "score"],
+              value: max_rating
+            }
+          }
         )
 
       _ ->
@@ -79,9 +90,14 @@ defmodule StoreHall.ItemFilter do
   defp filter(:rating, dynamic, _), do: dynamic
 
   defp filter(:tags, dynamic, value) do
-    dynamic(
-      [u],
-      ^dynamic and fragment(" (details -> 'tags' \\?| ?) ", ^value)
+    FilterableQuery.construct_where_fragment(
+      dynamic,
+      %{
+        have_one: %{
+          field: ["tags"],
+          value: value
+        }
+      }
     )
   end
 
@@ -93,9 +109,14 @@ defmodule StoreHall.ItemFilter do
   end
 
   defp filter(:"with-image", dynamic, _value) do
-    dynamic(
-      [u],
-      ^dynamic and fragment(" jsonb_array_length(details -> 'images') > 0 ")
+    FilterableQuery.construct_where_fragment(
+      dynamic,
+      %{
+        length_at_least: %{
+          field: ["images"],
+          value: 0
+        }
+      }
     )
   end
 

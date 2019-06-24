@@ -117,4 +117,40 @@ defmodule StoreHall.DefaultFilter do
       where(unquote(query), unquote(binding), unquote(expr))
     end
   end
+
+  defmacro fragment_command(marker_prefix, fields, marker_suffix, value) do
+    two_markers = "->?->>?"
+    markers = "->?"
+
+    flag_text = " #{marker_prefix}#{markers}#{marker_suffix} "
+    flag_text_two = " #{marker_prefix}#{two_markers}#{marker_suffix} "
+
+    quote do
+      fields = unquote(fields)
+      field = List.first(fields)
+      field2 = List.last(fields)
+
+      case length(fields) do
+        1 ->
+          fragment(
+            unquote(flag_text),
+            ^field,
+            ^unquote(value)
+          )
+          |> dynamic
+
+        2 ->
+          fragment(
+            unquote(flag_text_two),
+            ^field,
+            ^field2,
+            ^unquote(value)
+          )
+          |> dynamic
+
+        _ ->
+          true
+      end
+    end
+  end
 end
