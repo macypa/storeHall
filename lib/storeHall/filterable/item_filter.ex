@@ -130,12 +130,24 @@ defmodule StoreHall.ItemFilter do
         or: [
           length_at_least: %{
             field: ["images"],
-            value: 0
+            value: 1
           }
         ]
       }
     )
   end
 
-  defp filter(_key, dynamic, _value), do: dynamic
+  # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
+  defp filter(key, dynamic, value) do
+    try do
+      value = for {key, val} <- value, into: %{}, do: {String.to_existing_atom(key), val}
+
+      FilterableQuery.construct_where_fragment(
+        dynamic,
+        Map.put(%{}, key, value)
+      )
+    rescue
+      _ -> dynamic
+    end
+  end
 end

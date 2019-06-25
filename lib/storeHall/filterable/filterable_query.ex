@@ -48,7 +48,6 @@ defmodule StoreHall.FilterableQuery do
     )
   end
 
-  # defp apply_command(:gte, %{fields: fields, value: value}) when is_list(fields) do
   defp apply_command(:gte, %{field: fields, value: value}) do
     fragment_command(
       "(details",
@@ -71,8 +70,8 @@ defmodule StoreHall.FilterableQuery do
     fragment_command(
       "jsonb_array_length(details",
       fields,
-      ") > ?",
-      value
+      ") >= ?",
+      value |> to_string() |> Integer.parse() |> elem(0)
     )
   end
 end
