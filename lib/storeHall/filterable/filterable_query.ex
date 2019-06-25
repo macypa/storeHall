@@ -43,6 +43,15 @@ defmodule StoreHall.FilterableQuery do
   defp apply_command(_, %{field: [""]}), do: true
   defp apply_command(_, %{value: ""}), do: true
 
+  defp apply_command(op, %{field: field, value: value}) when is_binary(field) do
+    field = field |> String.split(",") |> Enum.map(fn s -> String.trim(s, " ") end)
+
+    apply_command(op, %{
+      field: field,
+      value: value
+    })
+  end
+
   defp apply_command(:and, fragment_commands) do
     construct_where_fragment(true, fragment_commands)
   end
@@ -50,8 +59,11 @@ defmodule StoreHall.FilterableQuery do
   # @accepted_fields [:id, :inserted_at, :updated_at, :name]
   defp apply_command(:or, fragment_commands) do
     fragment_commands
-    |> Enum.reduce(false, fn {key, value}, acc ->
-      clean_dynamic(:or, acc, apply_command(key, value))
+    |> Enum.reduce(false, fn map, acc ->
+      map
+      |> Enum.reduce(acc, fn {key, value}, acc ->
+        clean_dynamic(:or, acc, apply_command(key, value))
+      end)
     end)
   end
 

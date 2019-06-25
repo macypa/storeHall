@@ -126,27 +126,53 @@ defmodule StoreHall.ItemFilter do
     FilterableQuery.construct_where_fragment(
       dynamic,
       %{
-        or: [
-          length_at_least: %{
-            field: ["images"],
-            value: 1
-          }
-        ]
+        length_at_least: %{
+          field: ["images"],
+          value: 1
+        }
       }
     )
   end
 
-  # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
-  defp filter(key, dynamic, value) do
-    try do
-      value = for {key, val} <- value, into: %{}, do: {String.to_existing_atom(key), val}
+  # {"or": [{
+  #   "gte":{
+  #     "field":"rating,score",
+  #     "value":2
+  #     }
+  #   },{
+  #   "gte":{
+  #     "field":"price",
+  #     "value":2
+  #     }
+  #   }
+  #  ]
+  # }
 
+  # {gte: {field: "rating, core", value: 4}}
+  # {"gte": {"field": "rating, core", "value": 4}}
+  # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
+  defp filter(:"custom-filters", dynamic, value) do
+    try do
       FilterableQuery.construct_where_fragment(
         dynamic,
-        Map.put(%{}, key, value)
+        keys_to_existing_atom(value |> Jason.decode() |> elem(1))
       )
     rescue
       _ -> dynamic
     end
   end
+
+  defp filter(_, dynamic, _), do: dynamic
+
+  defp keys_to_existing_atom(value) when is_map(value) do
+    for {key, val} <- value,
+        into: %{},
+        do: {String.to_existing_atom(key), keys_to_existing_atom(val)}
+  end
+
+  defp keys_to_existing_atom(value) when is_list(value) do
+    value |> Enum.map(fn map -> keys_to_existing_atom(map) end)
+  end
+
+  defp keys_to_existing_atom(value), do: value
 end

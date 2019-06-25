@@ -25,12 +25,6 @@
     <filter-label for="sort">sort:</filter-label>
     <%= text_input f, :sort, class: "auto-submit-item", value: "inserted_at:desc"  %>
 
-    <filter-label for="custom">custom:</filter-label>
-    <%= text_input f, :gte, class: "auto-submit-item",
-    name: "filter[gte][field][]", value: f.params["gte"]["field"] %>
-    <%= text_input f, :gte, class: "auto-submit-item",
-    name: "filter[gte][value]", value: f.params["gte"]["value"] %>
-
     <filter-label for="merchants">Merchants:</filter-label>
     <%= multiple_select f, :merchant,
       @conn.assigns.filters["merchant"]
@@ -43,6 +37,10 @@
       @conn.assigns.filters["tags"]
       |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
       class: "auto-submit-item"  %>
+
+    <filter-label for="custom">custom:</filter-label>
+    <%= textarea  f, :"custom-filters", class: "auto-submit-item",
+     value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
 
     <%= for param <- @conn.params
       |> Map.delete("_utf8")
