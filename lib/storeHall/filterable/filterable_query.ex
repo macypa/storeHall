@@ -71,7 +71,15 @@ defmodule StoreHall.FilterableQuery do
       "jsonb_array_length(details",
       fields,
       ") >= ?",
-      value |> to_string() |> Integer.parse() |> elem(0)
+      as_float(value)
     )
+  end
+
+  defp as_float(value) do
+    try do
+      value |> to_string() |> Integer.parse() |> elem(0)
+    rescue
+      _ -> 0
+    end
   end
 end
