@@ -1,7 +1,6 @@
 defmodule StoreHall.ItemFilter do
   import Ecto.Query, warn: false
 
-  import StoreHall.DefaultFilter
   alias StoreHall.FilterableQuery
 
   def search_filter(query, nil), do: query
@@ -31,7 +30,7 @@ defmodule StoreHall.ItemFilter do
     do: dynamic
 
   defp filter_q(search_string, dynamic) when is_binary(search_string) do
-    clean_dynamic(
+    FilterableQuery.clean_dynamic(
       :and,
       dynamic,
       dynamic(
@@ -109,7 +108,7 @@ defmodule StoreHall.ItemFilter do
     FilterableQuery.construct_where_fragment(
       dynamic,
       %{
-        have_one: %{
+        in: %{
           field: ["tags"],
           value: value
         }
@@ -120,7 +119,7 @@ defmodule StoreHall.ItemFilter do
   defp filter(:merchant, dynamic, value) when value == [""], do: dynamic
 
   defp filter(:merchant, dynamic, value) do
-    clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
+    FilterableQuery.clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
   end
 
   defp filter(:"with-image", dynamic, _value) do

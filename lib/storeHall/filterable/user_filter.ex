@@ -5,7 +5,7 @@ defmodule StoreHall.UserFilter do
 
   def search_filter(query, %{"filter" => %{"q" => value}}) do
     query
-    |> where_fragment(
+    |> where(
       [u],
       ilike(u.first_name, ^"%#{value}%") or
         ilike(u.last_name, ^"%#{value}%")

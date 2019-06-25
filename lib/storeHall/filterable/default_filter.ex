@@ -1,8 +1,6 @@
 defmodule StoreHall.DefaultFilter do
   import Ecto.Query, warn: false
 
-  defstruct needed_for_query: nil
-
   alias StoreHall.Users
 
   @accepted_orders [
@@ -111,63 +109,4 @@ defmodule StoreHall.DefaultFilter do
   defp to_accepted_orders(atom) when atom in @accepted_orders, do: atom
   defp to_accepted_orders(_string), do: :asc
   def accepted_orders(), do: @accepted_orders
-
-  def clean_dynamic(_, nil, dynamic), do: dynamic
-  def clean_dynamic(_, false, dynamic), do: dynamic
-  def clean_dynamic(_, true, dynamic), do: dynamic
-
-  def clean_dynamic(:and, acc, dynamic) do
-    dynamic(^acc and ^dynamic)
-  end
-
-  def clean_dynamic(:or, acc, dynamic) do
-    dynamic(^acc or ^dynamic)
-  end
-
-  defmacro where_fragment(query, binding \\ [], expr) do
-    quote do
-      where(unquote(query), unquote(binding), unquote(expr))
-    end
-  end
-
-  defmacro fragment_command(marker_prefix, fields, marker_suffix, value) do
-    two_markers = "->?->"
-    markers = "->"
-
-    jsonb_text_end =
-      if String.contains?(marker_suffix, "::") do
-        ">?"
-      else
-        "?"
-      end
-
-    flag_text = " #{marker_prefix}#{markers}#{jsonb_text_end}#{marker_suffix} "
-    flag_text_two = " #{marker_prefix}#{two_markers}#{jsonb_text_end}#{marker_suffix} "
-
-    quote do
-      fields = unquote(fields)
-
-      case length(fields) do
-        1 ->
-          fragment(
-            unquote(flag_text),
-            ^List.first(fields),
-            ^unquote(value)
-          )
-          |> dynamic
-
-        2 ->
-          fragment(
-            unquote(flag_text_two),
-            ^List.first(fields),
-            ^List.last(fields),
-            ^unquote(value)
-          )
-          |> dynamic
-
-        _ ->
-          true
-      end
-    end
-  end
 end

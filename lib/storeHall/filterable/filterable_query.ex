@@ -1,7 +1,6 @@
 defmodule StoreHall.FilterableQuery do
   import Ecto.Query, warn: false
 
-  import StoreHall.DefaultFilter
   # Example
   # {
   #  {lte: {field: "year", value: "1999"}},
@@ -14,6 +13,18 @@ defmodule StoreHall.FilterableQuery do
   #    {in: {field: "extras", value:["GPS", "bluetooth"]}}
   #  ]}
   # }
+
+  def clean_dynamic(_, nil, dynamic), do: dynamic
+  def clean_dynamic(_, false, dynamic), do: dynamic
+  def clean_dynamic(_, true, dynamic), do: dynamic
+
+  def clean_dynamic(:and, acc, dynamic) do
+    dynamic(^acc and ^dynamic)
+  end
+
+  def clean_dynamic(:or, acc, dynamic) do
+    dynamic(^acc or ^dynamic)
+  end
 
   def filter(query, params) do
     query
@@ -44,40 +55,58 @@ defmodule StoreHall.FilterableQuery do
     end)
   end
 
-  defp apply_command(:lte, %{field: fields, value: value}) do
-    fragment_command(
-      "(details",
-      fields,
-      ")::float <= ? ",
-      as_float(value)
+  defp apply_command(:lt, %{field: fields, value: value}) do
+    fragment(
+      "(details#>?)::float < ? ",
+      ^fields,
+      ^as_float(value)
     )
+    |> dynamic
+  end
+
+  defp apply_command(:lte, %{field: fields, value: value}) do
+    fragment(
+      "(details#>?)::float <= ? ",
+      ^fields,
+      ^as_float(value)
+    )
+    |> dynamic
+  end
+
+  defp apply_command(:gt, %{field: fields, value: value}) do
+    fragment(
+      "(details#>>?)::float > ? ",
+      ^fields,
+      ^as_float(value)
+    )
+    |> dynamic
   end
 
   defp apply_command(:gte, %{field: fields, value: value}) do
-    fragment_command(
-      "(details",
-      fields,
-      ")::float >= ? ",
-      as_float(value)
+    fragment(
+      "(details#>>?)::float >= ? ",
+      ^fields,
+      ^as_float(value)
     )
+    |> dynamic
   end
 
-  defp apply_command(:have_one, %{field: fields, value: value}) do
-    fragment_command(
-      "(details",
-      fields,
-      ") \\?| ?",
-      value
+  defp apply_command(:in, %{field: fields, value: value}) do
+    fragment(
+      "(details#>?) \\?| ?",
+      ^fields,
+      ^value
     )
+    |> dynamic
   end
 
   defp apply_command(:length_at_least, %{field: fields, value: value}) do
-    fragment_command(
-      "jsonb_array_length(details",
-      fields,
-      ") >= ?",
-      as_float(value)
+    fragment(
+      "jsonb_array_length(details#>?) >= ?",
+      ^fields,
+      ^as_float(value)
     )
+    |> dynamic
   end
 
   defp as_float(value) do
