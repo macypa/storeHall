@@ -24,28 +24,32 @@ defmodule StoreHall.ItemFilter do
 
   def search_filter(query, _), do: query
 
-  defp filter_q(map, dynamic) do
-    map
-    |> Enum.reduce(dynamic, fn search, acc ->
-      case search do
-        "" ->
-          dynamic
+  defp filter_q(nil, dynamic), do: dynamic
+  defp filter_q("", dynamic), do: dynamic
 
-        search ->
-          clean_dynamic(
-            :and,
-            acc,
-            dynamic(
-              [u],
-              ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%")
-            )
-          )
-      end
+  defp filter_q(search_string, dynamic) when is_binary(search_string) and search_string == "",
+    do: dynamic
+
+  defp filter_q(search_string, dynamic) when is_binary(search_string) do
+    clean_dynamic(
+      :and,
+      dynamic,
+      dynamic(
+        [u],
+        ilike(u.name, ^"%#{search_string}%") or ilike(u.user_id, ^"%#{search_string}%")
+      )
+    )
+  end
+
+  defp filter_q(list, dynamic) when is_list(list) do
+    list
+    |> Enum.reduce(dynamic, fn search, acc ->
+      filter_q(search, acc)
     end)
   end
 
-  defp filter(:q, dynamic, map) when is_map(map) do
-    map
+  defp filter(:q, dynamic, list) when is_list(list) do
+    list
     |> filter_q(dynamic)
   end
 
@@ -113,14 +117,10 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
-  defp filter(:merchant, dynamic, value) do
-    case value do
-      [""] ->
-        dynamic
+  defp filter(:merchant, dynamic, value) when value == [""], do: dynamic
 
-      value ->
-        clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
-    end
+  defp filter(:merchant, dynamic, value) do
+    clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
   end
 
   defp filter(:"with-image", dynamic, _value) do
@@ -137,5 +137,5 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
-  defp filter(_Key, dynamic, _value), do: dynamic
+  defp filter(_key, dynamic, _value), do: dynamic
 end
