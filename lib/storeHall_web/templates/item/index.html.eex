@@ -26,10 +26,10 @@
     <%= text_input f, :sort, class: "auto-submit-item", value: "inserted_at:desc"  %>
 
     <filter-label for="custom">custom:</filter-label>
-    <%= text_input f, :length_at_least, class: "auto-submit-item",
-    name: "filter[length_at_least][field][]", value: f.params["length_at_least"]["field"] %>
-    <%= text_input f, :length_at_least, class: "auto-submit-item",
-    name: "filter[length_at_least][value]", value: f.params["length_at_least"]["value"] %>
+    <%= text_input f, :gte, class: "auto-submit-item",
+    name: "filter[gte][field][]", value: f.params["gte"]["field"] %>
+    <%= text_input f, :gte, class: "auto-submit-item",
+    name: "filter[gte][value]", value: f.params["gte"]["value"] %>
 
     <filter-label for="merchants">Merchants:</filter-label>
     <%= multiple_select f, :merchant,

@@ -26,13 +26,13 @@ defmodule StoreHallWeb.ItemController do
          |> Map.put("user_id", conn.assigns.logged_user.id)
          # |> put_in([:details, :merchant], conn.assigns.logged_user.id)
          |> put_in(
-           ["details", "tags"],
-           Jason.decode!(get_in(item_params, ["details", "tags"]))
+           ["details"],
+           Jason.decode!(get_in(item_params, ["details"]))
          )
-         |> put_in(
-           ["details", "images"],
-           Jason.decode!(get_in(item_params, ["details", "images"]))
-         )
+         # |> put_in(
+         #   ["details", "images"],
+         #   Jason.decode!(get_in(item_params, ["details", "images"]))
+         # )
          # |> Map.put(:details, StoreHall.EncodeHelper.decode(item_params, :details))
          |> Items.create_item() do
       {:ok, item} ->
@@ -68,13 +68,13 @@ defmodule StoreHallWeb.ItemController do
            item,
            item_params
            |> put_in(
-             ["details", "tags"],
-             Jason.decode!(get_in(item_params, ["details", "tags"]))
+             ["details"],
+             Jason.decode!(get_in(item_params, ["details"]))
            )
-           |> put_in(
-             ["details", "images"],
-             Jason.decode!(get_in(item_params, ["details", "images"]))
-           )
+           # |> put_in(
+           #   ["details", "images"],
+           #   Jason.decode!(get_in(item_params, ["details", "images"]))
+           # )
          ) do
       {:ok, item} ->
         conn
