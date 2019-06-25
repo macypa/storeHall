@@ -139,14 +139,12 @@ defmodule StoreHall.DefaultFilter do
 
     quote do
       fields = unquote(fields)
-      field = List.first(fields)
-      field2 = List.last(fields)
 
       case length(fields) do
         1 ->
           fragment(
             unquote(flag_text),
-            ^field,
+            ^List.first(fields),
             ^unquote(value)
           )
           |> dynamic
@@ -154,8 +152,8 @@ defmodule StoreHall.DefaultFilter do
         2 ->
           fragment(
             unquote(flag_text_two),
-            ^field,
-            ^field2,
+            ^List.first(fields),
+            ^List.last(fields),
             ^unquote(value)
           )
           |> dynamic

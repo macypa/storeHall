@@ -27,6 +27,11 @@ defmodule StoreHall.FilterableQuery do
     end)
   end
 
+  defp apply_command(_, %{field: nil}), do: true
+  defp apply_command(_, %{field: []}), do: true
+  defp apply_command(_, %{field: [""]}), do: true
+  defp apply_command(_, %{value: ""}), do: true
+
   defp apply_command(:and, fragment_commands) do
     construct_where_fragment(true, fragment_commands)
   end
