@@ -1,5 +1,7 @@
 defmodule StoreHall.ItemFilter do
   import Ecto.Query, warn: false
+
+  import StoreHall.DefaultFilter
   alias StoreHall.FilterableQuery
 
   def search_filter(query, nil), do: query
@@ -22,25 +24,35 @@ defmodule StoreHall.ItemFilter do
 
   def search_filter(query, _), do: query
 
-  defp filter(:q, dynamic, map) when is_map(map) do
+  defp filter_q(map, dynamic) do
     map
     |> Enum.reduce(dynamic, fn search, acc ->
-      dynamic(
-        [u],
-        ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
-      )
+      case search do
+        "" ->
+          dynamic
+
+        search ->
+          clean_dynamic(
+            :and,
+            acc,
+            dynamic(
+              [u],
+              ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%")
+            )
+          )
+      end
     end)
+  end
+
+  defp filter(:q, dynamic, map) when is_map(map) do
+    map
+    |> filter_q(dynamic)
   end
 
   defp filter(:q, dynamic, string) when is_binary(string) do
     string
     |> String.split(" ")
-    |> Enum.reduce(dynamic, fn search, acc ->
-      dynamic(
-        [u],
-        ^acc and (ilike(u.name, ^"%#{search}%") or ilike(u.user_id, ^"%#{search}%"))
-      )
-    end)
+    |> filter_q(dynamic)
   end
 
   defp filter(:q, dynamic, _), do: dynamic
@@ -103,8 +115,11 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:merchant, dynamic, value) do
     case value do
-      [""] -> dynamic
-      value -> dynamic([u], ^dynamic and u.user_id in ^value)
+      [""] ->
+        dynamic
+
+      value ->
+        clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
     end
   end
 
@@ -112,10 +127,12 @@ defmodule StoreHall.ItemFilter do
     FilterableQuery.construct_where_fragment(
       dynamic,
       %{
-        length_at_least: %{
-          field: ["images"],
-          value: 0
-        }
+        or: [
+          length_at_least: %{
+            field: ["images"],
+            value: 0
+          }
+        ]
       }
     )
   end

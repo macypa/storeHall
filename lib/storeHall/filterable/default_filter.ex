@@ -112,6 +112,18 @@ defmodule StoreHall.DefaultFilter do
   defp to_accepted_orders(_string), do: :asc
   def accepted_orders(), do: @accepted_orders
 
+  def clean_dynamic(_, nil, dynamic), do: dynamic
+  def clean_dynamic(_, false, dynamic), do: dynamic
+  def clean_dynamic(_, true, dynamic), do: dynamic
+
+  def clean_dynamic(:and, acc, dynamic) do
+    dynamic(^acc and ^dynamic)
+  end
+
+  def clean_dynamic(:or, acc, dynamic) do
+    dynamic(^acc or ^dynamic)
+  end
+
   defmacro where_fragment(query, binding \\ [], expr) do
     quote do
       where(unquote(query), unquote(binding), unquote(expr))
