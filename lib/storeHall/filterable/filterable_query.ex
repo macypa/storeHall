@@ -49,7 +49,7 @@ defmodule StoreHall.FilterableQuery do
       "(details",
       fields,
       ")::float <= ? ",
-      value
+      as_float(value)
     )
   end
 
@@ -58,7 +58,7 @@ defmodule StoreHall.FilterableQuery do
       "(details",
       fields,
       ")::float >= ? ",
-      value
+      as_float(value)
     )
   end
 

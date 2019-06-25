@@ -131,11 +131,18 @@ defmodule StoreHall.DefaultFilter do
   end
 
   defmacro fragment_command(marker_prefix, fields, marker_suffix, value) do
-    two_markers = "->?->>?"
-    markers = "->?"
+    two_markers = "->?->"
+    markers = "->"
 
-    flag_text = " #{marker_prefix}#{markers}#{marker_suffix} "
-    flag_text_two = " #{marker_prefix}#{two_markers}#{marker_suffix} "
+    jsonb_text_end =
+      if String.contains?(marker_suffix, "::") do
+        ">?"
+      else
+        "?"
+      end
+
+    flag_text = " #{marker_prefix}#{markers}#{jsonb_text_end}#{marker_suffix} "
+    flag_text_two = " #{marker_prefix}#{two_markers}#{jsonb_text_end}#{marker_suffix} "
 
     quote do
       fields = unquote(fields)
