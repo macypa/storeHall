@@ -77,15 +77,7 @@ defmodule StoreHallWeb.ItemsChannel do
       ) do
     filtered = Items.list_items(filter |> Plug.Conn.Query.decode())
 
-    case filtered do
-      [] ->
-        push(socket, "error", %{
-          message: "nothing to show :)"
-        })
-
-      filtered ->
-        push(socket, "filtered_items", %{filter: filter, filtered: Jason.encode!(filtered)})
-    end
+    push(socket, "filtered_items", %{filter: filter, filtered: Jason.encode!(filtered)})
 
     {:reply, :ok, socket}
   end
