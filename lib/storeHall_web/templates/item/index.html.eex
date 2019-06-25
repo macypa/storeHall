@@ -25,6 +25,12 @@
     <filter-label for="sort">sort:</filter-label>
     <%= text_input f, :sort, class: "auto-submit-item", value: "inserted_at:desc"  %>
 
+    <filter-label for="custom">custom:</filter-label>
+    <%= text_input f, :length_at_least, class: "auto-submit-item",
+    name: "filter[length_at_least][field][]", value: f.params["length_at_least"]["field"] %>
+    <%= text_input f, :length_at_least, class: "auto-submit-item",
+    name: "filter[length_at_least][value]", value: f.params["length_at_least"]["value"] %>
+
     <filter-label for="merchants">Merchants:</filter-label>
     <%= multiple_select f, :merchant,
       @conn.assigns.filters["merchant"]
@@ -45,7 +51,6 @@
       |> Map.keys() do
         hidden_input f, "p", name: param, value: @conn.params[param]
     end %>
-
   <% end %>
 </div>
 
