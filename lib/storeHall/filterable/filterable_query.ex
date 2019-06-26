@@ -43,21 +43,10 @@ defmodule StoreHall.FilterableQuery do
   defp apply_command(_, %{field: [""]}), do: true
   defp apply_command(_, %{value: ""}), do: true
 
-  defp apply_command(op, %{field: field, value: value}) when is_binary(field) do
+  defp apply_command(op, fragment_commands = %{field: field}) when is_binary(field) do
     field = field |> String.split(",") |> Enum.map(fn s -> String.trim(s, " ") end)
 
-    apply_command(op, %{
-      field: field,
-      value: value
-    })
-  end
-
-  defp apply_command(op, %{field: field}) when is_binary(field) do
-    field = field |> String.split(",") |> Enum.map(fn s -> String.trim(s, " ") end)
-
-    apply_command(op, %{
-      field: field
-    })
+    apply_command(op, %{fragment_commands | field: field})
   end
 
   defp apply_command(:and, fragment_commands) do
