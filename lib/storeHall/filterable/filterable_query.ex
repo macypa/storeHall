@@ -79,7 +79,7 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:lt, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float < ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float < ? )",
       ^fields,
       ^fields,
       ^as_float(value)
@@ -89,7 +89,7 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:lte, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float <= ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float <= ? )",
       ^fields,
       ^fields,
       ^as_float(value)
@@ -99,7 +99,7 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:gt, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float > ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float > ? )",
       ^fields,
       ^fields,
       ^as_float(value)
@@ -110,7 +110,7 @@ defmodule StoreHall.FilterableQuery do
   # {"gte": {"field": "rating, core", "value": 4}}
   defp apply_command(:gte, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float >= ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float >= ? )",
       ^fields,
       ^fields,
       ^as_float(value)
