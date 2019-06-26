@@ -52,10 +52,31 @@ defmodule StoreHall.FilterableQuery do
     })
   end
 
+  defp apply_command(op, %{field: field}) when is_binary(field) do
+    field = field |> String.split(",") |> Enum.map(fn s -> String.trim(s, " ") end)
+
+    apply_command(op, %{
+      field: field
+    })
+  end
+
   defp apply_command(:and, fragment_commands) do
     construct_where_fragment(true, fragment_commands)
   end
 
+  # {"or": [{
+  #   "gte":{
+  #     "field":"rating,score",
+  #     "value":2
+  #     }
+  #   },{
+  #   "gte":{
+  #     "field":"price",
+  #     "value":2
+  #     }
+  #   }
+  #  ]
+  # }
   # @accepted_fields [:id, :inserted_at, :updated_at, :name]
   defp apply_command(:or, fragment_commands) do
     fragment_commands
@@ -69,7 +90,8 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:lt, %{field: fields, value: value}) do
     fragment(
-      "(details#>?)::float < ? ",
+      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float < ? )",
+      ^fields,
       ^fields,
       ^as_float(value)
     )
@@ -78,7 +100,8 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:lte, %{field: fields, value: value}) do
     fragment(
-      "(details#>?)::float <= ? ",
+      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float <= ? )",
+      ^fields,
       ^fields,
       ^as_float(value)
     )
@@ -87,16 +110,19 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:gt, %{field: fields, value: value}) do
     fragment(
-      "(details#>>?)::float > ? ",
+      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float > ? )",
+      ^fields,
       ^fields,
       ^as_float(value)
     )
     |> dynamic
   end
 
+  # {"gte": {"field": "rating, core", "value": 4}}
   defp apply_command(:gte, %{field: fields, value: value}) do
     fragment(
-      "(details#>>?)::float >= ? ",
+      "( (details#>>?) ~ '^([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float >= ? )",
+      ^fields,
       ^fields,
       ^as_float(value)
     )
@@ -111,6 +137,51 @@ defmodule StoreHall.FilterableQuery do
     )
     |> dynamic
   end
+
+  # {"eq": {"field": "price", "value": "20.4"}}
+  defp apply_command(:eq, %{field: fields, value: value}) do
+    fragment(
+      "(details#>>?)::varchar = ? ",
+      ^fields,
+      ^to_string(value)
+    )
+    |> dynamic
+  end
+
+  defp apply_command(:has, %{field: fields, value: value}) do
+    fragment(
+      "(details#>>?) LIKE '%' || ? || '%' ",
+      ^fields,
+      ^to_string(value)
+    )
+    |> dynamic
+  end
+
+  # {
+  #      "has":{
+  #        "value":"price"
+  #        }
+  #    }
+  defp apply_command(:has, %{field: fields}) do
+    fragment(
+      "(details#>>?) is not null ",
+      ^fields
+    )
+    |> dynamic
+  end
+
+  # needs to preload user in ItemFilter.search_filter
+  #
+  # |> join(:left, [c], u in assoc(c, :author))
+  # |> preload([:author])
+  #
+  # defp apply_command(:min_author_rating_filter, %{field: fields, value: value}) do
+  #   fragment(
+  #     " (user_details->'rating'->>'score')::float >= ? ",
+  #     ^as_float(value)
+  #   )
+  #   |> dynamic
+  # end
 
   defp apply_command(:length_at_least, %{field: fields, value: value}) do
     fragment(

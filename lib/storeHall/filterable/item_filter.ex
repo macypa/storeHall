@@ -134,22 +134,7 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
-  # {"or": [{
-  #   "gte":{
-  #     "field":"rating,score",
-  #     "value":2
-  #     }
-  #   },{
-  #   "gte":{
-  #     "field":"price",
-  #     "value":2
-  #     }
-  #   }
-  #  ]
-  # }
-
-  # {gte: {field: "rating, core", value: 4}}
-  # {"gte": {"field": "rating, core", "value": 4}}
+  # example value: {"gte": {"field": "rating, core", "value": 4}}
   # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
   defp filter(:"custom-filters", dynamic, value) do
     try do
