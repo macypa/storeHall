@@ -16,18 +16,17 @@
     <%= label f, :details %>
     <%= error_tag f, :details %>
 
-    <%= label f, :details %>
-    <%= textarea  f, :details, name: input_name(f, :details), value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
-<!--
-    <%= label f, :tags %>
-    <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Jason.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %>
+    <!-- <%= label f, :tags %>
+    <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Jason.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %> -->
 
     <div class="form-image-group">
       <%= label f, :images %>
-      <%= text_input f, :images, name: input_name(f, :details) <> "[images]", value: Jason.encode!(f.data.details["images"]) |> String.replace(",\"", ",\n\"") %>
       <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple" %>
       <%= error_tag f, :images %>
-    </div> -->
+    </div>
+
+    <%= label f, :details %>
+    <%= textarea  f, :details, name: input_name(f, :details), value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
 
   </div>
 

@@ -9,8 +9,8 @@ defmodule StoreHallWeb.ItemControllerTest do
 
   @item_attrs %{
     "details" => %{
-      "tags" => "[]",
-      "images" => "[]",
+      "tags" => [],
+      "images" => [],
       "rating" => %{"count" => 0, "score" => -1},
       "comments_count" => 1
     },
@@ -19,8 +19,8 @@ defmodule StoreHallWeb.ItemControllerTest do
   }
   @invalid_attrs %{
     "details" => %{
-      "tags" => "[]",
-      "images" => "[]",
+      "tags" => [],
+      "images" => [],
       "rating" => %{"count" => 0, "score" => -1},
       "comments_count" => 0
     },

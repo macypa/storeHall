@@ -105,7 +105,7 @@ defmodule StoreHall.Users do
     User.changeset(user, %{})
   end
 
-  def decode_user_params(user_params) do
+  def decode_params(user_params) do
     user_params
     |> put_in(
       ["settings", "labels"],

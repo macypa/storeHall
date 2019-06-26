@@ -22,19 +22,10 @@ defmodule StoreHallWeb.ItemController do
   end
 
   def create(conn, %{"item" => item_params}) do
-    case item_params
-         |> Map.put("user_id", conn.assigns.logged_user.id)
-         # |> put_in([:details, :merchant], conn.assigns.logged_user.id)
-         |> put_in(
-           ["details"],
-           Jason.decode!(get_in(item_params, ["details"]))
-         )
-         # |> put_in(
-         #   ["details", "images"],
-         #   Jason.decode!(get_in(item_params, ["details", "images"]))
-         # )
-         # |> Map.put(:details, StoreHall.EncodeHelper.decode(item_params, :details))
-         |> Items.create_item() do
+    case Items.create_item(
+           Items.decode_params(item_params)
+           |> Map.put("user_id", conn.assigns.logged_user.id)
+         ) do
       {:ok, item} ->
         conn
         |> put_flash(:info, "Item created successfully.")
@@ -64,18 +55,7 @@ defmodule StoreHallWeb.ItemController do
   def update(conn, %{"id" => id, "item" => item_params}) do
     item = Items.get_item!(id)
 
-    case Items.update_item(
-           item,
-           item_params
-           |> put_in(
-             ["details"],
-             Jason.decode!(get_in(item_params, ["details"]))
-           )
-           # |> put_in(
-           #   ["details", "images"],
-           #   Jason.decode!(get_in(item_params, ["details", "images"]))
-           # )
-         ) do
+    case Items.update_item(item, Items.decode_params(item_params)) do
       {:ok, item} ->
         conn
         |> put_flash(:info, "Item updated successfully.")

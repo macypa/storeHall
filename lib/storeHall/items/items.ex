@@ -384,6 +384,16 @@ defmodule StoreHall.Items do
     Item.changeset(item, %{})
   end
 
+  def decode_params(item_params = %{"details" => details}) when is_binary(details) do
+    item_params
+    |> put_in(
+      ["details"],
+      Jason.decode!(details)
+    )
+  end
+
+  def decode_params(item_params), do: item_params
+
   def item_filters() do
     Filters |> Repo.all() |> Filters.to_map()
   end

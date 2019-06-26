@@ -1,8 +1,6 @@
 defmodule StoreHall.UserFilter do
   import Ecto.Query, warn: false
 
-  import StoreHall.DefaultFilter
-
   def search_filter(query, %{"filter" => %{"q" => value}}) do
     query
     |> where(
