@@ -3,7 +3,7 @@
 
     <div class="entry-content">
       <a href="/items/{{id}}">
-        <img src="{{#if details.images}}{{details.images}}{{/if}}" />
+        <img src="{{#if details.images}}{{details.images.[0]}}{{/if}}" />
         <h1 class="entry-title">{{name}}</h1>
       </a>
       <h5>{{user_id}}</h5>
