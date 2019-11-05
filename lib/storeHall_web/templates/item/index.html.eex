@@ -7,22 +7,21 @@
  -->
 
 <!-- Page content -->
-<div class="listing">
-  <div id="items-listing">
 
-    <%= for item <- @items do %>
-      <item class="block-item entry-content">
-          <%= link to: Routes.item_path(@conn, :show, item) do %>
-            <img src="<%= StoreHall.Items.cover_image(item) %>" >
-            <h1 class="entry-title"><%= item.name %></h1>
-          <% end %>
+<div class="listing" id="items-listing">
 
-          <h5><%= item.user_id %></h5>
-          <p><%= item.details %></p>
-      </item>
-    <% end %>
+  <%= for item <- @items do %>
+    <item>
+        <%= link to: Routes.item_path(@conn, :show, item) do %>
+          <img src="<%= StoreHall.Items.cover_image(item) %>" >
+          <h1><%= item.name %></h1>
+        <% end %>
 
-  </div>
+        <h5><%= item.user_id %></h5>
+        <p><%= item.details %></p>
+    </item>
+  <% end %>
+
 </div>
 
 <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items, add_params: "" %>

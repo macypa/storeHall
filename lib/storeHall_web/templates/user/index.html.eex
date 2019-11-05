@@ -18,24 +18,18 @@
 <input type="radio" name="view-filter" id="grid-view" class="grid-view-radio view-radio" checked>
 <label for="grid-view"><i class="fa fa-th"></i> Grid View</label>
 
-<div class="listing">
-<h1>Listing Users</h1>
+<div class="listing" id="users-listing">
 
-  <div id="users-listing">
-    <%= for user <- @users do %>
-      <user class="block-item">
-        <div class="entry-content">
-
-          <%= link to: Routes.user_path(@conn, :show, user) do %>
-            <img src="<%= user.image %>"/>
-            <h1 class="entry-title"><%= user.first_name %> &nbsp; <%= user.last_name %></h1>
-          <% end %>
-          <p><%= user.details %></p>
-        </div>
-      </user>
-    <% end %>
-  </div>
-
-  <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users, add_params: "" %>
+  <%= for user <- @users do %>
+    <user>
+      <%= link to: Routes.user_path(@conn, :show, user) do %>
+        <img src="<%= user.image %>"/>
+        <h1><%= user.first_name %> &nbsp; <%= user.last_name %></h1>
+      <% end %>
+      <p><%= user.details %></p>
+    </user>
+  <% end %>
 
 </div>
+
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users, add_params: "" %>
