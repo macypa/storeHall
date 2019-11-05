@@ -1,7 +1,11 @@
 /* This file is for your main application css. */
 
 // @import "phoenix.css";
-@import './adminator_theme/index.scss';
+//@import './adminator_theme/index.scss';
+
+@import "./theme.css.scss";
+@import "./header.css.scss";
+@import "./sidebar.css.scss";
 
 @import "./custom.css.scss";
 @import "./tabs.css.scss";

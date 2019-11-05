@@ -1,0 +1,47 @@
+
+<div class="sidebar-filters">
+  <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
+
+    <!-- TODO:maybe use some spellchecker or suggestions -->
+    <%= text_input f, :q, placeholder: "Search by title, content, etc.",
+      class: "auto-submit-item" %>
+
+    <filter-label for="with-image">With image:</filter-label>
+    <%= checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
+
+    <filter-label for="rating-min">Rating:</filter-label>
+    <%= range_input f, :rating,
+      class: "auto-submit-item",
+      name: "filter[rating][min]",
+      min: 0, max: 5, step: 0.1,
+      value: f.params["rating"]["min"] || 0 %>
+
+    <filter-label for="sort">sort:</filter-label>
+    <%= text_input f, :sort, class: "auto-submit-item", value: "inserted_at:desc"  %>
+
+    <filter-label for="merchants">Merchants:</filter-label>
+    <%= multiple_select f, :merchant,
+      @conn.assigns.filters["merchant"]
+      |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
+      class: "auto-submit-item"  %>
+
+    <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
+    <filter-label for="tags">Tags:</filter-label>
+    <%= multiple_select f, :tags,
+      @conn.assigns.filters["tags"]
+      |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
+      class: "auto-submit-item"  %>
+
+    <filter-label for="custom">custom:</filter-label>
+    <%= textarea  f, :"custom-filters", class: "auto-submit-item",
+     value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
+
+    <%= for param <- @conn.params
+      |> Map.delete("_utf8")
+      |> Map.delete("filter")
+      |> Map.delete("page")
+      |> Map.keys() do
+        hidden_input f, "p", name: param, value: @conn.params[param]
+    end %>
+  <% end %>
+</div>

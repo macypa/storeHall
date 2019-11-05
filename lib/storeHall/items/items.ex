@@ -51,12 +51,14 @@ defmodule StoreHall.Items do
     |> ItemFilter.search_filter(params)
   end
 
+  @cover_image_not_found "/images/404.png"
+
   def cover_image(item) do
     case item.details["images"] do
-      nil -> ""
-      "[]" -> ""
-      "null" -> ""
-      [] -> ""
+      nil -> @cover_image_not_found
+      "[]" -> @cover_image_not_found
+      "null" -> @cover_image_not_found
+      [] -> @cover_image_not_found
       images -> Enum.at(images, 0)
     end
   end

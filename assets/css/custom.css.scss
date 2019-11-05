@@ -1,22 +1,10 @@
 * {
-  color: #ffffff;
-  background-color: black;
+  //color: #ffffff;
+  //background-color: black;
 }
 
 .alert:empty {
   display: none;
-}
-
-.is-collapsed .sidebar {
-    width: 180px;
-}
-
-.is-collapsed .page-container {
-    padding-left: 180px;
-}
-
-.sidebar:hover {
-    width: 180px;
 }
 
 rating {
@@ -25,6 +13,10 @@ rating {
 
 comment {
   display: block;
+}
+
+.pagination {
+  list-style-type: none;
 }
 
 .pagination li a {
@@ -38,44 +30,8 @@ comment {
    color: grey;
 }
 
-
-/* The side navigation menu */
-.sidebar-filters {
- margin: 0;
- padding: 0;
- width: 200px;
- position: fixed;
- height: 65%;
- overflow: auto;
-}
-
-.sidebar-filters>form>* {
-  height: auto;
-  width: 100%;
-}
-
-/* Page content. The value of the margin-left property should match the value of the sidebar-filters's width property */
-div.listing {
- margin-left: 200px;
- padding: 1px 16px;
- height: 100%;
-}
-
-/* On screens that are less than 700px wide, make the sidebar-filters into a topbar */
-@media screen and (max-width: 700px) {
- .sidebar-filters {
-   width: 100%;
-   height: 100%;
-   position: relative;
- }
- .sidebar-filters a {float: left;}
- div.listing {margin-left: 0;}
-}
-
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
-@media screen and (max-width: 400px) {
- .sidebar-filters a {
-   text-align: center;
-   float: none;
- }
+#form-filter {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2px;
 }

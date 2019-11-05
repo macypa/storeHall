@@ -5,8 +5,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const adminator = require('./adminator_theme/config');
-
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [

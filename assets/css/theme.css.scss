@@ -1,0 +1,116 @@
+// Sass tils
+$height-header: 1em;
+$height-header_desktop: 2em;
+$width-header: 25em;
+$width-header_desktop: 40em;
+$width-sidebar: 12em;
+$height-sidebar_tablet: 5em;
+
+@mixin dropdown_icon_border {
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+// Resets
+html {
+  box-sizing: border-box;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+a {
+  text-decoration: none;
+}
+
+logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  .brand-link {
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+  overflow-y: auto;
+}
+
+sidebar {
+  grid-area: sidebar;
+  display: none;
+}
+
+.icon {
+  @include dropdown_icon_border;
+  font-size: 1.3rem !important;
+}
+
+// mobile first
+body {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: $height-header 1fr;
+  grid-gap: 1em;
+  grid-template-areas:
+    'logo header'
+    'main main';
+  height: 100vh;
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+  body {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: $height-header_desktop $height-sidebar_tablet 1fr;
+    grid-gap: 1em;
+    grid-template-areas:
+      'logo header'
+      'sidebar sidebar'
+      'main main';
+    height: 100vh;
+  }
+
+  sidebar {
+    display: block;
+    max-height: $height-sidebar_tablet;
+    overflow: auto;
+  }
+
+  .icon {
+    @include dropdown_icon_border;
+    font-size: 1.75rem !important;
+  }
+}
+
+// desktop view
+@media only screen and (min-width: $width-header_desktop) {
+  body {
+    display: grid;
+    grid-template-columns: $width-sidebar 1fr;
+    grid-template-rows: $height-header_desktop 1fr;
+    grid-gap: 1em;
+    grid-template-areas:
+      'logo header'
+      'sidebar main';
+    height: 100vh;
+  }
+
+  sidebar {
+    display: block;
+    max-height: 100vh;
+    overflow: auto;
+  }
+}

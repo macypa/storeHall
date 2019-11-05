@@ -6,35 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     <title>StoreHall</title>
+    <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css">
     <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/favicon.ico") %>" >
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body class="app">
-    <div>
-      <sidebar class="sidebar">
+
+  <body>
+    <logo>
+      <i class="icon lni-bug"></i>
+
+      <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
+        StoreHall<% end %>
+    </logo>
+
+    <header>
+      <%= render "header.html", conn: @conn %>
+    </header>
+
+    <main>
+        <p class="flash info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="flash error" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= render @view_module, @view_template, assigns %>
+    </main>
+
+    <sidebar>
         <%= render "sidebar.html", conn: @conn %>
-      </sidebar>
+    </sidebar>
 
-      <div class="page-container">
-        <topbar class="topbar">
-          <%= render "topbar.html", conn: @conn %>
-        </topbar>
 
-        <main class='main-content'>
-          <div id='mainContent'>
-            <main role="main" class="container">
-              <p class="alert bg-blue-lightest border border-blue-light text-blue-dark px-4 py-3 rounded relative" role="alert"><%= get_flash(@conn, :info) %></p>
-              <p class="alert bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative" role="alert"><%= get_flash(@conn, :error) %></p>
-              <%= render @view_module, @view_template, assigns %>
-            </main>
-          </div>
-        </main>
-
-      </div>
-    </div>
     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
     <script>window.loggedUserId = "<%= if assigns[:logged_user] != nil do assigns[:logged_user].id end %>";</script>
     <script>window.loggedUserChannel = "<%= StoreHallWeb.UsersChannel.topic_prefix() <> if assigns[:logged_user] != nil do "/" <> assigns[:logged_user].id else "/guest_channel" end %>";</script>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
   </body>
 </html>
