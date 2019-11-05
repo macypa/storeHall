@@ -2,12 +2,13 @@
 header {
   grid-area: header;
   display: flex;
+  padding-top: 0.3em;
   align-items: center;
   min-height: $height-header;
 
   title {
     visibility: hidden;
-    display: block;
+    display: none;
     padding: 1em;
     margin-right: auto;
   }
@@ -16,6 +17,7 @@ header {
     @include dropdown_icon_border;
     position: relative;
     cursor: pointer;
+    margin-left: auto;
   }
 
   avatar {
@@ -24,7 +26,7 @@ header {
     cursor: pointer;
 
     img {
-      width: $height-header;
+      max-width: $height-header;
       @include dropdown_icon_border;
     }
   }
@@ -77,6 +79,7 @@ header {
   header {
     title {
       visibility: visible;
+      display: block;
     }
   }
 }

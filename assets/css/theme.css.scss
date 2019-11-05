@@ -1,6 +1,5 @@
-// Sass tils
 $height-header: 1em;
-$height-header_desktop: 2em;
+$height-header_desktop: 1em;
 $width-header: 25em;
 $width-header_desktop: 40em;
 $width-sidebar: 12em;
@@ -30,6 +29,8 @@ logo {
   grid-area: logo;
   display: flex;
   align-items: center;
+  padding-top: 0.3em;
+
   .brand-link {
     font-size: 1.1em;
     font-weight: bold;
@@ -53,12 +54,13 @@ sidebar {
 
 .icon {
   @include dropdown_icon_border;
-  font-size: 1.3rem !important;
+  font-size: 2rem !important;
 }
 
 // mobile first
 body {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: $height-header 1fr;
@@ -89,10 +91,6 @@ body {
     overflow: auto;
   }
 
-  .icon {
-    @include dropdown_icon_border;
-    font-size: 1.75rem !important;
-  }
 }
 
 // desktop view
