@@ -5,7 +5,7 @@ defmodule StoreHall.Users.User do
 
   @primary_key {:id, :string, []}
   @derive {Phoenix.Param, key: :id}
-  @derive {Jason.Encoder, only: [:id, :email, :first_name, :last_name, :image]}
+  @derive {Jason.Encoder, only: [:id, :email, :first_name, :last_name, :image, :details]}
   schema "users" do
     field :email, :string, unique: true
     field :first_name, :string

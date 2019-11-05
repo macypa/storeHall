@@ -1,4 +1,8 @@
-
+sidebar-filters {
+  form > * {
+    padding-top: 0.1em;
+  }
+}
 
 // tablet view
 @media only screen and (min-width: $width-header) {

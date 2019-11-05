@@ -1,10 +1,10 @@
 {{#each this}}
-  <item class="block-item entry-content">
+  <item>
       <a href="/items/{{id}}">
         <img src="{{#if details.images}}{{details.images.[0]}}{{else}}/images/404.png{{/if}}" />
-        <h1 class="entry-title">{{name}}</h1>
+        <span class="title">{{name}}</span>
       </a>
       <h5>{{user_id}}</h5>
-      <p>{{json details}}</p>
+      <p>{{json details.rating.score}}</p>
   </item>
 {{/each}}

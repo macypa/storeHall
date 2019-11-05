@@ -12,11 +12,11 @@
 
 <% end %>
 
-<input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
+<!--input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
 <label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
 
 <input type="radio" name="view-filter" id="grid-view" class="grid-view-radio view-radio" checked>
-<label for="grid-view"><i class="fa fa-th"></i> Grid View</label>
+<label for="grid-view"><i class="fa fa-th"></i> Grid View</label-->
 
 <div class="listing" id="users-listing">
 
@@ -24,9 +24,9 @@
     <user>
       <%= link to: Routes.user_path(@conn, :show, user) do %>
         <img src="<%= user.image %>"/>
-        <h1><%= user.first_name %> &nbsp; <%= user.last_name %></h1>
+        <span class="title"><%= user.first_name %> &nbsp; <%= user.last_name %></span>
       <% end %>
-      <p><%= user.details %></p>
+      <p><%= user.details["rating"]["score"] %></p>
     </user>
   <% end %>
 

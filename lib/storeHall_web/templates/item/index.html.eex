@@ -14,11 +14,11 @@
     <item>
         <%= link to: Routes.item_path(@conn, :show, item) do %>
           <img src="<%= StoreHall.Items.cover_image(item) %>" >
-          <h1><%= item.name %></h1>
+          <span class="title"><%= item.name %></span>
         <% end %>
 
         <h5><%= item.user_id %></h5>
-        <p><%= item.details %></p>
+        <span><%= item.details["rating"]["score"] %></span>
     </item>
   <% end %>
 

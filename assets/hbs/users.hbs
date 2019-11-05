@@ -1,11 +1,9 @@
 {{#each this}}
-  <user class="block-item">
-    <div class="entry-content">
+  <user>
       <a href="/users/{{id}}">
         <img src="{{image}}" />
-        <h1 class="entry-title">{{first_name}} &nbsp; {{last_name}}</h1>
+        <span class="title">{{first_name}} &nbsp; {{last_name}}</span>
       </a>
-      <p>{{json details}}</p>
-    </div>
+      <p>{{json details.rating.score}}</p>
   </user>
 {{/each}}
