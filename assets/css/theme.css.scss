@@ -76,7 +76,7 @@ body {
   body {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: $height-header_desktop $height-sidebar_tablet 1fr;
+    grid-template-rows: $height-header_desktop min-content 1fr;
     grid-gap: 1em;
     grid-template-areas:
       'logo header'
