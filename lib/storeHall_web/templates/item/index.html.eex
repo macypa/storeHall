@@ -18,7 +18,7 @@
         <% end %>
 
         <h5><%= item.user_id %></h5>
-        <span><%= item.details["rating"]["score"] %></span>
+        <p><%= item.details["rating"]["score"] %></p>
     </item>
   <% end %>
 
