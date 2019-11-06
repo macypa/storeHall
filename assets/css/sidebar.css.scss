@@ -1,6 +1,78 @@
+$filterMenuColor: WhiteSmoke;
+
 sidebar-filters {
-  form > * {
-    padding-top: 0.1em;
+  form {
+    .tab {
+      width: 99%;
+      overflow: hidden;
+      &-label {
+        display: flex;
+        justify-content: space-between;
+        background: $filterMenuColor;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background: darken($filterMenuColor, 5%);
+        }
+
+        &::after {
+          content: "\276F";
+          transition: all .1s;
+        }
+      }
+      &-content {
+        max-height: 0;
+        color: $filterMenuColor;
+        background: white;
+        transition: all .35s;
+      }
+      &-close {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 0.75em;
+        background: $filterMenuColor;
+        cursor: pointer;
+        &:hover {
+          background: darken($filterMenuColor, 5%);
+        }
+      }
+    }
+
+    // :checked
+    input:checked {
+      + .tab-label {
+        background: darken($filterMenuColor, 5%);
+        &::after {
+          transform: rotate(90deg);
+        }
+      }
+      ~ .tab-content {
+        max-height: 100vh;
+      }
+    }
+
+  }
+
+  .collapsible {
+    display: none;
+  }
+}
+
+.resizable-content {
+  width: 100%;
+  resize: vertical;
+  overflow: auto;
+
+  max-height: fit-content;
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0 !important
   }
 }
 

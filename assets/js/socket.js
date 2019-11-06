@@ -268,7 +268,9 @@ window.onpopstate = function (event) {
 
     var form = $('#form-filter');
     $.each(event.state.filter_params_array, function(field, value) {
-        form.find('[name="' + value.name + '"]').val(value.value);
+      var input = form.find('[name="' + value.name + '"]');
+        input.val(value.value);
+        input.parentElement.previousElementSibling.checked = true;
     });
 
   }

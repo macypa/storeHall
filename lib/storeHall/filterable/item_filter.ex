@@ -60,6 +60,50 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:q, dynamic, _), do: dynamic
 
+  defp filter(:price, dynamic, %{"min" => min_price}) do
+    case Float.parse(min_price) do
+      {0.0, _} ->
+        dynamic
+
+      {min_price, _} when is_float(min_price) ->
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            gte: %{
+              field: ["price"],
+              value: min_price
+            }
+          }
+        )
+
+      _ ->
+        dynamic
+    end
+  end
+
+  defp filter(:price, dynamic, %{"max" => max_price}) do
+    case Float.parse(max_price) do
+      {5.0, _} ->
+        dynamic
+
+      {max_price, _} when is_float(max_price) ->
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            lte: %{
+              field: ["price"],
+              value: max_price
+            }
+          }
+        )
+
+      _ ->
+        dynamic
+    end
+  end
+
+  defp filter(:price, dynamic, _), do: dynamic
+
   defp filter(:rating, dynamic, %{"min" => min_rating}) do
     case Float.parse(min_rating) do
       {0.0, _} ->
