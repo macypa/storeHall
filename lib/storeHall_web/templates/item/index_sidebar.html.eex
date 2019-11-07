@@ -3,14 +3,25 @@
   <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
 
     <!-- TODO:maybe use some spellchecker or suggestions -->
-    <label>Search:
-      <%= text_input f, :q, placeholder: "by title, content...",
+
+    <div class="tab">
+      <%= text_input f, :q, placeholder: "Search by title, content...",
         class: "auto-submit-item" %>
+    </div>
+<!--
+    <label for="with-image">With image:
+      <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
     </label>
 
-    <!--label for="with-image">With image:
-      <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
-    </label-->
+        <div class="tab">
+          <input type="checkbox" id="custom" class="collapsible">
+          <label class="tab-label" for="custom">Custom:</label>
+          <div class="tab-content">
+            <% textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
+             value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
+          </div>
+        </div>
+-->
 
     <div class="tab">
       <input type="checkbox" id="price-min" class="collapsible">
@@ -64,15 +75,6 @@
           @conn.assigns.filters["tags"]
           |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
           class: "auto-submit-item resizable-content"  %>
-      </div>
-    </div>
-
-    <div class="tab">
-      <input type="checkbox" id="custom" class="collapsible">
-      <label class="tab-label" for="custom">Custom:</label>
-      <div class="tab-content">
-        <%= textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
-         value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
       </div>
     </div>
 

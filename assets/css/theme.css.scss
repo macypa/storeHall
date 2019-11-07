@@ -1,5 +1,6 @@
-$height-header: 1em;
-$height-header_desktop: 1em;
+$baseColor: WhiteSmoke;
+$height-header: 4em;
+$height-header_desktop: 2em;
 $width-header: 25em;
 $width-header_desktop: 40em;
 $width-sidebar: 12em;
@@ -17,9 +18,11 @@ $height-sidebar_tablet: 5em;
 
 // Resets
 html {
-  box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
@@ -31,10 +34,10 @@ logo {
   grid-area: logo;
   display: flex;
   align-items: center;
-  padding-top: 0.3em;
+  min-height: $height-header;
+  background-color: $baseColor;
 
   .brand-link {
-    font-size: 1.1em;
     font-weight: bold;
     letter-spacing: 0.1em;
   }
@@ -42,6 +45,10 @@ logo {
 
 header {
   grid-area: header;
+  display: flex;
+  align-items: center;
+  min-height: $height-header;
+  background-color: $baseColor;
 }
 
 main {
@@ -56,17 +63,19 @@ sidebar {
 
 .icon {
   @include dropdown_icon_border;
-  font-size: 2rem !important;
+  font-size: 1.3rem !important;
 }
 
 // mobile first
 body {
+  padding: 0;
+  margin: 0;
   overflow-x: auto;
   overflow-y: hidden;
   display: grid;
+  align-items: stretch;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: $height-header 1fr;
-  grid-gap: 1em;
   grid-template-areas:
     'logo header'
     'main main';
@@ -76,15 +85,12 @@ body {
 // tablet view
 @media only screen and (min-width: $width-header) {
   body {
-    display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: $height-header_desktop min-content 1fr;
-    grid-gap: 1em;
     grid-template-areas:
       'logo header'
       'sidebar sidebar'
       'main main';
-    height: 100vh;
   }
 
   sidebar {
@@ -93,19 +99,23 @@ body {
     overflow: auto;
   }
 
+  logo {
+    min-height: $height-header_desktop;
+  }
+
+  header {
+    min-height: $height-header_desktop;
+  }
 }
 
 // desktop view
 @media only screen and (min-width: $width-header_desktop) {
   body {
-    display: grid;
     grid-template-columns: $width-sidebar 1fr;
     grid-template-rows: $height-header_desktop 1fr;
-    grid-gap: 1em;
     grid-template-areas:
       'logo header'
       'sidebar main';
-    height: 100vh;
   }
 
   sidebar {

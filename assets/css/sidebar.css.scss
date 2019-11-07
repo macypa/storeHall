@@ -1,19 +1,26 @@
-$filterMenuColor: WhiteSmoke;
 
 sidebar-filters {
+
   form {
+    padding-bottom: 1em;
+
+    * {
+      width: 99.7%;
+      padding: 0;
+      margin: 0;
+    }
+
     .tab {
-      width: 99%;
       overflow: hidden;
       &-label {
         display: flex;
         justify-content: space-between;
-        background: $filterMenuColor;
+        background: $baseColor;
         font-weight: bold;
         cursor: pointer;
 
         &:hover {
-          background: darken($filterMenuColor, 5%);
+          background: darken($baseColor, 5%);
         }
 
         &::after {
@@ -23,7 +30,7 @@ sidebar-filters {
       }
       &-content {
         max-height: 0;
-        color: $filterMenuColor;
+        color: $baseColor;
         background: white;
         transition: all .35s;
       }
@@ -31,10 +38,10 @@ sidebar-filters {
         display: flex;
         justify-content: flex-end;
         font-size: 0.75em;
-        background: $filterMenuColor;
+        background: $baseColor;
         cursor: pointer;
         &:hover {
-          background: darken($filterMenuColor, 5%);
+          background: darken($baseColor, 5%);
         }
       }
     }
@@ -42,7 +49,7 @@ sidebar-filters {
     // :checked
     input:checked {
       + .tab-label {
-        background: darken($filterMenuColor, 5%);
+        background: darken($baseColor, 5%);
         &::after {
           transform: rotate(90deg);
         }

@@ -30,7 +30,7 @@
 
 <avatar>
   <%= if @conn.assigns[:logged_user] != nil and Map.has_key?(@conn.assigns[:logged_user], :image) do %>
-    <img class="icon" src="<%= @conn.assigns.logged_user.image %>" alt="">
+    <img src="<%= @conn.assigns.logged_user.image %>" alt="">
   <% else %>
     <i class="icon lni-user"></i>
   <% end %>
