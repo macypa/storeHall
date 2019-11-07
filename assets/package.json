@@ -24,7 +24,7 @@
     "easy-pie-chart": "^2.1.7",
     "file-loader": "^4.0.0",
     "fullcalendar": "^3.10.0",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.4.5",
     "handlebars-loader": "^1.7.1",
     "jquery": "^3.4.1",
     "jquery-sparkline": "^2.4.0",
