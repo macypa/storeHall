@@ -9,12 +9,13 @@ import css from "../css/app.scss"
 //
 // Import dependencies
 //
-import "phoenix_html"
+//import "phoenix_html"
 
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
 //import "./adminator_theme/index"
+import theme from "./theme"
 import socket from "./socket"
 
 window.show_hide = function(element_id) {

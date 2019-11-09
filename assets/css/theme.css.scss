@@ -1,5 +1,5 @@
 $baseColor: WhiteSmoke;
-$height-header: 4em;
+$height-header: 1.7em;
 $height-header_desktop: 2em;
 $width-header: 25em;
 $width-header_desktop: 40em;
@@ -40,6 +40,7 @@ logo {
   .brand-link {
     font-weight: bold;
     letter-spacing: 0.1em;
+    border-style: none;
   }
 }
 
@@ -63,7 +64,7 @@ sidebar {
 
 .icon {
   @include dropdown_icon_border;
-  font-size: 1.3rem !important;
+  font-size: $height-header !important;
 }
 
 // mobile first
@@ -105,6 +106,10 @@ body {
 
   header {
     min-height: $height-header_desktop;
+  }
+
+  .icon {
+    font-size: $height-header_desktop !important;
   }
 }
 
