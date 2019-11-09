@@ -47,6 +47,27 @@ defmodule StoreHall.ItemFilter do
     end)
   end
 
+  defp filter_min_max(dynamic, min_max, field_name, value, default_value \\ 0.0) do
+    case Float.parse(value) do
+      {^default_value, _} ->
+        dynamic
+
+      {value, _} when is_float(value) ->
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            min_max => %{
+              field: [field_name],
+              value: value
+            }
+          }
+        )
+
+      _ ->
+        dynamic
+    end
+  end
+
   defp filter(:q, dynamic, list) when is_list(list) do
     list
     |> filter_q(dynamic)
@@ -60,90 +81,38 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:q, dynamic, _), do: dynamic
 
+  defp filter(:price, dynamic, %{"min" => min_price, "max" => max_price}) do
+    dynamic
+    |> filter_min_max(:gte, "price", min_price)
+    |> filter_min_max(:lte, "price", max_price)
+  end
+
   defp filter(:price, dynamic, %{"min" => min_price}) do
-    case Float.parse(min_price) do
-      {0.0, _} ->
-        dynamic
-
-      {min_price, _} when is_float(min_price) ->
-        FilterableQuery.construct_where_fragment(
-          dynamic,
-          %{
-            gte: %{
-              field: ["price"],
-              value: min_price
-            }
-          }
-        )
-
-      _ ->
-        dynamic
-    end
+    dynamic
+    |> filter_min_max(:gte, "price", min_price)
   end
 
   defp filter(:price, dynamic, %{"max" => max_price}) do
-    case Float.parse(max_price) do
-      {5.0, _} ->
-        dynamic
-
-      {max_price, _} when is_float(max_price) ->
-        FilterableQuery.construct_where_fragment(
-          dynamic,
-          %{
-            lte: %{
-              field: ["price"],
-              value: max_price
-            }
-          }
-        )
-
-      _ ->
-        dynamic
-    end
+    dynamic
+    |> filter_min_max(:lte, "price", max_price)
   end
 
   defp filter(:price, dynamic, _), do: dynamic
 
+  defp filter(:rating, dynamic, %{"min" => min_rating, "max" => max_rating}) do
+    dynamic
+    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1.0)
+    |> filter_min_max(:lte, ["rating", "score"], max_rating, 5.0)
+  end
+
   defp filter(:rating, dynamic, %{"min" => min_rating}) do
-    case Float.parse(min_rating) do
-      {0.0, _} ->
-        dynamic
-
-      {min_rating, _} when is_float(min_rating) ->
-        FilterableQuery.construct_where_fragment(
-          dynamic,
-          %{
-            gte: %{
-              field: ["rating", "score"],
-              value: min_rating
-            }
-          }
-        )
-
-      _ ->
-        dynamic
-    end
+    dynamic
+    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1.0)
   end
 
   defp filter(:rating, dynamic, %{"max" => max_rating}) do
-    case Float.parse(max_rating) do
-      {5.0, _} ->
-        dynamic
-
-      {max_rating, _} when is_float(max_rating) ->
-        FilterableQuery.construct_where_fragment(
-          dynamic,
-          %{
-            lte: %{
-              field: ["rating", "score"],
-              value: max_rating
-            }
-          }
-        )
-
-      _ ->
-        dynamic
-    end
+    dynamic
+    |> filter_min_max(:lte, ["rating", "score"], max_rating, 5.0)
   end
 
   defp filter(:rating, dynamic, _), do: dynamic
