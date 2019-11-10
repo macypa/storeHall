@@ -28,6 +28,11 @@
       <label class="tab-label" for="price-min">Price</label>
       <div class="tab-content">
 
+        <div class="ui segment">
+          <div id="double" class="ui double range"></div>
+          <p id="display-d"></p>
+        </div>
+
         <%= range_input f, :price,
           class: "auto-submit-item",
           name: "filter[price][min]",
