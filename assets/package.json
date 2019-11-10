@@ -32,7 +32,6 @@
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "popper.js": "^1.15.0",
-    "semantic-ui-css": "^2.4.1",
     "skycons": "^1.0.0",
     "snyk": "^1.230.5",
     "svg-icon": "^0.8.2"
