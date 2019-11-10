@@ -8,7 +8,6 @@ header {
   }
 
   notifications {
-    @include dropdown_icon_border;
     position: relative;
     cursor: pointer;
     margin-left: auto;
@@ -57,7 +56,7 @@ header {
   }
 
   li {
-    padding: 0.2em 0.4em;
+    display: flex;
     //color: $color-abbey;
     text-transform: capitalize;
 

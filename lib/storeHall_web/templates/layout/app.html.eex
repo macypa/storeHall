@@ -7,17 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     <title>StoreHall</title>
 
-    <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/favicon.ico") %>">
+    <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.ico") %>">
+    <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.svg") %>">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
-
-    <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css">
 
   </head>
 
   <body>
     <logo>
       <!--svg icons https://github.com/leungwensen/svg-icon-->
-      <i class="icon lni-bug"></i>
+      <img class="icon" src="logo.svg" />
 
       <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
         StoreHall<% end %>

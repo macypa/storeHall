@@ -4,7 +4,7 @@
 </title>
 
 <notifications>
-  <i class="icon lni-alarm lni-tada-effect"></i>
+  <img class="menu_icon" src="images/icons/bell-o.svg" />
   <div class="dropdown">
     <ul>
       <li>
@@ -19,7 +19,7 @@
       <%= if @conn.assigns.logged_user do %>
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
-            <i class="fas lni-envelope"></i>
+            <img class="menu_icon" src="images/icons/envelope.svg" />
             <span class="text">View all Messages</span>
           </li>
         <% end %>
@@ -32,7 +32,7 @@
   <%= if @conn.assigns[:logged_user] != nil and Map.has_key?(@conn.assigns[:logged_user], :image) do %>
     <img src="<%= @conn.assigns.logged_user.image %>" alt="">
   <% else %>
-    <i class="icon lni-user"></i>
+    <img class="menu_icon" src="images/icons/user.svg" />
   <% end %>
   <div class="dropdown">
     <ul>
@@ -41,42 +41,42 @@
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
           <li>
-            <i class="far lni-user"></i>
+            <img class="menu_icon" src="images/icons/user.svg" />
             <span class="text">Profile</span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user)do %>
           <li>
-            <i class="fas lni-cog"></i>
+            <img class="menu_icon" src="images/icons/cog.svg" />
             <span class="text">Settings</span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
-            <i class="fas lni-envelope"></i>
+            <img class="menu_icon" src="images/icons/envelope.svg" />
             <span class="text">Messages</span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant][]=" <> @conn.assigns.logged_user.id do %>
           <li>
-            <i class="fas lni-agenda"></i>
+            <img class="menu_icon" src="images/icons/list-ul.svg" />
             <span class="text">My Items</span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :new) do %>
           <li>
-            <i class="fas lni-agenda"></i>
+            <img class="menu_icon" src="images/icons/plus.svg" />
             <span class="text">Add Item</span>
           </li>
         <% end %>
 
         <%= link to: Routes.auth_path(@conn, :delete) do %>
           <li>
-            <i class="fas lni-power-switch"></i>
+            <img class="menu_icon" src="images/icons/power-off.svg" />
             <span class="text">Sign out</span>
           </li>
         <% end %>
@@ -84,7 +84,7 @@
       <% else %>
         <%= link to: Routes.auth_path(@conn, :request, "google") do %>
           <li>
-            <i class="fas lni-power-switch"></i>
+            <img class="menu_icon" src="images/icons/power-off.svg" />
             <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
             <span class="text">Sign in with Google</span>
           </li>

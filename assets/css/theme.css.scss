@@ -30,12 +30,18 @@ a {
   text-decoration: none;
 }
 
+.menu_icon {
 logo {
   grid-area: logo;
   display: flex;
   align-items: center;
   min-height: $height-header;
   background-color: $baseColor;
+
+  img {
+    padding-right: 5px;
+    padding-left: 3px;
+  }
 
   .brand-link {
     font-weight: bold;
@@ -60,11 +66,6 @@ main {
 sidebar {
   grid-area: sidebar;
   display: none;
-}
-
-.icon {
-  @include dropdown_icon_border;
-  font-size: $height-header !important;
 }
 
 // mobile first
