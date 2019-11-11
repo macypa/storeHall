@@ -10,7 +10,142 @@ sidebar-filters {
       padding: 0;
       margin: 0;
       margin-top: 5px;
-      margin-bottom: 5px;
+      margin-bottom: 1em;
+
+
+      $color1: orange;
+      $midContrast: orange;
+
+      @mixin thumb(){
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        height: 1em;
+        width: 0.5em;
+        border-radius: 1em;
+        background-color: orange;
+        position: relative;
+        margin: 5px 0;
+        /* Add some margin to ensure box shadow is shown */
+        cursor: pointer;
+        pointer-events: all;
+        box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+        border: 0;
+        outline: none;
+      }
+
+      @mixin line() {
+        content: ' ';
+        display: block;
+        position: absolute;
+        background-color: $color1;
+        top: 13px;
+        width: 100%;
+        height: 2px;
+      }
+
+      .rangeValues {
+        margin-bottom: 0.5em;
+        display: flex;
+
+        .min {
+          padding-left: 3px;
+        }
+
+        .max {
+          padding-right: 3px;
+          margin-left: auto;
+        }
+      }
+
+      input[type=range] {
+        padding-left: 3px;
+        padding-right: 3px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: hidden;
+        /* Add some L/R padding to ensure box shadow of handle is shown */
+        border: 0;
+        border-radius: 1px;
+        outline: none;
+        pointer-events: none;
+        position: absolute;
+        transform: translateY(-50%);
+        background: none;
+
+        &:active,
+        &:focus {
+          outline: none;
+        }
+
+        &::-moz-focus-outer {
+          border: 0;
+        }
+
+        &::-webkit-slider-thumb {
+          @include thumb();
+
+          &::before,
+          &::after {
+             .line{}
+          }
+        }
+
+        &::-moz-range-thumb {
+          @include thumb();
+        }
+
+        &::-ms-track {
+          @include line();
+        }
+
+        &::-ms-thumb {
+          @include thumb();
+        }
+
+        &:nth-child(1) {
+          z-index: 1;
+
+          &::-webkit-slider-thumb {
+            &::before {
+              background-color: $midContrast;
+              right: 100%;
+            }
+          }
+
+          &::-moz-range-progress {
+            height: 2px;
+            background-color: $midContrast;
+          }
+
+          &::-moz-range-track {
+            background-color: transparent;
+          }
+        }
+
+        &:nth-child(2) {
+          &::-webkit-slider-thumb {
+            &::before {
+              background-color: $color1;
+              right: 100%;
+            }
+
+            &::after {
+              background-color: $midContrast;
+              left: 100%;
+            }
+          }
+
+          &::-moz-range-track {
+            background-color: $midContrast;
+          }
+
+          &::-moz-range-progress {
+            height: 2px;
+            background-color: $color1;
+          }
+        }
+      }
     }
 
     .tab {
@@ -33,8 +168,6 @@ sidebar-filters {
       }
       &-content {
         max-height: 0;
-        color: $baseColor;
-        background: white;
         transition: all .35s;
       }
       &-close {

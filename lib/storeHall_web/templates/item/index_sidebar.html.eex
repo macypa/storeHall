@@ -27,22 +27,23 @@
       <input type="checkbox" id="price-min" class="collapsible">
       <label class="tab-label" for="price-min">Price</label>
       <div class="tab-content">
+        <div class="range-slider">
+          <div class="rangeValues">
+            <span class="min"></span>
+            <span class="max"></span>
+          </div>
+          <%= range_input f, :price_min,
+            class: "auto-submit-item",
+            name: "filter[price][min]",
+            min: 0, max: 500, step: 1,
+            value: f.params["price"]["min"] || 0 %>
 
-        <div class="ui segment">
-          <div id="double" class="ui double range"></div>
-          <p id="display-d"></p>
+          <%= range_input f, :price_max,
+            class: "auto-submit-item",
+            name: "filter[price][max]",
+            min: 0, max: 500, step: 1,
+            value: f.params["price"]["max"] || 500 %>
         </div>
-
-        <%= range_input f, :price,
-          class: "auto-submit-item",
-          name: "filter[price][min]",
-          min: 0, max: 500, step: 0.1,
-          value: f.params["price"]["min"] || 0 %>
-        <%= range_input f, :price,
-          class: "auto-submit-item",
-          name: "filter[price][max]",
-          min: 0, max: 500, step: 0.1,
-          value: f.params["price"]["max"] || 0 %>
       </div>
     </div>
 
@@ -50,22 +51,25 @@
       <input type="checkbox" id="rating-min" class="collapsible">
       <label class="tab-label" for="rating-min">Rating</label>
       <div class="tab-content">
+        <div class="range-slider">
 
-        <div id="slider-range">
-          <div class="slider-data">
-            <%= range_input f, :rating,
-              class: "auto-submit-item",
-              name: "filter[rating][min]",
-              min: -1, max: 5, step: 0.1,
-              value: f.params["rating"]["min"] || -1 %>
-            <%= range_input f, :rating,
-              class: "auto-submit-item",
-              name: "filter[rating][max]",
-              min: 0, max: 5, step: 0.1,
-              value: f.params["rating"]["max"] || 5 %>
+          <div class="rangeValues">
+            <span class="min"></span>
+            <span class="max"></span>
           </div>
-        </div>
+          <%= range_input f, :rating_min,
+            class: "auto-submit-item",
+            name: "filter[rating][min]",
+            min: -1, max: 5, step: 0.1,
+            value: f.params["rating"]["min"] || -1 %>
+          <%= range_input f, :rating_max,
+            class: "auto-submit-item",
+            name: "filter[rating][max]",
+            min: -1, max: 5, step: 0.1,
+            value: f.params["rating"]["max"] || 5 %>
 
+
+        </div>
       </div>
     </div>
 
