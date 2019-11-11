@@ -30,6 +30,11 @@ a {
   text-decoration: none;
 }
 
+.icon {
+  max-height: $height-header;
+  max-width: $height-header;
+}
+
 logo {
   grid-area: logo;
   display: flex;
@@ -109,7 +114,8 @@ body {
   }
 
   .icon {
-    font-size: $height-header_desktop !important;
+    max-height: $height-header_desktop;
+    max-width: $height-header_desktop;
   }
 }
 
