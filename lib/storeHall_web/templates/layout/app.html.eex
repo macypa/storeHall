@@ -16,7 +16,7 @@
   <body>
     <logo>
       <!--svg icons https://github.com/leungwensen/svg-icon-->
-      <img class="icon" src="logo.svg" />
+      <img class="icon" src="/logo.svg" />
 
       <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
         StoreHall<% end %>
