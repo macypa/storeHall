@@ -270,7 +270,12 @@ window.onpopstate = function (event) {
     $.each(event.state.filter_params_array, function(field, value) {
       var input = form.find('[name="' + value.name + '"]');
         input.val(value.value);
-        input.parentElement.previousElementSibling.checked = true;
+
+        if (input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
+          input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
+        } else {
+          input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = false;
+        }
     });
 
   }
