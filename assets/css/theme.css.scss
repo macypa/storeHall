@@ -100,16 +100,19 @@ body {
   }
 
   sidebar {
+    margin-left: 0.5em;
     display: block;
     max-height: $height-sidebar_tablet;
     overflow: auto;
   }
 
   logo {
+    padding-left: 0.5em;
     min-height: $height-header_desktop;
   }
 
   header {
+    padding-right: 0.5em;
     min-height: $height-header_desktop;
   }
 
