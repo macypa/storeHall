@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const globImporter = require('node-sass-glob-importer');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -31,10 +32,16 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.(sa|sc|c)ss$/,
-        use: [MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-        ],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              importer: globImporter()
+            }
+          }
+        ]
       },
       {
         test: /\.(png|eot|svg|ttf|woff|woff2)$/,
