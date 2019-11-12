@@ -51,7 +51,7 @@ defmodule StoreHall.Items do
     |> ItemFilter.search_filter(params)
   end
 
-  @cover_image_not_found "/images/404.png"
+  @cover_image_not_found "/images/no_image.png"
 
   def cover_image(item) do
     case item.details["images"] do
