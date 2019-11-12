@@ -23,12 +23,12 @@ sidebar-filters {
       &-label {
         display: flex;
         justify-content: space-between;
-        background: $baseColor;
+        background: $baseBackgroundColor;
         font-weight: bold;
         cursor: pointer;
 
         &:hover {
-          background: darken($baseColor, 5%);
+          background: darken($baseBackgroundColor, 5%);
         }
 
         &::after {
@@ -44,10 +44,10 @@ sidebar-filters {
         display: flex;
         justify-content: flex-end;
         font-size: 0.75em;
-        background: $baseColor;
+        background: $baseBackgroundColor;
         cursor: pointer;
         &:hover {
-          background: darken($baseColor, 5%);
+          background: darken($baseBackgroundColor, 5%);
         }
       }
     }
@@ -55,7 +55,7 @@ sidebar-filters {
     // :checked
     input:checked {
       + .tab-label {
-        background: darken($baseColor, 5%);
+        background: darken($baseBackgroundColor, 5%);
         &::after {
           transform: rotate(90deg);
         }

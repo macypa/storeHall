@@ -36,44 +36,44 @@
     height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px #FF4500;
-    background: #FF4500;
+    box-shadow: 1px 1px 1px $baseColor;
+    background: $baseColor;
     border-radius: 50px;
-    border: 0px solid #FF4500;
+    border: 0px solid $baseColor;
   }
   input[type=range]::-webkit-slider-thumb {
     pointer-events: all;
-    box-shadow: 0px 0px 0px #FF4500;
-    border: 0px solid #FF4500;
+    box-shadow: 0px 0px 0px $baseColor;
+    border: 0px solid $baseColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: #FF4500;
+    background: $baseColor;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -7px;
   }
   input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #FF4500;
+    background: $baseColor;
   }
   input[type=range]::-moz-range-track {
     width: 100%;
     height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px #FF4500;
-    background: #FF4500;
+    box-shadow: 1px 1px 1px $baseColor;
+    background: $baseColor;
     border-radius: 50px;
-    border: 0px solid #FF4500;
+    border: 0px solid $baseColor;
   }
   input[type=range]::-moz-range-thumb {
     pointer-events: all;
-    box-shadow: 0px 0px 0px #FF4500;
-    border: 0px solid #FF4500;
+    box-shadow: 0px 0px 0px $baseColor;
+    border: 0px solid $baseColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: #FF4500;
+    background: $baseColor;
     cursor: pointer;
   }
   input[type=range]::-ms-track {
@@ -86,32 +86,32 @@
     color: transparent;
   }
   input[type=range]::-ms-fill-lower {
-    background: #FF4500;
-    border: 0px solid #FF4500;
+    background: $baseColor;
+    border: 0px solid $baseColor;
     border-radius: 100px;
-    box-shadow: 1px 1px 1px #FF4500;
+    box-shadow: 1px 1px 1px $baseColor;
   }
   input[type=range]::-ms-fill-upper {
-    background: #FF4500;
-    border: 0px solid #FF4500;
+    background: $baseColor;
+    border: 0px solid $baseColor;
     border-radius: 100px;
-    box-shadow: 1px 1px 1px #FF4500;
+    box-shadow: 1px 1px 1px $baseColor;
   }
   input[type=range]::-ms-thumb {
     pointer-events: all;
     margin-top: 1px;
-    box-shadow: 0px 0px 0px #FF4500;
-    border: 0px solid #FF4500;
+    box-shadow: 0px 0px 0px $baseColor;
+    border: 0px solid $baseColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: #FF4500;
+    background: $baseColor;
     cursor: pointer;
   }
   input[type=range]:focus::-ms-fill-lower {
-    background: #FF4500;
+    background: $baseColor;
   }
   input[type=range]:focus::-ms-fill-upper {
-    background: #FF4500;
+    background: $baseColor;
   }
 }
