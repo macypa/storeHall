@@ -1,11 +1,33 @@
 {{#each this}}
   <item>
+
+    <div class="cover">
       <a href="/items/{{id}}">
         <img src="{{#if details.images}}{{details.images.[0]}}{{else}}/images/404.png{{/if}}" />
-        <span class="title">{{name}}</span>
       </a>
-      <h5>{{user_id}}</h5>
-      <p>Price: {{json details.price}}</p>
-      <p>Rating: {{json details.rating.score}}</p>
+    </div>
+    <div class="title">
+      <a href="/items/{{id}}">
+        {{name}}
+      </a>
+    </div>
+    <div class="merchant">
+      От
+      <a href="/users/{{user_id}}">
+        {{user_id}}
+      </a>
+    </div>
+    <div class="price">{{json details.price}} лв.</div>
+    <div class="rating">
+      <a href="/items/{{id}}#tab-ratings">
+        Rating: {{json details.rating.score}}
+      </a>
+    </div>
+    <div class="comments">
+      <a href="/items/{{id}}#tab-comments">
+        Comments: {{json details.comments_count}}
+      </a>
+    </div>
+
   </item>
 {{/each}}

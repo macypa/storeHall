@@ -12,14 +12,34 @@
 
   <%= for item <- @items do %>
     <item>
+
+      <div class="cover">
         <%= link to: Routes.item_path(@conn, :show, item) do %>
           <img src="<%= StoreHall.Items.cover_image(item) %>" >
-          <span class="title"><%= item.name %></span>
         <% end %>
-
-        <h5><%= item.user_id %></h5>
-        <p>Price: <%= item.details["price"] %></p>
-        <p>Rating: <%= item.details["rating"]["score"] %></p>
+      </div>
+      <div class="title">
+        <%= link to: Routes.item_path(@conn, :show, item) do %>
+          <%= item.name %>
+        <% end %>
+      </div>
+      <div class="merchant">
+        От
+        <%= link to: Routes.user_path(@conn, :show, item.user_id) do %>
+          <%= item.user_id %>
+        <% end %>
+      </div>
+      <div class="price"><%= item.details["price"] %> лв.</div>
+      <div class="rating">
+        <%= link to: Routes.item_path(@conn, :show, item) <> "#tab-ratings" do %>
+          Rating: <%= item.details["rating"]["score"] %>
+        <% end %>
+      </div>
+      <div class="comments">
+        <%= link to: Routes.item_path(@conn, :show, item) <> "#tab-comments" do %>
+          Comments: <%= item.details["comments_count"] %>
+        <% end %>
+      </div>
     </item>
   <% end %>
 

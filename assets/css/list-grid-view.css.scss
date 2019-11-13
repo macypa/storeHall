@@ -6,22 +6,81 @@
 }
 
 .listing > * {
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  grid-template-rows: repeat(1fr);
+  grid-template-areas:
+    'cover cover cover cover'
+    'rating rating comments comments'
+    'title title title title'
+    '. . merchant merchant'
+    '. price price .';
+
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
   border-radius: 3%;
-  padding: 0.1em;
   max-width: $width-header;
-  overflow-wrap: break-word;
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  text-align: center;
+  padding: 5px;
 }
 
-.listing img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: auto;
-  height: $width-header/2;
-  border-radius: 3%;
+.listing .cover {
+  grid-area: cover;
+
+  padding-bottom: 1em;
+
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: $width-header/2;
+    border-radius: 3%;
+  }
 }
 
 .listing .title {
+  grid-area: title;
+
+  padding-top: 1em;
   font-size: 1em;
+  font-weight: 700;
+}
+
+.listing .merchant {
+  grid-area: merchant;
+  margin-bottom: 2em;
+  font-size: 0.6em;
+}
+
+.listing .price {
+  grid-area: price;
+
+  margin: auto;
+  margin-bottom: 0.5em;
+  color: red;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.listing .rating {
+  grid-area: rating;
+
+  margin: auto;
+  margin-right: 5px;
+  font-size: 0.5em;
+}
+
+.listing .comments {
+  grid-area: comments;
+
+  margin: auto;
+  margin-left: 5px;
+  font-size: 0.5em;
 }
