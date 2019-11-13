@@ -1,21 +1,11 @@
 
 .listing {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax($width-header/2, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax($width-header/2  + 1em, 1fr));
   grid-gap: 1em;
 }
 
 .listing > * {
-  display: grid;
-  grid-template-columns: repeat(1fr);
-  grid-template-rows: repeat(1fr);
-  grid-template-areas:
-    'cover cover cover cover'
-    'rating rating comments comments'
-    'title title title title'
-    '. . merchant merchant'
-    '. price price .';
-
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
   border-radius: 3%;
   max-width: $width-header;
@@ -28,6 +18,28 @@
   hyphens: auto;
   text-align: center;
   padding: 5px;
+}
+
+.listing > item {
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  grid-template-rows: repeat(1fr);
+  grid-template-areas:
+    'cover cover cover cover'
+    'rating rating comments comments'
+    'title title title title'
+    '. . merchant merchant'
+    '. price price .';
+}
+
+.listing > user {
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  grid-template-rows: repeat(1fr);
+  grid-template-areas:
+    'cover cover'
+    'rating comments'
+    'title title';
 }
 
 .listing .cover {

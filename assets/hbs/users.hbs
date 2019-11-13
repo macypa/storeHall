@@ -1,9 +1,26 @@
 {{#each this}}
   <user>
+
+    <div class="cover">
       <a href="/users/{{id}}">
         <img src="{{image}}" />
-        <span class="title">{{first_name}} &nbsp; {{last_name}}</span>
       </a>
-      <p>{{json details.rating.score}}</p>
+    </div>
+    <div class="title">
+        <a href="/users/{{id}}">
+        {{first_name}} &nbsp; {{last_name}}
+      </a>
+    </div>
+    <div class="rating">
+        <a href="/users/{{id}}#tab-ratings">
+        Rating: {{json details.rating.score}}
+      </a>
+    </div>
+    <div class="comments">
+      <a href="/users/{{id}}#tab-comments">
+        Comments: {{json details.comments_count}}
+      </a>
+    </div>
+
   </user>
 {{/each}}

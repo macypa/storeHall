@@ -1,6 +1,6 @@
 <%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
   <%= text_input f, :q, placeholder: "Search by title, content, etc.",
-    class: "auto-submit-item" %>
+    class: "auto-submit-user" %>
 
   <%= for param <- @conn.params
     |> Map.delete("_utf8")
@@ -22,11 +22,28 @@
 
   <%= for user <- @users do %>
     <user>
-      <%= link to: Routes.user_path(@conn, :show, user) do %>
-        <img src="<%= user.image %>"/>
-        <span class="title"><%= user.first_name %> &nbsp; <%= user.last_name %></span>
-      <% end %>
-      <p><%= user.details["rating"]["score"] %></p>
+
+      <div class="cover">
+        <%= link to: Routes.user_path(@conn, :show, user) do %>
+          <img src="<%= user.image %>"/>
+        <% end %>
+      </div>
+      <div class="title">
+        <%= link to: Routes.user_path(@conn, :show, user) do %>
+          <%= user.first_name %> &nbsp; <%= user.last_name %>
+        <% end %>
+      </div>
+      <div class="rating">
+        <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-ratings" do %>
+          Rating: <%= user.details["rating"]["score"] %>
+        <% end %>
+      </div>
+      <div class="comments">
+        <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-comments" do %>
+          Comments: <%= user.details["comments_count"] %>
+        <% end %>
+      </div>
+      
     </user>
   <% end %>
 
