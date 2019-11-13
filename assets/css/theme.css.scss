@@ -67,11 +67,13 @@ header {
 main {
   grid-area: main;
   overflow-y: auto;
+  padding-left: 0.5em;
 }
 
 sidebar {
   grid-area: sidebar;
   display: none;
+  padding-left: 0.5em;
 }
 
 // mobile first
@@ -102,7 +104,6 @@ body {
   }
 
   sidebar {
-    margin-left: 0.5em;
     display: block;
     max-height: $height-sidebar_tablet;
     overflow: auto;
