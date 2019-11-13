@@ -78,7 +78,9 @@
       <input type="checkbox" id="sort" class="collapsible">
       <label class="tab-label" for="sort">Sort</label>
       <div class="tab-content">
-        <%= text_input f, :sort, class: "auto-submit-item resizable-content", value: "inserted_at:desc"  %>
+        <%= select f, :sort,
+          %{"Дата" => "inserted_at:desc",  "Име" => "name:asc"},
+          class: "auto-submit-item resizable-content"  %>
       </div>
     </div>
 
