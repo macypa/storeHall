@@ -1,4 +1,16 @@
 
+var sliderSections = $(".range-slider");
+for (let sliderSections of sliderSections) {
+  var sliders = sliderSections.getElementsByTagName("input");
+  for( var y = 0; y < sliders.length; y++ ){
+    if( sliders[y].type ==="range" ){
+      sliders[y].oninput = getVals;
+      // Manually trigger event first time to display values
+      sliders[y].oninput();
+    }
+  }
+}
+
 function getVals(){
   // Get slider values
   var parent = this.parentNode;
@@ -29,19 +41,4 @@ function getVals(){
   var displayElement = parent.getElementsByClassName("rangeValues")[0];
   displayElement.getElementsByClassName("min")[0].innerHTML = slide1;
   displayElement.getElementsByClassName("max")[0].innerHTML = slide2;
-}
-
-window.onload = function(){
-  // Initialize Sliders
-  var sliderSections = document.getElementsByClassName("range-slider");
-  for( var x = 0; x < sliderSections.length; x++ ){
-    var sliders = sliderSections[x].getElementsByTagName("input");
-    for( var y = 0; y < sliders.length; y++ ){
-      if( sliders[y].type ==="range" ){
-        sliders[y].oninput = getVals;
-        // Manually trigger event first time to display values
-        sliders[y].oninput();
-      }
-    }
-  }
 }
