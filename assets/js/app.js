@@ -14,15 +14,6 @@ import css from "../css/app.scss"
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
-//import "./adminator_theme/index"
+
 import theme from "./theme"
 import socket from "./socket"
-
-window.show_hide = function(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
