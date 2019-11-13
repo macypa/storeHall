@@ -18,6 +18,11 @@ sidebar-filters {
 
     .tab {
       overflow: hidden;
+
+      #filter_q {
+        width: 98%;
+      }
+
       &-label {
         display: flex;
         justify-content: space-between;
