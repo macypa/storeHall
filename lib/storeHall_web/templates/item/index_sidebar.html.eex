@@ -43,7 +43,7 @@
             class: "auto-submit-item",
             name: "filter[price][max]",
             min: 0, max: 5000, step: 1,
-            value: f.params["price"]["max"] || 5000 %>
+            value: f.params["price"]["max"] || 0 %>
         </div>
 
       </div>
