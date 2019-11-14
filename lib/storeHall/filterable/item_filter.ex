@@ -117,7 +117,7 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:rating, dynamic, _), do: dynamic
 
-  defp filter(:merchant, dynamic, value) when value == "", do: dynamic
+  defp filter(:tags, dynamic, value) when value == "", do: dynamic
 
   defp filter(:tags, dynamic, value) do
     FilterableQuery.construct_where_fragment(
