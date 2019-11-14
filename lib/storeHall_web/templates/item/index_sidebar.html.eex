@@ -36,14 +36,14 @@
           <%= range_input f, :price_min,
             class: "auto-submit-item",
             name: "filter[price][min]",
-            min: 0, max: 50, step: 1,
+            min: 0, max: 5000, step: 1,
             value: f.params["price"]["min"] || 0 %>
 
           <%= range_input f, :price_max,
             class: "auto-submit-item",
             name: "filter[price][max]",
-            min: 0, max: 50, step: 1,
-            value: f.params["price"]["max"] || 50 %>
+            min: 0, max: 5000, step: 1,
+            value: f.params["price"]["max"] || 5000 %>
         </div>
 
       </div>
@@ -78,9 +78,18 @@
       <input type="checkbox" id="sort" class="collapsible">
       <label class="tab-label" for="sort">Sort</label>
       <div class="tab-content">
-        <%= select f, :sort,
-          %{"Дата" => "inserted_at:desc",  "Име" => "name:asc"},
-          class: "auto-submit-item resizable-content"  %>
+        <div class="select7_container">
+          <div class="select7_arrow">▾</div>
+          <div class="select7_placeholder">Сортирай по</div>
+
+          <%= select f, :sort,
+            %{"Дата" => "inserted_at:desc",  "Име" => "name:asc"},
+            class: "select7_select"  %>
+          <%= text_input f, :sort, type: "hidden", class: "select7_input auto-submit-item" %>
+
+          <div class="select7_items"></div>
+        </div>
+
       </div>
     </div>
 
@@ -88,10 +97,18 @@
       <input type="checkbox" id="merchants" class="collapsible">
       <label class="tab-label" for="merchants">Merchants:</label>
       <div class="tab-content">
-        <%= multiple_select f, :merchant,
-          @conn.assigns.filters["merchant"]
-          |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
-          class: "auto-submit-item resizable-content"  %>
+        <div class="select7_container">
+          <div class="select7_arrow">▾</div>
+          <div class="select7_placeholder">Избери</div>
+
+          <%= select f, :merchant,
+            @conn.assigns.filters["merchant"]
+            |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
+            class: "select7_select"  %>
+          <%= text_input f, :merchant, type: "hidden", class: "select7_input auto-submit-item" %>
+
+          <div class="select7_items"></div>
+        </div>
       </div>
     </div>
 
@@ -100,10 +117,19 @@
       <input type="checkbox" id="tags" class="collapsible">
       <label class="tab-label" for="tags">Tags:</label>
       <div class="tab-content">
-        <%= multiple_select f, :tags,
-          @conn.assigns.filters["tags"]
-          |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
-          class: "auto-submit-item resizable-content"  %>
+        <div class="select7_container">
+          <div class="select7_arrow">▾</div>
+          <div class="select7_placeholder">Избери</div>
+
+          <%= select f, :tags,
+            @conn.assigns.filters["tags"]
+            |> Enum.map(fn {k, v} -> {k <> " : " <> to_string(v), k} end),
+            class: "select7_select"  %>
+          <%= text_input f, :tags, type: "hidden", class: "select7_input auto-submit-item" %>
+
+          <div class="select7_items"></div>
+        </div>
+
       </div>
     </div>
 

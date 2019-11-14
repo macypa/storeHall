@@ -117,22 +117,30 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:rating, dynamic, _), do: dynamic
 
+  defp filter(:merchant, dynamic, value) when value == "", do: dynamic
+
   defp filter(:tags, dynamic, value) do
     FilterableQuery.construct_where_fragment(
       dynamic,
       %{
         in: %{
           field: ["tags"],
-          value: value
+          value:
+            value
+            |> String.split(";")
         }
       }
     )
   end
 
-  defp filter(:merchant, dynamic, value) when value == [""], do: dynamic
+  defp filter(:merchant, dynamic, value) when value == "", do: dynamic
 
   defp filter(:merchant, dynamic, value) do
-    FilterableQuery.clean_dynamic(:and, dynamic, dynamic([u], u.user_id in ^value))
+    value
+    |> String.split(";")
+    |> Enum.reduce(dynamic, fn merch, dyn ->
+      FilterableQuery.clean_dynamic(:and, dyn, dynamic([u], u.user_id == ^merch))
+    end)
   end
 
   defp filter(:"with-image", dynamic, _value) do
