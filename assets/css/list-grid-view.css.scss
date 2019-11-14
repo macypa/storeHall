@@ -46,6 +46,16 @@
   grid-area: cover;
 
   padding-bottom: 1em;
+  background-image: url('data:image/svg+xml;utf-8,\
+  <svg xmlns="http://www.w3.org/2000/svg">\
+    <text x="20" y="20" font-family="sans-serif" font-size="20px" >no image</text>\
+  </svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50% 50%;
+  width: auto;
+  height: $width-header/2;
+
 
   img {
     display: block;
@@ -54,6 +64,10 @@
     width: auto;
     height: $width-header/2;
     border-radius: 3%;
+
+    &[src=""] {
+      display:none;
+    }
   }
 }
 
