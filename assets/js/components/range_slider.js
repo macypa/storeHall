@@ -23,6 +23,9 @@ function setVals(){
 
   slides[2].value = field_min.value;
   slides[3].value = field_max.value;
+
+  //need to trigger for only one of the inputs
+  $(parent.getElementsByClassName("min")[0]).trigger('change');
 }
 
 function getVals(){
