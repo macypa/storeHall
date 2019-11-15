@@ -98,7 +98,7 @@ defmodule StoreHall.Fixture do
                                  max_length: 5
                                ),
                              count <- StreamData.positive_integer(),
-                             score <- StreamData.integer(0..5),
+                             score <- StreamData.integer(-1..500),
                              comments_count <- StreamData.positive_integer() do
       %{
         "details" => %{

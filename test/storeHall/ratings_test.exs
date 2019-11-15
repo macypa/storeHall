@@ -55,12 +55,12 @@ defmodule StoreHall.RatingsTest do
       end
     end
 
-    test "create_rating/1 updates rating score between 0 and 5" do
+    test "create_rating/1 updates rating score between 0 and 500" do
       user = Fixture.generate_user()
       item = Fixture.generate_item(user)
 
       check all author <- Fixture.user_generator(),
-                score <- StreamData.integer(0..5) do
+                score <- StreamData.integer(0..500) do
         Ratings.create_item_rating(%{
           "item_id" => item.id,
           "user_id" => item.user_id,
@@ -69,9 +69,9 @@ defmodule StoreHall.RatingsTest do
         })
 
         assert Items.get_item!(item.id).details["rating"]["score"] >= 0
-        assert Items.get_item!(item.id).details["rating"]["score"] <= 5
+        assert Items.get_item!(item.id).details["rating"]["score"] <= 500
         assert Users.get_user!(item.user_id).details["rating"]["score"] >= 0
-        assert Users.get_user!(item.user_id).details["rating"]["score"] <= 5
+        assert Users.get_user!(item.user_id).details["rating"]["score"] <= 500
       end
     end
   end
@@ -114,11 +114,11 @@ defmodule StoreHall.RatingsTest do
       end
     end
 
-    test "create_rating/1 updates rating score between 0 and 5" do
+    test "create_rating/1 updates rating score between 0 and 500" do
       user = Fixture.generate_user()
 
       check all author <- Fixture.user_generator(),
-                score <- StreamData.integer(0..5) do
+                score <- StreamData.integer(0..500) do
         Ratings.create_user_rating(%{
           "user_id" => user.id,
           "author_id" => author.id,
@@ -126,7 +126,7 @@ defmodule StoreHall.RatingsTest do
         })
 
         assert Users.get_user!(user.id).details["rating"]["score"] >= 0
-        assert Users.get_user!(user.id).details["rating"]["score"] <= 5
+        assert Users.get_user!(user.id).details["rating"]["score"] <= 500
       end
     end
   end

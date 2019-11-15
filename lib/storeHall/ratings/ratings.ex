@@ -126,7 +126,7 @@ defmodule StoreHall.Ratings do
               fragment(
                 " jsonb_set(
                     jsonb_set(details, '{rating, score}', ?::text::jsonb),
-                    '{rating, count}', (COALESCE(details->'rating'->>'count','0')::int + ?)::text::jsonb) ",
+                    '{rating, count}', (COALESCE(details->'rating'->>'count','0')::decimal + ?)::text::jsonb) ",
                 ^score,
                 ^count
               )
@@ -147,7 +147,7 @@ defmodule StoreHall.Ratings do
     |> UserRating.changeset(attrs)
   end
 
-  def calc_rating(value, count \\ 0, rating \\ 4, c \\ 2)
+  def calc_rating(value, count \\ 0, rating \\ 400, c \\ 2)
 
   def calc_rating(data, count, rating, c) when is_list(data) do
     data
@@ -163,12 +163,13 @@ defmodule StoreHall.Ratings do
   end
 
   def calc_rating(value, count, rating, c) when is_integer(value) do
-    multiplier =
-      case rating do
-        -1 -> c / (count + 2)
-        _rating -> c / (count + 3)
-      end
+    value + rating
+    # multiplier =
+    #  case rating do
+    #    -1 -> c / (count + 2)
+    #    _rating -> c / (count + 3)
+    #  end
 
-    Float.round((value - rating) * multiplier + rating, 2)
+    # Decimal.round((value - rating) * multiplier + rating, 2)
   end
 end

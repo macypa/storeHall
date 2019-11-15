@@ -47,7 +47,7 @@ defmodule StoreHall.Users.Action do
             settings:
               fragment(
                 " jsonb_set(settings, ?,
-                 (COALESCE(settings->'labels'->>?,'0')::int + 1)::text::jsonb) ",
+                 (COALESCE(settings->'labels'->>?,'0')::decimal + 1)::text::jsonb) ",
                 ["labels", ^label],
                 ^label
               )
@@ -57,7 +57,7 @@ defmodule StoreHall.Users.Action do
     {:ok, repo.update_all(query, [])}
   end
 
-  def reaction_to_rating(reaction) when reaction in ["wow"], do: 5
-  def reaction_to_rating(reaction) when reaction in ["lol"], do: 0
+  def reaction_to_rating(reaction) when reaction in ["wow"], do: 3
+  def reaction_to_rating(reaction) when reaction in ["lol"], do: -3
   def reaction_to_rating(_reaction), do: nil
 end

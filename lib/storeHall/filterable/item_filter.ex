@@ -47,12 +47,12 @@ defmodule StoreHall.ItemFilter do
     end)
   end
 
-  defp filter_min_max(dynamic, min_max, field_name, value, default_value \\ 0.0) do
-    case Float.parse(value) do
+  defp filter_min_max(dynamic, min_max, field_name, value, default_value \\ 0) do
+    case Integer.parse(value) do
       {^default_value, _} ->
         dynamic
 
-      {value, _} when is_float(value) ->
+      {value, _} when is_integer(value) ->
         FilterableQuery.construct_where_fragment(
           dynamic,
           %{
@@ -101,18 +101,18 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:rating, dynamic, %{"min" => min_rating, "max" => max_rating}) do
     dynamic
-    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1.0)
-    |> filter_min_max(:lte, ["rating", "score"], max_rating, 5.0)
+    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1)
+    |> filter_min_max(:lte, ["rating", "score"], max_rating, 500)
   end
 
   defp filter(:rating, dynamic, %{"min" => min_rating}) do
     dynamic
-    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1.0)
+    |> filter_min_max(:gte, ["rating", "score"], min_rating, -1)
   end
 
   defp filter(:rating, dynamic, %{"max" => max_rating}) do
     dynamic
-    |> filter_min_max(:lte, ["rating", "score"], max_rating, 5.0)
+    |> filter_min_max(:lte, ["rating", "score"], max_rating, 500)
   end
 
   defp filter(:rating, dynamic, _), do: dynamic
