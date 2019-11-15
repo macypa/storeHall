@@ -79,30 +79,30 @@ defmodule StoreHall.FilterableQuery do
 
   defp apply_command(:lt, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float < ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal < ? )",
       ^fields,
       ^fields,
-      ^as_float(value)
+      ^as_decimal(value)
     )
     |> dynamic
   end
 
   defp apply_command(:lte, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float <= ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal <= ? )",
       ^fields,
       ^fields,
-      ^as_float(value)
+      ^as_decimal(value)
     )
     |> dynamic
   end
 
   defp apply_command(:gt, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float > ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal > ? )",
       ^fields,
       ^fields,
-      ^as_float(value)
+      ^as_decimal(value)
     )
     |> dynamic
   end
@@ -110,10 +110,10 @@ defmodule StoreHall.FilterableQuery do
   # {"gte": {"field": "rating, core", "value": 4}}
   defp apply_command(:gte, %{field: fields, value: value}) do
     fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::float >= ? )",
+      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal >= ? )",
       ^fields,
       ^fields,
-      ^as_float(value)
+      ^as_decimal(value)
     )
     |> dynamic
   end
@@ -166,8 +166,8 @@ defmodule StoreHall.FilterableQuery do
   #
   # defp apply_command(:min_author_rating_filter, %{field: fields, value: value}) do
   #   fragment(
-  #     " (user_details->'rating'->>'score')::float >= ? ",
-  #     ^as_float(value)
+  #     " (user_details->'rating'->>'score')::decimal >= ? ",
+  #     ^as_decimal(value)
   #   )
   #   |> dynamic
   # end
@@ -176,12 +176,12 @@ defmodule StoreHall.FilterableQuery do
     fragment(
       "jsonb_array_length(details#>?) >= ?",
       ^fields,
-      ^as_float(value)
+      ^as_decimal(value)
     )
     |> dynamic
   end
 
-  defp as_float(value) do
+  defp as_decimal(value) do
     try do
       value |> to_string() |> Integer.parse() |> elem(0)
     rescue
