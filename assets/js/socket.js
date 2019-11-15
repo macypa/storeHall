@@ -289,10 +289,26 @@ function render(state) {
 }
 
 add_events(".auto-submit-item", "change", function() {
-  var filter_params = $("#form-filter").serialize();
+
+  var form = $("#form-filter :input").filter(function() {
+                                if (!this.value) {
+                                  return false;
+                                }
+                                if (this.name.includes("filter[price]") && this.value == 0) {
+                                  return false;
+                                }
+                                if (this.name.includes("filter[rating][min]") && this.value == -1) {
+                                  return false;
+                                }
+                                if (this.name.includes("filter[rating][max]") && this.value == 5) {
+                                  return false;
+                                }
+                                return true;
+                              })
+  var filter_params = form.serialize();
   channel.push("filter", { data: filter_params })
 
-  window.history.pushState({filter_params_array: $("#form-filter").serializeArray(), filter_params: filter_params},
+  window.history.pushState({filter_params_array: form.serializeArray(), filter_params: filter_params},
   document.title,
   (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
   update_next_page_link(filter_params);
