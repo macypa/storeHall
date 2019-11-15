@@ -3,7 +3,7 @@ defmodule StoreHallWeb.ItemView do
 
   def get_title(path_info) do
     case path_info do
-      :index -> "Listing Items"
+      :index -> "Listing items"
       :new -> "Add new item"
       :edit -> "Edit item"
       :show -> "Show item"

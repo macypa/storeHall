@@ -33,7 +33,7 @@ defmodule StoreHallWeb.ItemControllerTest do
       conn = get(conn, Routes.item_path(conn, :index))
 
       assert get_flash(conn, :error) == nil
-      assert html_response(conn, 200) =~ "Listing Items"
+      assert html_response(conn, 200) =~ "Listing items"
     end
 
     test "redirected from root path", %{conn: conn} do

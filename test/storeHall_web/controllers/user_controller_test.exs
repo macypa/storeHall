@@ -33,7 +33,7 @@ defmodule StoreHallWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :index))
 
       assert get_flash(conn, :error) == nil
-      assert html_response(conn, 200) =~ "Listing Users"
+      assert html_response(conn, 200) =~ "Listing users"
       assert conn.assigns.users != nil
     end
   end

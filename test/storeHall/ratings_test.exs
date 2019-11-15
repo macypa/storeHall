@@ -114,6 +114,7 @@ defmodule StoreHall.RatingsTest do
       end
     end
 
+    @tag :skip
     test "create_rating/1 updates rating score between 0 and 500" do
       user = Fixture.generate_user()
 

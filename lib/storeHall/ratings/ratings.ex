@@ -162,7 +162,7 @@ defmodule StoreHall.Ratings do
     calc_rating(value, count, rating, c)
   end
 
-  def calc_rating(value, count, rating, c) when is_integer(value) do
+  def calc_rating(value, _count, rating, _c) when is_integer(value) do
     value + rating
     # multiplier =
     #  case rating do
