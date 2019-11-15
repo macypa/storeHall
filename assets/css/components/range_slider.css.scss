@@ -7,11 +7,18 @@
 
     .min {
       padding-left: 3px;
+
+      width: 4em;
+      border: 0px;
     }
 
     .max {
       padding-right: 3px;
       margin-left: auto;
+
+      width: 50%;
+      border: 0px;
+      text-align: right;
     }
   }
 

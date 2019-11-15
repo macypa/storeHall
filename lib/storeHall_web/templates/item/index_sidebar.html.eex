@@ -30,19 +30,23 @@
 
         <div class="range-slider">
           <div class="rangeValues">
-            <span class="min"></span>
-            <span class="max"></span>
+            <%= number_input f, :price_min,
+              class: "min auto-submit-item",
+              min: 0, step: 1,
+              name: "filter[price][min]",
+              value: f.params["price"]["min"] || 0 %>
+            <%= number_input f, :price_max,
+              class: "max auto-submit-item",
+              min: 0, step: 1,
+              name: "filter[price][max]",
+              value: f.params["price"]["max"] %>
           </div>
           <%= range_input f, :price_min,
-            class: "auto-submit-item",
-            name: "filter[price][min]",
-            min: 0, max: 5000, step: 1,
+            min: 0, max: 1000, step: 1,
             value: f.params["price"]["min"] || 0 %>
 
           <%= range_input f, :price_max,
-            class: "auto-submit-item",
-            name: "filter[price][max]",
-            min: 0, max: 5000, step: 1,
+            min: 0, max: 1000, step: 1,
             value: f.params["price"]["max"] || 0 %>
         </div>
 
@@ -56,17 +60,21 @@
 
         <div class="range-slider">
           <div class="rangeValues">
-            <span class="min"></span>
-            <span class="max"></span>
+            <%= number_input f, :rating_min,
+              class: "min auto-submit-item",
+              min: 0, max: 5000, step: 1,
+              name: "filter[rating][min]",
+              value: f.params["rating"]["min"] || 0 %>
+            <%= number_input f, :price_max,
+              class: "max auto-submit-item",
+              min: 0, max: 5000, step: 1,
+              name: "filter[rating][max]",
+              value: f.params["rating"]["max"] %>
           </div>
           <%= range_input f, :rating_min,
-            class: "auto-submit-item",
-            name: "filter[rating][min]",
             min: -1, max: 5, step: 0.1,
             value: f.params["rating"]["min"] || -1 %>
           <%= range_input f, :rating_max,
-            class: "auto-submit-item",
-            name: "filter[rating][max]",
             min: -1, max: 5, step: 0.1,
             value: f.params["rating"]["max"] || 5 %>
         </div>
@@ -83,7 +91,12 @@
           <div class="select7_placeholder">Сортирай по</div>
 
           <%= select f, :sort,
-            %{"Дата" => "inserted_at:desc",  "Име" => "name:asc"},
+            %{
+              "Дата низх." => "inserted_at:desc",
+              "Дата възх." => "inserted_at:аsc",
+              "Име низх." => "name:desc",
+              "Име възх." => "name:аsc"
+            },
             class: "select7_select"  %>
           <%= text_input f, :sort, type: "hidden", class: "select7_input auto-submit-item" %>
 
