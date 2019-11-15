@@ -23,6 +23,10 @@ sidebar-filters {
         width: 98%;
       }
 
+      [type=submit] {
+        display: none;
+      }
+
       &-label {
         display: flex;
         justify-content: space-between;

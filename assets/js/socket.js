@@ -288,6 +288,10 @@ function render(state) {
   channel.push("filter", { data: state.filter_params })
 }
 
+$( "form" ).submit(function( event ) {
+  event.preventDefault();
+});
+
 add_events(".auto-submit-item", "change", function() {
 
   var form = $("#form-filter :input").filter(function() {
