@@ -288,7 +288,7 @@ function render(state) {
   channel.push("filter", { data: state.filter_params })
 }
 
-$( "form" ).submit(function( event ) {
+$( "#form-filter" ).submit(function( event ) {
   event.preventDefault();
 });
 
@@ -304,7 +304,7 @@ add_events(".auto-submit-item", "change", function() {
                                 if (this.name.includes("filter[rating][min]") && this.value == -1) {
                                   return false;
                                 }
-                                if (this.name.includes("filter[rating][max]") && this.value == 5) {
+                                if (this.name.includes("filter[rating][max]") && this.value == 500) {
                                   return false;
                                 }
                                 return true;
