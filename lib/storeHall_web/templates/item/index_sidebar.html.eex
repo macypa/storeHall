@@ -110,7 +110,7 @@
 
     <div class="tab">
       <input type="checkbox" id="merchants" class="collapsible">
-      <label class="tab-label" for="merchants">Merchants:</label>
+      <label class="tab-label" for="merchants">Merchants</label>
       <div class="tab-content">
         <div class="select7_container">
           <div class="select7_arrow">▾</div>
@@ -130,7 +130,7 @@
     <div class="tab">
       <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
       <input type="checkbox" id="tags" class="collapsible">
-      <label class="tab-label" for="tags">Tags:</label>
+      <label class="tab-label" for="tags">Tags</label>
       <div class="tab-content">
         <div class="select7_container">
           <div class="select7_arrow">▾</div>
