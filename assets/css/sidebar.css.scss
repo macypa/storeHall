@@ -1,62 +1,45 @@
 
-sidebar-filters {
+sidebar {
+  padding-top: 1em;
 
-  form {
-    padding-bottom: 1em;
+  & > * {
+    display: grid;
+  }
 
-    .tab-content {
-      display: none;
-      width: 99.7%;
-      padding: 0;
-      margin: 0;
-      margin-top: 5px;
-      margin-bottom: 1em;;
+  .tab-content {
+    display: none;
+    width: 99.7%;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 1em;;
 
-      @include range_slider;
+    @include range_slider;
 
+  }
+
+  .tab {
+    overflow: hidden;
+
+    &-label {
+      display: flex;
+      justify-content: space-between;
+      background: $baseBackgroundColor;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($baseBackgroundColor, 5%);
+      }
+
+      &::after {
+        content: "\276F";
+        transition: all .1s;
+      }
     }
-
-    .tab {
-      overflow: hidden;
-
-      #filter_q {
-        width: 98%;
-      }
-
-      [type=submit] {
-        display: none;
-      }
-
-      &-label {
-        display: flex;
-        justify-content: space-between;
-        background: $baseBackgroundColor;
-        font-weight: bold;
-        cursor: pointer;
-
-        &:hover {
-          background: darken($baseBackgroundColor, 5%);
-        }
-
-        &::after {
-          content: "\276F";
-          transition: all .1s;
-        }
-      }
-      &-content {
-        max-height: 0;
-        transition: all .35s;
-      }
-      &-close {
-        display: flex;
-        justify-content: flex-end;
-        font-size: 0.75em;
-        background: $baseBackgroundColor;
-        cursor: pointer;
-        &:hover {
-          background: darken($baseBackgroundColor, 5%);
-        }
-      }
+    &-content {
+      max-height: 0;
+      transition: all .35s;
     }
 
     // :checked
@@ -73,28 +56,54 @@ sidebar-filters {
       }
     }
 
+    .collapsible {
+      display: none;
+    }
   }
 
-  .collapsible {
-    display: none;
+}
+
+sidebar-show {
+
+  grid-template-columns: repeat(auto-fill, minmax($width-header/2, 1fr));
+
+  .tab-label::after {
+    content: none;
   }
 }
 
-.resizable-content {
-  width: 100%;
-  resize: vertical;
-  overflow: auto;
+sidebar-filters {
 
-  max-height: fit-content;
-  height: -moz-fit-content;
-  height: -webkit-fit-content;
+  form {
+    padding-bottom: 1em;
 
-  overflow: -moz-scrollbars-none;
-  -ms-overflow-style: none;
+    [type=submit] {
+      display: none;
+    }
 
-  &::-webkit-scrollbar {
-    width: 0 !important
+    #filter_q {
+      width: 98%;
+    }
+
+    .resizable-content {
+      width: 100%;
+      resize: vertical;
+      overflow: auto;
+
+      max-height: fit-content;
+      height: -moz-fit-content;
+      height: -webkit-fit-content;
+
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        width: 0 !important
+      }
+    }
+
   }
+
 }
 
 // tablet view
@@ -102,6 +111,15 @@ sidebar-filters {
 
     sidebar {
       transform: translateX(0);
+
+      sidebar-show {
+        .tab-label {
+          min-width: 6em;
+          justify-content: center;
+        }
+
+      }
+
     }
 }
 
@@ -110,6 +128,24 @@ sidebar-filters {
 
   sidebar {
     transform: translateX(0);
+
+    sidebar-show {
+      .tab{
+        padding-top: 2px;
+
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: bold;
+        }
+
+        &-label {
+          justify-content: left;
+        }
+
+      }
+    }
+
   }
 
 }

@@ -1,0 +1,28 @@
+
+<sidebar-show>
+
+  <div class="tab">
+    <a href="#info">
+      <label class="tab-label">Info</label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#comments">
+      <label class="tab-label">Comments</label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#ratings">
+      <label class="tab-label">Ratings</label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#messages">
+      <label class="tab-label">Chat</label>
+    </a>
+  </div>
+
+</sidebar-show>

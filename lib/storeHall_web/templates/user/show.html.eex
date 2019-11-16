@@ -1,84 +1,63 @@
-<div class="tabs">
 
-  <div class="tab">
-      <input type="radio" name="tabs" id="tab-show" class="default" />
-      <label for="tab-show">Show User</label>
-      <div id="tab-content-show" class="content">
+<show>
+  <div id="info">
 
-        <h1>Show User</h1>
-        <ul>
+    <ul>
 
-          <li>
-            <strong>First name:</strong>
-            <%= @user.first_name %>
-          </li>
+      <li>
+        <strong>First name:</strong>
+        <%= @user.first_name %>
+      </li>
 
-          <li>
-            <strong>Last name:</strong>
-            <%= @user.last_name %>
-          </li>
+      <li>
+        <strong>Last name:</strong>
+        <%= @user.last_name %>
+      </li>
 
-          <li>
-            <strong>Email:</strong>
-            <%= @user.email %>
-          </li>
+      <li>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </li>
 
-          <li>
-            <strong>Details:</strong>
-            <%= @user.details %>
-          </li>
+      <li>
+        <strong>Details:</strong>
+        <%= @user.details %>
+      </li>
 
-          <li>
-            <strong>Rating:</strong>
-            <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
-          </li>
+      <li>
+        <strong>Rating:</strong>
+        <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
+      </li>
 
-        </ul>
+    </ul>
 
-        <span id="reactions">
-          <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-          <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
-        </span>
+    <span id="reactions">
+      <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+      <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+    </span>
 
-      </div>
   </div>
 
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-comments" />
-    <label for="tab-comments">Comments</label>
-    <div id="tab-content-comments" class="content">
+  <div id="comments">
+    <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @user.comments, comment_template: %{
+      id: nil,
+      user_id: @user.id
+    } %>
+  </div>
 
-      <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @user.comments, comment_template: %{
-        id: nil,
-        user_id: @user.id
+  <div id="ratings">
+    <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
+      id: nil,
+      user_id: @user.id,
+      scores: %{}
+    } %>
+  </div>
+
+  <div id="messages">
+    <%= render StoreHallWeb.ChatView, "index.html", chats: @user.messages, chat_msg_template: %{
+        owner_id: @user.id,
+        user_id: get_user_id_from_conn(@conn)
       } %>
-     </div>
   </div>
 
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-ratings" />
-    <label for="tab-ratings">Ratings</label>
-    <div id="tab-content-ratings" class="content">
-
-      <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
-        id: nil,
-        user_id: @user.id,
-        scores: %{}
-      } %>
-    </div>
-  </div>
-
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-messages" />
-    <label for="tab-messages">Messages</label>
-    <div id="tab-content-messages" class="content">
-
-      <%= render StoreHallWeb.ChatView, "index.html", chats: @user.messages, chat_msg_template: %{
-          owner_id: @user.id,
-          user_id: get_user_id_from_conn(@conn)
-        } %>
-    </div>
-  </div>
-
-
-</ul>
+</show>

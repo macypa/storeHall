@@ -1,0 +1,40 @@
+
+<sidebar-show>
+
+  <div class="tab">
+    <a href="#info">
+      <label class="tab-label">Info</label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#comments">
+      <label class="tab-label">Comments</label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#ratings">
+      <label class="tab-label">Ratings</label>
+    </a>
+  </div>
+
+  <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @conn.assigns.item.user_id do %>
+
+    <div class="tab">
+      <a href="#manage">
+        <label class="tab-label">Manage</label>
+      </a>
+    </div>
+
+  <% else %>
+
+    <div class="tab">
+      <a href="#messages">
+        <label class="tab-label">Chat</label>
+      </a>
+    </div>
+
+  <% end %>
+
+</sidebar-show>

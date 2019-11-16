@@ -1,109 +1,90 @@
-<div class="tabs">
 
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-show" class="default" />
-    <label for="tab-show">Show Item</label>
-    <div id="tab-content-show" class="content">
-      <h1>Show Item</h1>
+<show>
+  <div id="info">
+    <ul>
 
-      <ul>
+      <li>
+        <strong>Name:</strong>
+        <%= @item.name %>
+      </li>
 
-        <li>
-          <strong>Name:</strong>
-          <%= @item.name %>
-        </li>
+      <li>
+        <strong>User:</strong>
+        <%= @item.user_id %>
+      </li>
 
-        <li>
-          <strong>User:</strong>
-          <%= @item.user_id %>
-        </li>
+      <li>
+        <strong>Details:</strong>
+        <%= @item.details %>
+      </li>
 
-        <li>
-          <strong>Details:</strong>
-          <%= @item.details %>
-        </li>
+      <li>
+        <strong>Rating:</strong>
+        <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
+      </li>
 
-        <li>
-          <strong>Rating:</strong>
-          <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
-        </li>
+      <!-- links to mark image as inappropriate -->
+      <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
+      <li>
+        <strong>Images:</strong>
+        <%= for image <- @item.details["images"] do %>
+          <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
+            <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
+          </a>
+        <% end %>
+      </li>
+    </ul>
 
-        <!-- links to mark image as inappropriate -->
-        <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
-        <li>
-          <strong>Images:</strong>
-          <%= for image <- @item.details["images"] do %>
-            <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
-              <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
-            </a>
-          <% end %>
-        </li>
-      </ul>
+    <span id="reactions">
+      <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+      <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+    </span>
 
-      <span id="reactions">
-        <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-        <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
-      </span>
-
-    </div>
   </div>
 
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-comments" />
-    <label for="tab-comments">Comments</label>
-    <div id="tab-content-comments" class="content">
+  <div id="comments">
 
-      <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @item.comments, comment_template: %{
-        id: nil,
-        item_id: @item.id,
-        user_id: @item.user_id
-      } %>
-    </div>
+    <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @item.comments, comment_template: %{
+      id: nil,
+      item_id: @item.id,
+      user_id: @item.user_id
+    } %>
   </div>
 
-  <div class="tab">
-    <input type="radio" name="tabs" id="tab-ratings" />
-    <label for="tab-ratings">Ratings</label>
-    <div id="tab-content-ratings" class="content">
+  <div id="ratings">
 
-      <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @item.ratings, rating_template: %{
-        id: nil,
-        item_id: @item.id,
-        user_id: @item.user_id,
-        scores: %{}
-      } %>
-    </div>
+    <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @item.ratings, rating_template: %{
+      id: nil,
+      item_id: @item.id,
+      user_id: @item.user_id,
+      scores: %{}
+    } %>
 
   </div>
 
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @item.user_id do %>
-    <div class="tab">
-      <input type="radio" name="tabs" id="tab-menage" />
-      <label for="tab-menage">Manage</label>
-      <div id="tab-content-menage" class="content">
 
-        <span>
-          <%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %>
-          <%= link "Delete", to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
-        </span>
+    <div id="manage">
 
-      </div>
+      <span>
+        <%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %>
+        <%= link "Delete", to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
+      </span>
+
     </div>
 
   <% else %>
 
-    <div class="tab">
-      <input type="radio" name="tabs" id="tab-messages" />
-      <label for="tab-messages">Chat</label>
-      <div id="tab-content-messages" class="content">
+    <div id="messages">
 
-        <%= render StoreHallWeb.ChatView, "index.html", chats: @item.messages, chat_msg_template: %{
-            item_id: @item.id,
-            owner_id: @item.user_id,
-            user_id: get_user_id_from_conn(@conn)
-          } %>
-      </div>
+      <%= render StoreHallWeb.ChatView, "index.html", chats: @item.messages, chat_msg_template: %{
+          item_id: @item.id,
+          owner_id: @item.user_id,
+          user_id: get_user_id_from_conn(@conn)
+        } %>
     </div>
 
   <% end %>
-</div>
+
+
+</show>
