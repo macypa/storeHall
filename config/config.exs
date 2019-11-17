@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+config :gettext, :default_locale, "bg"
+
 config :storeHall,
   ecto_repos: [StoreHall.Repo]
 

@@ -1,0 +1,97 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+
+## From Ecto.Changeset.cast/4
+msgid "can't be blank"
+msgstr "не може да е празно"
+
+## From Ecto.Changeset.unique_constraint/3
+msgid "has already been taken"
+msgstr "вече е заето"
+
+## From Ecto.Changeset.put_change/3
+msgid "is invalid"
+msgstr "е невалидно"
+
+## From Ecto.Changeset.validate_acceptance/3
+msgid "must be accepted"
+msgstr "трябва да бъде прието"
+
+## From Ecto.Changeset.validate_format/3
+msgid "has invalid format"
+msgstr "има невалиден формат"
+
+## From Ecto.Changeset.validate_subset/3
+msgid "has an invalid entry"
+msgstr "има невалидно поле"
+
+## From Ecto.Changeset.validate_exclusion/3
+msgid "is reserved"
+msgstr "е резервирано"
+
+## From Ecto.Changeset.validate_confirmation/3
+msgid "does not match confirmation"
+msgstr "не съответства на конфирмацията"
+
+## From Ecto.Changeset.no_assoc_constraint/3
+msgid "is still associated with this entry"
+msgstr "е все още вързани с този запис"
+
+msgid "are still associated with this entry"
+msgstr "са все още вързани с този запис"
+
+## From Ecto.Changeset.validate_length/3
+msgid "should be %{count} character(s)"
+msgid_plural "трябва да са %{count} символа"
+msgstr[0] "трябва да е без символи"
+msgstr[1] "трябва да е %{count} символ"
+
+msgid "should have %{count} item(s)"
+msgid_plural "трябва да има %{count} артикула"
+msgstr[0] "трябва да няма артикули"
+msgstr[1] "трябва да има %{count} артикул"
+
+msgid "should be at least %{count} character(s)"
+msgid_plural "трябва да има поне %{count} символа"
+msgstr[0] ""
+msgstr[1] "трябва да има поне %{count} символ"
+
+msgid "should have at least %{count} item(s)"
+msgid_plural "трябва да има поне %{count} артикула"
+msgstr[0] ""
+msgstr[1] "трябва да има поне %{count} артикул"
+
+msgid "should be at most %{count} character(s)"
+msgid_plural "трябва да има на-много %{count} символа"
+msgstr[0] ""
+msgstr[1] "трябва да има на-много %{count} символ"
+
+msgid "should have at most %{count} item(s)"
+msgid_plural "трябва да има на-много %{count} артикула"
+msgstr[0] ""
+msgstr[1] "трябва да има на-много %{count} артикул"
+
+## From Ecto.Changeset.validate_number/3
+msgid "must be less than %{number}"
+msgstr "трябва да има по-малко от %{number}"
+
+msgid "must be greater than %{number}"
+msgstr "трябва да има по-голямо от %{number}"
+
+msgid "must be less than or equal to %{number}"
+msgstr "трябва да има по-малко или %{number}"
+
+msgid "must be greater than or equal to %{number}"
+msgstr "трябва да има по-голямо или %{number}"
+
+msgid "must be equal to %{number}"
+msgstr "трябва да равно на %{number}"

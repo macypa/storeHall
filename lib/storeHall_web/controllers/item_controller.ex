@@ -28,7 +28,7 @@ defmodule StoreHallWeb.ItemController do
          ) do
       {:ok, item} ->
         conn
-        |> put_flash(:info, "Item created successfully.")
+        |> put_flash(:info, StoreHallWeb.Gettext.gettext("Item created successfully."))
         |> redirect(to: Routes.item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
