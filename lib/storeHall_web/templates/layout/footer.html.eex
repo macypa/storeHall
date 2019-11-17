@@ -1,0 +1,4 @@
+Latest contributor:
+<%= if @conn.assigns[:contributor] != nil do %>
+  @conn.assigns[:contributor].id
+<% end %>

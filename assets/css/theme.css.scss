@@ -7,6 +7,7 @@ $width-header: 25em;
 $width-header_desktop: 40em;
 $width-sidebar: 12em;
 $height-sidebar_tablet: 5em;
+$height-footer: 1em;
 
 @mixin dropdown_icon_border {
   background-size: cover;
@@ -76,6 +77,14 @@ sidebar {
   margin-left: 0.5em;
 }
 
+footer {
+  grid-area: footer;
+  display: flex;
+  align-items: center;
+  min-height: $height-footer;
+  background-color: $baseBackgroundColor;
+}
+
 // mobile first
 body {
   padding: 0;
@@ -85,10 +94,11 @@ body {
   display: grid;
   align-items: stretch;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: $height-header 1fr;
+  grid-template-rows: $height-header 1fr $height-footer;
   grid-template-areas:
     'logo header'
-    'main main';
+    'main main'
+    'footer footer';
   height: 100vh;
 }
 
@@ -96,11 +106,12 @@ body {
 @media only screen and (min-width: $width-header) {
   body {
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: $height-header_desktop min-content 1fr;
+    grid-template-rows: $height-header_desktop min-content 1fr $height-footer;
     grid-template-areas:
       'logo header'
       'sidebar sidebar'
-      'main main';
+      'main main'
+      'footer footer';
   }
 
   sidebar {
@@ -129,10 +140,11 @@ body {
 @media only screen and (min-width: $width-header_desktop) {
   body {
     grid-template-columns: $width-sidebar 1fr;
-    grid-template-rows: $height-header_desktop 1fr;
+    grid-template-rows: $height-header_desktop 1fr $height-footer;
     grid-template-areas:
       'logo header'
-      'sidebar main';
+      'sidebar main'
+      'footer footer';
   }
 
   sidebar {
