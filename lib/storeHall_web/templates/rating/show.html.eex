@@ -1,3 +1,7 @@
-<rating>
+<%= if Map.has_key?(@rating.details, "rating_template_tag_id") do %>
+  <rating id='rating_template' class='template'>
+<% else %>
+  <rating>
+<% end %>
   <rating-body><%= @rating.id %>:<%= @rating.author_id %> - <%= @rating.details %></rating-body>
 </rating>

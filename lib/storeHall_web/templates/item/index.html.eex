@@ -12,7 +12,7 @@
 
   <%= for item <- @items do %>
     <%= if Map.has_key?(item.details, "item_template_tag_id") do %>
-      <item id='item_template'>
+      <item id='item_template' class='template'>
     <% else %>
       <item>
     <% end %>

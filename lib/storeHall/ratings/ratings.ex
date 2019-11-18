@@ -19,10 +19,34 @@ defmodule StoreHall.Ratings do
     item_user
     |> Map.put(
       :ratings,
-      Ecto.assoc(item_user, :ratings)
-      |> apply_filters(current_user_id, params)
-      |> Repo.all()
+      [
+        rating_template(item_user)
+        | Ecto.assoc(item_user, :ratings)
+          |> apply_filters(current_user_id, params)
+          |> Repo.all()
+      ]
     )
+  end
+
+  def rating_template(%Item{}) do
+    %ItemRating{
+      id: "{{id}}",
+      author_id: "{{author_id}}",
+      item_id: "{{item_id}}",
+      details: %{
+        "rating_template_tag_id" => "rating_template"
+      }
+    }
+  end
+
+  def rating_template(%User{}) do
+    %UserRating{
+      id: "{{id}}",
+      author_id: "{{author_id}}",
+      details: %{
+        "rating_template_tag_id" => "rating_template"
+      }
+    }
   end
 
   def list_ratings(module, current_user_id, params = %{"id" => id}) do

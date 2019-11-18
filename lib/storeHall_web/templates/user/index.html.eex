@@ -22,7 +22,7 @@
 
   <%= for user <- @users do %>
     <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
-      <user id='user_template'>
+      <user id='user_template' class='template'>
     <% else %>
       <user>
     <% end %>

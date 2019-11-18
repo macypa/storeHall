@@ -225,8 +225,15 @@ function add_comment_events() {
 }
 add_comment_events();
 
-import comment_template from "../hbs/comment.hbs"
+//import comment_template from "../hbs/comment.hbs"
 channel.on("new_comment", payload => {
+
+  var comment_template_source = "<comment>" +
+       unescape(document.getElementById("comment_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</comment>";
+  var comment_template = Handlebars.compile(comment_template_source);
+
   var new_comment_html = comment_template( JSON.parse(payload.new_comment) )
 
   if (payload.comment_parent_id == null) {
@@ -254,8 +261,15 @@ function add_rating_events() {
 }
 add_rating_events();
 
-import rating_template from "../hbs/rating.hbs"
+//import rating_template from "../hbs/rating.hbs"
 channel.on("new_rating", payload => {
+
+  var rating_template_source = "<rating>" +
+       unescape(document.getElementById("rating_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</rating>";
+  var rating_template = Handlebars.compile(rating_template_source);
+
   var new_rating_html = rating_template( JSON.parse(payload.new_rating) )
 
   document.querySelector("ratings").insertAdjacentHTML( 'beforeend', new_rating_html);
@@ -389,8 +403,15 @@ channel.on("filtered_users", payload => {
 })
 
 
-import ratings_template from "../hbs/ratings.hbs"
+// import ratings_template from "../hbs/ratings.hbs"
 channel.on("filtered_ratings", payload => {
+
+  var ratings_template_source = "{{#each this}}<rating>" +
+       unescape(document.getElementById("rating_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</rating>{{/each}}";
+  var ratings_template = Handlebars.compile(ratings_template_source);
+
   var filtered_ratings = ratings_template( JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("ratings").innerHTML = filtered_ratings;
@@ -400,8 +421,15 @@ channel.on("filtered_ratings", payload => {
   update_next_page_link(payload.filter);
 })
 
-import comments_template from "../hbs/comments.hbs"
+//import comments_template from "../hbs/comments.hbs"
 channel.on("filtered_comments", payload => {
+
+  var comments_template_source = "{{#each this}}<comment>" +
+       unescape(document.getElementById("comment_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</comment>{{/each}}";
+  var comments_template = Handlebars.compile(comments_template_source);
+
   var filtered_comments = comments_template( JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("comments").innerHTML = filtered_comments;
@@ -411,6 +439,13 @@ channel.on("filtered_comments", payload => {
   update_next_page_link(payload.filter);
 })
 channel.on("show_more_comments", payload => {
+
+  var comments_template_source = "{{#each this}}<comment>" +
+       unescape(document.getElementById("comment_template").innerHTML) 
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</comment>{{/each}}";
+  var comments_template = Handlebars.compile(comments_template_source);
+
   var filtered_comments = comments_template( JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("show_for_comment_id=") == -1) {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);

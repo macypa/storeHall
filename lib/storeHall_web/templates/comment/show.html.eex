@@ -1,4 +1,8 @@
-<comment>
+<%= if Map.has_key?(@comment.details, "comment_template_tag_id") do %>
+  <comment id='comment_template' class='template'>
+<% else %>
+  <comment>
+<% end %>
   <comment-body><%= @comment.id %>:<%= @comment.author_id %> - <%= @comment.details %></comment-body>
 
   <%= render StoreHallWeb.LayoutView,

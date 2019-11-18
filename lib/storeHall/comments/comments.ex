@@ -19,12 +19,36 @@ defmodule StoreHall.Comments do
     item_user
     |> Map.put(
       :comments,
-      Ecto.assoc(item_user, :comments)
-      |> where([c], is_nil(c.comment_id))
-      |> apply_filters(current_user_id, params)
-      |> DefaultFilter.paging_filter(params)
-      |> Repo.all()
+      [
+        comment_template(item_user)
+        | Ecto.assoc(item_user, :comments)
+          |> where([c], is_nil(c.comment_id))
+          |> apply_filters(current_user_id, params)
+          |> DefaultFilter.paging_filter(params)
+          |> Repo.all()
+      ]
     )
+  end
+
+  def comment_template(%Item{}) do
+    %ItemComment{
+      id: "{{id}}",
+      author_id: "{{author_id}}",
+      item_id: "{{item_id}}",
+      details: %{
+        "comment_template_tag_id" => "comment_template"
+      }
+    }
+  end
+
+  def comment_template(%User{}) do
+    %UserComment{
+      id: "{{id}}",
+      author_id: "{{author_id}}",
+      details: %{
+        "comment_template_tag_id" => "comment_template"
+      }
+    }
   end
 
   def list_comments(
