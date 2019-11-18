@@ -361,14 +361,15 @@ channel.on("filtered_items", payload => {
 
   var filtered_items = items_template( json_payload )
   if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("#items-listing").innerHTML = filtered_items;
+    document.querySelector("#items-listing").innerHTML =
+          document.getElementById("item_template").outerHTML
+          + filtered_items;
   } else {
     document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
   }
   update_next_page_link(payload.filter);
 })
 
-//import users_template from "../hbs/users.hbs"
 channel.on("filtered_users", payload => {
 
   var users_template_source = "{{#each this}}<user>" +
@@ -378,7 +379,9 @@ channel.on("filtered_users", payload => {
 
   var filtered_users = users_template( JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("#users-listing").innerHTML = filtered_users;
+    document.querySelector("#users-listing").innerHTML =
+          document.getElementById("user_template").outerHTML
+          + filtered_users;
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
   }
