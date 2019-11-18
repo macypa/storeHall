@@ -21,11 +21,11 @@
 <div class="listing" id="users-listing">
 
   <%= for user <- @users do %>
-      <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
-        <user id='user_template'>
-      <% else %>
-        <user>
-      <% end %>
+    <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
+      <user id='user_template'>
+    <% else %>
+      <user>
+    <% end %>
 
       <div class="cover">
         <%= link to: Routes.user_path(@conn, :show, user) do %>
