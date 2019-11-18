@@ -57,7 +57,7 @@ socket.connect()
 import * as $ from 'jquery';
 
 
-var Handlebars = require('handlebars/runtime');
+var Handlebars = require('handlebars');
 Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
 });
@@ -349,7 +349,11 @@ function update_next_page_link(filter_params) {
   }));
 }
 
-import items_template from "../hbs/items.hbs"
+//import items_template from "../hbs/items.hbs"
+var items_template_source = "{{#each this}}<item>" +
+     unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
+     "</item>{{/each}}";
+var items_template = Handlebars.compile(items_template_source);
 channel.on("filtered_items", payload => {
   var json_payload = JSON.parse(payload.filtered)
   json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")

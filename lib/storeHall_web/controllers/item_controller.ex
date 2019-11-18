@@ -11,7 +11,22 @@ defmodule StoreHallWeb.ItemController do
   plug :check_owner when action in [:edit, :delete]
 
   def index(conn, _params) do
-    items = Items.list_items(conn.params)
+    items = [
+      %Item{
+        id: "{{id}}",
+        name: "{{name}}",
+        user_id: "{{user_id}}",
+        details: %{
+          "item_template_tag_id" => "item_template",
+          "price" => "{{json details.price}}",
+          "images" => ["{{#if details.images}}{{details.images.[0]}}{{/if}}"],
+          "rating" => %{"score" => "{{json details.rating.score}}"},
+          "comments_count" => "{{json details.comments_count}}"
+        }
+      }
+      | Items.list_items(conn.params)
+    ]
+
     filters = Items.item_filters()
     render(conn, :index, items: items, filters: filters)
   end

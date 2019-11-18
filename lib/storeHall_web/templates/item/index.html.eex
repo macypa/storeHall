@@ -11,7 +11,11 @@
 <div class="listing" id="items-listing">
 
   <%= for item <- @items do %>
-    <item>
+    <%= if Map.has_key?(item.details, "item_template_tag_id") do %>
+      <item id='item_template'>
+    <% else %>
+      <item>
+    <% end %>
 
       <div class="cover">
         <%= link to: Routes.item_path(@conn, :show, item) do %>
