@@ -5,7 +5,7 @@ $height-header: 1.7em;
 $height-header_desktop: 2em;
 $width-header: 25em;
 $width-header_desktop: 40em;
-$width-sidebar: 12em;
+$width-sidebar: 11em;
 $height-sidebar_tablet: 5em;
 $height-footer: 1em;
 
@@ -93,7 +93,7 @@ body {
   overflow-y: hidden;
   display: grid;
   align-items: stretch;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: $width-sidebar 1fr;
   grid-template-rows: $height-header 1fr $height-footer;
   grid-template-areas:
     'logo header'
@@ -105,7 +105,7 @@ body {
 // tablet view
 @media only screen and (min-width: $width-header) {
   body {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: $width-sidebar 1fr;
     grid-template-rows: $height-header_desktop min-content 1fr $height-footer;
     grid-template-areas:
       'logo header'
