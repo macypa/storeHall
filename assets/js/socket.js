@@ -349,12 +349,13 @@ function update_next_page_link(filter_params) {
   }));
 }
 
-//import items_template from "../hbs/items.hbs"
-var items_template_source = "{{#each this}}<item>" +
-     unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
-     "</item>{{/each}}";
-var items_template = Handlebars.compile(items_template_source);
 channel.on("filtered_items", payload => {
+
+  var items_template_source = "{{#each this}}<item>" +
+       unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
+       "</item>{{/each}}";
+  var items_template = Handlebars.compile(items_template_source);
+
   var json_payload = JSON.parse(payload.filtered)
   json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
 
@@ -367,8 +368,14 @@ channel.on("filtered_items", payload => {
   update_next_page_link(payload.filter);
 })
 
-import users_template from "../hbs/users.hbs"
+//import users_template from "../hbs/users.hbs"
 channel.on("filtered_users", payload => {
+
+  var users_template_source = "{{#each this}}<user>" +
+       unescape(document.getElementById("user_template").innerHTML) +
+       "</user>{{/each}}";
+  var users_template = Handlebars.compile(users_template_source);
+
   var filtered_users = users_template( JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#users-listing").innerHTML = filtered_users;

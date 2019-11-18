@@ -21,7 +21,11 @@
 <div class="listing" id="users-listing">
 
   <%= for user <- @users do %>
-    <user>
+      <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
+        <user id='user_template'>
+      <% else %>
+        <user>
+      <% end %>
 
       <div class="cover">
         <%= link to: Routes.user_path(@conn, :show, user) do %>
@@ -43,7 +47,7 @@
           Comments: <%= user.details["comments_count"] %>
         <% end %>
       </div>
-      
+
     </user>
   <% end %>
 
