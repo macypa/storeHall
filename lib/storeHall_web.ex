@@ -24,6 +24,7 @@ defmodule StoreHallWeb do
       import Plug.Conn
       import StoreHallWeb.Gettext
       alias StoreHallWeb.Router.Helpers, as: Routes
+      alias StoreHallWeb.Gettext, as: Gettext
     end
   end
 
@@ -43,6 +44,7 @@ defmodule StoreHallWeb do
       import StoreHallWeb.ViewHelpers
       import StoreHallWeb.Gettext
       alias StoreHallWeb.Router.Helpers, as: Routes
+      alias StoreHallWeb.Gettext, as: Gettext
     end
   end
 

@@ -1,5 +1,5 @@
 <msg-form id="msg-form" >
   <input class="body" type="text" name="body" value="">
   <input class="msg" type="hidden" name="msg" value="<%= Jason.encode! @chat_msg %>">
-  <button msg-topic="msg:add" type="button">Send</button>
+  <button msg-topic="msg:add" type="button"><%= Gettext.gettext("Send") %></button>
 </msg-form>

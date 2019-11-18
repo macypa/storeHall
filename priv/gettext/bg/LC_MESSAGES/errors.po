@@ -51,32 +51,32 @@ msgstr "са все още вързани с този запис"
 
 ## From Ecto.Changeset.validate_length/3
 msgid "should be %{count} character(s)"
-msgid_plural "трябва да са %{count} символа"
+msgid_plural "should be %{count} character(s)"
 msgstr[0] "трябва да е без символи"
 msgstr[1] "трябва да е %{count} символ"
 
 msgid "should have %{count} item(s)"
-msgid_plural "трябва да има %{count} артикула"
+msgid_plural "should have %{count} item(s)"
 msgstr[0] "трябва да няма артикули"
 msgstr[1] "трябва да има %{count} артикул"
 
 msgid "should be at least %{count} character(s)"
-msgid_plural "трябва да има поне %{count} символа"
+msgid_plural "should be at least %{count} character(s)"
 msgstr[0] ""
 msgstr[1] "трябва да има поне %{count} символ"
 
 msgid "should have at least %{count} item(s)"
-msgid_plural "трябва да има поне %{count} артикула"
+msgid_plural "should have at least %{count} item(s)"
 msgstr[0] ""
 msgstr[1] "трябва да има поне %{count} артикул"
 
 msgid "should be at most %{count} character(s)"
-msgid_plural "трябва да има на-много %{count} символа"
+msgid_plural "should be at most %{count} character(s)"
 msgstr[0] ""
 msgstr[1] "трябва да има на-много %{count} символ"
 
 msgid "should have at most %{count} item(s)"
-msgid_plural "трябва да има на-много %{count} артикула"
+msgid_plural "should have at most %{count} item(s)"
 msgstr[0] ""
 msgstr[1] "трябва да има на-много %{count} артикул"
 

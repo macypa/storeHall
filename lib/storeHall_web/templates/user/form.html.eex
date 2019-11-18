@@ -1,19 +1,19 @@
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+      <p><%= Gettext.gettext("Oops, something went wrong! Please check the errors below.") %></p>
     </div>
   <% end %>
 
   <%= if @conn.assigns[:logged_user] do %>
-    <%= label f, :labels %>
+    <%= label f, :labels, Gettext.gettext("Labels") %>
     <%= text_input f, :settings_labels, name: input_name(f, :settings) <>"[labels]", value: Jason.encode!(f.data.settings["labels"]) |> String.replace(",\"", ",\n\"") %>
 
-    <%= label f, :filters %>
+    <%= label f, :filters, Gettext.gettext("Filters") %>
     <%= text_input f, :settings_filters, name: input_name(f, :settings) <>"[filters]", value: Jason.encode!(f.data.settings["filters"]) |> String.replace(",\"", ",\n\"") %>
   <% end %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit Gettext.gettext("Save") %>
   </div>
 <% end %>

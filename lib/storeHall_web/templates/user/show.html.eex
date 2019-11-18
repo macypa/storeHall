@@ -5,27 +5,27 @@
     <ul>
 
       <li>
-        <strong>First name:</strong>
+        <strong><%= Gettext.gettext("First name") %>:</strong>
         <%= @user.first_name %>
       </li>
 
       <li>
-        <strong>Last name:</strong>
+        <strong><%= Gettext.gettext("Last name") %>:</strong>
         <%= @user.last_name %>
       </li>
 
       <li>
-        <strong>Email:</strong>
+        <strong><%= Gettext.gettext("Email") %>:</strong>
         <%= @user.email %>
       </li>
 
       <li>
-        <strong>Details:</strong>
+        <strong><%= Gettext.gettext("Details") %>:</strong>
         <%= @user.details %>
       </li>
 
       <li>
-        <strong>Rating:</strong>
+        <strong><%= Gettext.gettext("Rating") %>:</strong>
         <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
       </li>
 

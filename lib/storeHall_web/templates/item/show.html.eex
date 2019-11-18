@@ -4,29 +4,29 @@
     <ul>
 
       <li>
-        <strong>Name:</strong>
+        <strong><%= Gettext.gettext("Name") %>:</strong>
         <%= @item.name %>
       </li>
 
       <li>
-        <strong>User:</strong>
+        <strong><%= Gettext.gettext("User") %>:</strong>
         <%= @item.user_id %>
       </li>
 
       <li>
-        <strong>Details:</strong>
+        <strong><%= Gettext.gettext("Details") %>:</strong>
         <%= @item.details %>
       </li>
 
       <li>
-        <strong>Rating:</strong>
+        <strong><%= Gettext.gettext("Rating") %>:</strong>
         <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
       </li>
 
       <!-- links to mark image as inappropriate -->
       <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
       <li>
-        <strong>Images:</strong>
+        <strong><%= Gettext.gettext("Images") %>:</strong>
         <%= for image <- @item.details["images"] do %>
           <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
             <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
@@ -67,8 +67,8 @@
     <div id="manage">
 
       <span>
-        <%= link "Edit", to: Routes.item_path(@conn, :edit, @item) %>
-        <%= link "Delete", to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link Gettext.gettext("Edit"), to: Routes.item_path(@conn, :edit, @item) %>
+        <%= link Gettext.gettext("Delete"), to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
       </span>
 
     </div>

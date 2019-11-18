@@ -1,6 +1,9 @@
 defmodule StoreHallWeb.ItemsChannel do
   use Phoenix.Channel
 
+  require StoreHallWeb.Gettext
+  alias StoreHallWeb.Gettext, as: Gettext
+
   import Ecto.Query, warn: false
   alias StoreHall.Repo
   alias Ecto.Multi
@@ -112,7 +115,7 @@ defmodule StoreHallWeb.ItemsChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
         case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
@@ -133,7 +136,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
           {:error, _rating} ->
             push(socket, "error", %{
-              message: "you already did it :)"
+              message: Gettext.gettext("you already did it :)")
             })
         end
     end
@@ -148,7 +151,7 @@ defmodule StoreHallWeb.ItemsChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       _logged_user ->
         Multi.new()
@@ -167,7 +170,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
           {:error, _op, _value, _changes} ->
             push(socket, "error", %{
-              message: "you already did it :)"
+              message: Gettext.gettext("you already did it :)")
             })
         end
     end

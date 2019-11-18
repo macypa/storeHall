@@ -1,6 +1,9 @@
 defmodule StoreHallWeb.UsersChannel do
   use Phoenix.Channel
 
+  require StoreHallWeb.Gettext
+  alias StoreHallWeb.Gettext, as: Gettext
+
   import Ecto.Query, warn: false
   alias StoreHall.Repo
   alias Ecto.Multi
@@ -90,7 +93,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
         unless logged_user != chat_msg["owner_id"] and
@@ -113,7 +116,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
         unless logged_user != chat_msg["owner_id"] and
@@ -132,7 +135,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
         case Chats.create_chat_message(chat_msg |> Map.put("author_id", logged_user)) do
@@ -190,7 +193,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
         case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
@@ -207,7 +210,7 @@ defmodule StoreHallWeb.UsersChannel do
 
           {:error, _rating} ->
             push(socket, "error", %{
-              message: "you already did it :)"
+              message: Gettext.gettext("you already did it :)")
             })
         end
     end
@@ -222,7 +225,7 @@ defmodule StoreHallWeb.UsersChannel do
       ) do
     case socket.assigns.current_user_id do
       nil ->
-        push(socket, "error", %{message: "must be logged in"})
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       _logged_user ->
         Multi.new()
@@ -237,7 +240,7 @@ defmodule StoreHallWeb.UsersChannel do
 
           {:error, _op, _value, _changes} ->
             push(socket, "error", %{
-              message: "you already did it :)"
+              message: Gettext.gettext("you already did it :)")
             })
         end
     end

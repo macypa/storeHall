@@ -1,8 +1,8 @@
 <rating-form id="rating">
-  Body:
+  <%= Gettext.gettext("Body") %>:
   <input class="body" type="text" name="body", value="">
-  Scores:
+  <%= Gettext.gettext("Scores") %>:
   <input class="scores" type="text" name="scores", value="<%= Jason.encode! @rating.scores %>">
   <input class="rating" type="hidden" name="rating", value="<%= Jason.encode! @rating %>">
-  <button rating-topic="rating:add" type="button">Send</button>
+  <button rating-topic="rating:add" type="button"><%= Gettext.gettext("Send") %></button>
 </rating-form>

@@ -43,7 +43,7 @@ defmodule StoreHallWeb.ItemController do
          ) do
       {:ok, item} ->
         conn
-        |> put_flash(:info, StoreHallWeb.Gettext.gettext("Item created successfully."))
+        |> put_flash(:info, Gettext.gettext("Item created successfully."))
         |> redirect(to: Routes.item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -73,7 +73,7 @@ defmodule StoreHallWeb.ItemController do
     case Items.update_item(item, Items.decode_params(item_params)) do
       {:ok, item} ->
         conn
-        |> put_flash(:info, "Item updated successfully.")
+        |> put_flash(:info, Gettext.gettext("Item updated successfully."))
         |> redirect(to: Routes.item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -86,7 +86,7 @@ defmodule StoreHallWeb.ItemController do
     {:ok, _item} = Items.delete_item(item)
 
     conn
-    |> put_flash(:info, "Item deleted successfully.")
+    |> put_flash(:info, Gettext.gettext("Item deleted successfully."))
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
@@ -98,7 +98,7 @@ defmodule StoreHallWeb.ItemController do
       conn
     else
       conn
-      |> put_flash(:error, "You cannot do that")
+      |> put_flash(:error, Gettext.gettext("You cannot do that"))
       |> redirect(to: Routes.item_path(conn, :index))
       |> halt()
     end

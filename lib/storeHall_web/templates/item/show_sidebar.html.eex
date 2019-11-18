@@ -3,19 +3,19 @@
 
   <div class="tab">
     <a href="#info">
-      <label class="tab-label">Info</label>
+      <label class="tab-label"><%= Gettext.gettext("Info") %></label>
     </a>
   </div>
 
   <div class="tab">
     <a href="#comments">
-      <label class="tab-label">Comments</label>
+      <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
     </a>
   </div>
 
   <div class="tab">
     <a href="#ratings">
-      <label class="tab-label">Ratings</label>
+      <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
     </a>
   </div>
 
@@ -23,7 +23,7 @@
 
     <div class="tab">
       <a href="#manage">
-        <label class="tab-label">Manage</label>
+        <label class="tab-label"><%= Gettext.gettext("Manage") %></label>
       </a>
     </div>
 
@@ -31,7 +31,7 @@
 
     <div class="tab">
       <a href="#messages">
-        <label class="tab-label">Chat</label>
+        <label class="tab-label"><%= Gettext.gettext("Chat") %></label>
       </a>
     </div>
 

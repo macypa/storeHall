@@ -1,5 +1,5 @@
 <%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
-  <%= text_input f, :q, placeholder: "Search by title, content, etc.",
+  <%= text_input f, :q, placeholder: Gettext.gettext("Search by title, content, etc."),
     class: "auto-submit-user" %>
 
   <%= for param <- @conn.params
@@ -39,12 +39,12 @@
       </div>
       <div class="rating">
         <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-ratings" do %>
-          Rating: <%= user.details["rating"]["score"] %>
+          <%= Gettext.gettext("Rating") %>: <%= user.details["rating"]["score"] %>
         <% end %>
       </div>
       <div class="comments">
         <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-comments" do %>
-          Comments: <%= user.details["comments_count"] %>
+          <%= Gettext.gettext("Comments") %>: <%= user.details["comments_count"] %>
         <% end %>
       </div>
 

@@ -20,7 +20,7 @@
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
             <img class="menu_icon" src="/images/icons/envelope.svg" />
-            <span class="text">View all Messages</span>
+            <span class="text"><%= Gettext.gettext("View all Messages") %></span>
           </li>
         <% end %>
       <% end %>
@@ -42,42 +42,42 @@
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
           <li>
             <img class="menu_icon" src="/images/icons/user.svg" />
-            <span class="text">Profile</span>
+            <span class="text"><%= Gettext.gettext("Profile") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user)do %>
           <li>
             <img class="menu_icon" src="/images/icons/cog.svg" />
-            <span class="text">Settings</span>
+            <span class="text"><%= Gettext.gettext("Settings") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
             <img class="menu_icon" src="/images/icons/envelope.svg" />
-            <span class="text">Messages</span>
+            <span class="text"><%= Gettext.gettext("Messages") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant][]=" <> @conn.assigns.logged_user.id do %>
           <li>
             <img class="menu_icon" src="/images/icons/list-ul.svg" />
-            <span class="text">My Items</span>
+            <span class="text"><%= Gettext.gettext("My Items") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :new) do %>
           <li>
             <img class="menu_icon" src="/images/icons/plus.svg" />
-            <span class="text">Add Item</span>
+            <span class="text"><%= Gettext.gettext("Add Item") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.auth_path(@conn, :delete) do %>
           <li>
             <img class="menu_icon" src="/images/icons/power-off.svg" />
-            <span class="text">Sign out</span>
+            <span class="text"><%= Gettext.gettext("Sign out") %></span>
           </li>
         <% end %>
 
@@ -86,7 +86,7 @@
           <li>
             <img class="menu_icon" src="/images/icons/power-off.svg" />
             <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
-            <span class="text">Sign in with Google</span>
+            <span class="text"><%= Gettext.gettext("Sign in with Google") %></span>
           </li>
         <% end %>
 

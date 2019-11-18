@@ -33,15 +33,15 @@
           <%= item.user_id %>
         <% end %>
       </div>
-      <div class="price"><%= item.details["price"] %> лв.</div>
+      <div class="price"><%= item.details["price"] %> <%= Gettext.gettext("lv") %></div>
       <div class="rating">
         <%= link to: Routes.item_path(@conn, :show, item) <> "#tab-ratings" do %>
-          Rating: <%= item.details["rating"]["score"] %>
+          <%= Gettext.gettext("Rating") %>: <%= item.details["rating"]["score"] %>
         <% end %>
       </div>
       <div class="comments">
         <%= link to: Routes.item_path(@conn, :show, item) <> "#tab-comments" do %>
-          Comments: <%= item.details["comments_count"] %>
+          <%= Gettext.gettext("Comments") %>: <%= item.details["comments_count"] %>
         <% end %>
       </div>
     </item>

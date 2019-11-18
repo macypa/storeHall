@@ -5,7 +5,7 @@
 
 		<div class='list'>
 			<ul>
-				<li>UserList</li>
+				<li><%= Gettext.gettext("Chats") %></li>
 
 	      <%= for user <- Map.keys(@chats) do %>
 	        <%= for item <- @chats[user] do %>
@@ -31,7 +31,7 @@
 						<ul>
 			        <li><div class='title'>
 								<%= topic %>
-								<span delete_chat_room="<%= topic %>">delete</span></div>
+								<span delete_chat_room="<%= topic %>"><%= Gettext.gettext("Delete") %></span></div>
 							</li>
 
 			        <!--%= for chat <- @chats[user][item] do %-->

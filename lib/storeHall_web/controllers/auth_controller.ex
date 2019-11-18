@@ -27,13 +27,13 @@ defmodule StoreHallWeb.AuthController do
     case insert_or_update_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Thank you for signing in!")
+        |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
         |> put_session(:logged_user, Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
       {:error, reason} ->
         conn
-        |> put_flash(:error, "Error signing in")
+        |> put_flash(:error, Gettext.gettext("Error signing in"))
         |> put_flash(:error_reason, reason)
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
     end

@@ -5,10 +5,10 @@
     <!-- TODO:maybe use some spellchecker or suggestions -->
 
     <div class="tab">
-      <%= text_input f, :q, placeholder: "Search by title, content...",
+      <%= text_input f, :q, placeholder: Gettext.gettext("Search by title, content..."),
         class: "auto-submit-item" %>
 
-      <%= submit "Submit" %>
+      <%= submit Gettext.gettext("Submit") %>
     </div>
 <!--
     <label for="with-image">With image:
@@ -27,7 +27,7 @@
 
     <div class="tab">
       <input type="checkbox" id="price-min" class="collapsible">
-      <label class="tab-label" for="price-min">Price</label>
+      <label class="tab-label" for="price-min"><%= Gettext.gettext("Price") %></label>
       <div class="tab-content">
 
         <div class="range-slider">
@@ -57,7 +57,7 @@
 
     <div class="tab">
       <input type="checkbox" id="rating-min" class="collapsible">
-      <label class="tab-label" for="rating-min">Rating</label>
+      <label class="tab-label" for="rating-min"><%= Gettext.gettext("Rating") %></label>
       <div class="tab-content">
 
         <div class="range-slider">
@@ -86,11 +86,11 @@
 
     <div class="tab">
       <input type="checkbox" id="sort" class="collapsible">
-      <label class="tab-label" for="sort">Sort</label>
+      <label class="tab-label" for="sort"><%= Gettext.gettext("Sort") %></label>
       <div class="tab-content">
         <div class="select7_container">
           <div class="select7_arrow">▾</div>
-          <div class="select7_placeholder">Сортирай по</div>
+          <div class="select7_placeholder"><%= Gettext.gettext("Sort") %></div>
 
           <%= select f, :sort,
             %{
@@ -110,11 +110,11 @@
 
     <div class="tab">
       <input type="checkbox" id="merchants" class="collapsible">
-      <label class="tab-label" for="merchants">Merchants</label>
+      <label class="tab-label" for="merchants"><%= Gettext.gettext("Merchants") %></label>
       <div class="tab-content">
         <div class="select7_container">
           <div class="select7_arrow">▾</div>
-          <div class="select7_placeholder">Избери</div>
+          <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
 
           <%= select f, :merchant,
             @conn.assigns.filters["merchant"]
@@ -130,11 +130,11 @@
     <div class="tab">
       <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
       <input type="checkbox" id="tags" class="collapsible">
-      <label class="tab-label" for="tags">Tags</label>
+      <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
       <div class="tab-content">
         <div class="select7_container">
           <div class="select7_arrow">▾</div>
-          <div class="select7_placeholder">Избери</div>
+          <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
 
           <%= select f, :tags,
             @conn.assigns.filters["tags"]

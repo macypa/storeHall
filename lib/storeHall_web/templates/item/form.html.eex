@@ -1,36 +1,35 @@
 <%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+      <p><%= Gettext.gettext("Oops, something went wrong! Please check the errors below.") %></p>
     </div>
   <% end %>
 
   <div class="form-group">
-    <%= label f, :name %>
+    <%= label f, :name, Gettext.gettext("Name") %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
     <%= error_tag f, :not_unique_name_for_user %>
   </div>
 
   <div class="form-group">
-    <%= label f, :details %>
+    <%= label f, :details, Gettext.gettext("Details") %>
     <%= error_tag f, :details %>
 
     <!-- <%= label f, :tags %>
     <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Jason.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %> -->
 
     <div class="form-image-group">
-      <%= label f, :images %>
+      <%= label f, :images, Gettext.gettext("Images") %>
       <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple" %>
       <%= error_tag f, :images %>
     </div>
 
-    <%= label f, :details %>
     <%= textarea  f, :details, name: input_name(f, :details), value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
 
   </div>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit Gettext.gettext("Save") %>
   </div>
 <% end %>

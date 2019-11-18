@@ -49,7 +49,7 @@ end %>
 
   <%= unless length(@model) < per_page do %>
       <li class="page-item">
-        <a id="next-page-link" class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next">show more</a>
+        <a id="next-page-link" class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next"><%= Gettext.gettext("show more") %></a>
       </li>
   <% end %>
 

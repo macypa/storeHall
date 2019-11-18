@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
-    <title>StoreHall</title>
+    <title>Крали Марко</title>
 
     <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.ico") %>">
     <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.svg") %>">
@@ -19,7 +19,7 @@
       <img class="icon" src="/logo.svg" />
 
       <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
-        StoreHall<% end %>
+        Крали Марко<% end %>
     </logo>
 
     <header>

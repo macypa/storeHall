@@ -51,7 +51,7 @@ defmodule StoreHallWeb.UserController do
     case Users.update_user(user, Users.decode_params(user_params)) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, Gettext.gettext("User updated successfully."))
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -64,7 +64,7 @@ defmodule StoreHallWeb.UserController do
     {:ok} = Users.delete_user(user)
 
     conn
-    |> put_flash(:info, "User deleted successfully.")
+    |> put_flash(:info, Gettext.gettext("User deleted successfully."))
     |> redirect(to: Routes.user_path(conn, :index))
   end
 
@@ -75,7 +75,7 @@ defmodule StoreHallWeb.UserController do
       conn
     else
       conn
-      |> put_flash(:error, "You cannot do that")
+      |> put_flash(:error, Gettext.gettext("You cannot do that"))
       |> redirect(to: Routes.user_path(conn, :index))
       |> halt()
     end
