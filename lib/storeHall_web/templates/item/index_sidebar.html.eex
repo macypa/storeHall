@@ -43,13 +43,17 @@
               name: "filter[price][max]",
               value: f.params["price"]["max"] %>
           </div>
-          <%= range_input f, :price_min,
-            min: 0, max: 1000, step: 1,
-            value: f.params["price"]["min"] || 0 %>
+          <div class="rangeSliders">
+            <%= range_input f, :price_min,
+              min: 0, max: 1000, step: 1,
+              class: "min-slider",
+              value: f.params["price"]["min"] || 0 %>
 
-          <%= range_input f, :price_max,
-            min: 0, max: 1000, step: 1,
-            value: f.params["price"]["max"] || 1000 %>
+            <%= range_input f, :price_max,
+              min: 0, max: 1000, step: 1,
+              class: "max-slider",
+              value: f.params["price"]["max"] || 1000 %>
+          </div>
         </div>
 
       </div>
@@ -73,12 +77,16 @@
               name: "filter[rating][max]",
               value: f.params["rating"]["max"] %>
           </div>
-          <%= range_input f, :rating_min,
-            min: 0, step: 1,
-            value: f.params["rating"]["min"] || 0 %>
-          <%= range_input f, :rating_max,
-            min: 0, step: 1,
-            value: f.params["rating"]["max"] || 100 %>
+          <div class="rangeSliders">
+            <%= range_input f, :rating_min,
+              class: "min-slider",
+              min: 0, step: 1,
+              value: f.params["rating"]["min"] || 0 %>
+            <%= range_input f, :rating_max,
+              class: "max-slider",
+              min: 0, step: 1,
+              value: f.params["rating"]["max"] || 100 %>
+          </div>
         </div>
 
       </div>
