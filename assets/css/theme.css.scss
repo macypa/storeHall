@@ -1,5 +1,5 @@
-$baseColor: orange;
-$baseBackgroundColor: WhiteSmoke;
+$baseColor: #FFA500;
+$baseBackgroundColor: #F5F5F5;
 
 $height-header: 1.7em;
 $height-header_desktop: 2em;
@@ -38,30 +38,13 @@ a {
   max-width: $height-header;
 }
 
-logo {
-  grid-area: logo;
-  display: flex;
-  align-items: center;
-  min-height: $height-header;
-  background-color: $baseBackgroundColor;
-
-  img {
-    padding-right: 5px;
-    padding-left: 3px;
-  }
-
-  .brand-link {
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    border-style: none;
-  }
-}
-
 header {
   grid-area: header;
+  width: 98vw;
   display: flex;
   align-items: center;
   min-height: $height-header;
+  min-width: $width-sidebar;
   background-color: $baseBackgroundColor;
 }
 
@@ -73,12 +56,11 @@ main {
 
 sidebar {
   grid-area: sidebar;
-  display: none;
-  margin-left: 0.5em;
   margin-top: 1em;
 }
 
 footer {
+  width: 98vw;
   grid-area: footer;
   display: flex;
   align-items: center;
@@ -93,22 +75,23 @@ body {
   overflow-y: hidden;
   display: grid;
   align-items: stretch;
-  grid-template-columns: $width-sidebar 1fr;
+  grid-template-columns: min-content $width-sidebar 1fr;
   grid-template-rows: $height-header 1fr $height-footer;
   grid-template-areas:
-    'logo header'
-    'main main'
-    'footer footer';
+    'header header header'
+    'sidebar main main'
+    'footer footer footer';
   height: 100vh;
+  width: 100vw;
 }
 
 // tablet view
 @media only screen and (min-width: $width-header) {
   body {
-    grid-template-columns: $width-sidebar 1fr;
+    grid-template-columns: 1fr 1fr ;
     grid-template-rows: $height-header_desktop min-content 1fr $height-footer;
     grid-template-areas:
-      'logo header'
+      'header header'
       'sidebar sidebar'
       'main main'
       'footer footer';
@@ -116,13 +99,6 @@ body {
 
   sidebar {
     display: block;
-    max-height: $height-sidebar_tablet;
-    overflow: auto;
-  }
-
-  logo {
-    padding-left: 0.5em;
-    min-height: $height-header_desktop;
   }
 
   header {
@@ -139,17 +115,12 @@ body {
 // desktop view
 @media only screen and (min-width: $width-header_desktop) {
   body {
-    grid-template-columns: $width-sidebar 1fr;
+    grid-template-columns: min-content $width-sidebar 1fr;
     grid-template-rows: $height-header_desktop 1fr $height-footer;
     grid-template-areas:
-      'logo header'
-      'sidebar main'
-      'footer footer';
+      'header header header'
+      'sidebar main main'
+      'footer footer footer';
   }
 
-  sidebar {
-    display: block;
-    max-height: 100vh;
-    overflow: auto;
-  }
 }

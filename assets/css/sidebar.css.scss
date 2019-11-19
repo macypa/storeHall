@@ -1,8 +1,45 @@
 
 sidebar {
+  display: flex;
+  overflow: auto;
 
-  & > * {
-    display: grid;
+  #sidebar_hider {
+    display: none;
+
+    & + label {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0px;
+      font-weight: bold;
+      cursor: pointer;
+
+      + * {
+        display: none;
+        width: 5px;
+      }
+
+      &::after {
+        background: $baseBackgroundColor;
+        content: "\276F";
+      }
+
+      &:hover {
+        &::after {
+          background: darken($baseBackgroundColor, 15%);
+        }
+      }
+    }
+
+    &:checked + label {
+      &::after {
+        transform: rotate(180deg);
+      }
+
+      + * {
+        display: flex;
+        width: $width-sidebar;
+      }
+    }
   }
 
   .tab-content {
@@ -10,8 +47,6 @@ sidebar {
     width: 99.7%;
     padding: 0;
     margin: 0;
-    margin-top: 5px;
-    margin-bottom: 1em;;
 
     @include range_slider;
 
@@ -64,7 +99,7 @@ sidebar {
 
 sidebar-show {
 
-  grid-template-columns: repeat(auto-fill, minmax($width-header/3, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax($width-header/3, 1fr));
 
   .tab-label::after {
     content: none;
@@ -74,6 +109,7 @@ sidebar-show {
 sidebar-filters {
 
   form {
+    width: 100%;
     padding-bottom: 1em;
 
     [type=submit] {
@@ -109,16 +145,33 @@ sidebar-filters {
 @media only screen and (min-width: $width-header) {
 
     sidebar {
+      max-height: $height-sidebar_tablet;
       transform: translateX(0);
+
+      #sidebar_hider {
+        & + label {
+          display: none;
+          + * {
+            display: flex;
+            width: 100%;
+          }
+        }
+
+        &:checked + label {
+          display: none;
+          + * {
+            display: flex;
+            width: 100%;
+          }
+        }
+      }
 
       sidebar-show {
         .tab-label {
           min-width: 6em;
           justify-content: center;
         }
-
       }
-
     }
 }
 
@@ -126,7 +179,23 @@ sidebar-filters {
 @media only screen and (min-width: $width-header_desktop) {
 
   sidebar {
+    max-height: 100%;
     transform: translateX(0);
+
+    #sidebar_hider {
+      & + label {
+        display: block;
+        + * {
+          width: $width-sidebar;
+        }
+      }
+      &:checked + label {
+        + * {
+          display: none;
+          width: 0px;
+        }
+      }
+    }
 
     sidebar-show {
       .tab{

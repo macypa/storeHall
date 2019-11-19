@@ -14,33 +14,31 @@
   </head>
 
   <body>
-    <logo>
-      <!--svg icons https://github.com/leungwensen/svg-icon-->
-      <img class="icon" src="/logo.svg" />
-
-      <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
-        Крали Марко<% end %>
-    </logo>
-
     <header>
+      <logo>
+        <!--svg icons https://github.com/leungwensen/svg-icon-->
+        <img class="icon" src="/logo.svg" />
+
+        <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
+          Крали Марко<% end %>
+      </logo>
+
       <%= render "header.html", conn: @conn %>
     </header>
 
     <main>
-        <p class="flash info" role="alert"><%= get_flash(@conn, :info) %></p>
-        <p class="flash error" role="alert"><%= get_flash(@conn, :error) %></p>
-        <%= render @view_module, @view_template, assigns %>
+      <p class="flash info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="flash error" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= render @view_module, @view_template, assigns %>
     </main>
 
     <sidebar>
-        <%= render "sidebar.html", conn: @conn %>
+      <%= render "sidebar.html", conn: @conn %>
     </sidebar>
 
     <footer>
-        <%= render "footer.html", conn: @conn %>
+      <%= render "footer.html", conn: @conn %>
     </footer>
-
-
 
     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
     <script>window.loggedUserId = "<%= if assigns[:logged_user] != nil do assigns[:logged_user].id end %>";</script>

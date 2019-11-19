@@ -1,6 +1,25 @@
 
 header {
 
+  logo {
+    //grid-area: logo;
+    display: flex;
+    align-items: center;
+    min-height: $height-header;
+    background-color: $baseBackgroundColor;
+
+    img {
+      padding-right: 5px;
+      padding-left: 3px;
+    }
+
+    .brand-link {
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      border-style: none;
+    }
+  }
+
   title {
     visibility: hidden;
     display: none;

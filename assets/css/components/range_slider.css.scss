@@ -22,13 +22,16 @@
     }
   }
 
+  .max-slider {
+    top: -1.4em;
+  }
+
   input[type=range] {
-    height: 23px;
+    width: 100%;
+    height: 1em;
     -webkit-appearance: none;
     margin: 0;
-    margin-left: 3px;
-    position: absolute;
-    overflow: hidden;
+    position: relative;
     outline: none;
     transform: translateY(-50%);
     background: none;
