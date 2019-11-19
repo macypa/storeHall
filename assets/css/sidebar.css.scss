@@ -14,8 +14,9 @@ sidebar {
       cursor: pointer;
 
       + * {
-        display: none;
         width: 5px;
+        -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
+        transition: width 0.5s;
       }
 
       &::after {
@@ -36,7 +37,6 @@ sidebar {
       }
 
       + * {
-        display: flex;
         width: $width-sidebar;
       }
     }
@@ -167,7 +167,6 @@ sidebar-filters {
         & + label {
           display: none;
           + * {
-            display: flex;
             width: 100%;
           }
         }
@@ -175,7 +174,6 @@ sidebar-filters {
         &:checked + label {
           display: none;
           + * {
-            display: flex;
             width: 100%;
           }
         }
@@ -208,7 +206,6 @@ sidebar-filters {
       &:checked + label {
         display: block;
         + * {
-          display: none;
           width: 0px;
         }
       }
