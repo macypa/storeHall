@@ -54,9 +54,6 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, connect to the socket:
 socket.connect()
 
-import * as $ from 'jquery';
-
-
 var Handlebars = require('handlebars');
 Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
@@ -342,6 +339,17 @@ $('.page-link').on('click', e => {
   e.preventDefault();
 });
 
+jQuery(function($) {
+  $('main').bind('scroll', function() {
+    if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight) {
+      var next_page_link = $('#next-page-link')[0];
+      var next_page = next_page_link.href.slice(next_page_link.href.indexOf('?') + 1);
+      var page_more = next_page_link.href.slice(next_page_link.href.indexOf('&more_') + 6);
+      channel.push("filter", { data: next_page, page_more: page_more })
+    }
+  })
+});
+
 function add_load_more_events() {
   add_events("[load-more-topic]", "click", function() {
     var params_attr = this.getAttribute("params")
@@ -441,7 +449,7 @@ channel.on("filtered_comments", payload => {
 channel.on("show_more_comments", payload => {
 
   var comments_template_source = "{{#each this}}<comment>" +
-       unescape(document.getElementById("comment_template").innerHTML) 
+       unescape(document.getElementById("comment_template").innerHTML)
        .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
        "</comment>{{/each}}";
   var comments_template = Handlebars.compile(comments_template_source);

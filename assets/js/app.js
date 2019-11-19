@@ -15,5 +15,7 @@ import css from "../css/app.scss"
 //
 // Local files can be imported directly using relative paths, for example:
 
+import * as $ from 'jquery';
+
 import theme from "./theme"
 import socket from "./socket"
