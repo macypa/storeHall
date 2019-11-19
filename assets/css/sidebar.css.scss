@@ -99,10 +99,25 @@ sidebar {
 
 sidebar-show {
 
-  grid-template-columns: repeat(auto-fit, minmax($width-header/3, 1fr));
+  display: flex;
+  flex-direction: column;
 
   .tab-label::after {
     content: none;
+  }
+  .tab-label {
+    min-width: 6em;
+    justify-content: left;
+  }
+
+  .tab{
+    padding-top: 2px;
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
   }
 }
 
@@ -167,8 +182,9 @@ sidebar-filters {
       }
 
       sidebar-show {
+        flex-direction: row;
+
         .tab-label {
-          min-width: 6em;
           justify-content: center;
         }
       }
@@ -190,6 +206,7 @@ sidebar-filters {
         }
       }
       &:checked + label {
+        display: block;
         + * {
           display: none;
           width: 0px;
@@ -198,22 +215,11 @@ sidebar-filters {
     }
 
     sidebar-show {
-      .tab{
-        padding-top: 2px;
+      flex-direction: column;
 
-        a {
-          text-decoration: none;
-          color: black;
-          font-weight: bold;
-        }
-
-        &-label {
-          justify-content: left;
-        }
-
+      .tab-label {
+        justify-content: left;
       }
     }
-
   }
-
 }
