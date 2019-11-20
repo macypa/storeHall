@@ -39,8 +39,8 @@ a {
 }
 
 header {
+  padding-right: 5px;
   grid-area: header;
-  width: 98vw;
   display: flex;
   align-items: center;
   min-height: $height-header;
@@ -60,7 +60,7 @@ sidebar {
 }
 
 footer {
-  width: 98vw;
+  padding-right: 5px;
   grid-area: footer;
   display: flex;
   align-items: center;
@@ -72,7 +72,7 @@ footer {
 body {
   padding: 0;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   display: grid;
   align-items: stretch;
   grid-template-columns: min-content $width-sidebar 1fr;
@@ -102,7 +102,6 @@ body {
   }
 
   header {
-    padding-right: 0.5em;
     min-height: $height-header_desktop;
   }
 

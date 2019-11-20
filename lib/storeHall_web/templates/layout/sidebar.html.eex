@@ -2,7 +2,8 @@
 
 <input type="checkbox" id="sidebar_hider" class="collapsible">
 <label for="sidebar_hider"></label>
-
-<%= render_existing @conn.private.phoenix_view,
+<div>
+  <%= render_existing @conn.private.phoenix_view,
           to_string(@conn.private.phoenix_action) <> "_sidebar.html",
             assigns %>
+</div>

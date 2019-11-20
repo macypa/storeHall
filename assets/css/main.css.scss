@@ -11,7 +11,7 @@
 
 .listing {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax($width-header/2  + 1em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax($width-header/2 + 0.5em, 1fr));
   grid-gap: 1em;
 }
 
@@ -32,8 +32,6 @@
 
 .listing > item {
   display: grid;
-  grid-template-columns: repeat(1fr);
-  grid-template-rows: repeat(1fr);
   grid-template-areas:
     'cover cover cover cover'
     'rating rating comments comments'
@@ -44,8 +42,6 @@
 
 .listing > user {
   display: grid;
-  grid-template-columns: repeat(1fr);
-  grid-template-rows: repeat(1fr);
   grid-template-areas:
     'cover cover'
     'rating comments'

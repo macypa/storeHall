@@ -12,11 +12,18 @@ sidebar {
       top: 0px;
       font-weight: bold;
       cursor: pointer;
+      padding-left: 0.5em;
 
-      + * {
-        width: 5px;
-        -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
-        transition: width 0.5s;
+      + div {
+        position: fixed;
+        background-color: white;
+        left: 1em;
+
+        overflow: hidden;
+        width: 0px;
+        height: 70%;
+        -webkit-transition: all 0.5s; /* For Safari 3.1 to 6.0 */
+        transition: all 0.5s;
       }
 
       &::after {
@@ -36,7 +43,9 @@ sidebar {
         transform: rotate(180deg);
       }
 
-      + * {
+      + div {
+        overflow: auto;
+        padding: 0.5em;
         width: $width-sidebar;
       }
     }
@@ -166,14 +175,22 @@ sidebar-filters {
       #sidebar_hider {
         & + label {
           display: none;
-          + * {
+          + div {
+            position: relative;
+            overflow: auto;
+            padding: 0.5em;
+            left: 0;
             width: 100%;
           }
         }
 
         &:checked + label {
           display: none;
-          + * {
+          + div {
+            position: relative;
+            overflow: auto;
+            padding: 0.5em;
+            left: 0;
             width: 100%;
           }
         }
@@ -198,15 +215,15 @@ sidebar-filters {
 
     #sidebar_hider {
       & + label {
-        display: block;
-        + * {
+        + div {
+          overflow: auto;
           width: $width-sidebar;
         }
       }
       &:checked + label {
-        display: block;
-        + * {
-          width: 0px;
+        + div {
+          overflow: auto;
+          width: $width-sidebar;
         }
       }
     }
