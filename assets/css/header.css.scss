@@ -6,6 +6,7 @@ header {
     display: flex;
     align-items: center;
     min-height: $height-header;
+    min-width: $width-sidebar;
     background-color: $baseBackgroundColor;
 
     img {
