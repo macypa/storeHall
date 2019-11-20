@@ -97,7 +97,7 @@
       <label class="tab-label" for="sort"><%= Gettext.gettext("Sort") %></label>
       <div class="tab-content">
         <div class="select7_container">
-          <div class="select7_arrow">▾</div>
+          <div class="select7_arrow"></div>
           <div class="select7_placeholder"><%= Gettext.gettext("Sort") %></div>
 
           <%= select f, :sort,
@@ -121,7 +121,7 @@
       <label class="tab-label" for="merchants"><%= Gettext.gettext("Merchants") %></label>
       <div class="tab-content">
         <div class="select7_container">
-          <div class="select7_arrow">▾</div>
+          <div class="select7_arrow"></div>
           <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
 
           <%= select f, :merchant,
@@ -141,7 +141,7 @@
       <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
       <div class="tab-content">
         <div class="select7_container">
-          <div class="select7_arrow">▾</div>
+          <div class="select7_arrow"></div>
           <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
 
           <%= select f, :tags,
