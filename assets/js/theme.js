@@ -10,3 +10,14 @@ window.show_hide = function(element_id) {
         x.style.display = "none";
     }
 }
+
+$( document ).ready(function() {
+  var form = $('#form-filter');
+  var urlParams = new URLSearchParams(window.location.search);
+  for(key of urlParams.keys()) {
+    var input = form.find('[name="' + key + '"]');
+      if (input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
+        input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
+      }
+  }
+});
