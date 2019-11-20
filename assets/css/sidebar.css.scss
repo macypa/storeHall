@@ -68,6 +68,7 @@ sidebar {
 
       &::after {
         content: "\276F";
+        color: $baseColor;
         transition: all .1s;
       }
     }
