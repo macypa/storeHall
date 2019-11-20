@@ -12,7 +12,12 @@ sidebar {
       top: 0px;
       font-weight: bold;
       cursor: pointer;
-      padding-left: 0.5em;
+
+      background-image: url('/images/icons/double-right.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% auto;
+      width: 1em;
 
       + div {
         position: fixed;
@@ -26,27 +31,13 @@ sidebar {
         transition: all 0.5s;
       }
 
-      &::after {
-        background: $baseBackgroundColor;
-        content: "\276F";
-      }
-
-      &:hover {
-        &::after {
-          background: darken($baseBackgroundColor, 15%);
-        }
-      }
     }
 
     &:checked + label {
-      &::after {
-        transform: rotate(180deg);
-      }
-
       + div {
         overflow: auto;
         padding: 0.5em;
-        width: $width-sidebar;
+        width: 80%;
       }
     }
   }
@@ -180,6 +171,7 @@ sidebar-filters {
             overflow: auto;
             padding: 0.5em;
             left: 0;
+            height: auto;
             width: 100%;
           }
         }
@@ -191,6 +183,7 @@ sidebar-filters {
             overflow: auto;
             padding: 0.5em;
             left: 0;
+            height: auto;
             width: 100%;
           }
         }
