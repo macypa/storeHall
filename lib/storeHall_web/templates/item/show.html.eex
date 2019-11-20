@@ -29,15 +29,15 @@
         <strong><%= Gettext.gettext("Images") %>:</strong>
         <%= for image <- @item.details["images"] do %>
           <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
-            <img src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
+            <img class="lazy" data-src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
           </a>
         <% end %>
       </li>
     </ul>
 
     <span id="reactions">
-      <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-      <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+      <img class="lazy" reaction-topic="reaction:wow" data="wowz" id="wow" data-src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+      <img class="lazy" reaction-topic="reaction:lol" data="lolz" id="lol" data-src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
     </span>
 
   </div>

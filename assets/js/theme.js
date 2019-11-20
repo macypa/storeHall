@@ -1,6 +1,15 @@
+
 function requireAll(r) { r.keys().forEach(r); }
 requireAll(require.context('./components/', true, /\.js$/));
 
+window.load_lazy_imgs = $(function() {
+  $('.lazy').Lazy({
+    visibleOnly: true,
+	  onError: function(element) {
+		  console.warn("img can't be loaded " + element[0].getAttribute("data-src"));
+	  },
+  });
+});
 
 window.show_hide = function(element_id) {
     var x = document.getElementById(element_id);

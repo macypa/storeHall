@@ -29,7 +29,7 @@
 
       <div class="cover">
         <%= link to: Routes.user_path(@conn, :show, user) do %>
-          <img src="<%= user.image %>"/>
+          <img class="lazy" data-src="<%= user.image %>"/>
         <% end %>
       </div>
       <div class="title">

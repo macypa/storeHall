@@ -340,12 +340,16 @@ $('.page-link').on('click', e => {
 });
 
 jQuery(function($) {
-  $('main').bind('scroll', function() {
-    if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight) {
+  $('main').scroll(function() {
+    if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
       var next_page_link = $('#next-page-link')[0];
-      var next_page = next_page_link.href.slice(next_page_link.href.indexOf('?') + 1);
-      var page_more = next_page_link.href.slice(next_page_link.href.indexOf('&more_') + 6);
-      channel.push("filter", { data: next_page, page_more: page_more })
+      if (!next_page_link.getAttribute("disabled")) {
+        var next_page = next_page_link.href.slice(next_page_link.href.indexOf('?') + 1);
+        var page_more = next_page_link.href.slice(next_page_link.href.indexOf('&more_') + 6);
+        channel.push("filter", { data: next_page, page_more: page_more });
+
+        $('#next-page-link')[0].setAttribute("disabled", "disabled");
+      }
     }
   })
 });
@@ -372,24 +376,30 @@ function update_next_page_link(filter_params) {
 }
 
 channel.on("filtered_items", payload => {
+  if (payload.filtered != "[]") {
+    var items_template_source = "{{#each this}}<item>" +
+         unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
+         "</item>{{/each}}";
+    var items_template = Handlebars.compile(items_template_source);
 
-  var items_template_source = "{{#each this}}<item>" +
-       unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
-       "</item>{{/each}}";
-  var items_template = Handlebars.compile(items_template_source);
+    var json_payload = JSON.parse(payload.filtered)
+    json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
 
-  var json_payload = JSON.parse(payload.filtered)
-  json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
+    var filtered_items = items_template( json_payload )
+    if (payload.filter.indexOf("page=") == -1) {
+      document.querySelector("#items-listing").innerHTML =
+            document.getElementById("item_template").outerHTML
+            + filtered_items;
+    } else {
+      document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
+    }
+    update_next_page_link(payload.filter);
 
-  var filtered_items = items_template( json_payload )
-  if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("#items-listing").innerHTML =
-          document.getElementById("item_template").outerHTML
-          + filtered_items;
+    $('#next-page-link')[0].removeAttribute("disabled");
+    $('.lazy').Lazy({visibleOnly: true});
   } else {
-    document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
+    $('#next-page-link')[0].setAttribute("disabled", "disabled");
   }
-  update_next_page_link(payload.filter);
 })
 
 channel.on("filtered_users", payload => {

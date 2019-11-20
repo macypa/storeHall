@@ -32,8 +32,8 @@
     </ul>
 
     <span id="reactions">
-      <img reaction-topic="reaction:wow" data="wowz" id="wow" src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
-      <img reaction-topic="reaction:lol" data="lolz" id="lol" src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
+      <img class="lazy" reaction-topic="reaction:wow" data="wowz" id="wow" data-src="<%= Routes.static_path(@conn, "/images/wow.png") %>" alt="wow" height="42" width="42">
+      <img class="lazy" reaction-topic="reaction:lol" data="lolz" id="lol" data-src="<%= Routes.static_path(@conn, "/images/lol.png") %>" alt="lol" height="42" width="42">
     </span>
 
   </div>
