@@ -23,7 +23,7 @@
   }
 
   .max-slider {
-    top: -1.4em;
+    top: -1.5em;
   }
 
   input[type=range] {
@@ -41,7 +41,7 @@
   input[type=range]:focus {
     outline: none;
   }
-  input[type=range]::-webkit-slider-runnable-track {
+  .min-slider::-webkit-slider-runnable-track {
     width: 100%;
     height: 3px;
     cursor: pointer;
@@ -63,10 +63,10 @@
     -webkit-appearance: none;
     margin-top: -7px;
   }
-  input[type=range]:focus::-webkit-slider-runnable-track {
+  .min-slider:focus::-webkit-slider-runnable-track {
     background: $baseColor;
   }
-  input[type=range]::-moz-range-track {
+  .min-slider::-moz-range-track {
     width: 100%;
     height: 3px;
     cursor: pointer;
@@ -86,7 +86,7 @@
     background: $baseColor;
     cursor: pointer;
   }
-  input[type=range]::-ms-track {
+  .min-slider::-ms-track {
     width: 100%;
     height: 3px;
     cursor: pointer;
@@ -95,19 +95,19 @@
     border-color: transparent;
     color: transparent;
   }
-  input[type=range]::-ms-fill-lower {
+  .min-slider::-ms-fill-lower {
     background: $baseColor;
     border: 0px solid $baseColor;
     border-radius: 100px;
     box-shadow: 1px 1px 1px $baseColor;
   }
-  input[type=range]::-ms-fill-upper {
+  .min-slider::-ms-fill-upper {
     background: $baseColor;
     border: 0px solid $baseColor;
     border-radius: 100px;
     box-shadow: 1px 1px 1px $baseColor;
   }
-  input[type=range]::-ms-thumb {
+  .min-slider::-ms-thumb {
     pointer-events: all;
     margin-top: 1px;
     box-shadow: 0px 0px 0px $baseColor;
@@ -118,10 +118,62 @@
     background: $baseColor;
     cursor: pointer;
   }
-  input[type=range]:focus::-ms-fill-lower {
+  .min-slider:focus::-ms-fill-lower {
     background: $baseColor;
   }
-  input[type=range]:focus::-ms-fill-upper {
+  .min-slider:focus::-ms-fill-upper {
     background: $baseColor;
+  }
+
+
+  .max-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px transparent;
+    background: transparent;
+    border-radius: 50px;
+    border: 0px solid transparent;
+  }
+  .max-slider:focus::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+  .max-slider::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px transparent;
+    background: transparent;
+    border-radius: 50px;
+    border: 0px solid transparent;
+  }
+  .max-slider::-ms-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  .max-slider::-ms-fill-lower {
+    background: transparent;
+    border: 0px solid transparent;
+    border-radius: 100px;
+    box-shadow: 1px 1px 1px transparent;
+  }
+  .max-slider::-ms-fill-upper {
+    background: transparent;
+    border: 0px solid transparent;
+    border-radius: 100px;
+    box-shadow: 1px 1px 1px transparent;
+  }
+  .max-slider:focus::-ms-fill-lower {
+    background: transparent;
+  }
+  .max-slider:focus::-ms-fill-upper {
+    background: transparent;
   }
 }
