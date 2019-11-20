@@ -1,6 +1,6 @@
 
 <title>
-  <%= @conn.private.phoenix_view.get_title(@conn.private.phoenix_action) %>
+  <%= page_title(@conn.assigns) %>
 </title>
 
 <notifications>

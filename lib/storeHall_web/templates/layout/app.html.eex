@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
-    <title>Крали Марко</title>
+    <title><%= page_title_with_suffix(assigns) %></title>
 
     <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.ico") %>">
     <link rel="icon" type="image/x-icon" href="<%= Routes.static_path(@conn, "/logo.svg") %>">
