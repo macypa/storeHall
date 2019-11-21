@@ -84,10 +84,14 @@
 
 .listing .title {
   grid-area: title;
-
   padding-top: 1em;
   font-size: 1em;
   font-weight: 700;
+
+  a {
+    text-decoration: none;
+    // color: #0b5d19;
+  }
 }
 
 .listing .merchant {

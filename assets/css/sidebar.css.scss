@@ -10,7 +10,7 @@ sidebar {
       position: -webkit-sticky;
       position: sticky;
       top: 0px;
-      font-weight: bold;
+      // font-weight: bold;
       cursor: pointer;
 
       .sidebar_svg_icon {
@@ -54,7 +54,7 @@ sidebar {
       display: flex;
       justify-content: space-between;
       background: $baseBackgroundColor;
-      font-weight: bold;
+      // font-weight: bold;
       cursor: pointer;
 
       &:hover {
@@ -112,7 +112,7 @@ sidebar-show {
     a {
       text-decoration: none;
       color: black;
-      font-weight: bold;
+      // font-weight: bold;
     }
   }
 }
