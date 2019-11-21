@@ -40,6 +40,7 @@ header {
   display: flex;
   align-items: center;
   min-height: $height-header;
+  width: 100vw;
   background-color: $baseBackgroundColor;
 }
 
@@ -60,6 +61,7 @@ footer {
   display: flex;
   align-items: center;
   min-height: $height-footer;
+  width: 100vw;
   background-color: $baseBackgroundColor;
 }
 
@@ -82,28 +84,7 @@ body {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  body {
-    grid-template-columns: 1fr 1fr ;
-    grid-template-rows: $height-header_desktop min-content 1fr $height-footer;
-    grid-template-areas:
-      'header header'
-      'sidebar sidebar'
-      'main main'
-      'footer footer';
-  }
 
-  sidebar {
-    display: block;
-  }
-
-  header {
-    min-height: $height-header_desktop;
-  }
-
-  .icon {
-    max-height: $height-header_desktop;
-    max-width: $height-header_desktop;
-  }
 }
 
 // desktop view
@@ -117,4 +98,16 @@ body {
       'footer footer footer';
   }
 
+  sidebar {
+    display: block;
+  }
+
+  header {
+    min-height: $height-header_desktop;
+  }
+
+    // .icon {
+    //   max-height: $height-header_desktop;
+    //   max-width: $height-header_desktop;
+    // }
 }

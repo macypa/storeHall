@@ -89,6 +89,11 @@ header {
 // tablet view
 @media only screen and (min-width: $width-header) {
 
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
   header {
     title {
       visibility: visible;

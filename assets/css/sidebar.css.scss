@@ -20,13 +20,10 @@ sidebar {
       width: 1em;
 
       + div {
-        position: fixed;
-        background-color: white;
-        left: 1em;
-
         overflow: hidden;
         width: 0px;
-        height: 70%;
+        max-width: $width-sidebar;
+
         -webkit-transition: all 0.5s; /* For Safari 3.1 to 6.0 */
         transition: all 0.5s;
       }
@@ -36,8 +33,7 @@ sidebar {
     &:checked + label {
       + div {
         overflow: auto;
-        padding: 0.5em;
-        width: 80%;
+        width: $width-sidebar;
       }
     }
   }
@@ -99,7 +95,7 @@ sidebar {
 }
 
 sidebar-show {
-
+// use focus to check for url anchor
   display: flex;
   flex-direction: column;
 
@@ -160,44 +156,6 @@ sidebar-filters {
 // tablet view
 @media only screen and (min-width: $width-header) {
 
-    sidebar {
-      max-height: $height-sidebar_tablet;
-      transform: translateX(0);
-
-      #sidebar_hider {
-        & + label {
-          display: none;
-          + div {
-            position: relative;
-            overflow: auto;
-            padding: 0.5em;
-            left: 0;
-            height: auto;
-            width: 100%;
-          }
-        }
-
-        &:checked + label {
-          display: none;
-          + div {
-            position: relative;
-            overflow: auto;
-            padding: 0.5em;
-            left: 0;
-            height: auto;
-            width: 100%;
-          }
-        }
-      }
-
-      sidebar-show {
-        flex-direction: row;
-
-        .tab-label {
-          justify-content: center;
-        }
-      }
-    }
 }
 
 //desktop view
@@ -209,25 +167,17 @@ sidebar-filters {
 
     #sidebar_hider {
       & + label {
+        display: none;
         + div {
+          padding-left: 1em;
           overflow: auto;
           width: $width-sidebar;
-        }
-      }
-      &:checked + label {
-        + div {
-          overflow: auto;
-          width: $width-sidebar;
+
+          -webkit-transition: all 0s; /* For Safari 3.1 to 6.0 */
+          transition: all 0s;
         }
       }
     }
 
-    sidebar-show {
-      flex-direction: column;
-
-      .tab-label {
-        justify-content: left;
-      }
-    }
   }
 }
