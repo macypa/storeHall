@@ -57,4 +57,17 @@
       } %>
   </div>
 
+  <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @user.id do %>
+
+    <div id="manage">
+
+      <span>
+        <%= link Gettext.gettext("Edit"), to: Routes.user_path(@conn, :edit, @user) %>
+        <%= link Gettext.gettext("Delete"), to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "Are you sure?"] %>
+      </span>
+
+    </div>
+
+  <% end %>
+
 </show>

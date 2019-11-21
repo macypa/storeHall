@@ -19,19 +19,17 @@
     </a>
   </div>
 
+  <div class="tab">
+    <a href="#messages">
+      <label class="tab-label"><%= Gettext.gettext("Chat") %></label>
+    </a>
+  </div>
+
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @conn.assigns.item.user_id do %>
 
     <div class="tab">
       <a href="#manage">
         <label class="tab-label"><%= Gettext.gettext("Manage") %></label>
-      </a>
-    </div>
-
-  <% else %>
-
-    <div class="tab">
-      <a href="#messages">
-        <label class="tab-label"><%= Gettext.gettext("Chat") %></label>
       </a>
     </div>
 

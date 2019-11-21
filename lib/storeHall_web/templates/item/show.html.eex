@@ -36,7 +36,7 @@
     </ul>
 
     <%= render_shared "reactions.html" %>
-    
+
   </div>
 
   <div id="comments">
@@ -59,6 +59,15 @@
 
   </div>
 
+  <div id="messages">
+
+    <%= render StoreHallWeb.ChatView, "index.html", chats: @item.messages, chat_msg_template: %{
+        item_id: @item.id,
+        owner_id: @item.user_id,
+        user_id: get_user_id_from_conn(@conn)
+      } %>
+  </div>
+
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @item.user_id do %>
 
     <div id="manage">
@@ -68,17 +77,6 @@
         <%= link Gettext.gettext("Delete"), to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
       </span>
 
-    </div>
-
-  <% else %>
-
-    <div id="messages">
-
-      <%= render StoreHallWeb.ChatView, "index.html", chats: @item.messages, chat_msg_template: %{
-          item_id: @item.id,
-          owner_id: @item.user_id,
-          user_id: get_user_id_from_conn(@conn)
-        } %>
     </div>
 
   <% end %>
