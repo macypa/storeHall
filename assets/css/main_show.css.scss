@@ -2,8 +2,17 @@
 show {
   height: 100%;
 
-  & > * {
-    height: 100vh;
+  & > div {
+    display: none;
+    height: auto;
+  }
+
+  #info {
+    display: block;
+  }
+
+  :target {
+    display: block;
   }
 }
 
