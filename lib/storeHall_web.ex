@@ -45,6 +45,10 @@ defmodule StoreHallWeb do
       import StoreHallWeb.Gettext
       alias StoreHallWeb.Router.Helpers, as: Routes
       alias StoreHallWeb.Gettext, as: Gettext
+
+      def render_shared(template, assigns \\ []) do
+        render(StoreHallWeb.SharedView, template, assigns)
+      end
     end
   end
 

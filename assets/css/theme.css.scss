@@ -33,6 +33,11 @@ a {
   text-decoration: none;
 }
 
+.svg_icon {
+  width: 1em;
+  height: 1em;
+  fill: $baseColor;
+}
 
 header {
   padding-right: 5px;

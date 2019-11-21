@@ -1,0 +1,15 @@
+<span id="reactions">
+
+  <svg class="svg_icon lolz_icon" reaction-topic="reaction:lol" data="lolz" id="lol">
+    <use xlink:href="/images/sprite.svg#si-ant-frown-circle"></use>
+  </svg>
+
+  <svg class="svg_icon mehz_icon" reaction-topic="reaction:meh" data="mehz" id="meh">
+    <use xlink:href="/images/sprite.svg#si-ant-meh-circle"></use>
+  </svg>
+
+  <svg class="svg_icon wowz_icon" reaction-topic="reaction:wow" data="wowz" id="wow">
+    <use xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
+  </svg>
+
+</span>

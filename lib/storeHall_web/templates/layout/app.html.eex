@@ -17,7 +17,9 @@
     <header>
       <logo>
         <!--svg icons https://github.com/leungwensen/svg-icon-->
-        <img class="icon" src="/logo.svg" />
+        <svg class="svg_icon menu_svg_icon" id="logo_icon">
+          <use xlink:href="/images/sprite.svg#si-ant-aliwangwang"></use>
+        </svg>
 
         <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
           Крали Марко<% end %>

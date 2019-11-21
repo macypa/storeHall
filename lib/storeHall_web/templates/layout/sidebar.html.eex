@@ -1,7 +1,11 @@
 
 
 <input type="checkbox" id="sidebar_hider" class="collapsible">
-<label for="sidebar_hider"></label>
+<label for="sidebar_hider">
+  <svg class="svg_icon sidebar_svg_icon">
+    <use xlink:href="/images/sprite.svg#si-awesome-angle-double-right"></use>
+  </svg>
+</label>
 <div>
   <%= render_existing @conn.private.phoenix_view,
           to_string(@conn.private.phoenix_action) <> "_sidebar.html",

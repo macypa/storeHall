@@ -4,7 +4,9 @@
 </title>
 
 <notifications>
-  <img class="menu_icon" src="/images/icons/bell-o.svg" />
+  <svg class="svg_icon menu_svg_icon">
+    <use xlink:href="/images/sprite.svg#si-awesome-bell"></use>
+  </svg>
   <div class="dropdown">
     <ul>
       <li>
@@ -19,7 +21,9 @@
       <%= if @conn.assigns.logged_user do %>
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
-            <img class="menu_icon" src="/images/icons/envelope.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("View all Messages") %></span>
           </li>
         <% end %>
@@ -32,7 +36,9 @@
   <%= if @conn.assigns[:logged_user] != nil and Map.has_key?(@conn.assigns[:logged_user], :image) do %>
     <img src="<%= @conn.assigns.logged_user.image %>" alt="">
   <% else %>
-    <img class="menu_icon" src="/images/icons/user.svg" />
+    <svg class="svg_icon">
+      <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
+    </svg>
   <% end %>
   <div class="dropdown">
     <ul>
@@ -41,42 +47,54 @@
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
           <li>
-            <img class="menu_icon" src="/images/icons/user.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("Profile") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user)do %>
           <li>
-            <img class="menu_icon" src="/images/icons/cog.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-cog"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("Settings") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
-            <img class="menu_icon" src="/images/icons/envelope.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("Messages") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant][]=" <> @conn.assigns.logged_user.id do %>
           <li>
-            <img class="menu_icon" src="/images/icons/list-ul.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-list-ul"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("My Items") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.item_path(@conn, :new) do %>
           <li>
-            <img class="menu_icon" src="/images/icons/plus.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-plus"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("Add Item") %></span>
           </li>
         <% end %>
 
         <%= link to: Routes.auth_path(@conn, :delete) do %>
           <li>
-            <img class="menu_icon" src="/images/icons/power-off.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
+            </svg>
             <span class="text"><%= Gettext.gettext("Sign out") %></span>
           </li>
         <% end %>
@@ -84,7 +102,9 @@
       <% else %>
         <%= link to: Routes.auth_path(@conn, :request, "google") do %>
           <li>
-            <img class="menu_icon" src="/images/icons/power-off.svg" />
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
+            </svg>
             <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
             <span class="text"><%= Gettext.gettext("Sign in with Google") %></span>
           </li>

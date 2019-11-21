@@ -1,6 +1,15 @@
 
 header {
 
+  .menu_svg_icon {
+    width: 24px;
+    height: 24px;
+  }
+  .svg_icon {
+    padding-right: 5px;
+    padding-left: 3px;
+  }
+
   logo {
     //grid-area: logo;
     display: flex;
@@ -8,11 +17,6 @@ header {
     min-height: $height-header;
     min-width: $width-sidebar;
     background-color: $baseBackgroundColor;
-
-    img {
-      padding-right: 5px;
-      padding-left: 3px;
-    }
 
     .brand-link {
       font-weight: bold;
@@ -67,7 +71,6 @@ header {
   transform: translateY(-5px);
   transition: all .3s;
   @include box-shadow;
-
 
   ul {
     margin: 0;
