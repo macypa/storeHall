@@ -49,6 +49,7 @@ defmodule StoreHall.MixProject do
       {:ueberauth_google, "~> 0.7"},
       {:arc, "~> 0.11.0"},
       {:slugify, "~> 1.1"},
+      {:navigation_history, "~> 0.3"},
       {:stream_data, "~> 0.1", only: :test}
     ]
   end

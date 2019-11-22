@@ -403,3 +403,18 @@ msgstr "Филтри"
 #: lib/storeHall_web/templates/user/form.html.eex:9
 msgid "Labels"
 msgstr "Лейбъли"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:18
+msgid "Agree"
+msgstr "Разбрах"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/layout/footer.html.eex:22
+msgid "Learn more"
+msgstr "Научи повече"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:12
+msgid "We use cookies."
+msgstr "С използването на сайта приемаш употребата на 'бисквитки' от наша страна. С тях ние подобряваме качеството на услугите си."

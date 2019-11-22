@@ -402,3 +402,18 @@ msgstr ""
 #: lib/storeHall_web/templates/user/form.html.eex:9
 msgid "Labels"
 msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:18
+msgid "Agree"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:22
+msgid "Learn more"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:12
+msgid "We use cookies."
+msgstr ""

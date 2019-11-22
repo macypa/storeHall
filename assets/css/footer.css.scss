@@ -1,6 +1,45 @@
 
 footer {
 
+  #cookie_consent {
+    position: absolute;
+    background-color: $baseBackgroundColor;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+
+    #cookie_consent_info {
+      margin-right: 3px;
+      font-size: 0.8em;
+      font-weight: 700;
+    }
+
+    #cookie_consent_icon {
+      fill: gray;
+    }
+
+    #cookie_consent_agree {
+      margin: auto;  
+    }
+
+    button {
+      background-color: $baseColor;
+    	border-radius: 5px;
+    	cursor: pointer;
+    	text-decoration: none;
+    }
+
+    #cookie_consent_info_link {
+      border: none;
+      outline:none;
+      font-size: 0.6em;
+      background-color: Transparent;
+      background-repeat:no-repeat;
+    }
+  }
 }
 
 // tablet view

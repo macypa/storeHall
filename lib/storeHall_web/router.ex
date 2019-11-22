@@ -8,6 +8,7 @@ defmodule StoreHallWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug StoreHall.Plugs.SetUser
+    plug NavigationHistory.Tracker
   end
 
   pipeline :api do
@@ -29,6 +30,7 @@ defmodule StoreHallWeb.Router do
     pipe_through :browser
 
     get "/", Redirector, to: "/items"
+    get "/accept_cookies", CookieConsent, default: "/items"
 
     resources "/users", UserController, only: [:index, :show]
     resources "/items", ItemController, only: [:index, :show]
@@ -55,5 +57,15 @@ defmodule StoreHallWeb.Redirector do
     conn
     |> Phoenix.Controller.redirect(opts)
     |> Plug.Conn.halt()
+  end
+end
+
+defmodule StoreHallWeb.CookieConsent do
+  def init(opts), do: opts
+
+  def call(conn, opts) do
+    conn
+    |> Plug.Conn.put_session(:cookie_consent_agreed, "cookie_consent_agreed")
+    |> Phoenix.Controller.redirect(to: NavigationHistory.last_path(conn, 1, opts))
   end
 end

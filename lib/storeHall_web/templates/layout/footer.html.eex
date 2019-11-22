@@ -2,3 +2,28 @@
 <%= if @conn.assigns[:contributor] != nil do %>
   @conn.assigns[:contributor].id
 <% end %>
+
+<%= if @conn.private.plug_session["cookie_consent_agreed"] == nil do %>
+  <div id="cookie_consent">
+  	<div>
+      <svg class="svg_icon" id="cookie_consent_icon">
+        <use xlink:href="/images/sprite.svg#si-ant-info-circle"></use>
+      </svg>
+  		<span id="cookie_consent_info">
+  			<%= Gettext.gettext("We use cookies.") %>
+  		</span>
+  	</div>
+  	<div id="cookie_consent_agree">
+      <a href="/accept_cookies" >
+    		<button>
+    			<%= Gettext.gettext("Agree") %>
+    		</button>
+      </a>
+  	  <a href="/cookies" >
+  			<button id="cookie_consent_info_link">
+  				<%= Gettext.gettext("Learn more") %>
+  			</button>
+      </a>
+  	</div>
+  </div>
+<% end %>
