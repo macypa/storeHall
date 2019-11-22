@@ -47,7 +47,7 @@
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
           <li>
-            <svg class="svg_icon menu_svg_icon">
+            <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Profile") %></span>
