@@ -97,6 +97,7 @@ msgid "Listing items"
 msgstr "Обяви"
 
 #, elixir-format
+#: lib/storeHall_web/views/page_title.ex:12
 #: lib/storeHall_web/views/user_view.ex:6
 msgid "Listing users"
 msgstr "Профили"
@@ -122,7 +123,7 @@ msgid "Latest contributor"
 msgstr "Последен дарител"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:73
+#: lib/storeHall_web/templates/layout/header.html.eex:89
 msgid "Add Item"
 msgstr "Добави обява"
 
@@ -142,7 +143,7 @@ msgid "Body"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:34
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:24
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:24
 msgid "Chat"
 msgstr ""
@@ -157,8 +158,9 @@ msgstr "Коментари"
 
 #, elixir-format
 #: lib/storeHall_web/templates/chat/index.html.eex:34
-#: lib/storeHall_web/templates/item/show.html.eex:71
+#: lib/storeHall_web/templates/item/show.html.eex:77
 #: lib/storeHall_web/templates/user/edit.html.eex:5
+#: lib/storeHall_web/templates/user/show.html.eex:66
 msgid "Delete"
 msgstr "Изтрий"
 
@@ -196,12 +198,12 @@ msgid "Last name"
 msgstr "Фамилно име"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:59
+#: lib/storeHall_web/templates/layout/header.html.eex:71
 msgid "Messages"
 msgstr "Съобщения"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:66
+#: lib/storeHall_web/templates/layout/header.html.eex:80
 msgid "My Items"
 msgstr "Моите обяви"
 
@@ -212,13 +214,13 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:45
+#: lib/storeHall_web/templates/layout/header.html.eex:53
 msgid "Profile"
 msgstr "Профил"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/index.html.eex:39
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:60
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:64
 #: lib/storeHall_web/templates/item/show.html.eex:22
 #: lib/storeHall_web/templates/user/index.html.eex:42
 #: lib/storeHall_web/templates/user/show.html.eex:28
@@ -256,22 +258,22 @@ msgid "Send"
 msgstr "Прати"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:52
+#: lib/storeHall_web/templates/layout/header.html.eex:62
 msgid "Settings"
 msgstr "Настройки"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:89
+#: lib/storeHall_web/templates/layout/header.html.eex:109
 msgid "Sign in with Google"
 msgstr "Регистрирай се с Google"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:80
+#: lib/storeHall_web/templates/layout/header.html.eex:98
 msgid "Sign out"
 msgstr "Излез"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:23
+#: lib/storeHall_web/templates/layout/header.html.eex:27
 msgid "View all Messages"
 msgstr "Всички съобщения"
 
@@ -297,7 +299,8 @@ msgid "Back"
 msgstr "Назад"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/show.html.eex:70
+#: lib/storeHall_web/templates/item/show.html.eex:76
+#: lib/storeHall_web/templates/user/show.html.eex:65
 msgid "Edit"
 msgstr "Редактирай профил"
 
@@ -318,12 +321,13 @@ msgid "Listing Comments"
 msgstr "Коментари"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:26
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:32
+#: lib/storeHall_web/templates/user/show_sidebar.html.eex:32
 msgid "Manage"
 msgstr "Промени"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:113
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:121
 msgid "Merchants"
 msgstr "Търговци"
 
@@ -349,8 +353,8 @@ msgid "Search by title, content..."
 msgstr "Търси по заглавие, съдържание и т.н."
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:89
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:93
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:97
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:101
 msgid "Sort"
 msgstr "Подреди"
 
@@ -360,7 +364,7 @@ msgid "Submit"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:133
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:141
 msgid "Tags"
 msgstr "Тагове"
 
@@ -375,8 +379,8 @@ msgid "comment"
 msgstr "Коментар"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:117
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:137
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:125
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:145
 msgid "Choose"
 msgstr "Избери"
 
