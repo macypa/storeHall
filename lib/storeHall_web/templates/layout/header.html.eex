@@ -36,7 +36,7 @@
   <%= if @conn.assigns[:logged_user] != nil and Map.has_key?(@conn.assigns[:logged_user], :image) do %>
     <img src="<%= @conn.assigns.logged_user.image %>" alt="">
   <% else %>
-    <svg class="svg_icon">
+    <svg class="svg_icon menu_svg_icon">
       <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
     </svg>
   <% end %>
@@ -47,7 +47,7 @@
 
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
           <li>
-            <svg class="svg_icon">
+            <svg class="svg_icon menu_svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Profile") %></span>

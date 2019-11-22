@@ -273,6 +273,7 @@ msgid "Sign out"
 msgstr "Излез"
 
 #, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:52
 #: lib/storeHall_web/templates/layout/header.html.eex:27
 msgid "View all Messages"
 msgstr "Всички съобщения"
@@ -405,16 +406,41 @@ msgid "Labels"
 msgstr "Лейбъли"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:18
+#: lib/storeHall_web/templates/layout/footer.html.eex:19
 msgid "Agree"
 msgstr "Разбрах"
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/templates/layout/footer.html.eex:22
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:24
 msgid "Learn more"
 msgstr "Научи повече"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:12
+#: lib/storeHall_web/templates/layout/footer.html.eex:13
 msgid "We use cookies."
 msgstr "С използването на сайта приемаш употребата на 'бисквитки' от наша страна. С тях ние подобряваме качеството на услугите си."
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/index.html.eex:1
+msgid "About Us"
+msgstr "За нас"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/contacts.html.eex:1
+msgid "Contacts"
+msgstr "Контакти"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/cookies.html.eex:1
+msgid "Cookies"
+msgstr "Бисквитки"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy.html.eex:1
+msgid "Privacy"
+msgstr "Поверителност"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms.html.eex:1
+msgid "Terms"
+msgstr "Условия"

@@ -272,6 +272,7 @@ msgid "Sign out"
 msgstr ""
 
 #, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:52
 #: lib/storeHall_web/templates/layout/header.html.eex:27
 msgid "View all Messages"
 msgstr ""
@@ -404,16 +405,41 @@ msgid "Labels"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:18
+#: lib/storeHall_web/templates/layout/footer.html.eex:19
 msgid "Agree"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:22
+#: lib/storeHall_web/templates/layout/footer.html.eex:24
 msgid "Learn more"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:12
+#: lib/storeHall_web/templates/layout/footer.html.eex:13
 msgid "We use cookies."
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/index.html.eex:1
+msgid "About Us"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/contacts.html.eex:1
+msgid "Contacts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/cookies.html.eex:1
+msgid "Cookies"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy.html.eex:1
+msgid "Privacy"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms.html.eex:1
+msgid "Terms"
 msgstr ""

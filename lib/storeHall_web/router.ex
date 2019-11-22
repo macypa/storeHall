@@ -36,6 +36,16 @@ defmodule StoreHallWeb.Router do
     resources "/items", ItemController, only: [:index, :show]
   end
 
+  scope "/about", StoreHallWeb do
+    pipe_through :browser
+
+    get "/", AboutController, :index
+    get "/contacts", AboutController, :contacts
+    get "/terms", AboutController, :terms
+    get "/privacy", AboutController, :privacy
+    get "/cookies", AboutController, :cookies
+  end
+
   scope "/auth", StoreHallWeb do
     pipe_through :browser
 

@@ -19,7 +19,7 @@
     			<%= Gettext.gettext("Agree") %>
     		</button>
       </a>
-  	  <a href="/cookies" >
+  	  <a href="/about/cookies" >
   			<button id="cookie_consent_info_link">
   				<%= Gettext.gettext("Learn more") %>
   			</button>
@@ -27,3 +27,43 @@
   	</div>
   </div>
 <% end %>
+
+<about>
+  <svg class="svg_icon menu_svg_icon">
+    <use xlink:href="/images/sprite.svg#si-awesome-question-circle"></use>
+  </svg>
+  <div class="dropdown">
+    <ul>
+      <%= link to: Routes.about_path(@conn, :index) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("About Us") %></span>
+        </li>
+      <% end %>
+
+      <%= link to: Routes.about_path(@conn, :contacts) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("Contacts") %></span>
+        </li>
+      <% end %>
+
+      <%= link to: Routes.about_path(@conn, :terms) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("Terms") %></span>
+        </li>
+      <% end %>
+
+      <%= link to: Routes.about_path(@conn, :privacy) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("Privacy") %></span>
+        </li>
+      <% end %>
+
+      <%= link to: Routes.about_path(@conn, :cookies) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("Cookies") %></span>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+</about>
