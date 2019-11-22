@@ -50,12 +50,17 @@ sidebar {
   .tab {
     overflow: hidden;
 
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
+    margin: 2px;
+    margin-bottom: 5px;
+
     &-label {
       display: flex;
       justify-content: space-between;
       background: $baseBackgroundColor;
       // font-weight: bold;
       cursor: pointer;
+      padding-left: 5px;
 
       &:hover {
         background: darken($baseBackgroundColor, 5%);
@@ -107,7 +112,6 @@ sidebar-show {
   }
 
   .tab{
-    padding-top: 2px;
 
     a {
       text-decoration: none;
