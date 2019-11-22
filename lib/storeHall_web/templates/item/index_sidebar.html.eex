@@ -126,7 +126,7 @@
 
           <%= select f, :merchant,
             @conn.assigns.filters["merchant"]
-            |> Enum.map(fn {k, v} -> {k, k} end),
+            |> Enum.map(fn {k, _v} -> {k, k} end),
             class: "select7_select"  %>
           <%= text_input f, :merchant, type: "hidden", class: "select7_input auto-submit-item" %>
 
@@ -146,7 +146,7 @@
 
           <%= select f, :tags,
             @conn.assigns.filters["tags"]
-            |> Enum.map(fn {k, v} -> {k, k} end),
+            |> Enum.map(fn {k, _v} -> {k, k} end),
             class: "select7_select"  %>
           <%= text_input f, :tags, type: "hidden", class: "select7_input auto-submit-item" %>
 

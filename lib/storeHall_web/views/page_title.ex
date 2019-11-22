@@ -1,5 +1,4 @@
 defmodule StoreHallWeb.PageTitle do
-  alias StoreHallWeb.{ItemView, UserView}
   require StoreHallWeb.Gettext
 
   @suffix "Крали Марко"
@@ -10,7 +9,7 @@ defmodule StoreHallWeb.PageTitle do
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: title <> " - " <> @suffix
 
-  defp get(%{users: user}), do: StoreHallWeb.Gettext.gettext("Listing users")
+  defp get(%{users: _user}), do: StoreHallWeb.Gettext.gettext("Listing users")
 
   defp get(%{user: user}) do
     user.first_name <> " " <> user.last_name
