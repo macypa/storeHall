@@ -33,7 +33,7 @@
           <%= item.user_id %>
         <% end %>
       </div>
-      <div class="price"><%= item.details["price"] %> <%= Gettext.gettext("lv") %></div>
+      <div class="price"><%= item.details["price"] %> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
       <div class="rating">
         <%= link to: Routes.item_path(@conn, :show, item) <> "#tab-ratings" do %>
           <%= Gettext.gettext("Rating") %>: <%= item.details["rating"]["score"] %>
