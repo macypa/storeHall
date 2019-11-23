@@ -58,7 +58,6 @@ defmodule StoreHallWeb do
       def format_timestamp(timestamp, time_zone \\ "Europe/Sofia") do
         timestamp
         |> shift_zone(time_zone)
-        |> IO.inspect()
         |> Calendar.Strftime.strftime!("%d/%m/%Y %H:%M")
       end
 
