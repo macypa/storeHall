@@ -37,6 +37,10 @@ $( document ).ready(function() {
   }
 });
 
+window.local_time_zone = function() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 window.timeago = function() {
   $(".timeago").timeago();
 };

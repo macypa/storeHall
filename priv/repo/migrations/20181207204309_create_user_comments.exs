@@ -8,7 +8,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserComments do
       add :comment_id, :integer
       add :details, :map
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
   end

@@ -9,7 +9,7 @@ defmodule StoreHall.Repo.Migrations.CreateUsers do
       add :email, :string
       add :provider, :string
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
   end

@@ -39,7 +39,7 @@ defmodule StoreHallWeb do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
-      use Timex
+      alias Calendar.DateTime.Format
 
       import StoreHallWeb.ErrorHelpers
       import StoreHallWeb.ViewHelpers
@@ -51,18 +51,19 @@ defmodule StoreHallWeb do
         render(StoreHallWeb.SharedView, template, assigns)
       end
 
-      def timex_time(ecto_time) do
-        case ecto_time do
-          "{{inserted_at}}" ->
-            "{{inserted_at}}"
+      def format_timestamp(nil), do: nil
+      def format_timestamp("{{inserted_at}}"), do: "{{inserted_at}}"
+      def format_timestamp("{{updated_at}}"), do: "{{updated_at}}"
 
-          "{{updated_at}}" ->
-            "{{updated_at}}"
+      def format_timestamp(timestamp, time_zone \\ "Europe/Sofia") do
+        timestamp
+        |> shift_zone(time_zone)
+        |> IO.inspect()
+        |> Calendar.Strftime.strftime!("%d/%m/%Y %H:%M")
+      end
 
-          ecto_time ->
-            ecto_time
-            |> Timex.format!("{D}.{M}.{YYYY} {h24}:{m}")
-        end
+      defp shift_zone(timestamp, time_zone) do
+        timestamp |> Calendar.DateTime.shift_zone!(time_zone)
       end
     end
   end

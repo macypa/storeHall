@@ -9,7 +9,7 @@ defmodule StoreHall.Repo.Migrations.CreateChatMessages do
         add :item_id, references(:items)
         add :details, :map
 
-        timestamps()
+        timestamps(type: :timestamptz)
       end
 
     end

@@ -61,7 +61,7 @@ defmodule StoreHallWeb.AuthController do
     |> Map.take([:first_name, :last_name])
     |> Map.values()
     |> Enum.reject(&is_nil/1)
-    |> Enum.join(".")
+    |> Enum.join("")
   end
 
   def genNextId(info) do

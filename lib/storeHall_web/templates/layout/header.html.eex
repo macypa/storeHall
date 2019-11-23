@@ -83,7 +83,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant][]=" <> @conn.assigns.logged_user.id do %>
+        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> @conn.assigns.logged_user.id do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-list-ul"></use>

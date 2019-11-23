@@ -13,8 +13,8 @@
       <%= @comment.author_id %>
     <% end %>
     <comment-metadata>
-       <time class="timeago" datetime="<%= @comment.inserted_at %>">
-         <%= timex_time @comment.inserted_at  %>
+       <time class="timeago" datetime="<%=  @comment.inserted_at %>">
+         <%= format_timestamp @comment.inserted_at  %>
        </time>
     </comment-metadata>
     <comment-body>

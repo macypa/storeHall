@@ -7,7 +7,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserLabels do
       add :item_id, :integer
       add :user_id, references(:users, [type: :string])
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
     create unique_index(:user_labels, [:label, :item_id, :user_id], name: :unique_label)

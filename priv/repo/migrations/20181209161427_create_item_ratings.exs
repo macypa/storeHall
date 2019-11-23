@@ -8,7 +8,7 @@ defmodule StoreHall.Repo.Migrations.CreateItemRatings do
       add :user_id, references(:users, [type: :string])
       add :details, :map
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
     create unique_index(:item_ratings, [:item_id, :author_id, :user_id], name: :unique_item_rating)

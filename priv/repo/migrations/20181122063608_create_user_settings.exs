@@ -6,7 +6,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserSettings do
       add :id, :string, primary_key: true
       add :settings, :map
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
   end

@@ -8,7 +8,7 @@ defmodule StoreHall.Repo.Migrations.CreateItems do
       add :user_id, references(:users, [type: :string])
       add :details, :map
 
-      timestamps()
+      timestamps(type: :timestamptz)
     end
 
     create unique_index(:items, [:name, :user_id], name: :unique_name_for_user)
