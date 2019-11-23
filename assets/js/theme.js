@@ -2,6 +2,12 @@
 function requireAll(r) { r.keys().forEach(r); }
 requireAll(require.context('./components/', true, /\.js$/));
 
+window.update_notifications_counter_alert = function() {
+  var counter = document.querySelector("#alert_new_notification")
+  counter.classList.add('counter')
+  counter.innerHTML = $("#new_notifications").children().length;
+}
+
 window.load_lazy_imgs = $(function() {
   $('.lazy').Lazy({
     visibleOnly: true,

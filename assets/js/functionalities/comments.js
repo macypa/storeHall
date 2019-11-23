@@ -31,6 +31,10 @@ channel.on("new_comment", payload => {
       comment_parent.insertAdjacentHTML( 'beforeend', new_comment_html)
     }
   }
+
+  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html )
+  update_notifications_counter_alert()
+
   $(".timeago").timeago();
   add_comment_events();
 })

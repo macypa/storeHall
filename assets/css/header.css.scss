@@ -35,6 +35,20 @@ header {
     position: relative;
     cursor: pointer;
     margin-left: auto;
+    display: inline-block;
+
+    .badge {
+      font-size: 0.7em;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      //padding: 2px 3px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+      min-width: 1em;
+      text-align: center;
+    }
   }
 
   avatar {

@@ -4,12 +4,12 @@
   <comment>
 <% end %>
 
-  <%= link to: Routes.user_path(@conn, :show, @comment.author_id) do %>
+  <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
     <img class="lazy avatar" data-src=""/>
   <% end %>
 
   <content>
-    <%= link to: Routes.user_path(@conn, :show, @comment.author_id), class: "author" do %>
+    <%= link to: Routes.user_path(@conn, :show, @comment.author_id || ""), class: "author" do %>
       <%= @comment.author_id %>
     <% end %>
     <comment-metadata>
