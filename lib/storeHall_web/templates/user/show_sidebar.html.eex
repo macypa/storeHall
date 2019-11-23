@@ -19,12 +19,6 @@
     </a>
   </div>
 
-  <div class="tab">
-    <a href="#messages">
-      <label class="tab-label"><%= Gettext.gettext("Chat") %></label>
-    </a>
-  </div>
-
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @conn.assigns.user.id do %>
 
     <div class="tab">

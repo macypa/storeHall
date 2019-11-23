@@ -50,13 +50,6 @@
     } %>
   </div>
 
-  <div id="messages">
-    <%= render StoreHallWeb.ChatView, "index.html", chats: @user.messages, chat_msg_template: %{
-        owner_id: @user.id,
-        user_id: get_user_id_from_conn(@conn)
-      } %>
-  </div>
-
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @user.id do %>
 
     <div id="manage">
