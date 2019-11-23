@@ -7,7 +7,7 @@ defmodule StoreHall.Users.Relations do
     belongs_to :user, StoreHall.Users.User, type: :string
     field :type, :string
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

@@ -12,7 +12,7 @@ defmodule StoreHall.Users.Settings do
         "filters" => %{"show_with_min_rating" => -1, "hide_guests" => false}
       }
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

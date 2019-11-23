@@ -37,6 +37,9 @@ $( document ).ready(function() {
   }
 });
 
-$(document).ready(function() {
+window.timeago = function() {
   $(".timeago").timeago();
+};
+$( document ).ready(function() {
+  timeago();
 });

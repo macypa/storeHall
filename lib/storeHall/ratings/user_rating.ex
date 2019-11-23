@@ -8,7 +8,7 @@ defmodule StoreHall.Ratings.UserRating do
     belongs_to :user, StoreHall.Users.User, type: :string
     field :details, :map, default: %{"scores" => %{}}
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

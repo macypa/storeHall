@@ -7,7 +7,7 @@ defmodule StoreHall.Items.Filters do
     field :name, :string
     field :type, :string
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

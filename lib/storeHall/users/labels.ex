@@ -7,7 +7,7 @@ defmodule StoreHall.Users.Labels do
     field :item_id, :integer
     field :label, :string
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

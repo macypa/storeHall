@@ -137,6 +137,7 @@ channel.on("filtered_comments", payload => {
   } else {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   }
-  $(".timeago").timeago();
+  
+  timeago();
   update_next_page_link(payload.filter);
 })

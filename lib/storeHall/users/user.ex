@@ -31,7 +31,7 @@ defmodule StoreHall.Users.User do
     has_many :ratings, StoreHall.Ratings.UserRating
     has_many :messages, StoreHall.Chats.ChatMessage
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

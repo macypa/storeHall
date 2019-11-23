@@ -11,7 +11,7 @@ defmodule StoreHall.Chats.ChatMessage do
     belongs_to :item, StoreHall.Items.Item
     field :details, :map, default: %{}
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

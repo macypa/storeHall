@@ -35,6 +35,6 @@ channel.on("new_comment", payload => {
   document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html )
   update_notifications_counter_alert()
 
-  $(".timeago").timeago();
+  timeago();
   add_comment_events();
 })

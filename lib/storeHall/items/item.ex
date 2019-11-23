@@ -20,7 +20,7 @@ defmodule StoreHall.Items.Item do
     has_many :ratings, StoreHall.Ratings.ItemRating
     has_many :messages, StoreHall.Chats.ChatMessage
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

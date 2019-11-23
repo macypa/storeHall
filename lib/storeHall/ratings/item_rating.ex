@@ -10,7 +10,7 @@ defmodule StoreHall.Ratings.ItemRating do
     field :item_id, :integer
     field :details, :map, default: %{"scores" => %{}}
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

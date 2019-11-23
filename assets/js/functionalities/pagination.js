@@ -59,6 +59,7 @@ channel.on("show_more_comments", payload => {
     link_node.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
     link_node.innerHTML = "";
   }
-  $(".timeago").timeago();
+  
+  timeago();
   add_load_more_events();
 })
