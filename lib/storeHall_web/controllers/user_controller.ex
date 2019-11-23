@@ -17,6 +17,8 @@ defmodule StoreHallWeb.UserController do
         image: "{{image}}",
         first_name: "{{first_name}}",
         last_name: "{{last_name}}",
+        inserted_at: "{{inserted_at}}",
+        updated_at: "{{updated_at}}",
         details: %{
           "user_template_tag_id" => "user_template",
           "rating" => %{"score" => "{{json details.rating.score}}"},

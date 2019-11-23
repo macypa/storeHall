@@ -3,7 +3,27 @@
 <% else %>
   <comment>
 <% end %>
-  <comment-body><%= @comment.id %>:<%= @comment.author_id %> - <%= @comment.details %></comment-body>
+
+  <%= link to: Routes.user_path(@conn, :show, @comment.author_id) do %>
+    <img class="lazy avatar" data-src=""/>
+  <% end %>
+
+  <content>
+    <%= link to: Routes.user_path(@conn, :show, @comment.author_id), class: "author" do %>
+      <%= @comment.author_id %>
+    <% end %>
+    <comment-metadata>
+       <time class="timeago" datetime="<%= @comment.inserted_at %>">
+         <%= timex_time @comment.inserted_at  %>
+       </time>
+    </comment-metadata>
+    <comment-body>
+      <%= @comment.details %>
+    </comment-body>
+    <comment-actions>
+      <a class="reply">Reply</a>
+    </comment-actions>
+  </content>
 
   <%= render StoreHallWeb.LayoutView,
             "show_more.html",
@@ -11,7 +31,8 @@
             model: @comment,
             add_params: "show_for_comment_id=#{@comment.id}" %>
 
-    <%= render StoreHallWeb.CommentView, "form.html",
+  <%= render StoreHallWeb.CommentView, "form.html",
               comment: Map.put(@comment, :comment_id, @comment.id)%>
 
+  <comment-replies></comment-replies>
 </comment>

@@ -16,6 +16,8 @@ defmodule StoreHallWeb.ItemController do
         id: "{{id}}",
         name: "{{name}}",
         user_id: "{{user_id}}",
+        inserted_at: "{{inserted_at}}",
+        updated_at: "{{updated_at}}",
         details: %{
           "item_template_tag_id" => "item_template",
           "price" => "{{json details.price}}",

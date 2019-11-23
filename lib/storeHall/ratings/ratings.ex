@@ -33,6 +33,8 @@ defmodule StoreHall.Ratings do
       id: "{{id}}",
       author_id: "{{author_id}}",
       item_id: "{{item_id}}",
+      inserted_at: "{{inserted_at}}",
+      updated_at: "{{updated_at}}",
       details: %{
         "rating_template_tag_id" => "rating_template"
       }
@@ -43,6 +45,8 @@ defmodule StoreHall.Ratings do
     %UserRating{
       id: "{{id}}",
       author_id: "{{author_id}}",
+      inserted_at: "{{inserted_at}}",
+      updated_at: "{{updated_at}}",
       details: %{
         "rating_template_tag_id" => "rating_template"
       }

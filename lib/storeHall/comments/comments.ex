@@ -35,6 +35,8 @@ defmodule StoreHall.Comments do
       id: "{{id}}",
       author_id: "{{author_id}}",
       item_id: "{{item_id}}",
+      inserted_at: "{{inserted_at}}",
+      updated_at: "{{updated_at}}",
       details: %{
         "comment_template_tag_id" => "comment_template"
       }
@@ -45,6 +47,8 @@ defmodule StoreHall.Comments do
     %UserComment{
       id: "{{id}}",
       author_id: "{{author_id}}",
+      inserted_at: "{{inserted_at}}",
+      updated_at: "{{updated_at}}",
       details: %{
         "comment_template_tag_id" => "comment_template"
       }

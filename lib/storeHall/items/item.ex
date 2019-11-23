@@ -3,7 +3,7 @@ defmodule StoreHall.Items.Item do
 
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:id, :name, :details, :user_id]}
+  @derive {Jason.Encoder, only: [:id, :name, :details, :user_id, :inserted_at, :updated_at]}
   schema "items" do
     field :name, :string
     belongs_to :user, StoreHall.Users.User, type: :string

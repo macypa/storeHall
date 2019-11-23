@@ -18,5 +18,10 @@ import css from "../css/app.scss"
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
+import timeago from 'timeago'
+import timeago_bg from 'timeago/locales/jquery.timeago.bg.js'
+// Display original dates older than 24 hours
+//$.timeago.settings.cutoff = 1000*60*60*24;
+
 import theme from "./theme"
 import socket from "./socket"

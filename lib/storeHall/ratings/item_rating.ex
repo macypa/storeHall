@@ -2,7 +2,8 @@ defmodule StoreHall.Ratings.ItemRating do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:id, :details, :item_id, :user_id, :author_id]}
+  @derive {Jason.Encoder,
+           only: [:id, :details, :item_id, :user_id, :author_id, :inserted_at, :updated_at]}
   schema "item_ratings" do
     belongs_to :author, StoreHall.Users.User, type: :string
     belongs_to :user, StoreHall.Users.User, type: :string

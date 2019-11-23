@@ -241,6 +241,7 @@ channel.on("new_comment", payload => {
       comment_parent.insertAdjacentHTML( 'beforeend', new_comment_html)
     }
   }
+  $(".timeago").timeago();
   add_comment_events();
 })
 
@@ -454,6 +455,7 @@ channel.on("filtered_comments", payload => {
   } else {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   }
+  $(".timeago").timeago();
   update_next_page_link(payload.filter);
 })
 channel.on("show_more_comments", payload => {
@@ -470,9 +472,10 @@ channel.on("show_more_comments", payload => {
   } else {
     var comment_id = payload.filter.match("show_for_comment_id=\\d+");
     var link_node = document.getElementById(comment_id)
-    link_node.parentNode.insertAdjacentHTML( 'beforeend', filtered_comments);
+    link_node.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
     link_node.innerHTML = "";
   }
+  $(".timeago").timeago();
   add_load_more_events();
 })
 

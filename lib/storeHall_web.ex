@@ -39,6 +39,7 @@ defmodule StoreHallWeb do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+      use Timex
 
       import StoreHallWeb.ErrorHelpers
       import StoreHallWeb.ViewHelpers
@@ -48,6 +49,20 @@ defmodule StoreHallWeb do
 
       def render_shared(template, assigns \\ []) do
         render(StoreHallWeb.SharedView, template, assigns)
+      end
+
+      def timex_time(ecto_time) do
+        case ecto_time do
+          "{{inserted_at}}" ->
+            "{{inserted_at}}"
+
+          "{{updated_at}}" ->
+            "{{updated_at}}"
+
+          ecto_time ->
+            ecto_time
+            |> Timex.format!("{D}.{M}.{YYYY} {h24}:{m}")
+        end
       end
     end
   end

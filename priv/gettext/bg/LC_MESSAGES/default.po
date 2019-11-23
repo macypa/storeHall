@@ -291,7 +291,7 @@ msgstr "повече"
 #, elixir-format
 #: lib/storeHall_web/templates/comment/index.html.eex:12
 msgid "Add Comment"
-msgstr "Коментари"
+msgstr "Добави Коментар"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/edit.html.eex:5
