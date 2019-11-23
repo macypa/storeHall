@@ -25,3 +25,9 @@ import timeago_bg from 'timeago/locales/jquery.timeago.bg.js'
 
 import theme from "./theme"
 import socket from "./socket"
+
+import pagination from "./functionalities/pagination"
+import filter from "./functionalities/filter"
+import comments from "./functionalities/comments"
+import ratings from "./functionalities/ratings"
+import reactions from "./functionalities/reactions"

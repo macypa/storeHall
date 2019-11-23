@@ -19,6 +19,15 @@
         </ul>
       </li>
 
+      <li>
+        <ul class="notifications">
+          <li>
+            <div class="notifications">
+            </div>
+          </li>
+        </ul>
+      </li>
+
       <%= if @conn.assigns.logged_user do %>
         <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
           <li>
