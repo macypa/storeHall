@@ -1,13 +1,13 @@
 $baseColor: #FFA500;
 $baseBackgroundColor: #fff1d0;
 
-$height-header: 1.7em;
+$height-header: 2em;
 $height-header_desktop: 2em;
 $width-header: 25em;
 $width-header_desktop: 40em;
 $width-sidebar: 11em;
 $height-sidebar_tablet: 5em;
-$height-footer: 1em;
+$height-footer: 1.5em;
 
 @mixin dropdown_icon_border {
   background-size: cover;
