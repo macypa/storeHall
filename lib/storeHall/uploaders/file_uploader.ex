@@ -10,6 +10,8 @@ defmodule StoreHall.FileUploader do
   @acl :public_read
 
   @extension_whitelist ~w(.jpg .jpeg .gif .png)
+  def extension_whitelist, do: @extension_whitelist
+
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
     Enum.member?(@extension_whitelist, file_extension)

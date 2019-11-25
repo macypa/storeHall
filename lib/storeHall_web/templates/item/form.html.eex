@@ -21,7 +21,8 @@
 
     <div class="form-image-group">
       <%= label f, :images, Gettext.gettext("Images") %>
-      <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple" %>
+      <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple",
+      accept: StoreHall.FileUploader.extension_whitelist |> Enum.join(",") %>
       <%= error_tag f, :images %>
     </div>
 
