@@ -8,10 +8,8 @@ window.onpopstate = function (event) {
       var input = form.find('[name="' + value.name + '"]');
         input.val(value.value);
 
-        if (input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
+        if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
           input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
-        } else {
-          input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = false;
         }
     });
 
@@ -137,7 +135,7 @@ channel.on("filtered_comments", payload => {
   } else {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   }
-  
+
   timeago();
   update_next_page_link(payload.filter);
 })
