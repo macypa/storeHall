@@ -50,20 +50,6 @@ defmodule StoreHallWeb do
       def render_shared(template, assigns \\ []) do
         render(StoreHallWeb.SharedView, template, assigns)
       end
-
-      def format_timestamp(nil), do: nil
-      def format_timestamp("{{inserted_at}}"), do: "{{inserted_at}}"
-      def format_timestamp("{{updated_at}}"), do: "{{updated_at}}"
-
-      def format_timestamp(timestamp, time_zone \\ "Europe/Sofia") do
-        timestamp
-        |> shift_zone(time_zone)
-        |> Calendar.Strftime.strftime!("%d/%m/%Y %H:%M")
-      end
-
-      defp shift_zone(timestamp, time_zone) do
-        timestamp |> Calendar.DateTime.shift_zone!(time_zone)
-      end
     end
   end
 

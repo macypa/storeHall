@@ -16,6 +16,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
+    "date-fns": "^2.8.1",
     "handlebars": "^4.5.3",
     "handlebars-loader": "^1.7.1",
     "jquery": "^3.4.1",
@@ -23,8 +24,7 @@
     "lodash": "^4.17.14",
     "node-sass-glob-importer": "^5.3.2",
     "phoenix": "file:../deps/phoenix",
-    "snyk": "^1.230.5",
-    "timeago": "^1.6.7"
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

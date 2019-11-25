@@ -41,8 +41,32 @@ window.local_time_zone = function() {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
+
+import formatDistance from 'date-fns/formatDistance';
+import format from 'date-fns/format';
+import bg from 'date-fns/locale/bg'
+
 window.timeago = function() {
-  $(".timeago").timeago();
+  var time = $(".timeago").each(function() {
+    var datetime = $( this ).first().text( ).trim();
+
+    try {
+      $( this ).attr("title",
+              format(new Date(datetime), 'MM/dd/yyyy HH:mm:ss', {
+                locale: bg
+              })
+            );
+    } catch(error) {}
+
+    try {
+      $( this ).first().text(
+              formatDistance(new Date(datetime), new Date(), {
+                locale: bg
+              })
+            );
+    } catch(error) {}
+  });
+
 };
 $( document ).ready(function() {
   timeago();
