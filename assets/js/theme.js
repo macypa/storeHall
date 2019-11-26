@@ -9,7 +9,7 @@ window.update_notifications_counter_alert = function() {
 }
 
 window.load_lazy_imgs = function() {
-  $('.lazy').filter(function(){
+  $('.lazy[data-src]').filter(function(){
                    return !$(this).attr('data-src').startsWith("{{");
                 }).Lazy({
     // visibleOnly: true,
