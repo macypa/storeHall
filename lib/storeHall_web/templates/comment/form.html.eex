@@ -2,6 +2,6 @@
 <comment-form id="comment-<%=@comment.id%>" style="display: none">
 
   <textarea class="body" type="text" name="body" value=""></textarea>
-  <input class="comment" type="hidden" name="comment" value="<%= Jason.encode! @comment %>">
+  <input class="comment" type="hidden" name="comment" value="<%= StoreHall.EncodeHelper.encode! @comment %>">
   <button comment-topic="comment:add" type="button"><%= Gettext.gettext("Send") %></button>
 </comment-form>

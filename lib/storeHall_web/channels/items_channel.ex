@@ -68,7 +68,10 @@ defmodule StoreHallWeb.ItemsChannel do
         filter |> Plug.Conn.Query.decode()
       )
 
-    push(socket, "show_more_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
+    push(socket, "show_more_comments", %{
+      filter: filter,
+      filtered: StoreHall.EncodeHelper.encode!(filtered)
+    })
 
     {:reply, :ok, socket}
   end

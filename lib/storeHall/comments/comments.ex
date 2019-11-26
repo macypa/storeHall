@@ -33,7 +33,14 @@ defmodule StoreHall.Comments do
   def comment_template(%Item{}) do
     %ItemComment{
       id: "{{id}}",
-      author_id: "{{author_id}}",
+      author: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}"
+      },
+      user: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}"
+      },
       item_id: "{{item_id}}",
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",
@@ -46,6 +53,14 @@ defmodule StoreHall.Comments do
   def comment_template(%User{}) do
     %UserComment{
       id: "{{id}}",
+      author: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}"
+      },
+      user: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}"
+      },
       author_id: "{{author_id}}",
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",

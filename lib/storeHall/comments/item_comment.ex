@@ -2,17 +2,19 @@ defmodule StoreHall.Comments.ItemComment do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder,
-           only: [
-             :id,
-             :comment_id,
-             :details,
-             :item_id,
-             :user_id,
-             :author_id,
-             :inserted_at,
-             :updated_at
-           ]}
+  # @derive {Jason.Encoder, except: [:__meta__, :__struct__]}
+  # only: [
+  #   :id,
+  #   :comment_id,
+  #   :details,
+  #   :item_id,
+  #   :user_id,
+  #   :author_id,
+  #   :inserted_at,
+  #   :updated_at,
+  #   :author,
+  #   :user
+  # ]}
   schema "item_comments" do
     belongs_to :author, StoreHall.Users.User, type: :string
     belongs_to :user, StoreHall.Users.User, type: :string
