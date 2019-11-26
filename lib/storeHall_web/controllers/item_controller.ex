@@ -58,7 +58,8 @@ defmodule StoreHallWeb.ItemController do
       Items.get_item!(id)
       |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
-      |> Chats.preload_for(AuthController.get_user_id_from_conn(conn))
+
+    # |> Chats.preload_for(AuthController.get_user_id_from_conn(conn))
 
     render(conn, :show, item: item)
   end
