@@ -28,11 +28,11 @@ channel.on("new_comment", payload => {
   } else {
     var comment_parent = document.querySelector("#comment-" + payload.comment_parent_id).parentNode.parentNode
     if (comment_parent !== null) {
-      comment_parent.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', new_comment_html)
+      comment_parent.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', new_comment_html)
     }
   }
 
-  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html.match(/(<content>(.|\n)*<\/content>)/m)[0] )
+  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, "") )
   update_notifications_counter_alert()
 
   timeago();
@@ -56,7 +56,7 @@ channel.on("show_more_comments", payload => {
     var comment_id = payload.filter.match("show_for_comment_id=\\d+");
     var link_node = document.getElementById(comment_id)
     link_node.innerHTML = "";
-    link_node.parentNode.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
+    link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
   }
 
   timeago();

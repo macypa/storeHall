@@ -4,34 +4,39 @@
   <comment>
 <% end %>
 
-  <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
-    <img class="lazy" data-src="<%= @comment.author.image %>" />
-  <% end %>
+  <avatar>
+    <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
+      <img class="lazy" data-src="<%= @comment.author.image %>" />
+    <% end %>
+  </avatar>
 
-  <content>
+  <author>
     <%= link to: Routes.user_path(@conn, :show, @comment.author_id || ""), class: "author" do %>
       <%= @comment.author_id %>
     <% end %>
-    <comment-metadata>
-       <time class="timeago" datetime="<%=  @comment.inserted_at %>">
-         <%= @comment.inserted_at  %>
-       </time>
-    </comment-metadata>
-    <comment-body>
-      <%= @comment.details %>
-    </comment-body>
-  </content>
+  </author>
 
-  <comment-actions>
-    <%= render StoreHallWeb.LayoutView,
-              "show_more.html",
-              conn: @conn,
-              model: @comment,
-              add_params: "show_for_comment_id=#{@comment.id}" %>
+  <time class="timeago" datetime="<%=  @comment.inserted_at %>">
+    <%= @comment.inserted_at  %>
+  </time>
+
+  <text>
+    <%= @comment.details %>
+  </text>
+
+  <actions>
+
+    <%= render_shared "reactions.html" %>
 
     <%= render StoreHallWeb.CommentView, "form.html",
                 comment: Map.put(@comment, :comment_id, @comment.id)%>
 
-  </comment-actions>
-  <comment-replies></comment-replies>
+  </actions>
+  <replies>
+    <%= render StoreHallWeb.LayoutView,
+            "show_more.html",
+            conn: @conn,
+            model: @comment,
+            add_params: "show_for_comment_id=#{@comment.id}" %>
+  </replies>
 </comment>
