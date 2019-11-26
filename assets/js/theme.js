@@ -63,7 +63,8 @@ window.timeago = function() {
     try {
       $( this ).first().text(
               formatDistance(new Date(datetime), new Date(), {
-                locale: bg
+                locale: bg,
+                addSuffix: true
               })
             );
     } catch(error) {}
