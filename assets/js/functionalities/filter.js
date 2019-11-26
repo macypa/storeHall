@@ -77,7 +77,7 @@ channel.on("filtered_items", payload => {
     update_next_page_link(payload.filter);
 
     $('#next-page-link')[0].removeAttribute("disabled");
-    $('.lazy').Lazy({visibleOnly: true});
+    load_lazy_imgs();
   } else {
     $('#next-page-link')[0].setAttribute("disabled", "disabled");
   }

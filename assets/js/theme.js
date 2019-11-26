@@ -8,14 +8,16 @@ window.update_notifications_counter_alert = function() {
   counter.innerHTML = $("#new_notifications").children().length;
 }
 
-window.load_lazy_imgs = $(function() {
-  $('.lazy').Lazy({
-    visibleOnly: true,
+window.load_lazy_imgs = function() {
+  $('.lazy').filter(function(){
+                   return !$(this).attr('data-src').startsWith("{{");
+                }).Lazy({
+    // visibleOnly: true,
 	  onError: function(element) {
 		  console.warn("img can't be loaded " + element[0].getAttribute("data-src"));
 	  },
   });
-});
+};
 
 window.show_hide = function(element_id) {
     var x = document.getElementById(element_id);
@@ -70,4 +72,5 @@ window.timeago = function() {
 };
 $( document ).ready(function() {
   timeago();
+  load_lazy_imgs();
 });
