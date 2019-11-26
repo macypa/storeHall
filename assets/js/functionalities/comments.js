@@ -38,3 +38,26 @@ channel.on("new_comment", payload => {
   timeago();
   add_comment_events();
 })
+
+channel.on("show_more_comments", payload => {
+
+  var comments_template_source = "{{#each this}}<comment>" +
+       unescape(document.getElementById("comment_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</comment>{{/each}}";
+  var comments_template = Handlebars.compile(comments_template_source);
+
+  var filtered_comments = comments_template(JSON.parse("[" + payload.filtered + "]") )
+  if (payload.filter.indexOf("show_for_comment_id=") == -1) {
+    document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
+  } else {
+    var comment_id = payload.filter.match("show_for_comment_id=\\d+");
+    var link_node = document.getElementById(comment_id)
+    link_node.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
+    link_node.innerHTML = "";
+  }
+
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+})
