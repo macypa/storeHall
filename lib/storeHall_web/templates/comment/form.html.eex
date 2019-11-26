@@ -2,6 +2,9 @@
 <comment-form id="comment-<%=@comment.id%>" style="display: none">
 
   <textarea class="body" type="text" name="body" value=""></textarea>
-  <input class="comment" type="hidden" name="comment" value="<%= StoreHall.EncodeHelper.encode! @comment %>">
+  <input class="comment" type="hidden" name="comment"
+          value="<%= @comment
+                    |> Map.take([:author_id, :comment_id, :details, :id, :item_id, :user_id])
+                    |> Jason.encode! %>">
   <button comment-topic="comment:add" type="button"><%= Gettext.gettext("Send") %></button>
 </comment-form>

@@ -4,13 +4,13 @@
   <comment>
 <% end %>
 
-  <%= link to: Routes.user_path(@conn, :show, @comment.author.id || "") do %>
+  <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
     <img class="lazy" data-src="<%= @comment.author.image %>" />
   <% end %>
 
   <content>
     <%= link to: Routes.user_path(@conn, :show, @comment.author_id || ""), class: "author" do %>
-      <%= @comment.author.id %>
+      <%= @comment.author_id %>
     <% end %>
     <comment-metadata>
        <time class="timeago" datetime="<%=  @comment.inserted_at %>">
@@ -20,19 +20,18 @@
     <comment-body>
       <%= @comment.details %>
     </comment-body>
-    <comment-actions>
-      <a class="reply">Reply</a>
-    </comment-actions>
   </content>
 
-  <%= render StoreHallWeb.LayoutView,
-            "show_more.html",
-            conn: @conn,
-            model: @comment,
-            add_params: "show_for_comment_id=#{@comment.id}" %>
+  <comment-actions>
+    <%= render StoreHallWeb.LayoutView,
+              "show_more.html",
+              conn: @conn,
+              model: @comment,
+              add_params: "show_for_comment_id=#{@comment.id}" %>
 
-  <%= render StoreHallWeb.CommentView, "form.html",
-              comment: Map.put(@comment, :comment_id, @comment.id)%>
+    <%= render StoreHallWeb.CommentView, "form.html",
+                comment: Map.put(@comment, :comment_id, @comment.id)%>
 
+  </comment-actions>
   <comment-replies></comment-replies>
 </comment>

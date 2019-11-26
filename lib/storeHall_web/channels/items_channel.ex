@@ -70,7 +70,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
     push(socket, "show_more_comments", %{
       filter: filter,
-      filtered: StoreHall.EncodeHelper.encode!(filtered)
+      filtered: Jason.encode!(filtered)
     })
 
     {:reply, :ok, socket}

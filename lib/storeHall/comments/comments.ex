@@ -33,10 +33,12 @@ defmodule StoreHall.Comments do
   def comment_template(%Item{}) do
     %ItemComment{
       id: "{{id}}",
+      author_id: "{{author_id}}",
       author: %{
         id: "{{author.id}}",
         image: "{{author.image}}"
       },
+      user_id: "{{user_id}}",
       user: %{
         id: "{{author.id}}",
         image: "{{author.image}}"
@@ -53,10 +55,12 @@ defmodule StoreHall.Comments do
   def comment_template(%User{}) do
     %UserComment{
       id: "{{id}}",
+      author_id: "{{author_id}}",
       author: %{
         id: "{{author.id}}",
         image: "{{author.image}}"
       },
+      user_id: "{{user_id}}",
       user: %{
         id: "{{author.id}}",
         image: "{{author.image}}"
@@ -117,7 +121,7 @@ defmodule StoreHall.Comments do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert}
+        {:ok, multi.insert |> Repo.preload(:author)}
 
       {:error, _op, value, _changes} ->
         {:error, value}

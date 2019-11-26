@@ -26,16 +26,18 @@ channel.on("new_comment", payload => {
   if (payload.comment_parent_id == null) {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', new_comment_html)
   } else {
-    var comment_parent = document.querySelector("#comment-" + payload.comment_parent_id).parentNode
+    var comment_parent = document.querySelector("#comment-" + payload.comment_parent_id).parentNode.parentNode
     if (comment_parent !== null) {
-      comment_parent.insertAdjacentHTML( 'beforeend', new_comment_html)
+      comment_parent.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', new_comment_html)
     }
   }
 
-  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html )
+  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html.match(/(<content>(.|\n)*<\/content>)/m)[0] )
   update_notifications_counter_alert()
 
   timeago();
+  load_lazy_imgs();
+  add_load_more_events();
   add_comment_events();
 })
 
@@ -47,17 +49,18 @@ channel.on("show_more_comments", payload => {
        "</comment>{{/each}}";
   var comments_template = Handlebars.compile(comments_template_source);
 
-  var filtered_comments = comments_template(JSON.parse("[" + payload.filtered + "]") )
+  var filtered_comments = comments_template(JSON.parse(payload.filtered) )
   if (payload.filter.indexOf("show_for_comment_id=") == -1) {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   } else {
     var comment_id = payload.filter.match("show_for_comment_id=\\d+");
     var link_node = document.getElementById(comment_id)
-    link_node.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
     link_node.innerHTML = "";
+    link_node.parentNode.parentNode.getElementsByTagName("comment-replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
   }
 
   timeago();
   load_lazy_imgs();
   add_load_more_events();
+  add_comment_events();
 })
