@@ -8,6 +8,7 @@ defmodule StoreHall.Users.Action do
 
   alias StoreHall.Items
   alias StoreHall.Users.Relations
+  alias StoreHall.Users.Reactions
   alias StoreHall.Users.Labels
   alias StoreHall.Users.Settings
 
@@ -19,6 +20,19 @@ defmodule StoreHall.Users.Action do
         user_id: user_id,
         related_to_user_id: current_user_id,
         type: reaction
+      })
+    )
+  end
+
+  def add_reaction(multi, reacted_to, current_user_id, type, reaction) do
+    multi
+    |> Multi.insert(
+      :insert,
+      Reactions.changeset(%Reactions{}, %{
+        user_id: current_user_id,
+        reacted_to: reacted_to,
+        type: type,
+        reaction: reaction
       })
     )
   end

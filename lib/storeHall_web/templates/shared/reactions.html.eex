@@ -1,14 +1,14 @@
 <span id="reactions">
 
-  <svg class="svg_icon lolz_icon" reaction-topic="reaction:lol" data="lolz" id="lol">
+  <svg class="svg_icon lolz_icon" reaction-topic="<%= @topic_prefix %>reaction:lol" data="<%= Jason.encode! @react_to %>" id="lol">
     <use xlink:href="/images/sprite.svg#si-ant-frown-circle"></use>
   </svg>
 
-  <svg class="svg_icon mehz_icon" reaction-topic="reaction:meh" data="mehz" id="meh">
+  <svg class="svg_icon mehz_icon" reaction-topic="<%= @topic_prefix %>reaction:meh" data="<%= Jason.encode! @react_to %>" id="meh">
     <use xlink:href="/images/sprite.svg#si-ant-meh-circle"></use>
   </svg>
 
-  <svg class="svg_icon wowz_icon" reaction-topic="reaction:wow" data="wowz" id="wow">
+  <svg class="svg_icon wowz_icon" reaction-topic="<%= @topic_prefix %>reaction:wow" data="<%= Jason.encode! @react_to %>" id="wow">
     <use xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
   </svg>
 
