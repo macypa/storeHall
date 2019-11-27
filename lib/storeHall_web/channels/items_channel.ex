@@ -93,19 +93,25 @@ defmodule StoreHallWeb.ItemsChannel do
         %{"data" => comment},
         socket
       ) do
-    case Comments.create_item_comment(
-           comment
-           |> Map.put("author_id", socket.assigns.current_user_id)
-         ) do
-      {:ok, comment} ->
-        broadcast!(
-          socket,
-          "new_comment",
-          %{
-            comment_parent_id: comment.comment_id,
-            new_comment: Jason.encode!(comment)
-          }
-        )
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
+
+      logged_user ->
+        case Comments.create_item_comment(
+               comment
+               |> Map.put("author_id", socket.assigns.current_user_id)
+             ) do
+          {:ok, comment} ->
+            broadcast!(
+              socket,
+              "new_comment",
+              %{
+                comment_parent_id: comment.comment_id,
+                new_comment: Jason.encode!(comment)
+              }
+            )
+        end
     end
 
     {:reply, :ok, socket}
