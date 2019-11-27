@@ -31,7 +31,7 @@ window.show_hide = function(element_id) {
 $( document ).ready(function() {
   var form = $('#form-filter');
   var urlParams = new URLSearchParams(window.location.search);
-  for(key of urlParams.keys()) {
+  for(const [key, value] of  urlParams) {
     var input = form.find('[name="' + key + '"]');
       if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
         input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
