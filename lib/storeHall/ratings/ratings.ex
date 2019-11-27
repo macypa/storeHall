@@ -65,7 +65,7 @@ defmodule StoreHall.Ratings do
     |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
     |> DefaultFilter.paging_filter(params)
-    |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.min_author_rating_filter(current_user_id)
   end
 
