@@ -3,13 +3,12 @@ comments {
 	comment {
 
 	  display: grid;
-    grid-template-columns: min-content min-content;
+    grid-template-columns: min-content min-content 1fr;
 	  grid-template-areas:
-	    'avatar author time .'
-	    'avatar text text text'
-	    'avatar actions actions actions'
-	    'avatar replies replies replies';
-
+			'avatar author time .'
+			'avatar text text text'
+			'avatar actions actions actions'
+			'avatar replies replies replies';
 		padding: 0.3em;
 
 	  a {
@@ -44,9 +43,19 @@ comments {
 
 		text {
 			grid-area: text;
+			max-height: 80vh;
+			overflow: auto;
+
 			padding-top: 0.5em;
 			padding-bottom: 0.5em;
+			white-space: pre-wrap;
 
+			word-break: break-word;
+		  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+		  -ms-hyphens: auto;
+		  -moz-hyphens: auto;
+		  -webkit-hyphens: auto;
+		  hyphens: auto;
 		}
 
 		actions{
@@ -74,6 +83,22 @@ comments {
 	      background-color: Transparent;
 				border: none;
 			}
+
+			avatar {
+				img {
+					max-width: 2em;
+				}
+			}
 		}
 	}
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
 }

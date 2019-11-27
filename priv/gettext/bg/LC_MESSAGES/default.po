@@ -377,7 +377,7 @@ msgstr "Профил"
 #, elixir-format
 #: lib/storeHall_web/templates/comment/form.html.eex:1
 msgid "comment"
-msgstr "Коментар"
+msgstr "Коментирай"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:125

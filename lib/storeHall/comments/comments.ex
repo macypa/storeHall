@@ -47,7 +47,8 @@ defmodule StoreHall.Comments do
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",
       details: %{
-        "comment_template_tag_id" => "comment_template"
+        "comment_template_tag_id" => "comment_template",
+        "body" => "{{details.body}}"
       }
     }
   end
