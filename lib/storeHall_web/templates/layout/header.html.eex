@@ -30,7 +30,7 @@
       </li>
 
       <%= if @conn.assigns.logged_user do %>
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
@@ -56,7 +56,7 @@
 
       <%= if @conn.assigns.logged_user do %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-show" do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#info" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
@@ -74,7 +74,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#tab-messages" do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>

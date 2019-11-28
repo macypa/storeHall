@@ -38,12 +38,12 @@
         <% end %>
       </div>
       <div class="rating">
-        <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-ratings" do %>
+        <%= link to: Routes.user_path(@conn, :show, user) <> "#ratings" do %>
           <%= Gettext.gettext("Rating") %>: <%= user.details["rating"]["score"] %>
         <% end %>
       </div>
       <div class="comments">
-        <%= link to: Routes.user_path(@conn, :show, user) <> "#tab-comments" do %>
+        <%= link to: Routes.user_path(@conn, :show, user) <> "#comments" do %>
           <%= Gettext.gettext("Comments") %>: <%= user.details["comments_count"] %>
         <% end %>
       </div>
