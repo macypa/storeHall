@@ -22,10 +22,10 @@ defmodule StoreHall.FileUploader do
   end
 
   def filename(version, {file, item}) do
-    name =
-      item.details["tags"]
-      |> Enum.map(fn x -> String.replace(x, ~r".*\/", "") end)
-      |> Enum.join("-")
+    # name =
+    #   item.details["tags"]
+    #   |> Enum.map(fn x -> String.replace(x, ~r".*\/", "") end)
+    #   |> Enum.join("-")
 
     slug =
       Slug.slugify(
@@ -35,12 +35,13 @@ defmodule StoreHall.FileUploader do
         ignore: "-"
       )
 
-    case name do
-      "" -> "#{version}-#{slug}"
-      name -> "#{version}-#{name}-#{slug}"
-    end
+    # case name do
+    #   "" -> "#{version}-#{slug}"
+    #   name -> "#{version}-#{name}-#{slug}"
+    # end
 
     # "#{version}-#{file.file_name |> String.replace(~r"\..*", "")}"
+    "#{version}-#{slug}"
   end
 
   def storage_dir(_, {_file, item}) do
