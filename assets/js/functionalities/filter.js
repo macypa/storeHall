@@ -76,10 +76,10 @@ channel.on("filtered_items", payload => {
     }
     update_next_page_link(payload.filter);
 
-    $('#next-page-link')[0].removeAttribute("disabled");
+    // $('#next-page-link')[0].removeAttribute("disabled");
     load_lazy_imgs();
   } else {
-    $('#next-page-link')[0].setAttribute("disabled", "disabled");
+    // $('#next-page-link')[0].setAttribute("disabled", "disabled");
   }
 })
 
@@ -98,44 +98,6 @@ channel.on("filtered_users", payload => {
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
   }
-  update_next_page_link(payload.filter);
-})
-
-
-// import ratings_template from "../hbs/ratings.hbs"
-channel.on("filtered_ratings", payload => {
-
-  var ratings_template_source = "{{#each this}}<rating>" +
-       unescape(document.getElementById("rating_template").innerHTML)
-       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
-       "</rating>{{/each}}";
-  var ratings_template = Handlebars.compile(ratings_template_source);
-
-  var filtered_ratings = ratings_template( JSON.parse(payload.filtered) )
-  if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("ratings").innerHTML = filtered_ratings;
-  } else {
-    document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
-  }
-  update_next_page_link(payload.filter);
-})
-
-//import comments_template from "../hbs/comments.hbs"
-channel.on("filtered_comments", payload => {
-
-  var comments_template_source = "{{#each this}}<comment>" +
-       unescape(document.getElementById("comment_template").innerHTML)
-       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
-       "</comment>{{/each}}";
-  var comments_template = Handlebars.compile(comments_template_source);
-
-  var filtered_comments = comments_template( JSON.parse(payload.filtered) )
-  if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("comments").innerHTML = filtered_comments;
-  } else {
-    document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
-  }
-
-  timeago();
+  load_lazy_imgs();
   update_next_page_link(payload.filter);
 })

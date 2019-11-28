@@ -29,6 +29,10 @@ html {
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
+.alert:empty {
+  display: none;
+}
+
 a {
   text-decoration: none;
 }
