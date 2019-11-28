@@ -1,3 +1,16 @@
+
+.comment-button {
+  background-color: $baseColor;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.comment-textarea {
+	width: 99%;
+	max-width: 99%;
+}
+
 comments {
 
 	comment {
@@ -60,13 +73,6 @@ comments {
 
 		actions{
 			grid-area: actions;
-
-			button {
-	      background-color: $baseColor;
-	    	border-radius: 5px;
-	    	cursor: pointer;
-	    	text-decoration: none;
-			}
 
 			comment-form {
 				textarea {
