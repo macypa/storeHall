@@ -10,13 +10,13 @@ jQuery(function($) {
   $('main').scroll(function() {
     if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
       var next_page_link = $('#next-page-link')[0];
-      // if (!next_page_link.getAttribute("disabled")) {
+      if (next_page_link) {
         var next_page = next_page_link.href.slice(next_page_link.href.indexOf('?') + 1);
         var page_more = next_page_link.href.slice(next_page_link.href.indexOf('&more_') + 6);
         channel.push("filter", { data: next_page, page_more: page_more });
 
         // $('#next-page-link')[0].setAttribute("disabled", "disabled");
-      // }
+      }
     }
   })
 });

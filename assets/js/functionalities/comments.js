@@ -67,7 +67,10 @@ channel.on("show_more_comments", payload => {
 
 //import comments_template from "../hbs/comments.hbs"
 channel.on("filtered_comments", payload => {
-
+  if (payload.filtered == "[]") {
+    $('#next-page-link').remove();
+    // $('#next-page-link')[0].removeAttribute("disabled");
+  }
   var comments_template_source = "{{#each this}}<comment>" +
        unescape(document.getElementById("comment_template").innerHTML)
        .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +

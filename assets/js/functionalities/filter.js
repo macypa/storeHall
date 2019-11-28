@@ -57,34 +57,36 @@ add_events(".auto-submit-item", "change", function() {
 });
 
 channel.on("filtered_items", payload => {
-  if (payload.filtered != "[]") {
-    var items_template_source = "{{#each this}}<item>" +
-         unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
-         "</item>{{/each}}";
-    var items_template = Handlebars.compile(items_template_source);
-
-    var json_payload = JSON.parse(payload.filtered)
-    json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
-
-    var filtered_items = items_template( json_payload )
-    if (payload.filter.indexOf("page=") == -1) {
-      document.querySelector("#items-listing").innerHTML =
-            document.getElementById("item_template").outerHTML
-            + filtered_items;
-    } else {
-      document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
-    }
-    update_next_page_link(payload.filter);
-
+  if (payload.filtered == "[]") {
+    $('#next-page-link').remove();
     // $('#next-page-link')[0].removeAttribute("disabled");
-    load_lazy_imgs();
-  } else {
-    // $('#next-page-link')[0].setAttribute("disabled", "disabled");
   }
+  var items_template_source = "{{#each this}}<item>" +
+       unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
+       "</item>{{/each}}";
+  var items_template = Handlebars.compile(items_template_source);
+
+  var json_payload = JSON.parse(payload.filtered)
+  json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
+
+  var filtered_items = items_template( json_payload )
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("#items-listing").innerHTML =
+          document.getElementById("item_template").outerHTML
+          + filtered_items;
+  } else {
+    document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
+  }
+  update_next_page_link(payload.filter);
+
+  load_lazy_imgs();
 })
 
 channel.on("filtered_users", payload => {
-
+  if (payload.filtered == "[]") {
+    $('#next-page-link').remove();
+    // $('#next-page-link')[0].removeAttribute("disabled");
+  }
   var users_template_source = "{{#each this}}<user>" +
        unescape(document.getElementById("user_template").innerHTML) +
        "</user>{{/each}}";
