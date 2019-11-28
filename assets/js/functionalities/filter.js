@@ -80,6 +80,7 @@ channel.on("filtered_items", payload => {
   update_next_page_link(payload.filter);
 
   load_lazy_imgs();
+  reload_next_items();
 })
 
 channel.on("filtered_users", payload => {

@@ -9,14 +9,25 @@ $('.page-link').on('click', e => {
   e.preventDefault();
 });
 
+load_next_items = function() {
+  var next_page_link = $('#next-page-link')[0];
+  if (next_page_link) {
+    channel_push_filter(next_page_link);
+    // $('#next-page-link')[0].setAttribute("disabled", "disabled");
+  }
+}
+
+window.reload_next_items = function() {
+  if ($("main").height() > $("#items-listing").height()) {
+    load_next_items();
+  }
+}
+
 jQuery(function($) {
+  reload_next_items();
   $('main').scroll(function() {
     if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
-      var next_page_link = $('#next-page-link')[0];
-      if (next_page_link) {
-        channel_push_filter(next_page_link);
-        // $('#next-page-link')[0].setAttribute("disabled", "disabled");
-      }
+      load_next_items();
     }
   })
 });
