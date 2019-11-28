@@ -32,8 +32,8 @@ defmodule StoreHall.Comments do
     )
   end
 
-  def comment_template(%Item{}) do
-    %ItemComment{
+  defp comment_template_params() do
+    %{
       id: "{{id}}",
       author_id: "{{author_id}}",
       author: %{
@@ -58,29 +58,12 @@ defmodule StoreHall.Comments do
     }
   end
 
+  def comment_template(%Item{}) do
+    %ItemComment{} |> Map.merge(comment_template_params())
+  end
+
   def comment_template(%User{}) do
-    %UserComment{
-      id: "{{id}}",
-      author_id: "{{author_id}}",
-      author: %{
-        id: "{{author.id}}",
-        image: "{{author.image}}",
-        details: %{
-          "rating" => %{"score" => "{{author.details.rating.score}}"}
-        }
-      },
-      user_id: "{{user_id}}",
-      user: %{
-        id: "{{author.id}}",
-        image: "{{author.image}}"
-      },
-      author_id: "{{author_id}}",
-      inserted_at: "{{inserted_at}}",
-      updated_at: "{{updated_at}}",
-      details: %{
-        "comment_template_tag_id" => "comment_template"
-      }
-    }
+    %UserComment{} |> Map.merge(comment_template_params())
   end
 
   def list_comments(
