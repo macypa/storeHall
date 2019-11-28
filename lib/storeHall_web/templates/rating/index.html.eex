@@ -7,7 +7,7 @@
   <% end %>
 </ratings>
 
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @ratings, add_params: "more_ratings" %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @ratings, add_params: "ratings" %>
 
 <h3><%= Gettext.gettext("Add Rating") %></h3>
 <%= render  "form.html", rating: @rating_template%>

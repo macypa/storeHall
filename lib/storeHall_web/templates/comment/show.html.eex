@@ -26,10 +26,12 @@
 
   <actions>
 
-    <%= render_shared "reactions.html", topic_prefix: "reply_", react_to: %{type: "comment", id: @comment.id, author_id: @comment.author_id} %>
+    <%= render_shared "reactions.html",
+      topic_prefix: "reply_",
+      react_to: %{type: "comment", id: @comment.id, author_id: @comment.author_id} %>
 
     <%= render StoreHallWeb.CommentView, "form.html",
-                comment: Map.put(@comment, :comment_id, @comment.id)%>
+      comment: Map.put(@comment, :comment_id, @comment.id)%>
 
   </actions>
   <replies>

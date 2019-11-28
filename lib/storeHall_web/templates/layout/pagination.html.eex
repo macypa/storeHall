@@ -1,11 +1,12 @@
 
 <% page_params = @conn.params
     |> Map.delete("page")
-    |> Plug.Conn.Query.encode()
-    |> case do
-        "" -> ""
-        params -> params <> "&" <> @add_params <> "&"
-      end %>
+    |> Plug.Conn.Query.encode() %>
+
+<% anchor = case @add_params do
+  "" -> ""
+  a -> "&more_" <> @add_params <> "##{a}"
+end %>
 
 <% per_page = case @conn.params["per-page"] do
   nil -> 1
@@ -19,37 +20,9 @@ end %>
 
 <ul class="pagination">
 
-  <%= for page <- 1..current_page do %>
-    <%= case page do %>
-
-      <% p when p == 1 and current_page > 1 -> %>
-        <li class="page-item">
-          <a class="page-link" href="?<%= page_params %>page=1" rel="first">1</a>
-        </li>
-
-      <% p when p < current_page-1-per_page -> %>
-
-      <% p when p < current_page-1 and p > 0 -> %>
-        <li class="page-item">
-          <a class="page-link" href="?<%= page_params %>page=<%= p %>" ><%= p %></a>
-        </li>
-
-      <% p when current_page-1 == p -> %>
-        <li class="page-item">
-          <a class="page-link" href="?<%= page_params %>page=<%= p %>" rel="prev"><%= p %></a>
-        </li>
-
-      <% _p -> %>
-    <% end %>
-  <% end %>
-
-  <%= unless current_page == 1 do %>
-    <li class="page-item active"><a class="page-link"><%= current_page %></a></li>
-  <% end %>
-
   <%= unless length(@model) < per_page do %>
       <li class="page-item">
-        <a id="next-page-link" class="page-link" href="?<%= page_params %>page=<%= current_page+1 %>" rel="next"><%= Gettext.gettext("show more") %></a>
+        <a id="next-page-link" class="page-link" href="?<%= page_params %>&page=<%= current_page+1 %><%= anchor %>" rel="next"><%= Gettext.gettext("show more") %></a>
       </li>
   <% end %>
 

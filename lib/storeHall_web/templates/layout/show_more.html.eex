@@ -9,5 +9,5 @@
       end %>
 
 <span class="load-more-topic" id="<%= @add_params %>">
-  <button load-more-topic="filter" params="?<%= params %>" >&gt;<%= Gettext.gettext("read more") %>&gt;</button>
+  <button load-more-topic="filter" params="?<%= params %>" ><%= Gettext.gettext("read more") %></button>
 </span>

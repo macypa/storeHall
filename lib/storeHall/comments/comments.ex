@@ -27,7 +27,6 @@ defmodule StoreHall.Comments do
             current_user_id,
             params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
           )
-          |> DefaultFilter.paging_filter(params)
           |> Repo.all()
       ]
     )
@@ -98,7 +97,6 @@ defmodule StoreHall.Comments do
       current_user_id,
       params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
     )
-    |> DefaultFilter.paging_filter(params)
     |> Repo.all()
   end
 
@@ -109,6 +107,7 @@ defmodule StoreHall.Comments do
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)
+    |> DefaultFilter.paging_filter(params |> Map.put_new("page-size", "3"))
   end
 
   def where_comment_id(query, _params, comment_id) do

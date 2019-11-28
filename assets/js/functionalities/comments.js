@@ -1,7 +1,7 @@
 
 function add_comment_events() {
   add_events("[comment-topic]", "click", function() {
-    var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+    var body_field_value = this.parentNode.getElementsByClassName("comment-textarea")[0].value
     var comment_field_value = JSON.parse(this.parentNode.getElementsByClassName("comment")[0].value)
     comment_field_value.details = {}
     comment_field_value.details.body = body_field_value
@@ -63,4 +63,27 @@ channel.on("show_more_comments", payload => {
   load_lazy_imgs();
   add_load_more_events();
   add_comment_events();
+})
+
+//import comments_template from "../hbs/comments.hbs"
+channel.on("filtered_comments", payload => {
+
+  var comments_template_source = "{{#each this}}<comment>" +
+       unescape(document.getElementById("comment_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</comment>{{/each}}";
+  var comments_template = Handlebars.compile(comments_template_source);
+
+  var filtered_comments = comments_template( JSON.parse(payload.filtered) )
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("comments").innerHTML = filtered_comments;
+  } else {
+    document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
+  }
+
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+  add_comment_events();
+  update_next_page_link(payload.filter);
 })

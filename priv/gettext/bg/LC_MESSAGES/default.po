@@ -281,12 +281,12 @@ msgstr "Всички съобщения"
 #, elixir-format
 #: lib/storeHall_web/templates/layout/show_more.html.eex:12
 msgid "read more"
-msgstr "повече"
+msgstr "покажи повече"
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/pagination.html.eex:52
 msgid "show more"
-msgstr "повече"
+msgstr "покажи повече"
 
 #, elixir-format
 #: lib/storeHall_web/templates/comment/index.html.eex:12

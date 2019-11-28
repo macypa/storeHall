@@ -1,4 +1,7 @@
 
+<h3><%= Gettext.gettext("Add Comment") %></h3>
+<%= render "form.html", comment: @comment_template %>
+
 <h1><%= Gettext.gettext("Listing Comments") %></h1>
 
 <comments>
@@ -7,7 +10,4 @@
   <% end %>
 </comments>
 
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @comments, add_params: "more_comments" %>
-
-<h3><%= Gettext.gettext("Add Comment") %></h3>
-<%= render "form.html", comment: @comment_template %>
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @comments, add_params: "comments" %>
