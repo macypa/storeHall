@@ -7,7 +7,10 @@ function add_comment_events() {
     comment_field_value.details.body = body_field_value
     channel.push(this.getAttribute("comment-topic"), { data: comment_field_value })
 
-    show_hide(this.parentNode.getAttribute("id"))
+    this.parentNode.getElementsByClassName("comment-textarea")[0].value = "";
+    $(".hidable-form").each(function(  ) {
+      $(this).hide();
+    });
   });
 }
 add_comment_events();
@@ -24,7 +27,7 @@ channel.on("new_comment", payload => {
   var new_comment_html = comment_template( JSON.parse(payload.new_comment) )
 
   if (payload.comment_parent_id == null) {
-    document.querySelector("comments").insertAdjacentHTML( 'beforeend', new_comment_html)
+    document.querySelector("comments").insertAdjacentHTML( 'afterbegin', new_comment_html)
   } else {
     var comment_parent = document.querySelector("#comment-" + payload.comment_parent_id).parentNode.parentNode
     if (comment_parent !== null) {
@@ -41,7 +44,7 @@ channel.on("new_comment", payload => {
   add_comment_events();
 })
 
-channel.on("show_more_comments", payload => {
+channel.on("show_for_comment", payload => {
 
   var comments_template_source = "{{#each this}}<comment>" +
        unescape(document.getElementById("comment_template").innerHTML)

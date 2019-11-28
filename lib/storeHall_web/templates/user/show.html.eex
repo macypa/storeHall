@@ -46,7 +46,7 @@
     <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
       id: nil,
       user_id: @user.id,
-      scores: %{}
+      details: %{}
     } %>
   </div>
 

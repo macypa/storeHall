@@ -23,10 +23,7 @@ defmodule StoreHall.Comments do
         comment_template(item_user)
         | Ecto.assoc(item_user, :comments)
           |> where([c], is_nil(c.comment_id))
-          |> apply_filters(
-            current_user_id,
-            params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
-          )
+          |> apply_filters(current_user_id, params)
           |> Repo.all()
       ]
     )
@@ -82,10 +79,7 @@ defmodule StoreHall.Comments do
     module.get!(id)
     |> Ecto.assoc(:comments)
     |> where([c], is_nil(c.comment_id))
-    |> apply_filters(
-      current_user_id,
-      params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
-    )
+    |> apply_filters(current_user_id, params)
     |> Repo.all()
   end
 
@@ -95,8 +89,8 @@ defmodule StoreHall.Comments do
     |> preload([:author])
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.hide_guests_filter(current_user_id)
-    |> DefaultFilter.sort_filter(params)
-    |> DefaultFilter.paging_filter(params |> Map.put_new("page-size", "3"))
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
+    |> DefaultFilter.paging_filter(params)
   end
 
   def where_comment_id(query, _params, comment_id) do
@@ -130,7 +124,7 @@ defmodule StoreHall.Comments do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert}
+        {:ok, multi.insert |> Repo.preload(:author)}
 
       {:error, _op, value, _changes} ->
         {:error, value}

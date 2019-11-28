@@ -24,7 +24,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "page_more" => "comments" <> _},
+        %{"data" => filter, "page_for" => "comments" <> _},
         socket
       ) do
     filtered =
@@ -41,7 +41,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "page_more" => "ratings" <> _},
+        %{"data" => filter, "page_for" => "ratings" <> _},
         socket
       ) do
     filtered =
@@ -58,7 +58,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "show_more" => _},
+        %{"data" => filter, "show_for" => "comment" <> _},
         socket
       ) do
     filtered =
@@ -68,7 +68,27 @@ defmodule StoreHallWeb.ItemsChannel do
         filter |> Plug.Conn.Query.decode()
       )
 
-    push(socket, "show_more_comments", %{
+    push(socket, "show_for_comment", %{
+      filter: filter,
+      filtered: Jason.encode!(filtered)
+    })
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter, "show_for" => "rating" <> _},
+        socket
+      ) do
+    filtered =
+      Ratings.list_ratings(
+        Items,
+        socket.assigns.current_user_id,
+        filter |> Plug.Conn.Query.decode()
+      )
+
+    push(socket, "show_for_rating", %{
       filter: filter,
       filtered: Jason.encode!(filtered)
     })
@@ -98,10 +118,7 @@ defmodule StoreHallWeb.ItemsChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case Comments.create_item_comment(
-               comment
-               |> Map.put("author_id", socket.assigns.current_user_id)
-             ) do
+        case Comments.create_item_comment(comment |> Map.put("author_id", logged_user)) do
           {:ok, comment} ->
             broadcast!(
               socket,
@@ -133,6 +150,7 @@ defmodule StoreHallWeb.ItemsChannel do
               socket,
               "new_rating",
               %{
+                rating_parent_id: rating.rating_id,
                 new_rating: Jason.encode!(rating)
               }
             )

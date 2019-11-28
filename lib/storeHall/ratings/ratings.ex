@@ -22,40 +22,64 @@ defmodule StoreHall.Ratings do
       [
         rating_template(item_user)
         | Ecto.assoc(item_user, :ratings)
+          |> where([r], is_nil(r.rating_id))
           |> apply_filters(current_user_id, params)
           |> Repo.all()
       ]
     )
   end
 
-  def rating_template(%Item{}) do
-    %ItemRating{
+  defp rating_template_params() do
+    %{
       id: "{{id}}",
       author_id: "{{author_id}}",
+      author: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}",
+        details: %{
+          "rating" => %{"score" => "{{author.details.rating.score}}"}
+        }
+      },
+      user_id: "{{user_id}}",
+      user: %{
+        id: "{{author.id}}",
+        image: "{{author.image}}"
+      },
       item_id: "{{item_id}}",
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",
       details: %{
-        "rating_template_tag_id" => "rating_template"
+        "rating_template_tag_id" => "rating_template",
+        "scores" => "{{details.scores}}",
+        "body" => "{{details.body}}"
       }
     }
   end
 
+  def rating_template(%Item{}) do
+    %ItemRating{} |> Map.merge(rating_template_params())
+  end
+
   def rating_template(%User{}) do
-    %UserRating{
-      id: "{{id}}",
-      author_id: "{{author_id}}",
-      inserted_at: "{{inserted_at}}",
-      updated_at: "{{updated_at}}",
-      details: %{
-        "rating_template_tag_id" => "rating_template"
-      }
-    }
+    %UserRating{} |> Map.merge(rating_template_params())
+  end
+
+  def list_ratings(
+        module,
+        current_user_id,
+        params = %{"id" => id, "show_for_rating_id" => rating_id}
+      ) do
+    module.get!(id)
+    |> Ecto.assoc(:ratings)
+    |> where_rating_id(params, rating_id)
+    |> apply_filters(current_user_id, params)
+    |> Repo.all()
   end
 
   def list_ratings(module, current_user_id, params = %{"id" => id}) do
     module.get!(id)
     |> Ecto.assoc(:ratings)
+    |> where([r], is_nil(r.rating_id))
     |> apply_filters(current_user_id, params)
     |> Repo.all()
   end
@@ -64,19 +88,30 @@ defmodule StoreHall.Ratings do
     item_user
     |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
-    |> DefaultFilter.paging_filter(params)
-    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.min_author_rating_filter(current_user_id)
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
+    |> DefaultFilter.paging_filter(params)
+  end
+
+  def where_rating_id(query, _params, rating_id) do
+    query
+    |> where(rating_id: ^parse_rating_id(rating_id))
+  end
+
+  def parse_rating_id(id) do
+    {id, _} = to_string(id) |> Integer.parse()
+    id
   end
 
   def create_item_rating(rating \\ %{}) do
     Multi.new()
-    |> update_item_rating(rating["item_id"])
+    |> update_or_not_item_rating(rating)
     |> Multi.insert(:insert, ItemRating.changeset(%ItemRating{}, rating))
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert, multi.calc_item_rating, multi.calc_user_rating}
+        {:ok, multi.insert |> Repo.preload(:author), multi.calc_item_rating,
+         multi.calc_user_rating}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -85,15 +120,37 @@ defmodule StoreHall.Ratings do
 
   def create_user_rating(rating \\ %{}) do
     Multi.new()
-    |> update_user_rating(rating["user_id"], rating)
+    |> update_or_not_user_rating(rating)
     |> Multi.insert(:insert, UserRating.changeset(%UserRating{}, rating))
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert, multi.calc_user_rating}
+        {:ok, multi.insert |> Repo.preload(:author), multi.calc_user_rating}
 
       {:error, _op, value, _changes} ->
         {:error, value}
+    end
+  end
+
+  defp update_or_not_item_rating(multi, rating) do
+    case rating["rating_id"] do
+      nil ->
+        multi
+        |> update_item_rating(rating["item_id"], rating)
+
+      _ ->
+        multi
+    end
+  end
+
+  defp update_or_not_user_rating(multi, rating) do
+    case rating["rating_id"] do
+      nil ->
+        multi
+        |> update_user_rating(rating["user_id"], rating)
+
+      _ ->
+        multi
     end
   end
 

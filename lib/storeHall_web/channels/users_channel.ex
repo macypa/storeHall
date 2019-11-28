@@ -25,7 +25,7 @@ defmodule StoreHallWeb.UsersChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "page_more" => "comments" <> _},
+        %{"data" => filter, "page_for" => "comments" <> _},
         socket
       ) do
     filtered =
@@ -42,7 +42,7 @@ defmodule StoreHallWeb.UsersChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "page_more" => "ratings" <> _},
+        %{"data" => filter, "page_for" => "ratings" <> _},
         socket
       ) do
     filtered =
@@ -59,7 +59,7 @@ defmodule StoreHallWeb.UsersChannel do
 
   def handle_in(
         "filter",
-        %{"data" => filter, "show_more" => _},
+        %{"data" => filter, "show_for" => "comment" <> _},
         socket
       ) do
     filtered =
@@ -69,7 +69,24 @@ defmodule StoreHallWeb.UsersChannel do
         filter |> Plug.Conn.Query.decode()
       )
 
-    push(socket, "show_more_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
+    push(socket, "show_for_comment", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter, "show_for" => "rating" <> _},
+        socket
+      ) do
+    filtered =
+      Ratings.list_ratings(
+        Users,
+        socket.assigns.current_user_id,
+        filter |> Plug.Conn.Query.decode()
+      )
+
+    push(socket, "show_for_rating", %{filter: filter, filtered: Jason.encode!(filtered)})
 
     {:reply, :ok, socket}
   end
@@ -168,19 +185,22 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => comment},
         socket
       ) do
-    case Comments.create_user_comment(
-           comment
-           |> Map.put("author_id", socket.assigns.current_user_id)
-         ) do
-      {:ok, comment} ->
-        broadcast!(
-          socket,
-          "new_comment",
-          %{
-            comment_parent_id: comment.comment_id,
-            new_comment: Jason.encode!(comment)
-          }
-        )
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
+
+      logged_user ->
+        case Comments.create_user_comment(comment |> Map.put("author_id", logged_user)) do
+          {:ok, comment} ->
+            broadcast!(
+              socket,
+              "new_comment",
+              %{
+                comment_parent_id: comment.comment_id,
+                new_comment: Jason.encode!(comment)
+              }
+            )
+        end
     end
 
     {:reply, :ok, socket}
@@ -202,6 +222,7 @@ defmodule StoreHallWeb.UsersChannel do
               socket,
               "new_rating",
               %{
+                rating_parent_id: rating.rating_id,
                 new_rating: Jason.encode!(rating)
               }
             )

@@ -1,0 +1,115 @@
+
+.rating-button {
+  background-color: $baseColor;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.rating-textarea {
+	width: 99%;
+	max-width: 99%;
+}
+
+ratings {
+
+	rating {
+
+	  display: grid;
+    grid-template-columns: min-content min-content 1fr;
+	  grid-template-areas:
+			'avatar author time .'
+			'avatar text text text'
+			'avatar actions actions actions'
+			'avatar replies replies replies';
+		padding: 0.3em;
+
+	  a {
+	    text-decoration: none;
+	    color: black;
+	  }
+
+		avatar {
+			grid-area: avatar;
+			padding: 0.2em;
+
+			img {
+				max-width: 3em;
+				border-radius: 50%;
+			}
+		}
+
+		author {
+			grid-area: author;
+
+			font-size: 1em;
+			font-weight: 700;
+
+      rating {
+  			font-size: 0.5em;
+  			font-weight: 400;
+      }
+		}
+
+		time {
+			grid-area: time;
+		  // text-align: left;
+
+			font-size: 0.9em;
+			padding-left: 0.5em;
+		}
+
+		text {
+			grid-area: text;
+			max-height: 80vh;
+			overflow: auto;
+
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+			white-space: pre-wrap;
+
+			word-break: break-word;
+		  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+		  -ms-hyphens: auto;
+		  -moz-hyphens: auto;
+		  -webkit-hyphens: auto;
+		  hyphens: auto;
+		}
+
+		actions{
+			grid-area: actions;
+
+			rating-form {
+				textarea {
+					width: 99%;
+				}
+			}
+		}
+
+		replies {
+			grid-area: replies;
+
+			button {
+				text-decoration: none;
+	      background-color: Transparent;
+				border: none;
+			}
+
+			avatar {
+				img {
+					max-width: 2em;
+				}
+			}
+		}
+	}
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+}

@@ -54,7 +54,7 @@
       id: nil,
       item_id: @item.id,
       user_id: @item.user_id,
-      scores: %{}
+      details: %{}
     } %>
 
   </div>

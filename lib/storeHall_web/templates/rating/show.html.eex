@@ -3,5 +3,50 @@
 <% else %>
   <rating>
 <% end %>
-  <rating-body><%= @rating.id %>:<%= @rating.author_id %> - <%= @rating.details %></rating-body>
+
+  <avatar>
+    <%= link to: Routes.user_path(@conn, :show, @rating.author_id || "") do %>
+      <img class="lazy" data-src="<%= @rating.author.image %>" />
+    <% end %>
+  </avatar>
+
+  <author>
+    <%= link to: Routes.user_path(@conn, :show, @rating.author_id || ""), class: "author" do %>
+      <%= @rating.author_id %>
+    <% end %>
+
+    <rating>
+      <%= Gettext.gettext("Rating") %>:
+      <span class="user-rating-score">
+        <%= @rating.author.details["rating"]["score"] %>
+      </span>
+    </rating>
+  </author>
+
+  <time class="timeago" datetime="<%=  @rating.inserted_at %>">
+    <%= @rating.inserted_at  %>
+  </time>
+
+  <text>
+    <%= @rating.details["body"] %>
+      <%= @rating.details["scores"] %>
+  </text>
+
+  <actions>
+
+    <%= render_shared "reactions.html",
+      topic_prefix: "reply_",
+      react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id} %>
+
+    <%= render StoreHallWeb.RatingView, "form.html",
+      rating: Map.put(@rating, :rating_id, @rating.id)%>
+
+  </actions>
+  <replies>
+    <%= render StoreHallWeb.LayoutView,
+            "show_more.html",
+            conn: @conn,
+            model: @rating,
+            add_params: "show_for_rating_id=#{@rating.id}" %>
+  </replies>
 </rating>

@@ -1,13 +1,13 @@
 
+<h3><%= Gettext.gettext("Add Rating") %></h3>
+<%= render "form.html", rating: @rating_template %>
+
 <h1><%= Gettext.gettext("Ratings") %></h1>
 
 <ratings>
   <%= for rating <- @ratings do %>
-    <%= render  "show.html", rating: rating %>
+    <%= render  "show.html", rating: rating, conn: @conn %>
   <% end %>
 </ratings>
 
 <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @ratings, add_params: "ratings" %>
-
-<h3><%= Gettext.gettext("Add Rating") %></h3>
-<%= render  "form.html", rating: @rating_template%>

@@ -7,7 +7,7 @@ channel.on("update_rating", payload => {
 
 function add_rating_events() {
   add_events("[rating-topic]", "click", function() {
-    var body_field_value = this.parentNode.getElementsByClassName("body")[0].value
+    var body_field_value = this.parentNode.getElementsByClassName("rating-textarea")[0].value
     var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
     var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
 
@@ -15,11 +15,15 @@ function add_rating_events() {
     rating_field_value.details.body = body_field_value
     rating_field_value.details.scores = JSON.parse(scores_field_value)
     channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
+
+    this.parentNode.getElementsByClassName("comment-textarea")[0].value = "";
+    $(".hidable-form").each(function(  ) {
+      $(this).hide();
+    });
   });
 }
 add_rating_events();
 
-//import rating_template from "../hbs/rating.hbs"
 channel.on("new_rating", payload => {
 
   var rating_template_source = "<rating>" +
@@ -30,7 +34,45 @@ channel.on("new_rating", payload => {
 
   var new_rating_html = rating_template( JSON.parse(payload.new_rating) )
 
-  document.querySelector("ratings").insertAdjacentHTML( 'beforeend', new_rating_html);
+  if (payload.rating_parent_id == null || payload.rating_parent_id == -1) {
+    document.querySelector("ratings").insertAdjacentHTML( 'afterbegin', new_rating_html)
+  } else {
+    var rating_parent = document.querySelector("#rating-" + payload.rating_parent_id).parentNode.parentNode
+    if (rating_parent !== null) {
+      rating_parent.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', new_rating_html)
+    }
+  }
+
+  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_rating_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, "") )
+  update_notifications_counter_alert()
+
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+  add_rating_events();
+})
+
+channel.on("show_for_rating", payload => {
+
+  var ratings_template_source = "{{#each this}}<rating>" +
+       unescape(document.getElementById("rating_template").innerHTML)
+       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+       "</rating>{{/each}}";
+  var ratings_template = Handlebars.compile(ratings_template_source);
+
+  var filtered_ratings = ratings_template(JSON.parse(payload.filtered) )
+  if (payload.filter.indexOf("show_for_rating_id=") == -1) {
+    document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
+  } else {
+    var rating_id = payload.filter.match("show_for_rating_id=\\d+");
+    var link_node = document.getElementById(rating_id)
+    link_node.innerHTML = "";
+    link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', filtered_ratings);
+  }
+
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
   add_rating_events();
 })
 
@@ -52,6 +94,10 @@ channel.on("filtered_ratings", payload => {
   } else {
     document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
   }
+
+  timeago();
   load_lazy_imgs();
+  add_load_more_events();
+  add_rating_events();
   update_next_page_link(payload.filter);
 })

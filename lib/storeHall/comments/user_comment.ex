@@ -3,7 +3,16 @@ defmodule StoreHall.Comments.UserComment do
   import Ecto.Changeset
 
   @derive {Jason.Encoder,
-           only: [:id, :comment_id, :details, :user_id, :author_id, :inserted_at, :updated_at]}
+           only: [
+             :id,
+             :comment_id,
+             :details,
+             :user_id,
+             :author_id,
+             :inserted_at,
+             :updated_at,
+             :author
+           ]}
   schema "user_comments" do
     belongs_to :author, StoreHall.Users.User, type: :string
     belongs_to :user, StoreHall.Users.User, type: :string
