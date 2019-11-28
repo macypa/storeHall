@@ -38,7 +38,10 @@ defmodule StoreHall.Comments do
       author_id: "{{author_id}}",
       author: %{
         id: "{{author.id}}",
-        image: "{{author.image}}"
+        image: "{{author.image}}",
+        details: %{
+          "rating" => %{"score" => "{{author.details.rating.score}}"}
+        }
       },
       user_id: "{{user_id}}",
       user: %{
@@ -61,7 +64,10 @@ defmodule StoreHall.Comments do
       author_id: "{{author_id}}",
       author: %{
         id: "{{author.id}}",
-        image: "{{author.image}}"
+        image: "{{author.image}}",
+        details: %{
+          "rating" => %{"score" => "{{author.details.rating.score}}"}
+        }
       },
       user_id: "{{user_id}}",
       user: %{
