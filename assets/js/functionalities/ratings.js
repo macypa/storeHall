@@ -15,12 +15,14 @@ function on_rating_events() {
 function add_rating_events() {
   add_events("[rating-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("rating-textarea")[0].value
-    var scores_field_value = this.parentNode.getElementsByClassName("scores")[0].value
+    var scores_field = this.parentNode.getElementsByClassName("scores");
     var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
 
     rating_field_value.details = {}
     rating_field_value.details.body = body_field_value
-    rating_field_value.details.scores = JSON.parse(scores_field_value)
+    if (scores_field[0]) {
+      rating_field_value.details.scores = JSON.parse(scores_field[0].value)
+    }
     channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
 
     this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
