@@ -23,7 +23,7 @@ function add_rating_events() {
     rating_field_value.details.scores = JSON.parse(scores_field_value)
     channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
 
-    this.parentNode.getElementsByClassName("comment-textarea")[0].value = "";
+    this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
     $(".hidable-form").each(function(  ) {
       $(this).hide();
     });
