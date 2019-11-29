@@ -78,9 +78,6 @@ channel.on("filtered_items", payload => {
     document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
   }
   update_next_page_link(payload.filter);
-
-  load_lazy_imgs();
-  reload_next_items();
 })
 
 channel.on("filtered_users", payload => {
@@ -101,6 +98,5 @@ channel.on("filtered_users", payload => {
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
   }
-  load_lazy_imgs();
   update_next_page_link(payload.filter);
 })

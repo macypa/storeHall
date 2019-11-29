@@ -4,6 +4,13 @@ channel.on("update_rating", payload => {
   document.querySelector("#rating-count").innerText = parseInt(document.querySelector("#rating-count").innerText) + 1
 })
 
+function on_rating_events() {
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+  add_rating_events();
+}
+
 
 function add_rating_events() {
   add_events("[rating-topic]", "click", function() {
@@ -46,10 +53,7 @@ channel.on("new_rating", payload => {
   document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_rating_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, "") )
   update_notifications_counter_alert()
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_rating_events();
+  on_rating_events();
 })
 
 channel.on("show_for_rating", payload => {
@@ -70,10 +74,7 @@ channel.on("show_for_rating", payload => {
     link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', filtered_ratings);
   }
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_rating_events();
+  on_rating_events();
 })
 
 // import ratings_template from "../hbs/ratings.hbs"
@@ -95,9 +96,6 @@ channel.on("filtered_ratings", payload => {
     document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
   }
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_rating_events();
+  on_rating_events();
   update_next_page_link(payload.filter);
 })

@@ -13,14 +13,14 @@ load_next_items = function() {
   var next_page_link = $('#next-page-link')[0];
   if (next_page_link) {
     channel_push_filter(next_page_link);
-    // $('#next-page-link')[0].setAttribute("disabled", "disabled");
   }
 }
 
-window.reload_next_items = function() {
+reload_next_items = function() {
   if ($("main").height() > $("#items-listing").height()) {
     load_next_items();
   }
+  load_lazy_imgs();
 }
 
 jQuery(function($) {
@@ -28,6 +28,8 @@ jQuery(function($) {
   $('main').scroll(function() {
     if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
       load_next_items();
+    } else {
+      load_lazy_imgs();
     }
   })
 });
@@ -51,4 +53,6 @@ window.update_next_page_link = function(filter_params) {
       return ++n;
     })
   }));
+
+  reload_next_items();
 }

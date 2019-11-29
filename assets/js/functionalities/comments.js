@@ -1,4 +1,11 @@
 
+function on_comment_events() {
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+  add_comment_events();
+}
+
 function add_comment_events() {
   add_events("[comment-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("comment-textarea")[0].value
@@ -38,10 +45,7 @@ channel.on("new_comment", payload => {
   document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_comment_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, "") )
   update_notifications_counter_alert()
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_comment_events();
+  on_comment_events();
 })
 
 channel.on("show_for_comment", payload => {
@@ -62,10 +66,7 @@ channel.on("show_for_comment", payload => {
     link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', filtered_comments);
   }
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_comment_events();
+  on_comment_events();
 })
 
 //import comments_template from "../hbs/comments.hbs"
@@ -87,9 +88,6 @@ channel.on("filtered_comments", payload => {
     document.querySelector("comments").insertAdjacentHTML( 'beforeend', filtered_comments);
   }
 
-  timeago();
-  load_lazy_imgs();
-  add_load_more_events();
-  add_comment_events();
+  on_comment_events();
   update_next_page_link(payload.filter);
 })
