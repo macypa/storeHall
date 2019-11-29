@@ -33,12 +33,12 @@
         <div class="range-slider">
           <div class="rangeValues">
             <%= number_input f, :price_min,
-              class: "min auto-submit-item",
+              class: "min",
               min: 0, step: 1,
               name: "filter[price][min]",
               value: f.params["price"]["min"] || 0 %>
             <%= number_input f, :price_max,
-              class: "max auto-submit-item",
+              class: "max",
               min: 0, step: 1,
               name: "filter[price][max]",
               value: f.params["price"]["max"] %>
@@ -46,12 +46,12 @@
           <div class="rangeSliders">
             <%= range_input f, :price_min,
               min: 0, max: 1000, step: 1,
-              class: "min-slider",
+              class: "min-slider auto-submit-item",
               value: f.params["price"]["min"] || 0 %>
 
             <%= range_input f, :price_max,
               min: 0, max: 1000, step: 1,
-              class: "max-slider",
+              class: "max-slider auto-submit-item",
               value: f.params["price"]["max"] || 1000 %>
           </div>
         </div>
@@ -67,23 +67,23 @@
         <div class="range-slider">
           <div class="rangeValues">
             <%= number_input f, :rating_min,
-              class: "min auto-submit-item",
+              class: "min",
               step: 1,
               name: "filter[rating][min]",
               value: f.params["rating"]["min"] || 0 %>
             <%= number_input f, :rating_max,
-              class: "max auto-submit-item",
+              class: "max",
               step: 1,
               name: "filter[rating][max]",
               value: f.params["rating"]["max"] %>
           </div>
           <div class="rangeSliders">
             <%= range_input f, :rating_min,
-              class: "min-slider",
+              class: "min-slider auto-submit-item",
               min: 0, step: 1,
               value: f.params["rating"]["min"] || 0 %>
             <%= range_input f, :rating_max,
-              class: "max-slider",
+              class: "max-slider auto-submit-item",
               min: 0, step: 1,
               value: f.params["rating"]["max"] || 100 %>
           </div>

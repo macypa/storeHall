@@ -25,7 +25,7 @@ function setVals(){
   slides[3].value = field_max.value;
 
   //need to trigger for only one of the inputs
-  $(parent.getElementsByClassName("min")[0]).trigger('change');
+  $(parent.getElementsByClassName("min-slider")[0]).trigger('change');
 }
 
 function getVals(){
@@ -56,9 +56,10 @@ function getVals(){
   }
 
   var displayElement = parent.parentNode.getElementsByClassName("rangeValues")[0];
-  displayElement.getElementsByClassName("min")[0].value = slide1;
-  displayElement.getElementsByClassName("max")[0].value = slide2;
-
-  //need to trigger for only one of the inputs
-  $(displayElement.getElementsByClassName("min")[0]).trigger('change');
+  if (displayElement.getElementsByClassName("min")[0].value != slide1) {
+    displayElement.getElementsByClassName("min")[0].value = slide1;
+  }
+  if (displayElement.getElementsByClassName("max")[0].value != slide2) {
+    displayElement.getElementsByClassName("max")[0].value = slide2;
+  }
 }
