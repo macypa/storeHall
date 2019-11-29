@@ -40,7 +40,7 @@ $( document ).ready(function() {
   for (let select_container of selects_containers) {
     var select = select_container.getElementsByTagName("select")[0];
     var input_field = select.parentElement.parentElement.querySelector(".select7_input");
-    select.oninput = function(){Select7.add(this, event)};
+    select.onchange = function(){Select7.add(this, event)};
     select.innerHTML = "<option value='' class='select7_hide'>filler</option>" + select.innerHTML;
 
     //let input = document.createRange().createContextualFragment('<input class="select7_input auto-submit-item" name="'+ select.name +'" type="hidden">');
