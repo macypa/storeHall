@@ -18,6 +18,7 @@ import css from "../css/app.scss"
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
+import helpers from "./helpers"
 import theme from "./theme"
 import socket from "./socket"
 

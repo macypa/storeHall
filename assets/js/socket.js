@@ -59,20 +59,6 @@ Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
 });
 
-window.add_events = function(selector, on_event, fun) {
-  Array.from(document.querySelectorAll(selector)).forEach(function(element) {
-    if (on_event == "click") {
-      element.onclick = fun;
-    }
-    if (on_event == "change") {
-      element.onchange = fun;
-    }
-    if (on_event == "load") {
-      element.onload = fun;
-    }
-  });
-};
-
 window.channel_user = socket.channel(window.loggedUserChannel, {})
 channel_user.join()
   .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })

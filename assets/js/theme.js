@@ -19,15 +19,6 @@ window.load_lazy_imgs = function() {
   });
 };
 
-window.show_hide = function(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
 $( document ).ready(function() {
   var form = $('#form-filter');
   var urlParams = new URLSearchParams(window.location.search);
@@ -38,11 +29,6 @@ $( document ).ready(function() {
       }
   }
 });
-
-window.local_time_zone = function() {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-
 
 import formatDistance from 'date-fns/formatDistance';
 import format from 'date-fns/format';
