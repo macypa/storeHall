@@ -145,6 +145,16 @@ defmodule StoreHallWeb.ItemsChannel do
 
       logged_user ->
         case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
+          {:ok, rating} ->
+            broadcast!(
+              socket,
+              "new_rating",
+              %{
+                rating_parent_id: rating.rating_id,
+                new_rating: Jason.encode!(rating)
+              }
+            )
+
           {:ok, rating, item_rating, user_rating} ->
             broadcast!(
               socket,

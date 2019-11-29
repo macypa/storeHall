@@ -23,7 +23,10 @@ defmodule StoreHall.Ratings do
         rating_template(item_user)
         | Ecto.assoc(item_user, :ratings)
           |> where([r], is_nil(r.rating_id))
-          |> apply_filters(current_user_id, params)
+          |> apply_filters(
+            current_user_id,
+            params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
+          )
           |> Repo.all()
       ]
     )
@@ -80,7 +83,10 @@ defmodule StoreHall.Ratings do
     module.get!(id)
     |> Ecto.assoc(:ratings)
     |> where([r], is_nil(r.rating_id))
-    |> apply_filters(current_user_id, params)
+    |> apply_filters(
+      current_user_id,
+      params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
+    )
     |> Repo.all()
   end
 
@@ -89,7 +95,7 @@ defmodule StoreHall.Ratings do
     |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
     |> DefaultFilter.min_author_rating_filter(current_user_id)
-    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
+    |> DefaultFilter.sort_filter(params)
     |> DefaultFilter.paging_filter(params)
   end
 
@@ -110,8 +116,14 @@ defmodule StoreHall.Ratings do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Repo.preload(:author), multi.calc_item_rating,
-         multi.calc_user_rating}
+        case Map.has_key?(multi, :calc_item_rating) do
+          true ->
+            {:ok, multi.insert |> Repo.preload(:author), multi.calc_item_rating,
+             multi.calc_user_rating}
+
+          _ ->
+            {:ok, multi.insert |> Repo.preload(:author)}
+        end
 
       {:error, _op, value, _changes} ->
         {:error, value}
