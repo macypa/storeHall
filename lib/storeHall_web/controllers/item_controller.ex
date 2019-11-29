@@ -3,7 +3,6 @@ defmodule StoreHallWeb.ItemController do
 
   alias StoreHallWeb.AuthController
   alias StoreHall.Items
-  alias StoreHall.Chats
   alias StoreHall.Items.Item
   alias StoreHall.Ratings
   alias StoreHall.Comments

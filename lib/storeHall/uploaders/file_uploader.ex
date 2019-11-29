@@ -21,7 +21,7 @@ defmodule StoreHall.FileUploader do
     {:magick, " -strip -thumbnail 150x150^ -gravity center -extent 150x150 -format png"}
   end
 
-  def filename(version, {file, item}) do
+  def filename(version, {file, _item}) do
     # name =
     #   item.details["tags"]
     #   |> Enum.map(fn x -> String.replace(x, ~r".*\/", "") end)

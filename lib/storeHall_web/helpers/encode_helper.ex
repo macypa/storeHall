@@ -46,7 +46,7 @@ defmodule StoreHall.EncodeHelper do
 end
 
 defimpl Jason.Encoder, for: Ecto.Association.NotLoaded do
-  def encode(struct, opts) do
+  def encode(_struct, _opts) do
     "{}"
   end
 end

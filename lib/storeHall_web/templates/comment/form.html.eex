@@ -1,7 +1,7 @@
 <%= case @comment.id do %>
-  <%= nil -> %>
+  <% nil -> %>
     <comment-form id="comment-<%=@comment.id%>">
-  <%= _ -> %>
+  <% _ -> %>
     <button class="comment-button" onclick='show_hide("comment-<%=@comment.id%>")'><%= Gettext.gettext("comment") %></button>
     <comment-form class="hidable-form" id="comment-<%=@comment.id%>" style="display: none">
 <% end %>
