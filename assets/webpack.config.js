@@ -36,6 +36,14 @@ module.exports = (env, options) => ({
           MiniCssExtractPlugin.loader,
           "css-loader",
           {
+            loader: 'postcss-loader',
+            options: {
+                plugins: () => [require('autoprefixer')({
+                  // 'grid': "autoplace"
+                })],
+            }
+          },
+          {
             loader: "sass-loader",
             options: {
               importer: globImporter()
