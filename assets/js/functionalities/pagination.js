@@ -1,6 +1,9 @@
 channel_push_filter = function(elem) {
   var next_page = elem.href.slice(elem.href.indexOf('?') + 1);
-  var page_for = elem.href.slice(elem.href.indexOf('&more_') + 6);
+  var page_for = "";
+  if (elem.href.indexOf('&more_') != -1) {
+    page_for = elem.href.slice(elem.href.indexOf('&more_') + 6);
+  }
   channel.push("filter", { data: next_page, page_for: page_for });
 }
 
@@ -10,9 +13,9 @@ $('.page-link').on('click', e => {
 });
 
 load_next_items = function() {
-  var next_page_link = $('#next-page-link')[0];
-  if (next_page_link) {
-    channel_push_filter(next_page_link);
+  var next_page_link = $('#next-page-link');
+  if (next_page_link.is(":visible")) {
+    channel_push_filter(next_page_link[0]);
   }
 }
 
@@ -45,14 +48,21 @@ window.add_load_more_events = function() {
 add_load_more_events();
 
 
-window.update_next_page_link = function(filter_params) {
-  filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
+window.update_next_page_link = function(payload) {
 
-  $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function(page_param) {
-    return page_param.replace(/\d+/, function(n) {
-      return ++n;
-    })
-  }));
+  if (payload.filtered == "[]") {
+    $('#next-page-link').hide();
+  } else {
+    filter_params = payload.filter;
+    filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
 
-  reload_next_items();
+    $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function(page_param) {
+      return page_param.replace(/\d+/, function(n) {
+        return ++n;
+      })
+    }));
+
+    $('#next-page-link').show();
+    reload_next_items();
+  }
 }

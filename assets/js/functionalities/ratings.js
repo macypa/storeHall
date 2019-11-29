@@ -79,10 +79,6 @@ channel.on("show_for_rating", payload => {
 
 // import ratings_template from "../hbs/ratings.hbs"
 channel.on("filtered_ratings", payload => {
-  if (payload.filtered == "[]") {
-    $('#next-page-link').remove();
-    // $('#next-page-link')[0].removeAttribute("disabled");
-  }
   var ratings_template_source = "{{#each this}}<rating>" +
        unescape(document.getElementById("rating_template").innerHTML)
        .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
@@ -97,5 +93,5 @@ channel.on("filtered_ratings", payload => {
   }
 
   on_rating_events();
-  update_next_page_link(payload.filter);
+  update_next_page_link(payload);
 })

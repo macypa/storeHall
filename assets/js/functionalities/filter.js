@@ -53,14 +53,9 @@ add_events(".auto-submit-item", "change", function() {
   window.history.pushState({filter_params_array: form.serializeArray(), filter_params: filter_params},
   document.title,
   (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
-  update_next_page_link(filter_params);
 });
 
 channel.on("filtered_items", payload => {
-  if (payload.filtered == "[]") {
-    $('#next-page-link').remove();
-    // $('#next-page-link')[0].removeAttribute("disabled");
-  }
   var items_template_source = "{{#each this}}<item>" +
        unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
        "</item>{{/each}}";
@@ -77,14 +72,10 @@ channel.on("filtered_items", payload => {
   } else {
     document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
   }
-  update_next_page_link(payload.filter);
+  update_next_page_link(payload);
 })
 
 channel.on("filtered_users", payload => {
-  if (payload.filtered == "[]") {
-    $('#next-page-link').remove();
-    // $('#next-page-link')[0].removeAttribute("disabled");
-  }
   var users_template_source = "{{#each this}}<user>" +
        unescape(document.getElementById("user_template").innerHTML) +
        "</user>{{/each}}";
@@ -98,5 +89,5 @@ channel.on("filtered_users", payload => {
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
   }
-  update_next_page_link(payload.filter);
+  update_next_page_link(payload);
 })
