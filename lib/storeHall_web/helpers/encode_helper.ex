@@ -45,12 +45,6 @@ defmodule StoreHall.EncodeHelper do
   end
 end
 
-defimpl Jason.Encoder, for: Ecto.Association.NotLoaded do
-  def encode(_struct, _opts) do
-    "{}"
-  end
-end
-
 defimpl Phoenix.HTML.Safe, for: Map do
   def to_iodata(data), do: data |> Jason.encode!() |> Plug.HTML.html_escape()
 end

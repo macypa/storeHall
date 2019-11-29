@@ -1,18 +1,18 @@
 <%= case @rating.id do %>
-  <%= nil -> %>
+  <% nil -> %>
     <rating-form id="rating-<%=@rating.id%>">
-  <%= _ -> %>
+  <% _ -> %>
     <button class="rating-button" onclick='show_hide("rating-<%=@rating.id%>")'><%= Gettext.gettext("comment") %></button>
     <rating-form class="hidable-form" id="rating-<%=@rating.id%>" style="display: none">
 <% end %>
       <textarea class="rating-textarea" type="text" name="body" value=""></textarea>
 
       <%= case @rating.id do %>
-        <%= nil -> %>
+        <% nil -> %>
           <%= Gettext.gettext("Scores") %>:
           <input class="scores" type="text" name="scores", value="<%= Jason.encode! @rating.details['scores'] || %{} %>">
-        <%= _ -> %>
-          
+        <% _ -> %>
+
       <% end %>
 
       <input class="rating" type="hidden" name="rating"
