@@ -1,1 +1,59 @@
-<%= Gettext.gettext("About Us") %>
+
+<show>
+  <%= Gettext.gettext("About Us") %>
+
+  <div id="info">
+
+    <ul>
+
+      <li>
+        <strong><%= Gettext.gettext("First name") %>:</strong>
+        <%= @user.first_name %>
+      </li>
+
+      <li>
+        <strong><%= Gettext.gettext("Last name") %>:</strong>
+        <%= @user.last_name %>
+      </li>
+
+      <li>
+        <strong><%= Gettext.gettext("Email") %>:</strong>
+        <%= @user.email %>
+      </li>
+
+      <li>
+        <strong><%= Gettext.gettext("Details") %>:</strong>
+        <%= @user.details %>
+      </li>
+
+      <li>
+        <strong><%= Gettext.gettext("Rating") %>:</strong>
+        <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
+      </li>
+
+    </ul>
+
+    <%= render_shared "reactions.html", topic_prefix: "", react_to: "" %>
+
+  </div>
+
+  <div id="contacts">
+    <%= render "contacts.html", conn: @conn, user: @user %>
+  </div>
+
+  <div id="comments">
+    <%= render StoreHallWeb.CommentView, "index.html", conn: @conn, comments: @user.comments, comment_template: %{
+      id: nil,
+      user_id: @user.id
+    } %>
+  </div>
+
+  <div id="ratings">
+    <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
+      id: nil,
+      user_id: @user.id,
+      details: %{}
+    } %>
+  </div>
+
+</show>

@@ -1,12 +1,18 @@
 defmodule StoreHallWeb.AboutController do
   use StoreHallWeb, :controller
 
-  def index(conn, _) do
-    render(conn, "index.html")
-  end
+  alias StoreHallWeb.AuthController
+  alias StoreHall.Users
+  alias StoreHall.Ratings
+  alias StoreHall.Comments
 
-  def contacts(conn, _) do
-    render(conn, "contacts.html")
+  def index(conn, params) do
+    user =
+      Users.get_user!(Application.get_env(:storeHall, :about)[:user_id])
+      |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
+      |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
+
+    render(conn, "index.html", user: user)
   end
 
   def terms(conn, _) do

@@ -3,6 +3,7 @@ defmodule StoreHallWeb.UserSocket do
 
   ## Channels
   channel "/*", StoreHallWeb.DefaultChannel
+  channel "/about*", StoreHallWeb.UsersChannel
   channel "/users*", StoreHallWeb.UsersChannel
   channel "/items*", StoreHallWeb.ItemsChannel
 

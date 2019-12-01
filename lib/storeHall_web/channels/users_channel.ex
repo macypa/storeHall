@@ -19,6 +19,16 @@ defmodule StoreHallWeb.UsersChannel do
     @topic_prefix
   end
 
+  defp decode_filter(filter) do
+    filter
+    |> Plug.Conn.Query.decode()
+    |> Map.merge(%{"id" => Application.get_env(:storeHall, :about)[:user_id]})
+  end
+
+  def join("/about" <> _id, _message, socket) do
+    {:ok, socket}
+  end
+
   def join(@topic_prefix <> _id, _message, socket) do
     {:ok, socket}
   end
@@ -32,7 +42,7 @@ defmodule StoreHallWeb.UsersChannel do
       Comments.list_comments(
         Users,
         socket.assigns.current_user_id,
-        filter |> Plug.Conn.Query.decode()
+        filter |> decode_filter
       )
 
     push(socket, "filtered_comments", %{filter: filter, filtered: Jason.encode!(filtered)})
@@ -49,7 +59,7 @@ defmodule StoreHallWeb.UsersChannel do
       Ratings.list_ratings(
         Users,
         socket.assigns.current_user_id,
-        filter |> Plug.Conn.Query.decode()
+        filter |> decode_filter
       )
 
     push(socket, "filtered_ratings", %{filter: filter, filtered: Jason.encode!(filtered)})
@@ -66,7 +76,7 @@ defmodule StoreHallWeb.UsersChannel do
       Comments.list_comments(
         Users,
         socket.assigns.current_user_id,
-        filter |> Plug.Conn.Query.decode()
+        filter |> decode_filter
       )
 
     push(socket, "show_for_comment", %{filter: filter, filtered: Jason.encode!(filtered)})
@@ -83,7 +93,7 @@ defmodule StoreHallWeb.UsersChannel do
       Ratings.list_ratings(
         Users,
         socket.assigns.current_user_id,
-        filter |> Plug.Conn.Query.decode()
+        filter |> decode_filter
       )
 
     push(socket, "show_for_rating", %{filter: filter, filtered: Jason.encode!(filtered)})
@@ -96,7 +106,7 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Users.list_users(filter |> Plug.Conn.Query.decode())
+    filtered = Users.list_users(filter |> decode_filter)
 
     push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
 
@@ -239,11 +249,7 @@ defmodule StoreHallWeb.UsersChannel do
     {:reply, :ok, socket}
   end
 
-  def handle_in(
-        "reaction:" <> reaction,
-        %{"data" => _data},
-        %{topic: @topic_prefix <> "/" <> user_id} = socket
-      ) do
+  def handle_in_reaction(reaction, user_id, socket) do
     case socket.assigns.current_user_id do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
@@ -267,6 +273,26 @@ defmodule StoreHallWeb.UsersChannel do
     end
 
     {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "reaction:" <> reaction,
+        %{"data" => _data},
+        %{topic: @topic_prefix <> "/" <> user_id} = socket
+      ) do
+    handle_in_reaction(reaction, user_id, socket)
+  end
+
+  def handle_in(
+        "reaction:" <> reaction,
+        %{"data" => _data},
+        %{topic: "/about"} = socket
+      ) do
+    handle_in_reaction(
+      reaction,
+      Application.get_env(:storeHall, :about)[:user_id],
+      socket
+    )
   end
 
   def handle_in(

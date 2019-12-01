@@ -40,7 +40,7 @@
         </li>
       <% end %>
 
-      <%= link to: Routes.about_path(@conn, :contacts) do %>
+      <%= link to: Routes.about_path(@conn, :index) <> "#contacts" do %>
         <li>
           <span class="text"><%= Gettext.gettext("Contacts") %></span>
         </li>
