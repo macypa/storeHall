@@ -3,6 +3,8 @@ channel_push_filter = function(elem) {
   var page_for = "";
   if (elem.href.indexOf('&more_') != -1) {
     page_for = elem.href.slice(elem.href.indexOf('&more_') + 6);
+  } else if (elem.href.indexOf('?more_') != -1) {
+    page_for = elem.href.slice(elem.href.indexOf('?more_') + 6);
   }
   channel.push("filter", { data: next_page, page_for: page_for });
 }
@@ -41,7 +43,12 @@ window.add_load_more_events = function() {
   add_events("[load-more-topic]", "click", function() {
     var params_attr = this.getAttribute("params")
     var params = params_attr.slice(params_attr.indexOf('?') + 1);
-    var show_for = params_attr.slice(params_attr.indexOf('&show_for_') + 10);
+    var show_for = "";
+    if (params_attr.indexOf('&show_for_') != -1) {
+      show_for = params_attr.slice(params_attr.indexOf('&show_for_') + 10);
+    } else if (params_attr.indexOf('?show_for_') != -1) {
+      show_for = params_attr.slice(params_attr.indexOf('?show_for_') + 10);
+    }
     channel.push(this.getAttribute("load-more-topic"), { data: params, show_for: show_for })
   });
 }
