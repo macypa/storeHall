@@ -4,6 +4,7 @@ function on_comment_events() {
   load_lazy_imgs();
   add_load_more_events();
   add_comment_events();
+  add_reaction_events();
 }
 
 function add_comment_events() {

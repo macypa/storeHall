@@ -9,6 +9,7 @@ function on_rating_events() {
   load_lazy_imgs();
   add_load_more_events();
   add_rating_events();
+  add_reaction_events();
 }
 
 
