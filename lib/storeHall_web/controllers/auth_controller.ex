@@ -62,6 +62,7 @@ defmodule StoreHallWeb.AuthController do
     |> Map.values()
     |> Enum.reject(&is_nil/1)
     |> Enum.join("")
+    |> String.replace("/", "")
   end
 
   def genNextId(info) do
