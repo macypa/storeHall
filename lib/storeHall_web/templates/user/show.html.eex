@@ -2,6 +2,7 @@
 <show>
   <div id="info">
 
+    <img class="lazy profile_image" data-src="<%= @user.image %>">
     <ul>
 
       <li>
