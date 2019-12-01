@@ -54,11 +54,6 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, connect to the socket:
 socket.connect()
 
-window.Handlebars = require('handlebars');
-Handlebars.registerHelper('json', function(context) {
-    return JSON.stringify(context);
-});
-
 window.channel_user = socket.channel(window.loggedUserChannel, {})
 channel_user.join()
   .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })
