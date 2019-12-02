@@ -129,7 +129,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/rating/index.html.eex:12
 msgid "Add Rating"
-msgstr ""
+msgstr "Add Review"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/edit.html.eex:5
@@ -224,14 +224,14 @@ msgstr ""
 #: lib/storeHall_web/templates/user/index.html.eex:42
 #: lib/storeHall_web/templates/user/show.html.eex:28
 msgid "Rating"
-msgstr ""
+msgstr "Review"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:18
 #: lib/storeHall_web/templates/rating/index.html.eex:2
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:18
 msgid "Ratings"
-msgstr ""
+msgstr "Reviews"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:33

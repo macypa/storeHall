@@ -130,7 +130,7 @@ msgstr "Добави обява"
 #, elixir-format
 #: lib/storeHall_web/templates/rating/index.html.eex:12
 msgid "Add Rating"
-msgstr "Добави рейтинг"
+msgstr "Добави ревю"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/edit.html.eex:5
@@ -225,14 +225,14 @@ msgstr "Профил"
 #: lib/storeHall_web/templates/user/index.html.eex:42
 #: lib/storeHall_web/templates/user/show.html.eex:28
 msgid "Rating"
-msgstr "Рейтинг"
+msgstr "Ревю"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:18
 #: lib/storeHall_web/templates/rating/index.html.eex:2
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:18
 msgid "Ratings"
-msgstr "Рейтинг"
+msgstr "Ревюта"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:33
