@@ -52,6 +52,16 @@ defmodule StoreHall.DefaultFilter do
     |> offset([_], ^offset)
   end
 
+  def order_first_for(query, nil), do: query
+  def order_first_for(query, -1), do: query
+
+  def order_first_for(query, current_user_id) do
+    query
+    |> order_by([c], [
+      fragment("CASE WHEN ? = ? THEN 0 ELSE 1 END ASC", c.author_id, ^current_user_id)
+    ])
+  end
+
   def min_author_rating_filter(query, nil), do: query
   def min_author_rating_filter(query, -1), do: query
 
