@@ -190,9 +190,9 @@ defmodule StoreHallWeb.ItemsChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      _logged_user ->
+      logged_user ->
         Multi.new()
-        |> Action.add_label(item_id, socket.assigns.current_user_id, reaction)
+        |> Action.add_label(item_id, logged_user, reaction)
         |> Ratings.update_item_rating(item_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do

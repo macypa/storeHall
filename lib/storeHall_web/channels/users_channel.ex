@@ -254,9 +254,10 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      _logged_user ->
+      logged_user ->
         Multi.new()
-        |> Action.add_relation(user_id, socket.assigns.current_user_id, reaction)
+        |> Action.add_relation(user_id, logged_user, reaction)
+        |> Action.add_reaction(comment_id, logged_user, type, reaction)
         |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do
@@ -304,11 +305,11 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      _logged_user ->
+      logged_user ->
         %{"id" => comment_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
 
         Multi.new()
-        |> Action.add_reaction(comment_id, socket.assigns.current_user_id, type, reaction)
+        |> Action.add_reaction(comment_id, logged_user, type, reaction)
         |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do
