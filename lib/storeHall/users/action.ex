@@ -15,7 +15,7 @@ defmodule StoreHall.Users.Action do
   def add_relation(multi, user_id, current_user_id, reaction) do
     multi
     |> Multi.insert(
-      :insert,
+      :insert_relation,
       Relations.changeset(%Relations{}, %{
         user_id: user_id,
         related_to_user_id: current_user_id,
@@ -27,7 +27,7 @@ defmodule StoreHall.Users.Action do
   def add_reaction(multi, reacted_to, current_user_id, type, reaction) do
     multi
     |> Multi.insert(
-      :insert,
+      :insert_reaction,
       Reactions.changeset(%Reactions{}, %{
         user_id: current_user_id,
         reacted_to: reacted_to,
@@ -40,7 +40,7 @@ defmodule StoreHall.Users.Action do
   def add_label(multi, item_id, user_id, label) do
     multi
     |> Multi.insert(
-      :insert,
+      :insert_label,
       Labels.changeset(%Labels{}, %{
         user_id: user_id,
         item_id: Items.get_item_id(item_id),

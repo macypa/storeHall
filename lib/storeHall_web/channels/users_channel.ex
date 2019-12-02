@@ -257,7 +257,6 @@ defmodule StoreHallWeb.UsersChannel do
       logged_user ->
         Multi.new()
         |> Action.add_relation(user_id, logged_user, reaction)
-        |> Action.add_reaction(comment_id, logged_user, type, reaction)
         |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do
