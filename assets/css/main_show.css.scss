@@ -6,6 +6,30 @@ show {
     height: auto;
   }
 
+  .reaction_count {
+    padding-right: 5px;
+    font-size: 0.7em;
+  }
+
+  .activate_icon {
+    .inactive_icon {
+      display: none;
+    }
+    .active_icon {
+      display: block;
+    }
+  }
+
+  .active_icon {
+    display: none;
+  }
+
+  .alertz_icon {
+    fill: darkred;
+  }
+  .mehz_icon {
+
+  }
   .wowz_icon {
     fill: green;
   }

@@ -20,6 +20,11 @@ defmodule StoreHall.Ratings.ItemRating do
     field :rating_id, :integer
     field :details, :map, default: %{"scores" => %{}}
 
+    field :lolz_count, :integer, virtual: true
+    field :wowz_count, :integer, virtual: true
+    field :mehz_count, :integer, virtual: true
+    field :alertz_count, :integer, virtual: true
+
     timestamps(type: :utc_datetime)
   end
 

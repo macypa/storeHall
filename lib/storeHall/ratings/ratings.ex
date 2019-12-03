@@ -92,7 +92,6 @@ defmodule StoreHall.Ratings do
 
   def apply_filters(item_user, current_user_id, params) do
     item_user
-    |> join(:left, [c], u in assoc(c, :author))
     |> preload([:author])
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.order_first_for(current_user_id)

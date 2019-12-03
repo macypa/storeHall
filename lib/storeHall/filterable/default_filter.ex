@@ -71,7 +71,7 @@ defmodule StoreHall.DefaultFilter do
 
     dynamic =
       dynamic(
-        [c, u],
+        [c, a: u],
         fragment(
           " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
           u,
@@ -81,6 +81,7 @@ defmodule StoreHall.DefaultFilter do
       )
 
     query
+    |> join(:left, [c], u in assoc(c, :author), as: :a)
     |> where(^dynamic)
   end
 

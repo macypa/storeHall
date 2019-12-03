@@ -35,6 +35,8 @@
   <actions>
 
     <%= render_shared "reactions.html",
+      model: @rating,
+      reactions: [],
       topic_prefix: "reply_",
       react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id} %>
 

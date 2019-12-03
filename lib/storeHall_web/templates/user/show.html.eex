@@ -32,7 +32,9 @@
 
     </ul>
 
-    <%= render_shared "reactions.html", topic_prefix: "", react_to: "" %>
+    <%= render_shared "reactions.html",
+      model: @user,
+      reactions: [], topic_prefix: "", react_to: "" %>
 
   </div>
 

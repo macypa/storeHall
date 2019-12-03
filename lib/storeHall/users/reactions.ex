@@ -2,6 +2,7 @@ defmodule StoreHall.Users.Reactions do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :reacted_to, :type, :reaction]}
   schema "user_reactions" do
     belongs_to :user, StoreHall.Users.User, type: :string
     field :reacted_to, :integer

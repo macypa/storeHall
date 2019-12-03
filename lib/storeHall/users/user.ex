@@ -31,6 +31,11 @@ defmodule StoreHall.Users.User do
     has_many :ratings, StoreHall.Ratings.UserRating
     has_many :messages, StoreHall.Chats.ChatMessage
 
+    field :lolz_count, :integer, virtual: true
+    field :wowz_count, :integer, virtual: true
+    field :mehz_count, :integer, virtual: true
+    field :alertz_count, :integer, virtual: true
+
     timestamps(type: :utc_datetime)
   end
 
