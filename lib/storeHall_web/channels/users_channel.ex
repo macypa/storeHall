@@ -317,6 +317,8 @@ defmodule StoreHallWeb.UsersChannel do
               broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
             end
 
+            push(socket, "reaction_persisted", %{data: data, reaction: reaction})
+
           {:error, _op, _value, _changes} ->
             push(socket, "error", %{
               message: Gettext.gettext("you already did it :)")
