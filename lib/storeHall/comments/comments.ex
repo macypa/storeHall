@@ -56,11 +56,8 @@ defmodule StoreHall.Comments do
       lolz_count: "{{lolz_count}}",
       wowz_count: "{{wowz_count}}",
       mehz_count: "{{mehz_count}}",
-      reactions: %{
-        alertz_class: "{{#ifIn 'alert' reactions }}activate_icon{{/ifIn}}",
-        lolz_class: "{{#ifIn 'lol' reactions }}activate_icon{{/ifIn}}",
-        wowz_class: "{{#ifIn 'wow' reactions }}activate_icon{{/ifIn}}",
-        mehz_class: "{{#ifIn 'meh' reactions }}activate_icon{{/ifIn}}"
+      reaction: %{
+        reaction: "{{reaction.reaction}}"
       },
       details: %{
         "comment_template_tag_id" => "comment_template",
@@ -103,19 +100,19 @@ defmodule StoreHall.Comments do
   def preload_reactions_counts(comments) do
     comments
     |> join(:left, [c], rl in Reactions,
-      on: rl.reacted_to == c.id and rl.reaction == "lol" and rl.type == ^"comment",
+      on: rl.reacted_to == c.id and rl.reaction == "lol" and rl.type == "comment",
       as: :rl
     )
     |> join(:left, [c], rw in Reactions,
-      on: rw.reacted_to == c.id and rw.reaction == "wow" and rw.type == ^"comment",
+      on: rw.reacted_to == c.id and rw.reaction == "wow" and rw.type == "comment",
       as: :rw
     )
     |> join(:left, [c], rm in Reactions,
-      on: rm.reacted_to == c.id and rm.reaction == "meh" and rm.type == ^"comment",
+      on: rm.reacted_to == c.id and rm.reaction == "meh" and rm.type == "comment",
       as: :rm
     )
     |> join(:left, [c], ra in Reactions,
-      on: ra.reacted_to == c.id and ra.reaction == "alert" and ra.type == ^"comment",
+      on: ra.reacted_to == c.id and ra.reaction == "alert" and ra.type == "comment",
       as: :ra
     )
     |> group_by([c], c.id)
@@ -125,18 +122,19 @@ defmodule StoreHall.Comments do
     |> select_merge([c, ra: r], %{alertz_count: count(r.id)})
   end
 
-  def preload_reactions(comments, current_user_id) do
-    reactions_query = Reactions |> where([r], r.user_id == ^to_string(current_user_id))
+  def preload_reaction(comments, current_user_id) do
+    reactions_query =
+      Reactions |> where([r], r.user_id == ^to_string(current_user_id) and r.type == "comment")
 
     comments
-    |> preload(reactions: ^reactions_query)
+    |> preload(reaction: ^reactions_query)
     |> preload_reactions_counts()
   end
 
   def apply_filters(comments, current_user_id, params) do
     comments
     |> preload([:author])
-    |> preload_reactions(current_user_id)
+    |> preload_reaction(current_user_id)
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)

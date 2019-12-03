@@ -1,14 +1,11 @@
 <span id="reactions">
 
+  <% reaction = if (@reaction != nil and Map.has_key?(@reaction, :reaction)) do
+    @reaction.reaction
+  end %>
+
   <span>
-    <% activate_icon_alert = if (is_list(@reactions) and @reactions |> Enum.find(fn r -> String.equivalent?(r.reaction, "alert") end) != nil) do
-      "activate_icon"
-    else
-      if is_map (@reactions) do
-        @reactions.alertz_class
-      end
-    end %>
-    <svg class="svg_icon alertz_icon <%= activate_icon_alert %>" reaction-topic="<%= @topic_prefix %>reaction:alert" data="<%= Jason.encode! @react_to %>" id="alert">
+    <svg class="svg_icon alertz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:alert" data="<%= Jason.encode! @react_to %>" id="alert">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle-o"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle"></use>
     </svg>
@@ -16,14 +13,7 @@
   </span>
 
   <span>
-    <% activate_icon_lol = if (is_list(@reactions) and @reactions |> Enum.find(fn r -> String.equivalent?(r.reaction, "lol") end) != nil) do
-      "activate_icon"
-    else
-      if is_map (@reactions) do
-        @reactions.lolz_class
-      end
-    end %>
-    <svg class="svg_icon lolz_icon <%= activate_icon_lol %>" reaction-topic="<%= @topic_prefix %>reaction:lol" data="<%= Jason.encode! @react_to %>" id="lol">
+    <svg class="svg_icon lolz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:lol" data="<%= Jason.encode! @react_to %>" id="lol">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-frown"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-frown-circle"></use>
     </svg>
@@ -31,14 +21,7 @@
   </span>
 
   <span>
-    <% activate_icon_meh = if (is_list(@reactions) and @reactions |> Enum.find(fn r -> String.equivalent?(r.reaction, "meh") end) != nil) do
-      "activate_icon"
-    else
-      if is_map (@reactions) do
-        @reactions.mehz_class
-      end
-    end %>
-    <svg class="svg_icon mehz_icon <%= activate_icon_meh %>" reaction-topic="<%= @topic_prefix %>reaction:meh" data="<%= Jason.encode! @react_to %>" id="meh">
+    <svg class="svg_icon mehz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:meh" data="<%= Jason.encode! @react_to %>" id="meh">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-meh"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-meh-circle"></use>
     </svg>
@@ -46,14 +29,7 @@
   </span>
 
   <span>
-    <% activate_icon_wow = if (is_list(@reactions) and @reactions |> Enum.find(fn r -> String.equivalent?(r.reaction, "wow") end) != nil) do
-      "activate_icon"
-    else
-      if is_map (@reactions) do
-        @reactions.wowz_class
-      end
-    end %>
-    <svg class="svg_icon wowz_icon <%= activate_icon_wow %>" reaction-topic="<%= @topic_prefix %>reaction:wow" data="<%= Jason.encode! @react_to %>" id="wow">
+    <svg class="svg_icon wowz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:wow" data="<%= Jason.encode! @react_to %>" id="wow">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
     </svg>

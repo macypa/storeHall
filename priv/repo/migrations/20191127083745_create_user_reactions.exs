@@ -12,7 +12,7 @@ defmodule StoreHall.Repo.Migrations.CreateUserReactions do
       timestamps(type: :timestamptz)
     end
 
-    create unique_index(:user_reactions, [:type, :reaction, :reacted_to, :user_id], name: :unique_reaction)
+    create unique_index(:user_reactions, [:type, :reacted_to, :user_id], name: :unique_reaction)
 
   end
 end

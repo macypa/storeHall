@@ -37,7 +37,7 @@
 
     <%= render_shared "reactions.html",
       model: @item,
-      reactions: [], topic_prefix: "", react_to: "" %>
+      reaction: %{}, topic_prefix: "", react_to: "" %>
 
   </div>
 

@@ -11,7 +11,8 @@ show {
     font-size: 0.7em;
   }
 
-  .activate_icon {
+
+  @mixin activate_icon {
     .inactive_icon {
       display: none;
     }
@@ -25,15 +26,26 @@ show {
   }
 
   .alertz_icon {
+    &.alert {
+      @include activate_icon;
+    }
     fill: darkred;
   }
   .mehz_icon {
-
+    &.meh {
+      @include activate_icon;
+    }
   }
   .wowz_icon {
+    &.wow {
+      @include activate_icon;
+    }
     fill: green;
   }
   .lolz_icon {
+    &.lol {
+      @include activate_icon;
+    }
     fill: orangered;
   }
 

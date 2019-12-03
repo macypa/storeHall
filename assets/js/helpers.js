@@ -6,21 +6,6 @@ window.Handlebars = require('handlebars');
 Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
 });
-Handlebars.registerHelper('ifIn', function(elem, list, options) {
-  var found = false;
-  jQuery.each( list, function( i, val ) {
-    if (val.reaction == elem) {
-      found = true;
-      return;
-    }
-  });
-
-  if (found) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
 
 window.add_events = function(selector, on_event, fun) {
   Array.from(document.querySelectorAll(selector)).forEach(function(element) {

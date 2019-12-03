@@ -13,7 +13,7 @@ defmodule StoreHall.Comments.ItemComment do
              :inserted_at,
              :updated_at,
              :author,
-             :reactions,
+             :reaction,
              :lolz_count,
              :wowz_count,
              :mehz_count,
@@ -31,7 +31,7 @@ defmodule StoreHall.Comments.ItemComment do
     field :mehz_count, :integer, virtual: true
     field :alertz_count, :integer, virtual: true
 
-    has_many :reactions, StoreHall.Users.Reactions,
+    has_one :reaction, StoreHall.Users.Reactions,
       foreign_key: :reacted_to,
       where: [type: "comment"]
 
