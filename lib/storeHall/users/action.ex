@@ -7,16 +7,16 @@ defmodule StoreHall.Users.Action do
   alias Ecto.Multi
 
   alias StoreHall.Items
-  alias StoreHall.Users.Relations
+  alias StoreHall.Users.Relation
   alias StoreHall.Reaction
-  alias StoreHall.Users.Labels
+  alias StoreHall.Users.Label
   alias StoreHall.Users.Settings
 
   def add_relation(multi, user_id, current_user_id, reaction) do
     multi
     |> Multi.insert(
       :insert_relation,
-      Relations.changeset(%Relations{}, %{
+      Relation.changeset(%Relation{}, %{
         user_id: user_id,
         related_to_user_id: current_user_id,
         type: reaction
@@ -61,7 +61,7 @@ defmodule StoreHall.Users.Action do
     multi
     |> Multi.insert(
       :insert_label,
-      Labels.changeset(%Labels{}, %{
+      Label.changeset(%Label{}, %{
         user_id: user_id,
         item_id: Items.get_item_id(item_id),
         label: label
