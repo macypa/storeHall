@@ -100,7 +100,7 @@ defmodule StoreHall.Comments do
   def apply_filters(comments, current_user_id, params) do
     comments
     |> preload([:author])
-    |> Reactions.preload_reaction(current_user_id)
+    |> Reactions.preload_reaction(current_user_id, "comment")
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)

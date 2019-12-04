@@ -4,22 +4,18 @@ defmodule StoreHall.Comments.ItemComment do
   import StoreHall.ReactionFields
 
   @derive {Jason.Encoder,
-           only: [
-             :id,
-             :comment_id,
-             :details,
-             :item_id,
-             :user_id,
-             :author_id,
-             :inserted_at,
-             :updated_at,
-             :author,
-             :reaction,
-             :lolz_count,
-             :wowz_count,
-             :mehz_count,
-             :alertz_count
-           ]}
+           only:
+             [
+               :id,
+               :comment_id,
+               :details,
+               :item_id,
+               :user_id,
+               :author_id,
+               :inserted_at,
+               :updated_at,
+               :author
+             ] ++ reaction_jason_fields()}
   schema "item_comments" do
     belongs_to :author, StoreHall.Users.User, type: :string
     belongs_to :user, StoreHall.Users.User, type: :string
@@ -27,7 +23,7 @@ defmodule StoreHall.Comments.ItemComment do
     field :comment_id, :integer
     field :details, :map, default: %{}
 
-    reaction_fields()
+    reaction_fields("comment")
 
     timestamps(type: :utc_datetime)
   end

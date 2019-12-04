@@ -1,19 +1,19 @@
 defmodule StoreHall.Ratings.UserRating do
   use Ecto.Schema
   import Ecto.Changeset
+  import StoreHall.ReactionFields
 
   @derive {Jason.Encoder,
-           only: [:id, :details, :user_id, :author_id, :inserted_at, :updated_at, :author]}
+           only:
+             [:id, :details, :user_id, :author_id, :inserted_at, :updated_at, :author] ++
+               reaction_jason_fields()}
   schema "user_ratings" do
     belongs_to :author, StoreHall.Users.User, type: :string
     belongs_to :user, StoreHall.Users.User, type: :string
     field :rating_id, :integer
     field :details, :map, default: %{"scores" => %{}}
 
-    field :lolz_count, :integer, virtual: true
-    field :wowz_count, :integer, virtual: true
-    field :mehz_count, :integer, virtual: true
-    field :alertz_count, :integer, virtual: true
+    reaction_fields("rating")
 
     timestamps(type: :utc_datetime)
   end
