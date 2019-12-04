@@ -16,7 +16,7 @@
     <% end %>
 
     <rating>
-      <%= Gettext.gettext("Rating") %>:
+      <%= Gettext.gettext("Scores") %>:
       <span class="user-rating-score">
         <%= @rating.author.details["rating"]["score"] %>
       </span>

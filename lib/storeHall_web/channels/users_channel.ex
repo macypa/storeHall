@@ -227,6 +227,16 @@ defmodule StoreHallWeb.UsersChannel do
 
       logged_user ->
         case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
+          {:ok, rating} ->
+            broadcast!(
+              socket,
+              "new_rating",
+              %{
+                rating_parent_id: rating.rating_id,
+                new_rating: Jason.encode!(rating)
+              }
+            )
+
           {:ok, rating, user_rating} ->
             broadcast!(
               socket,
@@ -261,9 +271,7 @@ defmodule StoreHallWeb.UsersChannel do
         |> Repo.transaction()
         |> case do
           {:ok, multi} ->
-            if Map.has_key?(multi, :calc_user_rating) do
-              broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
-            end
+            broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
 
           {:error, _op, _value, _changes} ->
             push(socket, "error", %{
@@ -313,9 +321,7 @@ defmodule StoreHallWeb.UsersChannel do
         |> Repo.transaction()
         |> case do
           {:ok, multi} ->
-            if Map.has_key?(multi, :calc_user_rating) do
-              broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
-            end
+            broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
 
             push(socket, "reaction_persisted", %{data: data, reaction: reaction})
 
