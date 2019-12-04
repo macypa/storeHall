@@ -305,10 +305,10 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        %{"id" => comment_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
+        %{"id" => reply_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
 
         Multi.new()
-        |> Action.toggle_or_change_reaction(comment_id, logged_user, type, reaction)
+        |> Action.toggle_or_change_reaction(reply_id, logged_user, type, reaction)
         |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do

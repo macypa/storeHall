@@ -14,6 +14,7 @@ defmodule StoreHall.Ratings do
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.DefaultFilter
+  alias StoreHall.Reactions
 
   def preload_for(item_user, current_user_id, params) do
     item_user
@@ -51,6 +52,13 @@ defmodule StoreHall.Ratings do
       item_id: "{{item_id}}",
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",
+      alertz_count: "{{alertz_count}}",
+      lolz_count: "{{lolz_count}}",
+      wowz_count: "{{wowz_count}}",
+      mehz_count: "{{mehz_count}}",
+      reaction: %{
+        reaction: "{{reaction.reaction}}"
+      },
       details: %{
         "rating_template_tag_id" => "rating_template",
         "scores" => "{{details.scores}}",
@@ -93,6 +101,7 @@ defmodule StoreHall.Ratings do
   def apply_filters(item_user, current_user_id, params) do
     item_user
     |> preload([:author])
+    |> Reactions.preload_reaction(current_user_id, "rating")
     |> DefaultFilter.min_author_rating_filter(current_user_id)
     |> DefaultFilter.order_first_for(current_user_id)
     |> DefaultFilter.sort_filter(params)
