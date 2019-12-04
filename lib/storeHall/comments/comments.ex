@@ -124,7 +124,7 @@ defmodule StoreHall.Comments do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Repo.preload(:author)}
+        {:ok, multi.insert |> Repo.preload([:author, :reaction])}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -138,7 +138,7 @@ defmodule StoreHall.Comments do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Repo.preload(:author)}
+        {:ok, multi.insert |> Repo.preload([:author, :reaction])}
 
       {:error, _op, value, _changes} ->
         {:error, value}
