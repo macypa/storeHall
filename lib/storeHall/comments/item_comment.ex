@@ -1,6 +1,7 @@
 defmodule StoreHall.Comments.ItemComment do
   use Ecto.Schema
   import Ecto.Changeset
+  import StoreHall.ReactionFields
 
   @derive {Jason.Encoder,
            only: [
@@ -26,14 +27,7 @@ defmodule StoreHall.Comments.ItemComment do
     field :comment_id, :integer
     field :details, :map, default: %{}
 
-    field :lolz_count, :integer, virtual: true
-    field :wowz_count, :integer, virtual: true
-    field :mehz_count, :integer, virtual: true
-    field :alertz_count, :integer, virtual: true
-
-    has_one :reaction, StoreHall.Users.Reactions,
-      foreign_key: :reacted_to,
-      where: [type: "comment"]
+    reaction_fields()
 
     timestamps(type: :utc_datetime)
   end

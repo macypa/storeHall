@@ -8,7 +8,7 @@ defmodule StoreHall.Users.Action do
 
   alias StoreHall.Items
   alias StoreHall.Users.Relations
-  alias StoreHall.Users.Reactions
+  alias StoreHall.Reaction
   alias StoreHall.Users.Labels
   alias StoreHall.Users.Settings
 
@@ -26,9 +26,9 @@ defmodule StoreHall.Users.Action do
 
   def toggle_or_change_reaction(multi, reacted_to, current_user_id, type, reaction) do
     multi
-    |> Multi.run(:reaction, fn repo, changes ->
+    |> Multi.run(:reaction, fn repo, _changes ->
       {:ok,
-       Reactions
+       Reaction
        |> where([r], r.reacted_to == ^reacted_to)
        |> where([r], r.user_id == ^current_user_id)
        |> where([r], r.type == ^type)
@@ -37,7 +37,7 @@ defmodule StoreHall.Users.Action do
     |> Multi.run(:toggle_or_change_reaction, fn repo, %{reaction: reaction_db} ->
       case reaction_db do
         nil ->
-          Reactions.changeset(%Reactions{}, %{
+          Reaction.changeset(%Reaction{}, %{
             user_id: current_user_id,
             reacted_to: reacted_to,
             type: type,
@@ -50,7 +50,7 @@ defmodule StoreHall.Users.Action do
             reaction_db |> repo.delete()
           else
             reaction_db
-            |> Reactions.changeset(Map.put(%{}, :reaction, reaction))
+            |> Reaction.changeset(Map.put(%{}, :reaction, reaction))
             |> repo.update()
           end
       end

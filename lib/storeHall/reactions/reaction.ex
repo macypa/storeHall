@@ -1,4 +1,4 @@
-defmodule StoreHall.Users.Reactions do
+defmodule StoreHall.Reaction do
   use Ecto.Schema
   import Ecto.Changeset
 
