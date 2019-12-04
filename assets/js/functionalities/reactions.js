@@ -14,7 +14,7 @@ window.reaction_persisted_event = function(payload) {
 
   $("[data='" + payload.data + "']").each(function() {
     var klass = $(this).attr("class");
-    if (klass.includes(payload.reaction)) {
+    if (klass.includes(payload.reaction+"z_icon")) {
       return;
     }
 
