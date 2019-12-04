@@ -141,7 +141,7 @@ defmodule StoreHall.Ratings do
 
   def create_user_rating(rating \\ %{}) do
     Multi.new()
-    |> update_or_not_user_rating(rating)
+    |> update_only_for_first_level_user_rating(rating)
     |> Multi.insert(:insert, UserRating.changeset(%UserRating{}, rating))
     |> Repo.transaction()
     |> case do
@@ -164,7 +164,7 @@ defmodule StoreHall.Ratings do
     end
   end
 
-  defp update_or_not_user_rating(multi, rating) do
+  defp update_only_for_first_level_user_rating(multi, rating) do
     case rating["rating_id"] do
       nil ->
         multi
