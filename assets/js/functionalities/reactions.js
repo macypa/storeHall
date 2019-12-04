@@ -11,7 +11,19 @@ window.add_reaction_events = function() {
 add_reaction_events();
 
 window.reaction_persisted_event = function(payload) {
-  $("." + payload.reaction + "z_icon[data='" + payload.data + "']").addClass(payload.reaction);
+
+  $("[data='" + payload.data + "']").each(function() {
+    var klass = $(this).attr("class");
+    if (klass.includes(payload.reaction)) {
+      return;
+    }
+
+    var myRegexp = /svg_icon (.*?)z_icon/g;
+    var match = myRegexp.exec(klass);
+    $(this).removeClass(match[1]);
+  })
+
+  $("." + payload.reaction + "z_icon[data='" + payload.data + "']").toggleClass(payload.reaction);
 };
 
 channel.on("reaction_persisted", payload => {

@@ -24,17 +24,37 @@ defmodule StoreHall.Users.Action do
     )
   end
 
-  def add_reaction(multi, reacted_to, current_user_id, type, reaction) do
+  def toggle_or_change_reaction(multi, reacted_to, current_user_id, type, reaction) do
     multi
-    |> Multi.insert(
-      :insert_reaction,
-      Reactions.changeset(%Reactions{}, %{
-        user_id: current_user_id,
-        reacted_to: reacted_to,
-        type: type,
-        reaction: reaction
-      })
-    )
+    |> Multi.run(:reaction, fn repo, changes ->
+      {:ok,
+       Reactions
+       |> where([r], r.reacted_to == ^reacted_to)
+       |> where([r], r.user_id == ^current_user_id)
+       |> where([r], r.type == ^type)
+       |> repo.one}
+    end)
+    |> Multi.run(:toggle_or_change_reaction, fn repo, %{reaction: reaction_db} ->
+      case reaction_db do
+        nil ->
+          Reactions.changeset(%Reactions{}, %{
+            user_id: current_user_id,
+            reacted_to: reacted_to,
+            type: type,
+            reaction: reaction
+          })
+          |> repo.insert()
+
+        reaction_db ->
+          if reaction_db.reaction == reaction do
+            reaction_db |> repo.delete()
+          else
+            reaction_db
+            |> Reactions.changeset(Map.put(%{}, :reaction, reaction))
+            |> repo.update()
+          end
+      end
+    end)
   end
 
   def add_label(multi, item_id, user_id, label) do

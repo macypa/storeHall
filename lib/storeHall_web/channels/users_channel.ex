@@ -308,7 +308,7 @@ defmodule StoreHallWeb.UsersChannel do
         %{"id" => comment_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
 
         Multi.new()
-        |> Action.add_reaction(comment_id, logged_user, type, reaction)
+        |> Action.toggle_or_change_reaction(comment_id, logged_user, type, reaction)
         |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do
