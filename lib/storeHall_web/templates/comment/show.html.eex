@@ -36,7 +36,6 @@
     <%= render_shared "reactions.html",
       model: @comment,
       reaction: @comment.reaction,
-      topic_prefix: "reply_",
       react_to: %{type: "comment", id: @comment.id, author_id: @comment.author_id} %>
 
     <%= render StoreHallWeb.CommentView, "form.html",

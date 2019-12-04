@@ -127,11 +127,17 @@ defmodule StoreHall.Ratings do
       {:ok, multi} ->
         case Map.has_key?(multi, :calc_item_rating) do
           true ->
-            {:ok, multi.insert |> Repo.preload([:author, :reaction]), multi.calc_item_rating,
+            {:ok,
+             multi.insert
+             |> Repo.preload(:author)
+             |> Reactions.preload_reaction(rating["author_id"], "rating"), multi.calc_item_rating,
              multi.calc_user_rating}
 
           _ ->
-            {:ok, multi.insert |> Repo.preload([:author, :reaction])}
+            {:ok,
+             multi.insert
+             |> Repo.preload(:author)
+             |> Reactions.preload_reaction(rating["author_id"], "rating")}
         end
 
       {:error, _op, value, _changes} ->
@@ -146,7 +152,10 @@ defmodule StoreHall.Ratings do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Repo.preload([:author, :reaction]), multi.calc_user_rating}
+        {:ok,
+         multi.insert
+         |> Repo.preload(:author)
+         |> Reactions.preload_reaction(rating["author_id"], "rating"), multi.calc_user_rating}
 
       {:error, _op, value, _changes} ->
         {:error, value}

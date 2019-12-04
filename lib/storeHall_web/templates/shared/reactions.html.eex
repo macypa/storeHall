@@ -5,7 +5,7 @@
   end %>
 
   <span>
-    <svg class="svg_icon alertz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:alert" data="<%= Jason.encode! @react_to %>">
+    <svg class="svg_icon alertz_icon <%= reaction %>" reaction-topic="reaction:alert" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle-o"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle"></use>
     </svg>
@@ -13,7 +13,7 @@
   </span>
 
   <span>
-    <svg class="svg_icon lolz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:lol" data="<%= Jason.encode! @react_to %>">
+    <svg class="svg_icon lolz_icon <%= reaction %>" reaction-topic="reaction:lol" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-frown"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-frown-circle"></use>
     </svg>
@@ -21,7 +21,7 @@
   </span>
 
   <span>
-    <svg class="svg_icon mehz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:meh" data="<%= Jason.encode! @react_to %>">
+    <svg class="svg_icon mehz_icon <%= reaction %>" reaction-topic="reaction:meh" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-meh"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-meh-circle"></use>
     </svg>
@@ -29,7 +29,7 @@
   </span>
 
   <span>
-    <svg class="svg_icon wowz_icon <%= reaction %>" reaction-topic="<%= @topic_prefix %>reaction:wow" data="<%= Jason.encode! @react_to %>">
+    <svg class="svg_icon wowz_icon <%= reaction %>" reaction-topic="reaction:wow" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
     </svg>

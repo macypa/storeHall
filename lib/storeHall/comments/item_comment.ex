@@ -23,7 +23,7 @@ defmodule StoreHall.Comments.ItemComment do
     field :comment_id, :integer
     field :details, :map, default: %{}
 
-    reaction_fields("comment")
+    reaction_fields()
 
     timestamps(type: :utc_datetime)
   end

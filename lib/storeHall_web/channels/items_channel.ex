@@ -5,12 +5,9 @@ defmodule StoreHallWeb.ItemsChannel do
   alias StoreHallWeb.Gettext, as: Gettext
 
   import Ecto.Query, warn: false
-  alias StoreHall.Repo
-  alias Ecto.Multi
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Items
-  alias StoreHall.Users.Action
 
   @topic_prefix "/items"
 
@@ -172,38 +169,6 @@ defmodule StoreHallWeb.ItemsChannel do
             })
 
           {:error, _rating} ->
-            push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
-            })
-        end
-    end
-
-    {:reply, :ok, socket}
-  end
-
-  def handle_in(
-        "reaction:" <> reaction,
-        %{"data" => _data},
-        %{topic: @topic_prefix <> "/" <> item_id} = socket
-      ) do
-    case socket.assigns.current_user_id do
-      nil ->
-        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
-
-      logged_user ->
-        Multi.new()
-        |> Action.add_label(item_id, logged_user, reaction)
-        |> Ratings.update_item_rating(item_id, [Action.reaction_to_rating(reaction)])
-        |> Repo.transaction()
-        |> case do
-          {:ok, multi} ->
-            broadcast!(socket, "update_rating", %{new_rating: multi.calc_item_rating})
-
-            StoreHallWeb.UsersChannel.broadcast_msg!(multi.item.user_id, "update_rating", %{
-              new_rating: multi.calc_user_rating
-            })
-
-          {:error, _op, _value, _changes} ->
             push(socket, "error", %{
               message: Gettext.gettext("you already did it :)")
             })

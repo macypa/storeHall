@@ -6,6 +6,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Items.Item
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Reactions
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -17,6 +18,13 @@ defmodule StoreHallWeb.ItemController do
         user_id: "{{user_id}}",
         inserted_at: "{{inserted_at}}",
         updated_at: "{{updated_at}}",
+        alertz_count: "{{alertz_count}}",
+        lolz_count: "{{lolz_count}}",
+        wowz_count: "{{wowz_count}}",
+        mehz_count: "{{mehz_count}}",
+        reaction: %{
+          reaction: "{{reaction.reaction}}"
+        },
         details: %{
           "item_template_tag_id" => "item_template",
           "price" => "{{json details.price}}",
@@ -40,7 +48,7 @@ defmodule StoreHallWeb.ItemController do
   def create(conn, %{"item" => item_params}) do
     case Items.create_item(
            Items.decode_params(item_params)
-           |> Map.put("user_id", conn.assigns.logged_user.id)
+           |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
          ) do
       {:ok, item} ->
         conn
@@ -54,7 +62,10 @@ defmodule StoreHallWeb.ItemController do
 
   def show(conn, params = %{"id" => id}) do
     item =
-      Items.get_item!(id)
+      Items.get_item_with_reactions!(
+        id,
+        params |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
+      )
       |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
 

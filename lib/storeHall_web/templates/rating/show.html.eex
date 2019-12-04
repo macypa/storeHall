@@ -37,7 +37,6 @@
     <%= render_shared "reactions.html",
       model: @rating,
       reaction: @rating.reaction,
-      topic_prefix: "reply_",
       react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id} %>
 
     <%= render StoreHallWeb.RatingView, "form.html",

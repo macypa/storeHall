@@ -13,7 +13,7 @@ defmodule StoreHall.Ratings.UserRating do
     field :rating_id, :integer
     field :details, :map, default: %{"scores" => %{}}
 
-    reaction_fields("rating")
+    reaction_fields()
 
     timestamps(type: :utc_datetime)
   end

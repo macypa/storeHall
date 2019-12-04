@@ -1,9 +1,12 @@
 defmodule StoreHall.Items.Item do
   use Ecto.Schema
-
   import Ecto.Changeset
+  import StoreHall.ReactionFields
 
-  @derive {Jason.Encoder, only: [:id, :name, :details, :user_id, :inserted_at, :updated_at]}
+  @derive {Jason.Encoder,
+           only:
+             [:id, :name, :details, :user_id, :inserted_at, :updated_at] ++
+               reaction_jason_fields()}
   schema "items" do
     field :name, :string
     belongs_to :user, StoreHall.Users.User, type: :string
@@ -20,10 +23,7 @@ defmodule StoreHall.Items.Item do
     has_many :ratings, StoreHall.Ratings.ItemRating
     has_many :messages, StoreHall.Chats.ChatMessage
 
-    field :lolz_count, :integer, virtual: true
-    field :wowz_count, :integer, virtual: true
-    field :mehz_count, :integer, virtual: true
-    field :alertz_count, :integer, virtual: true
+    reaction_fields()
 
     timestamps(type: :utc_datetime)
   end

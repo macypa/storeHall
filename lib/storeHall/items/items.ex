@@ -15,6 +15,7 @@ defmodule StoreHall.Items do
   alias StoreHall.FileUploader
   alias StoreHall.ItemFilter
   alias StoreHall.DefaultFilter
+  alias StoreHall.Reactions
 
   @doc """
   Returns the list of items.
@@ -46,6 +47,7 @@ defmodule StoreHall.Items do
 
   defp apply_filters(params) do
     Item
+    |> Reactions.preload_reaction(params["user_id"], "item")
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.paging_filter(params)
     |> ItemFilter.search_filter(params)
@@ -102,7 +104,16 @@ defmodule StoreHall.Items do
 
   def get_item!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
+
     item = Item |> repo.get!(id)
+
+    update_default_item_details(item, repo)
+  end
+
+  def get_item_with_reactions!(id, params, repo \\ Repo) do
+    {id, _} = to_string(id) |> Integer.parse()
+
+    item = Item |> Reactions.preload_reaction(params["user_id"], "item") |> repo.get!(id)
 
     update_default_item_details(item, repo)
   end
@@ -144,7 +155,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert}
+        {:ok, multi.insert |> Reactions.preload_reaction(item["user_id"], "item")}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -313,7 +324,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.update}
+        {:ok, multi.update |> Reactions.preload_reaction(item["user_id"], "item")}
 
       {:error, _op, value, _changes} ->
         {:error, value}
