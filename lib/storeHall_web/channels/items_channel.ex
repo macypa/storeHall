@@ -213,38 +213,6 @@ defmodule StoreHallWeb.ItemsChannel do
     {:reply, :ok, socket}
   end
 
-  def handle_in(
-        "reply_reaction:" <> reaction,
-        %{"data" => data},
-        %{topic: @topic_prefix <> "/" <> item_id} = socket
-      ) do
-    case socket.assigns.current_user_id do
-      nil ->
-        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
-
-      logged_user ->
-        %{"id" => reply_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
-
-        Multi.new()
-        |> Action.toggle_or_change_reaction(reply_id, logged_user, type, reaction)
-        |> Ratings.update_item_rating(item_id, [Action.reaction_to_rating(reaction)])
-        |> Repo.transaction()
-        |> case do
-          {:ok, multi} ->
-            broadcast!(socket, "update_rating", %{new_rating: multi.calc_item_rating})
-
-            push(socket, "reaction_persisted", %{data: data, reaction: reaction})
-
-          {:error, _op, _value, _changes} ->
-            push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
-            })
-        end
-    end
-
-    {:reply, :ok, socket}
-  end
-
   def broadcast_msg!(item_id_with_slug, message, body) when is_bitstring(item_id_with_slug) do
     StoreHallWeb.Endpoint.broadcast!(@topic_prefix <> "/" <> item_id_with_slug, message, body)
   end
