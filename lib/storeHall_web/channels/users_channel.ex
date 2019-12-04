@@ -259,30 +259,6 @@ defmodule StoreHallWeb.UsersChannel do
     {:reply, :ok, socket}
   end
 
-  def handle_in_reaction(reaction, user_id, socket) do
-    case socket.assigns.current_user_id do
-      nil ->
-        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
-
-      logged_user ->
-        Multi.new()
-        |> Action.add_relation(user_id, logged_user, reaction)
-        |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
-        |> Repo.transaction()
-        |> case do
-          {:ok, multi} ->
-            broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
-
-          {:error, _op, _value, _changes} ->
-            push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
-            })
-        end
-    end
-
-    {:reply, :ok, socket}
-  end
-
   def handle_in(
         "reaction:" <> reaction,
         %{"data" => _data},
@@ -316,12 +292,21 @@ defmodule StoreHallWeb.UsersChannel do
         %{"id" => reply_id, "author_id" => author_id, "type" => type} = Jason.decode!(data)
 
         Multi.new()
-        |> Action.toggle_or_change_reaction(reply_id, logged_user, type, reaction)
-        |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
+        |> Action.toggle_or_change_reaction(
+          reply_id,
+          logged_user,
+          type,
+          reaction,
+          &update_user_rating_fun/3,
+          author_id
+        )
+        # |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
         |> Repo.transaction()
         |> case do
           {:ok, multi} ->
-            broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
+            broadcast!(socket, "update_rating", %{
+              new_rating: multi.update_rating_for_reaction.calc_user_rating
+            })
 
             push(socket, "reaction_persisted", %{data: data, reaction: reaction})
 
@@ -333,6 +318,36 @@ defmodule StoreHallWeb.UsersChannel do
     end
 
     {:reply, :ok, socket}
+  end
+
+  def handle_in_reaction(reaction, user_id, socket) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
+
+      logged_user ->
+        Multi.new()
+        |> Action.add_relation(user_id, logged_user, reaction)
+        |> Ratings.update_user_rating(user_id, [Action.reaction_to_rating(reaction)])
+        |> Repo.transaction()
+        |> case do
+          {:ok, multi} ->
+            broadcast!(socket, "update_rating", %{new_rating: multi.calc_user_rating})
+
+          {:error, _op, _value, _changes} ->
+            push(socket, "error", %{
+              message: Gettext.gettext("you already did it :)")
+            })
+        end
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def update_user_rating_fun(repo, author_id, reaction) do
+    Multi.new()
+    |> Ratings.update_user_rating(author_id, reaction)
+    |> repo.transaction()
   end
 
   def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do

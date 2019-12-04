@@ -24,7 +24,15 @@ defmodule StoreHall.Users.Action do
     )
   end
 
-  def toggle_or_change_reaction(multi, reacted_to, current_user_id, type, reaction) do
+  def toggle_or_change_reaction(
+        multi,
+        reacted_to,
+        current_user_id,
+        type,
+        reaction,
+        fun_on_update,
+        user_item_id
+      ) do
     multi
     |> Multi.run(:reaction, fn repo, _changes ->
       {:ok,
@@ -33,6 +41,24 @@ defmodule StoreHall.Users.Action do
        |> where([r], r.user_id == ^current_user_id)
        |> where([r], r.type == ^type)
        |> repo.one}
+    end)
+    |> Multi.run(:update_rating_for_reaction, fn repo, %{reaction: reaction_db} ->
+      case reaction_db do
+        nil ->
+          fun_on_update.(repo, user_item_id, [reaction_to_rating(reaction)])
+
+        reaction_db ->
+          if reaction_db.reaction == reaction do
+            fun_on_update.(repo, user_item_id, [-reaction_to_rating(reaction_db.reaction)])
+          else
+            with {:ok, split_field} <-
+                   fun_on_update.(repo, user_item_id, [
+                     -reaction_to_rating(reaction_db.reaction)
+                   ]) do
+              fun_on_update.(repo, user_item_id, [reaction_to_rating(reaction)])
+            end
+          end
+      end
     end)
     |> Multi.run(:toggle_or_change_reaction, fn repo, %{reaction: reaction_db} ->
       case reaction_db do
@@ -95,5 +121,5 @@ defmodule StoreHall.Users.Action do
   def reaction_to_rating(reaction) when reaction in ["meh"], do: 1
   def reaction_to_rating(reaction) when reaction in ["wow"], do: 3
   def reaction_to_rating(reaction) when reaction in ["lol"], do: -3
-  def reaction_to_rating(_reaction), do: nil
+  def reaction_to_rating(_reaction), do: 0
 end

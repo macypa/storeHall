@@ -157,7 +157,7 @@ defmodule StoreHall.Ratings do
     case rating["rating_id"] do
       nil ->
         multi
-        |> update_item_rating(rating["item_id"], rating)
+        |> update_item_rating(rating["item_id"], rating, true)
 
       _ ->
         multi
@@ -168,33 +168,33 @@ defmodule StoreHall.Ratings do
     case rating["rating_id"] do
       nil ->
         multi
-        |> update_user_rating(rating["user_id"], rating)
+        |> update_user_rating(rating["user_id"], rating, true)
 
       _ ->
         multi
     end
   end
 
-  def update_item_rating(multi, item_id, rating \\ [5])
-  def update_item_rating(multi, _item_id, nil), do: multi
-  def update_item_rating(multi, _item_id, [nil]), do: multi
+  def update_item_rating(multi, item_id, rating \\ [5], incr_count \\ false)
+  def update_item_rating(multi, _item_id, nil, _incr_count), do: multi
+  def update_item_rating(multi, _item_id, [nil], _incr_count), do: multi
 
-  def update_item_rating(multi, item_id, rating) do
+  def update_item_rating(multi, item_id, rating, incr_count) do
     multi
     |> Multi.run(:item, fn repo, %{} ->
       {:ok, Items.get_item!(item_id, repo)}
     end)
     |> Multi.run(:calc_item_rating, fn repo, %{item: item} ->
-      calculate_rating_score(rating, repo, Item, item)
+      calculate_rating_score(rating, repo, Item, item, incr_count)
     end)
     |> update_user_rating(nil, rating)
   end
 
-  def update_user_rating(multi, user_id, rating \\ [5])
-  def update_user_rating(multi, _user_id, [nil]), do: multi
-  def update_user_rating(multi, _user_id, nil), do: multi
+  def update_user_rating(multi, user_id, rating \\ [5], incr_count \\ false)
+  def update_user_rating(multi, _user_id, [nil], _incr_count), do: multi
+  def update_user_rating(multi, _user_id, nil, _incr_count), do: multi
 
-  def update_user_rating(multi, user_id, rating) do
+  def update_user_rating(multi, user_id, rating, incr_count) do
     multi
     |> Multi.run(:user, fn repo, changes ->
       case changes do
@@ -203,15 +203,22 @@ defmodule StoreHall.Ratings do
       end
     end)
     |> Multi.run(:calc_user_rating, fn repo, %{user: user} ->
-      calculate_rating_score(rating, repo, User, user)
+      calculate_rating_score(rating, repo, User, user, incr_count)
     end)
   end
 
-  defp calculate_rating_score(rating, repo, query, item_or_user) when is_map(rating) do
-    calculate_rating_score(Map.values(rating["details"]["scores"]), repo, query, item_or_user)
+  defp calculate_rating_score(rating, repo, query, item_or_user, incr_count)
+       when is_map(rating) do
+    calculate_rating_score(
+      Map.values(rating["details"]["scores"]),
+      repo,
+      query,
+      item_or_user,
+      incr_count
+    )
   end
 
-  defp calculate_rating_score(rating, repo, query, item_or_user) do
+  defp calculate_rating_score(rating, repo, query, item_or_user, incr_count) do
     score =
       to_string(
         calc_rating(
@@ -224,20 +231,36 @@ defmodule StoreHall.Ratings do
     count = length(rating)
 
     query =
-      from u in query,
-        where: u.id == ^item_or_user.id,
-        update: [
-          set: [
-            details:
-              fragment(
-                " jsonb_set(
+      case incr_count do
+        true ->
+          from u in query,
+            where: u.id == ^item_or_user.id,
+            update: [
+              set: [
+                details:
+                  fragment(
+                    " jsonb_set(
                     jsonb_set(details, '{rating, score}', ?::text::jsonb),
                     '{rating, count}', (COALESCE(details->'rating'->>'count','0')::decimal + ?)::text::jsonb) ",
-                ^score,
-                ^count
-              )
-          ]
-        ]
+                    ^score,
+                    ^count
+                  )
+              ]
+            ]
+
+        false ->
+          from u in query,
+            where: u.id == ^item_or_user.id,
+            update: [
+              set: [
+                details:
+                  fragment(
+                    " jsonb_set(details, '{rating, score}', ?::text::jsonb) ",
+                    ^score
+                  )
+              ]
+            ]
+      end
 
     repo.update_all(query, [])
     {:ok, score}
