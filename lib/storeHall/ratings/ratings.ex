@@ -61,7 +61,7 @@ defmodule StoreHall.Ratings do
       },
       details: %{
         "rating_template_tag_id" => "rating_template",
-        "scores" => "{{details.scores}}",
+        "scores" => "{{json details.scores}}",
         "body" => "{{details.body}}"
       }
     }
