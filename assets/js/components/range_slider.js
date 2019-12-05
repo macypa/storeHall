@@ -22,7 +22,9 @@ function setVals(){
   var field_max = slides[1];
 
   slides[2].value = field_min.value;
-  slides[3].value = field_max.value;
+  if (field_max.value > 0) {
+    slides[3].value = field_max.value;
+  }
 
   //need to trigger for only one of the inputs
   $(parent.getElementsByClassName("min-slider")[0]).trigger('change');
