@@ -163,7 +163,9 @@ defmodule StoreHall.Items do
   end
 
   defp init_rating(item) do
-    score = Users.get_user!(Map.get(item, "user_id")).details["rating"]["score"]
+    # user = Users.get_user!(Map.get(item, "user_id"))
+    # user.details["rating"]["score"]/user.details["items_count"]/1000 #avg user items rating
+    score = 0
 
     item
     |> put_in(
