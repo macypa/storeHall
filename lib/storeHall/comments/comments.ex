@@ -127,7 +127,7 @@ defmodule StoreHall.Comments do
         {:ok,
          multi.insert
          |> Repo.preload(:author)
-         |> Reactions.preload_reaction(comment["author_id"], "comment")}
+         |> Reactions.preload_reaction(Repo, comment["author_id"], "comment")}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -144,7 +144,7 @@ defmodule StoreHall.Comments do
         {:ok,
          multi.insert
          |> Repo.preload(:author)
-         |> Reactions.preload_reaction(comment["author_id"], "comment")}
+         |> Reactions.preload_reaction(Repo, comment["author_id"], "comment")}
 
       {:error, _op, value, _changes} ->
         {:error, value}

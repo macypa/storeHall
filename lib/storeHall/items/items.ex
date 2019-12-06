@@ -155,7 +155,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Reactions.preload_reaction(item["user_id"], "item")}
+        {:ok, multi.insert |> Reactions.preload_reaction(Repo, item["user_id"], "item")}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -324,7 +324,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.update |> Reactions.preload_reaction(item["user_id"], "item")}
+        {:ok, multi.update |> Reactions.preload_reaction(Repo, item["user_id"], "item")}
 
       {:error, _op, value, _changes} ->
         {:error, value}
