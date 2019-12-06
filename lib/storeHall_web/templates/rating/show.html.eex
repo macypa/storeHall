@@ -39,7 +39,7 @@
       reaction: @rating.reaction,
       react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id} %>
 
-    <%= render StoreHallWeb.RatingView, "form.html",
+    <%= render StoreHallWeb.RatingView, "_form.html",
       rating: Map.put(@rating, :rating_id, @rating.id)%>
 
   </actions>

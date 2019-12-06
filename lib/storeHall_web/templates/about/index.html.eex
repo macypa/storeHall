@@ -35,6 +35,11 @@
 
     </ul>
 
+    <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{
+      id: nil,
+      user_id: @user.id,
+      details: %{}
+    } %>
   </div>
 
   <div id="contacts">

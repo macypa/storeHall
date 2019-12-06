@@ -1,11 +1,3 @@
-<% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end %>
-<%= case @ratings |> Enum.find(fn r -> r.author_id == current_user_id end) do %>
-  <% nil -> %>
-    <h3><%= Gettext.gettext("Add Rating") %></h3>
-    <%= render "form.html", rating: @rating_template %>
-  <% _ -> %>
-
-<% end %>
 
 <h1><%= Gettext.gettext("Ratings") %></h1>
 

@@ -1,0 +1,24 @@
+
+<% button_text = case @rating.id do
+ nil -> Gettext.gettext("Add Rating")
+_ -> Gettext.gettext("comment")
+end %>
+
+<button class="rating-button" onclick='show_hide("rating-<%=@rating.id%>")'><%= button_text %></button>
+<rating-form class="hidable-form" id="rating-<%=@rating.id%>" style="display: none">
+  <textarea class="rating-textarea" type="text" name="body" value=""></textarea>
+
+  <%= case @rating.id do %>
+    <% nil -> %>
+      <%= Gettext.gettext("Scores") %>:
+      <input class="scores" type="text" name="scores", value="<%= Jason.encode! @rating.details['scores'] || %{} %>">
+    <% _ -> %>
+
+  <% end %>
+
+  <input class="rating" type="hidden" name="rating"
+          value="<%= @rating
+                    |> Map.take([:author_id, :rating_id, :details, :id, :item_id, :user_id])
+                    |> Jason.encode! %>">
+  <button class="rating-button" rating-topic="rating:add" type="button"><%= Gettext.gettext("Send") %></button>
+</rating-form>

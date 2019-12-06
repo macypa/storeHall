@@ -32,6 +32,11 @@
 
     </ul>
 
+    <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{
+      id: nil,
+      user_id: @user.id,
+      details: %{}
+    } %>
   </div>
 
   <div id="comments">
@@ -42,11 +47,7 @@
   </div>
 
   <div id="ratings">
-    <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings, rating_template: %{
-      id: nil,
-      user_id: @user.id,
-      details: %{}
-    } %>
+    <%= render StoreHallWeb.RatingView, "index.html", conn: @conn, ratings: @user.ratings%>
   </div>
 
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @user.id do %>
