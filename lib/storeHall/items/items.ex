@@ -8,7 +8,6 @@ defmodule StoreHall.Items do
   alias StoreHall.DeepMerge
   alias Ecto.Multi
 
-  alias StoreHall.Users
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
 
@@ -155,7 +154,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.insert |> Reactions.preload_reaction(Repo, item["user_id"], "item")}
+        {:ok, multi.insert}
 
       {:error, _op, value, _changes} ->
         {:error, value}
@@ -326,7 +325,7 @@ defmodule StoreHall.Items do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.update |> Reactions.preload_reaction(Repo, item["user_id"], "item")}
+        {:ok, multi.update}
 
       {:error, _op, value, _changes} ->
         {:error, value}

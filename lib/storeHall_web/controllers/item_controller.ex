@@ -6,7 +6,6 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Items.Item
   alias StoreHall.Ratings
   alias StoreHall.Comments
-  alias StoreHall.Reactions
 
   plug :check_owner when action in [:edit, :delete]
 
