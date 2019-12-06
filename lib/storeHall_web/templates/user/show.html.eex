@@ -26,7 +26,7 @@
       </li>
 
       <li>
-        <strong><%= Gettext.gettext("Rating") %>:</strong>
+        <strong><%= Gettext.gettext("Scores") %>:</strong>
         <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
       </li>
 
