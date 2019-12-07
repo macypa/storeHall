@@ -226,33 +226,44 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
-          {:ok, rating} ->
-            broadcast!(
-              socket,
-              "new_rating",
-              %{
-                rating_parent_id: rating.rating_id,
-                new_rating: Jason.encode!(rating)
-              }
-            )
-
-          {:ok, rating, user_rating} ->
-            broadcast!(
-              socket,
-              "new_rating",
-              %{
-                rating_parent_id: rating.rating_id,
-                new_rating: Jason.encode!(rating)
-              }
-            )
-
-            broadcast!(socket, "update_rating", %{new_rating: user_rating})
-
-          {:error, _rating} ->
+        case Ratings.validate_scores(rating["details"]["scores"]) do
+          false ->
             push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
+              message:
+                Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
+                  max_score: Ratings.max_scores_sum_points()
+                )
             })
+
+          true ->
+            case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
+              {:ok, rating} ->
+                broadcast!(
+                  socket,
+                  "new_rating",
+                  %{
+                    rating_parent_id: rating.rating_id,
+                    new_rating: Jason.encode!(rating)
+                  }
+                )
+
+              {:ok, rating, user_rating} ->
+                broadcast!(
+                  socket,
+                  "new_rating",
+                  %{
+                    rating_parent_id: rating.rating_id,
+                    new_rating: Jason.encode!(rating)
+                  }
+                )
+
+                broadcast!(socket, "update_rating", %{new_rating: user_rating})
+
+              {:error, _rating} ->
+                push(socket, "error", %{
+                  message: Gettext.gettext("you already did it :)")
+                })
+            end
         end
     end
 

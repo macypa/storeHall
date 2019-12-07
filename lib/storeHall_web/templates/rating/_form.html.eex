@@ -1,33 +1,31 @@
 
-<% button_text = case @rating.id do
- nil -> Gettext.gettext("Add Rating")
-_ -> Gettext.gettext("comment")
-end %>
-
-<button class="rating-button" onclick='show_hide("rating-<%=@rating.id%>")'><%= button_text %></button>
 <rating-form class="hidable-form" id="rating-<%=@rating.id%>" style="display: none">
   <textarea class="rating-textarea" type="text" name="body" value=""></textarea>
 
-  <%= case @rating.id do %>
-    <% nil -> %>
-      <input class="rating-error-msg" type="hidden" max_scores_sum="50" value='<%= Gettext.gettext("All Scores absolute values should add up to max 30!") %>' />
+  <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+     am_author = Map.has_key?(@rating, :author_id) and @rating.author_id == current_user_id
+     first_level = @rating.id == nil  %>
+
+  <%= if am_author or first_level do %>
+
+      <input class="rating-error-msg" type="hidden" max_scores_sum="<%= Ratings.max_scores_sum_points %>"
+                    value='<%= Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
+                                                max_score: Ratings.max_scores_sum_points ) %>' />
       <div class="select7_container">
         <div class="select7_arrow"></div>
         <div class="select7_placeholder"><%= Gettext.gettext("Add Scores") %></div>
 
         <select class="select7_select">
-          <option value="staff" json-value="0"><%= Gettext.gettext("Staff") %></option>
-          <option value="friendly" json-value="2"><%= Gettext.gettext("Friendly") %></option>
-          <option value="clean" json-value="3"><%= Gettext.gettext("Cleanliness") %></option>
-          <option value="price" json-value="4"><%= Gettext.gettext("Price") %></option>
-          <option value="quality" json-value="5"><%= Gettext.gettext("Quality") %></option>
+          <%= for {score_name, score_text}  <- StoreHall.Ratings.scode_names do %>
+            <option value="<%= score_name %>" ><%= score_text %></option>
+          <% end %>
         </select>
-        <input class="scores select7_input" type="hidden" name="scores" format="json" value="<%= Jason.encode! @rating.details['scores'] || %{} %>" />
+        <input class="scores select7_input" type="hidden" name="scores" format="json"
+               max_spinner="<%= Ratings.max_score_points %>"
+               value="<%= Jason.encode! @rating.details['scores'] || %{} %>" />
 
         <div class="select7_items"></div>
       </div>
-
-    <% _ -> %>
 
   <% end %>
 

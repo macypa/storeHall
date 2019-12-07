@@ -141,10 +141,13 @@ defmodule StoreHallWeb.ItemsChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case validate_scores(rating["details"]["scores"]) do
+        case Ratings.validate_scores(rating["details"]["scores"]) do
           false ->
             push(socket, "error", %{
-              message: Gettext.gettext("All Scores absolute values should add up to max 30!")
+              message:
+                Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
+                  max_score: Ratings.max_scores_sum_points()
+                )
             })
 
           true ->
@@ -184,16 +187,6 @@ defmodule StoreHallWeb.ItemsChannel do
     end
 
     {:reply, :ok, socket}
-  end
-
-  defp validate_scores(rating) do
-    rating
-    |> Map.values()
-    |> Enum.reduce(0, fn score, acc -> acc + score end)
-    |> case do
-      x when x > 30 -> false
-      _ -> true
-    end
   end
 
   def broadcast_msg!(item_id_with_slug, message, body) when is_bitstring(item_id_with_slug) do

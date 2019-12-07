@@ -15,6 +15,44 @@ defmodule StoreHall.Ratings do
   alias StoreHall.Users.User
   alias StoreHall.DefaultFilter
   alias StoreHall.Reactions
+  require StoreHallWeb.Gettext
+  alias StoreHallWeb.Gettext, as: Gettext
+
+  @scode_names [
+    staff: Gettext.gettext("staff"),
+    friendly: Gettext.gettext("friendly"),
+    clean: Gettext.gettext("clean"),
+    price: Gettext.gettext("price"),
+    quality: Gettext.gettext("quality")
+  ]
+  def scode_names, do: @scode_names
+  def max_score_points, do: 10
+  def max_scores_sum_points, do: length(scode_names()) * max_score_points
+
+  def validate_scores(rating) do
+    max_score = max_scores_sum_points()
+
+    rating
+    |> Map.values()
+    |> Enum.reduce(0, fn score, acc -> acc + score end)
+    |> case do
+      x when x > max_score -> false
+      _ -> validate_individual_scores(rating)
+    end
+  end
+
+  def validate_individual_scores(rating) do
+    max_score = max_score_points()
+
+    rating
+    |> Map.values()
+    |> Enum.reduce(true, fn score, acc ->
+      case score do
+        x when x > max_score -> false
+        _ -> acc
+      end
+    end)
+  end
 
   def preload_for(item_user, current_user_id, params) do
     item_user
@@ -120,8 +158,7 @@ defmodule StoreHall.Ratings do
 
   def create_item_rating(rating \\ %{}) do
     Multi.new()
-    |> update_only_for_first_level_item_rating(rating)
-    |> Multi.insert(:insert, ItemRating.changeset(%ItemRating{}, rating))
+    |> insert_or_update_item_rating(rating)
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -147,8 +184,7 @@ defmodule StoreHall.Ratings do
 
   def create_user_rating(rating \\ %{}) do
     Multi.new()
-    |> update_only_for_first_level_user_rating(rating)
-    |> Multi.insert(:insert, UserRating.changeset(%UserRating{}, rating))
+    |> insert_or_update_user_rating(rating)
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -172,25 +208,108 @@ defmodule StoreHall.Ratings do
     end
   end
 
-  defp update_only_for_first_level_item_rating(multi, rating) do
+  defp insert_or_update_item_rating(multi, rating) do
     case rating["rating_id"] do
       nil ->
         multi
-        |> update_item_rating(rating["item_id"], rating, true)
+        |> Multi.run(:rating_db, fn repo, _changes ->
+          query =
+            from r in ItemRating,
+              where:
+                is_nil(r.rating_id) and
+                  r.item_id == ^rating["item_id"] and
+                  r.user_id == ^rating["user_id"] and
+                  r.author_id == ^rating["author_id"]
+
+          {:ok, repo.one(query)}
+        end)
+        |> Multi.run(:insert, fn repo, %{rating_db: rating_from_db} ->
+          case rating_from_db do
+            nil ->
+              ItemRating.changeset(%ItemRating{}, rating) |> repo.insert()
+
+            rating_from_db ->
+              ItemRating.changeset(rating_from_db, rating) |> repo.update()
+          end
+        end)
+        |> Multi.merge(fn %{rating_db: rating_from_db} ->
+          case rating_from_db do
+            nil ->
+              Multi.new()
+              |> update_item_rating(rating["item_id"], rating, true)
+
+            rating_from_db ->
+              negated_old_scores =
+                rating_from_db.details["scores"]
+                |> Map.values()
+                |> Enum.reduce(0, fn score, acc -> acc + score end)
+                |> Kernel.*(-1)
+
+              new_scores =
+                rating["details"]["scores"]
+                |> Map.values()
+                |> Enum.reduce(0, fn score, acc -> acc + score end)
+
+              Multi.new()
+              |> update_item_rating(rating["item_id"], negated_old_scores + new_scores, false)
+          end
+        end)
 
       _ ->
         multi
+        |> Multi.insert(:insert, ItemRating.changeset(%ItemRating{}, rating))
     end
   end
 
-  defp update_only_for_first_level_user_rating(multi, rating) do
+  defp insert_or_update_user_rating(multi, rating) do
     case rating["rating_id"] do
       nil ->
         multi
-        |> update_user_rating(rating["user_id"], rating, true)
+        |> Multi.run(:rating_db, fn repo, _changes ->
+          query =
+            from r in UserRating,
+              where:
+                is_nil(r.rating_id) and
+                  r.user_id == ^rating["user_id"] and
+                  r.author_id == ^rating["author_id"]
+
+          {:ok, repo.one(query)}
+        end)
+        |> Multi.run(:insert, fn repo, %{rating_db: rating_from_db} ->
+          case rating_from_db do
+            nil ->
+              UserRating.changeset(%UserRating{}, rating) |> repo.insert()
+
+            rating_from_db ->
+              UserRating.changeset(rating_from_db, rating) |> repo.update()
+          end
+        end)
+        |> Multi.merge(fn %{rating_db: rating_from_db} ->
+          case rating_from_db do
+            nil ->
+              Multi.new()
+              |> update_user_rating(rating["user_id"], rating, true)
+
+            rating_from_db ->
+              negated_old_scores =
+                rating_from_db.details["scores"]
+                |> Map.values()
+                |> Enum.reduce(0, fn score, acc -> acc + score end)
+                |> Kernel.*(-1)
+
+              new_scores =
+                rating["details"]["scores"]
+                |> Map.values()
+                |> Enum.reduce(0, fn score, acc -> acc + score end)
+
+              Multi.new()
+              |> update_user_rating(rating["user_id"], negated_old_scores + new_scores, false)
+          end
+        end)
 
       _ ->
         multi
+        |> Multi.insert(:insert, UserRating.changeset(%UserRating{}, rating))
     end
   end
 
@@ -247,7 +366,9 @@ defmodule StoreHall.Ratings do
         )
       )
 
-    count = length(rating)
+    # count = length(rating)
+    # increase by 1 for every rating disregarding the score count
+    count = 1
 
     query =
       case incr_count do

@@ -50,7 +50,6 @@ function update_placeholder(selected_items, option) {
                                   <div class='select7_x'></div>\
                                 </div>\
                                 <div data-option-value='"+ option.getAttribute("value")
-                                +"' json-value='"+ option.getAttribute("json-value")
                                 +"' class='select7_content'>"+ option.innerText +"</div>\
                               </div> ";
 
