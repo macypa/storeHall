@@ -19,6 +19,26 @@ $height-footer: 1.5em;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+@mixin spinner_number_input {
+  -moz-appearance:textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  &:focus,
+  &:hover {
+   -moz-appearance:number-input;
+   &::-webkit-outer-spin-button,
+   &::-webkit-inner-spin-button {
+     -webkit-appearance: inner-spin-button;
+     margin: 0 2px 0 0;
+   }
+  }
+}
+
 // Resets
 html {
   -webkit-box-sizing: border-box;
