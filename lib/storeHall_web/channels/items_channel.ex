@@ -141,41 +141,59 @@ defmodule StoreHallWeb.ItemsChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
-          {:ok, rating} ->
-            broadcast!(
-              socket,
-              "new_rating",
-              %{
-                rating_parent_id: rating.rating_id,
-                new_rating: Jason.encode!(rating)
-              }
-            )
-
-          {:ok, rating, item_rating, user_rating} ->
-            broadcast!(
-              socket,
-              "new_rating",
-              %{
-                rating_parent_id: rating.rating_id,
-                new_rating: Jason.encode!(rating)
-              }
-            )
-
-            broadcast!(socket, "update_rating", %{new_rating: item_rating})
-
-            StoreHallWeb.UsersChannel.broadcast_msg!(rating.user_id, "update_rating", %{
-              new_rating: user_rating
-            })
-
-          {:error, _rating} ->
+        case validate_scores(rating["details"]["scores"]) do
+          false ->
             push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
+              message: Gettext.gettext("All Scores absolute values should add up to max 30!")
             })
+
+          true ->
+            case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
+              {:ok, rating} ->
+                broadcast!(
+                  socket,
+                  "new_rating",
+                  %{
+                    rating_parent_id: rating.rating_id,
+                    new_rating: Jason.encode!(rating)
+                  }
+                )
+
+              {:ok, rating, item_rating, user_rating} ->
+                broadcast!(
+                  socket,
+                  "new_rating",
+                  %{
+                    rating_parent_id: rating.rating_id,
+                    new_rating: Jason.encode!(rating)
+                  }
+                )
+
+                broadcast!(socket, "update_rating", %{new_rating: item_rating})
+
+                StoreHallWeb.UsersChannel.broadcast_msg!(rating.user_id, "update_rating", %{
+                  new_rating: user_rating
+                })
+
+              {:error, _rating} ->
+                push(socket, "error", %{
+                  message: Gettext.gettext("you already did it :)")
+                })
+            end
         end
     end
 
     {:reply, :ok, socket}
+  end
+
+  defp validate_scores(rating) do
+    rating
+    |> Map.values()
+    |> Enum.reduce(0, fn score, acc -> acc + score end)
+    |> case do
+      x when x > 30 -> false
+      _ -> true
+    end
   end
 
   def broadcast_msg!(item_id_with_slug, message, body) when is_bitstring(item_id_with_slug) do

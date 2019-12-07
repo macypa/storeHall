@@ -10,8 +10,23 @@ end %>
 
   <%= case @rating.id do %>
     <% nil -> %>
-      <%= Gettext.gettext("Scores") %>:
-      <input class="scores" type="text" name="scores", value="<%= Jason.encode! @rating.details['scores'] || %{} %>">
+      <input class="rating-error-msg" type="hidden" max_scores_sum="50" value='<%= Gettext.gettext("All Scores absolute values should add up to max 30!") %>' />
+      <div class="select7_container">
+        <div class="select7_arrow"></div>
+        <div class="select7_placeholder"><%= Gettext.gettext("Add Scores") %></div>
+
+        <select class="select7_select">
+          <option value="staff" json-value="0"><%= Gettext.gettext("Staff") %></option>
+          <option value="friendly" json-value="2"><%= Gettext.gettext("Friendly") %></option>
+          <option value="clean" json-value="3"><%= Gettext.gettext("Cleanliness") %></option>
+          <option value="price" json-value="4"><%= Gettext.gettext("Price") %></option>
+          <option value="quality" json-value="5"><%= Gettext.gettext("Quality") %></option>
+        </select>
+        <input class="scores select7_input" type="hidden" name="scores" format="json" value="<%= Jason.encode! @rating.details['scores'] || %{} %>" />
+
+        <div class="select7_items"></div>
+      </div>
+
     <% _ -> %>
 
   <% end %>

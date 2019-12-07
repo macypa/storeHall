@@ -13,10 +13,10 @@
 
 .select7_placeholder {
     font-size: 14px;
-    position: absolute;
-    top: 45%;
-    left: 6px;
-    transform: translateY(-50%);
+    // position: absolute;
+    // top: 45%;
+    // left: 6px;
+    // transform: translateY(-50%);
 }
 
 .select7_arrow {
@@ -26,6 +26,11 @@
     font-size: 18px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.select7_items {
+  display: flex;
+  flex-direction: column;
 }
 
 .select7_item {
@@ -41,7 +46,7 @@
     font-size: 14px;
     user-select: none;
     margin-bottom: 5px;
-    max-width: 99%;
+    max-width: 22vw;
 }
 
 .select7_content {
@@ -69,6 +74,15 @@
     //background: $baseBackgroundColor;
     font-size: 15px;
     /* font-weight: bold; */ /* add this for bold options */
+}
+
+.select7_spinner {
+  position: absolute;
+  top: 1px;
+  right: 22px;
+  width: 2.5em;
+
+  @include spinner_number_input;
 }
 
 .select7_del {

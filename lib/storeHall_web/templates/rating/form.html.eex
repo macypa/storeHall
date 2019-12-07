@@ -1,7 +1,11 @@
 
-<% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end %>
-<%= case @ratings |> Enum.find(fn r -> r.author_id == current_user_id end) do %>
-  <% nil -> %>
-    <%= render  "_form.html", rating: @rating %>
-  <% _ -> %>
+<%= if @conn.assigns[:logged_user] != nil do %>
+
+  <% current_user_id = @conn.assigns[:logged_user].id %>
+  <%= case @ratings |> Enum.find(fn r -> r.author_id == current_user_id end) do %>
+    <% nil -> %>
+      <%= render  "_form.html", rating: @rating %>
+    <% _ -> %>
+  <% end %>
+
 <% end %>

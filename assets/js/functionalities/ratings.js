@@ -13,6 +13,18 @@ function on_rating_events() {
 }
 
 
+function validate_scores(rating_scores, max) {
+  var sum = 0;
+  for(var score in rating_scores) {
+    sum += Math.abs(rating_scores[score]);
+  }
+  if (sum > max) {
+    return false;
+  }
+
+  return true;
+}
+
 function add_rating_events() {
   add_events("[rating-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("rating-textarea")[0].value
@@ -24,12 +36,19 @@ function add_rating_events() {
     if (scores_field[0]) {
       rating_field_value.details.scores = JSON.parse(scores_field[0].value)
     }
-    channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
 
-    this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
-    $(".hidable-form").each(function(  ) {
-      $(this).hide();
-    });
+    var max_scores_sum = this.parentNode.getElementsByClassName("rating-error-msg")[0].getAttribute("max_scores_sum");
+    if (validate_scores(rating_field_value.details.scores, max_scores_sum)) {
+      channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
+
+      this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
+      $(".hidable-form").each(function(  ) {
+        $(this).hide();
+      });
+    } else {
+      var error_msg = this.parentNode.getElementsByClassName("rating-error-msg")[0].value
+      alert(error_msg);
+    }
   });
 }
 add_rating_events();

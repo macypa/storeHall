@@ -3,15 +3,36 @@ function update_input_field(select, trigger) {
   var placeholder = select.parentElement.querySelector(".select7_items");
   var input_field = select.parentElement.parentElement.querySelector(".select7_input");
   input_field.value = "";
+  var json = input_field.getAttribute("format") == "json";
 
-  const children = [...placeholder.getElementsByClassName('select7_content')];
-  children.forEach(function(option) {
-    if (input_field.value == "") {
-      input_field.value = option.getAttribute("data-option-value");
+  const children = [...placeholder.getElementsByClassName('select7_item')];
+  if (json) {
+    input_field.value = "{";
+  }
+  children.forEach(function(item) {
+    var option = item.getElementsByClassName('select7_content')[0];
+    var option_value = option.getAttribute("data-option-value");
+
+    if (json) {
+      var spinner = item.getElementsByClassName('select7_spinner')[0];
+      var spinner_value = spinner.getAttribute("value");
+
+      if (input_field.value == "{") {
+        input_field.value += '"';
+      } else {
+        input_field.value += ', "';
+      }
+       input_field.value += option_value + '": ' + spinner_value;
     } else {
-      input_field.value += ";" + option.getAttribute("data-option-value");
+      if (input_field.value != "") {
+        input_field.value += ";";
+      }
+      input_field.value += option_value;
     }
   });
+  if (json) {
+    input_field.value += "}";
+  }
   if (trigger) {
     $(input_field).trigger('change');
   }
@@ -19,13 +40,25 @@ function update_input_field(select, trigger) {
 
 function update_placeholder(selected_items, option) {
 
+  var input_field = selected_items.parentElement.querySelector(".select7_input");
+  var json = input_field.getAttribute("format") == "json";
+
   selected_items.innerHTML += "<div class='select7_item'> \
-                                <div data-option-value='"+ option.getAttribute("value") +"' class='select7_content'>"+ option.innerText +"</div>\
+                                " + (json ? "<input class='select7_spinner' min='-10' max='10' step='1' type='number' value='0'> " : "") + " \
                                 <div class='select7_del'>\
                                   <div class='select7_x'></div>\
                                   <div class='select7_x'></div>\
                                 </div>\
+                                <div data-option-value='"+ option.getAttribute("value")
+                                +"' json-value='"+ option.getAttribute("json-value")
+                                +"' class='select7_content'>"+ option.innerText +"</div>\
                               </div> ";
+
+  var spinners = selected_items.getElementsByClassName("select7_spinner");
+  for( var x = 0; x < spinners.length; x++ ){
+    var spinner = spinners[x];
+    spinner.oninput = update_spinner_val;
+  }
 
   var del_buttons = selected_items.getElementsByClassName("select7_del");
   for( var x = 0; x < del_buttons.length; x++ ){
@@ -34,6 +67,11 @@ function update_placeholder(selected_items, option) {
   }
 }
 
+function update_spinner_val(){
+  this.setAttribute("value", this.value);
+  var select = this.parentElement.parentElement.parentElement.getElementsByTagName("select")[0];
+  update_input_field(select, false)
+}
 
 $( document ).ready(function() {
   var selects_containers = $(".select7_container");
@@ -41,7 +79,7 @@ $( document ).ready(function() {
     var select = select_container.getElementsByTagName("select")[0];
     var input_field = select.parentElement.parentElement.querySelector(".select7_input");
     select.onchange = function(){Select7.add(this, event)};
-    select.innerHTML = "<option value='' class='select7_hide'>filler</option>" + select.innerHTML;
+    select.innerHTML = "<option value='' class='select7_hide' disabled></option>" + select.innerHTML;
 
     //let input = document.createRange().createContextualFragment('<input class="select7_input auto-submit-item" name="'+ select.name +'" type="hidden">');
     //select_container.appendChild(input);
@@ -54,8 +92,8 @@ $( document ).ready(function() {
         if (option.value != "" && selected_field == option.value) {
           option.setAttribute("selected", "selected");
 
-          var placeholder = option.parentElement.parentElement.querySelector(".select7_placeholder");
-          placeholder.style.display = "none";
+          // var placeholder = option.parentElement.parentElement.querySelector(".select7_placeholder");
+          // placeholder.style.display = "none";
 
           var selected_items = option.parentElement.parentElement.querySelector(".select7_items");
           update_placeholder(selected_items, option);
@@ -75,13 +113,13 @@ Select7.add = (elem, e) => {
     var option_text =  elem[elem.selectedIndex].text;
     var option_value =  elem[elem.selectedIndex].value;
     var selected_items = elem.parentElement.querySelector(".select7_items");
-    var placeholder = elem.parentElement.querySelector(".select7_placeholder");
-    if (option_value === "filler" && option_text === "")
+    if (option_value === "" && option_text === "")
       return;
     if ($(selected_items).find(`[data-option-value="${option_value}"]`)[0])
       return;
 
-    placeholder.style.display = "none";
+    // var placeholder = elem.parentElement.querySelector(".select7_placeholder");
+    // placeholder.style.display = "none";
     update_placeholder(selected_items, elem[elem.selectedIndex]);
 
     elem[elem.selectedIndex].setAttribute("selected", "");
@@ -105,44 +143,13 @@ Select7.remove = (elem, e) => {
     //if (selector.length > 1)
         //selector.style.display = "block";
 
-    var selected_items = elem.parentElement.parentElement.parentElement.querySelectorAll(".select7_item");
-    if (selected_items.length == 1) {
-        var placeholder = elem.parentElement.parentElement.parentElement.querySelector(".select7_placeholder");
-        placeholder.style.display = "block";
-    }
+    // var selected_items = elem.parentElement.parentElement.parentElement.querySelectorAll(".select7_item");
+    // if (selected_items.length == 1) {
+    //     var placeholder = elem.parentElement.parentElement.parentElement.querySelector(".select7_placeholder");
+        // placeholder.style.display = "block";
+    // }
 
     elem.parentElement.parentElement.removeChild(elem.parentElement);
 
     update_input_field(select, true);
-};
-
-Select7.get = (select7_id, type = "both") => {
-    var selected_items = document.getElementById(select7_id).querySelectorAll(".select7_content");
-
-    if (selected_items.length > 0) {
-        var selected_values = [];
-
-        switch (type) {
-            case "value": {
-                for (let i = 0; i < selected_items.length; i++)
-                    selected_values = [...selected_values, selected_items[i].dataset.optionValue];
-                break;
-            }
-            case "text": {
-                for (let i = 0; i < selected_items.length; i++)
-                    selected_values = [...selected_values, selected_items[i].innerHTML];
-                break;
-            }
-            case "both": {
-                for (let i = 0; i < selected_items.length; i++)
-                    selected_values = [...selected_values, {
-                        "text": selected_items[i].innerHTML,
-                        "value": selected_items[i].dataset.optionValue,
-                    }];
-                break;
-            }
-        }
-
-        return selected_values;
-    }
 };

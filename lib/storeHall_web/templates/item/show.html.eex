@@ -40,12 +40,12 @@
       reaction: @item.reaction,
       react_to: %{type: "item", id: @item.id, author_id: @item.id} %>
 
-      <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @item.ratings, rating: %{
-        id: nil,
-        item_id: @item.id,
-        user_id: @item.user_id,
-        details: %{}
-      } %>
+    <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @item.ratings, rating: %{
+      id: nil,
+      item_id: @item.id,
+      user_id: @item.user_id,
+      details: %{}
+    } %>
   </div>
 
   <div id="comments">
