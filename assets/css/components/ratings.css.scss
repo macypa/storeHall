@@ -16,12 +16,14 @@ ratings {
 	rating {
 
 	  display: grid;
-    grid-template-columns: min-content min-content 1fr;
+    grid-template-columns: min-content 1fr;
 	  grid-template-areas:
-			'avatar author time .'
-			'avatar text text text'
-			'avatar actions actions actions'
-			'avatar replies replies replies';
+			'avatar author'
+      'avatar time'
+			'avatar scores'
+      'avatar text'
+			'avatar actions'
+			'avatar replies';
 		padding: 0.3em;
 
 	  a {
@@ -76,6 +78,15 @@ ratings {
 		  hyphens: auto;
 		}
 
+		scores {
+			grid-area: scores;
+			min-width: 20vw;
+			overflow: auto;
+
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+		}
+
 		actions{
 			grid-area: actions;
 
@@ -107,6 +118,18 @@ ratings {
 // tablet view
 @media only screen and (min-width: $width-header) {
 
+  ratings {
+
+  	rating {
+      grid-template-columns: min-content min-content 1fr;
+  	  grid-template-areas:
+  			'avatar author time .'
+  			'avatar text . scores'
+  			'avatar actions actions actions'
+  			'avatar replies replies replies';
+
+    }
+  }
 }
 
 //desktop view

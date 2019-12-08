@@ -44,7 +44,8 @@ function update_placeholder(selected_items, option) {
   var json = input_field.getAttribute("format") == "json";
 
   selected_items.innerHTML += "<div class='select7_item'> \
-                                " + (json ? "<input class='select7_spinner' min='-10' max='10' step='1' type='number' value='0'> " : "") + " \
+                                " + (json ? "<input class='select7_spinner' min='-10' max='10' step='1' type='number' value='" +
+                                option.getAttribute("json_value")  + "'> " : "") + " \
                                 <div class='select7_del'>\
                                   <div class='select7_x'></div>\
                                   <div class='select7_x'></div>\
@@ -76,7 +77,10 @@ $( document ).ready(function() {
   var selects_containers = $(".select7_container");
   for (let select_container of selects_containers) {
     var select = select_container.getElementsByTagName("select")[0];
-    var input_field = select.parentElement.parentElement.querySelector(".select7_input");
+    var selected_items = select_container.querySelector(".select7_items");
+    var input_field = select_container.querySelector(".select7_input");
+    var json = input_field.getAttribute("format") == "json";
+
     select.onchange = function(){Select7.add(this, event)};
     select.innerHTML = "<option value='' class='select7_hide' disabled></option>" + select.innerHTML;
 
@@ -84,22 +88,36 @@ $( document ).ready(function() {
     //select_container.appendChild(input);
     $(select).removeAttr("name");
 
-    const children = [...select.getElementsByTagName('option')];
-    const selected_fields = [...input_field.value.split(";")];
-    selected_fields.forEach(function(selected_field) {
-      children.forEach(function(option) {
-        if (option.value != "" && selected_field == option.value) {
-          option.setAttribute("selected", "selected");
+    const children = [...select.getElementsByTagName('option')]
+    if (json && !input_field.value.startsWith("{{") ) {
+      var json_data = JSON.parse(input_field.value);
+      for(var score in json_data) {
+        children.forEach(function(option) {
+          if (option.value != "" && score == option.value) {
+            option.setAttribute("selected", "selected");
+            option.setAttribute("json_value", json_data[score]);
+            update_placeholder(selected_items, option);
+          }
+        });
+      }
+      update_input_field(select, false);
 
-          // var placeholder = option.parentElement.parentElement.querySelector(".select7_placeholder");
-          // placeholder.style.display = "none";
+    } else {
+      const selected_fields = [...input_field.value.split(";")];
+      selected_fields.forEach(function(selected_field) {
+        children.forEach(function(option) {
+          if (option.value != "" && selected_field == option.value) {
+            option.setAttribute("selected", "selected");
 
-          var selected_items = option.parentElement.parentElement.querySelector(".select7_items");
-          update_placeholder(selected_items, option);
-        }
+            // var placeholder = option.parentElement.parentElement.querySelector(".select7_placeholder");
+            // placeholder.style.display = "none";
+
+            update_placeholder(selected_items, option);
+          }
+        });
       });
-    });
-    update_input_field(select, false);
+      update_input_field(select, false);
+    }
   }
 });
 
