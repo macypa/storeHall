@@ -13,7 +13,8 @@
     "lint:scss": "stylelint ./src/**/*.scss --syntax scss",
     "lint": "npm run lint:js && npm run lint:scss",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "test": "snyk test"
   },
   "dependencies": {
     "date-fns": "^2.8.1",
@@ -25,7 +26,7 @@
     "node-sass-glob-importer": "^5.3.2",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "snyk": "^1.230.5"
+    "snyk": "^1.258.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
