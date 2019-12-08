@@ -117,3 +117,31 @@ channel.on("filtered_ratings", payload => {
   on_rating_events();
   update_next_page_link(payload);
 })
+
+$( document ).ready(function() {
+  $("pro_scores").each(function() {
+    if (!this.innerText.startsWith("{{") ) {
+      var json_data = JSON.parse(this.innerText);
+      var html = "";
+      for(var score in json_data) {
+        if (json_data[score] > 0) {
+          html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
+        }
+      }
+      this.innerHTML = html;
+    }
+  });
+
+  $("con_scores").each(function() {
+    if (!this.innerText.startsWith("{{") ) {
+      var json_data = JSON.parse(this.innerText);
+      var html = "";
+      for(var score in json_data) {
+        if (json_data[score] < 0) {
+          html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
+        }
+      }
+      this.innerHTML = html;
+    }
+  });
+});

@@ -31,9 +31,15 @@
     <%= @rating.details["body"] %>
   </text>
 
-  <scores><%= @rating.details["scores"] %>
-    <pros value='<%= @rating.details["scores"] %>' />
-    <cons value='<%= @rating.details["scores"] %>' />
+  <scores>
+    <pros class="score_cons_pros">
+      <label><%= Gettext.gettext("Pros") %></label>
+      <pro_scores><%= @rating.details["scores"] %></pro_scores>
+    </pros>
+    <cons class="score_cons_pros">
+      <label><%= Gettext.gettext("Cons") %></label>
+      <con_scores><%= @rating.details["scores"] %></con_scores>
+    </cons>
   </scores>
 
   <actions>

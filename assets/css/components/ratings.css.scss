@@ -85,6 +85,25 @@ ratings {
 
 			padding-top: 0.5em;
 			padding-bottom: 0.5em;
+
+
+      .score_cons_pros {
+        display: flex;
+        flex-direction: column;
+  			padding-top: 0.5em;
+
+        score_text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        pro_scores {
+          color: green;
+        }
+        con_scores {
+          color: red;
+        }
+      }
 		}
 
 		actions{
