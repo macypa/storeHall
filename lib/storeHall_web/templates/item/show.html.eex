@@ -1,55 +1,63 @@
 
 <show>
   <div id="info">
-    <ul>
 
-      <li>
-        <strong><%= Gettext.gettext("Name") %>:</strong>
-        <%= @item.name %>
-      </li>
-
-      <li>
-        <strong><%= Gettext.gettext("User") %>:</strong>
-        <%= @item.user_id %>
-      </li>
-
-      <li>
-        <strong><%= Gettext.gettext("Details") %>:</strong>
-        <%= @item.details %>
-      </li>
-
-      <li>
-        <strong><%= Gettext.gettext("Scores") %>:</strong>
-        <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
-      </li>
-
-      <!-- links to mark image as inappropriate -->
-      <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
-      <li>
-        <strong><%= Gettext.gettext("Images") %>:</strong>
-        <%= for image <- @item.details["images"] do %>
-          <a href="<%= StoreHall.FileUploader.url({image, @item})%>">
-            <img class="lazy" data-src="<%= StoreHall.FileUploader.url({image, @item}, :thumb)%>">
-          </a>
+    <item_user_info>
+      <avatar>
+        <%= link to: Routes.user_path(@conn, :show, @item.user_id || "") do %>
+          <img class="lazy" data-src="<%= @item.user.image %>" />
+          <name><%= @item.user.first_name <> " " <> @item.user.last_name %></name>
         <% end %>
-      </li>
-    </ul>
+      </avatar>
+      <span><%= if Map.has_key?(@item.user.details, "address") do @item.user.details["address"] end %></span>
+      <span><%= if Map.has_key?(@item.user.details, "mail") do @item.user.details["mail"] end %></span>
+      <span><%= if Map.has_key?(@item.user.details, "web") do @item.user.details["web"] end %></span>
+      <span><%= if Map.has_key?(@item.user.details, "open") do @item.user.details["open"] end %></span>
+    </item_user_info>
 
-    <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
-      am_author = Map.has_key?(@item, :user_id) and @item.user_id == current_user_id %>
-    <%= unless am_author do %>
-      <%= render_shared "reactions.html",
-        model: @item,
-        reaction: @item.reaction,
-        react_to: %{type: "item", id: @item.id, author_id: @item.id} %>
+    <item_details>
+      <%= @item.details %>
+    </item_details>
 
-      <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @item.ratings, rating: %{
-        id: nil,
-        item_id: @item.id,
-        user_id: @item.user_id,
-        details: %{}
-      } %>
-    <% end %>
+    <item_rating_scores>
+      <strong><%= Gettext.gettext("Scores") %>:</strong>
+      <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
+    </item_rating_scores>
+
+    <!-- links to mark image as inappropriate -->
+    <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
+    <item_images>
+      <div class="fotorama"
+          data-allowfullscreen="native"
+          data-arrows="always"
+          data-nav="thumbs"
+          data-loop="true"
+          data-width="100%"
+          data-maxheight="80%">
+        <%= for image <- @item.details["images"] do %>
+          <a href="<%= StoreHall.FileUploader.url({image, @item})%>"></a>
+        <% end %>
+      </div>
+
+    </item_images>
+
+    <actions>
+      <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+        am_author = Map.has_key?(@item, :user_id) and @item.user_id == current_user_id %>
+      <%= unless am_author do %>
+        <%= render_shared "reactions.html",
+          model: @item,
+          reaction: @item.reaction,
+          react_to: %{type: "item", id: @item.id, author_id: @item.id} %>
+
+        <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @item.ratings, rating: %{
+          id: nil,
+          item_id: @item.id,
+          user_id: @item.user_id,
+          details: %{}
+        } %>
+      <% end %>
+    </actions>
   </div>
 
   <div id="comments">

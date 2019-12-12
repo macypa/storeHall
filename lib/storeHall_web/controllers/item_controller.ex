@@ -65,6 +65,7 @@ defmodule StoreHallWeb.ItemController do
         id,
         params |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
       )
+      |> Items.preload_user()
       |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
 

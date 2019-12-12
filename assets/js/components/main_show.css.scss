@@ -1,0 +1,72 @@
+
+show {
+
+  .profile_image {
+    width: 5em;
+    height: auto;
+  }
+
+  .reaction_count {
+    padding-right: 5px;
+    font-size: 0.7em;
+  }
+
+
+  @mixin activate_icon {
+    .inactive_icon {
+      display: none;
+    }
+    .active_icon {
+      display: block;
+    }
+  }
+
+  .active_icon {
+    display: none;
+  }
+
+  .alertz_icon {
+    &.alert {
+      @include activate_icon;
+    }
+    fill: darkred;
+  }
+  .mehz_icon {
+    &.meh {
+      @include activate_icon;
+    }
+  }
+  .wowz_icon {
+    &.wow {
+      @include activate_icon;
+    }
+    fill: green;
+  }
+  .lolz_icon {
+    &.lol {
+      @include activate_icon;
+    }
+    fill: orangered;
+  }
+
+  height: 100%;
+
+  & > div {
+    display: none;
+    height: auto;
+  }
+
+  :target {
+    display: block;
+  }
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+}

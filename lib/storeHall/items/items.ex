@@ -117,6 +117,11 @@ defmodule StoreHall.Items do
     update_default_item_details(item, repo)
   end
 
+  def preload_user(item) do
+    item
+    |> Repo.preload(:user)
+  end
+
   defp update_default_item_details(item, repo) do
     details =
       %Item{}.details

@@ -1,0 +1,86 @@
+
+#info {
+
+  display: grid;
+  grid-template-areas:
+    'item_images'
+    'item_rating_scores'
+    'actions'
+    'item_user_info'
+    'item_details';
+
+  avatar {  
+		img {
+      vertical-align: middle;
+			max-width: 2em;
+			border-radius: 50%;
+		}
+  }
+
+  item_title {
+    grid-area: item_title;
+  }
+
+  item_user_info {
+    grid-area: item_user_info;
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+
+  }
+
+  item_details {
+    grid-area: item_details;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  item_rating_scores {
+    grid-area: item_rating_scores;
+
+    margin: 1em;
+    margin-top: auto;
+  }
+
+  item_images {
+    grid-area: item_images;
+    max-width: 80vw;
+    max-height: 85vh;
+  }
+
+  actions {
+    grid-area: actions;
+
+  }
+
+}
+
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+    #info {
+      grid-template-columns: minmax(30vw, 66vw);
+      grid-template-areas:
+        'item_images item_user_info'
+        'item_images item_rating_scores'
+        'actions actions'
+        'item_details item_details';
+
+      item_images {
+        max-width: 60vw;
+      }
+    }
+
+}

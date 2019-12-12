@@ -13,8 +13,13 @@ defmodule StoreHall.Items.Item do
 
     field :details, :map,
       default: %{
-        "tags" => [],
+        "price" => "",
+        "description" => "",
+        "conditions" => "",
+        "expiration" => "",
+        "features" => %{},
         "images" => [],
+        "tags" => [],
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 0
       }

@@ -5,6 +5,10 @@
 @import "./header.css.scss";
 @import "./sidebar.css.scss";
 @import "./footer.css.scss";
-@import "./main.css.scss";
-@import "./main_show.css.scss";
 @import "./pagination.css.scss";
+
+@import "./pages/main.css.scss";
+@import "./pages/main_show.css.scss";
+@import "./pages/main_show_item.css.scss";
+
+@import "./fotorama/fotorama.css.scss";
