@@ -1,6 +1,6 @@
 
 <show>
-  <div id="info">
+  <div id="info" class="item_info">
 
     <item_user_info>
       <avatar>
@@ -9,20 +9,20 @@
           <name><%= @item.user.first_name <> " " <> @item.user.last_name %></name>
         <% end %>
       </avatar>
-      <span><%= if Map.has_key?(@item.user.details, "address") do @item.user.details["address"] end %></span>
-      <span><%= if Map.has_key?(@item.user.details, "mail") do @item.user.details["mail"] end %></span>
-      <span><%= if Map.has_key?(@item.user.details, "web") do @item.user.details["web"] end %></span>
-      <span><%= if Map.has_key?(@item.user.details, "open") do @item.user.details["open"] end %></span>
+
+      
+      <%= render StoreHallWeb.UserView, "_show_info_data.html", user: @item.user %>
+
     </item_user_info>
 
     <item_details>
       <%= @item.details %>
     </item_details>
 
-    <item_rating_scores>
+    <rating_scores>
       <strong><%= Gettext.gettext("Scores") %>:</strong>
       <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
-    </item_rating_scores>
+    </rating_scores>
 
     <!-- links to mark image as inappropriate -->
     <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->

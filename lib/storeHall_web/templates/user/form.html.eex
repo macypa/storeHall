@@ -11,6 +11,7 @@
 
     <%= label f, :filters, Gettext.gettext("Filters") %>
     <%= text_input f, :settings_filters, name: input_name(f, :settings) <>"[filters]", value: Jason.encode!(f.data.settings["filters"]) |> String.replace(",\"", ",\n\"") %>
+
   <% end %>
 
   <div>

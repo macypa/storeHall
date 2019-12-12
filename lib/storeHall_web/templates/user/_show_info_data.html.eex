@@ -1,0 +1,21 @@
+
+  <span><%= if Map.has_key?(@user.details, "address") do %>
+    <span class="info_title"><%= Gettext.gettext("Address") %>: </span>
+    <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> @user.details["address"],
+              target: "_blank", do: @user.details["address"] %>
+  <% end %></span>
+
+  <span><%= if Map.has_key?(@user.details, "mail") do %>
+    <span class="info_title"><%= Gettext.gettext("E-mail") %>: </span>
+    <%= link to: "mailto:" <> @user.details["mail"], do: @user.details["mail"] %>
+  <% end %></span>
+
+  <span><%= if Map.has_key?(@user.details, "web") do %>
+    <span class="info_title"><%= Gettext.gettext("Website") %>: </span>
+    <%= link to: @user.details["web"], do: @user.details["web"] %>
+  <% end %></span>
+
+  <span><%= if Map.has_key?(@user.details, "open") do %>
+    <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
+    <span class="info_open"><%= raw(@user.details["open"]) %></span>
+  <% end %></span>

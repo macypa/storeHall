@@ -1,0 +1,160 @@
+
+#info {
+  .info_title {
+    padding-left: 1em;
+    padding-right: 0.5em;
+    font-size: 1em;
+    font-weight: 600;
+    float: left;
+  }
+
+  .info_open {
+    display: inline-block;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  &.item_info {
+    display: grid;
+    grid-template-areas:
+      'item_images'
+      'rating_scores'
+      'actions'
+      'item_user_info'
+      'item_details';
+
+    avatar {
+      padding-bottom: 1em;
+  		img {
+        vertical-align: middle;
+  			max-width: 2em;
+  			border-radius: 50%;
+  		}
+    }
+
+    item_images {
+      grid-area: item_images;
+      max-width: 80vw;
+      max-height: 85vh;
+    }
+
+    item_title {
+      grid-area: item_title;
+    }
+
+    item_user_info {
+      grid-area: item_user_info;
+      display: flex;
+      flex-direction: column;
+      margin: 1em;
+
+    }
+
+    item_details {
+      grid-area: item_details;
+      padding: 1em;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+      /* Adds a hyphen where the word breaks, if supported (No Blink) */
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    rating_scores {
+      grid-area: rating_scores;
+
+      margin: 1em;
+      margin-top: auto;
+    }
+
+
+  }
+
+  &.user_info {
+    display: grid;
+    grid-template-areas:
+      'avatar'
+      'user_info'
+      'rating_scores'
+      'actions'
+      'user_details';
+
+    avatar {
+      grid-area: avatar;
+
+      margin: auto;
+      min-height: 6em;
+  		img {
+  			max-width: 5em;
+  			border-radius: 50%;
+  		}
+    }
+
+    user_info {
+      grid-area: user_info;
+      display: flex;
+      flex-direction: column;
+    }
+
+    user_details {
+      grid-area: user_details;
+      padding: 1em;
+    }
+
+    rating_scores {
+      grid-area: rating_scores;
+    }
+
+  }
+
+  actions {
+    grid-area: actions;
+
+  }
+
+
+}
+
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+    #info {
+      &.item_info {
+        grid-template-columns: minmax(30vw, 66vw);
+        grid-template-areas:
+          'item_images item_user_info'
+          'item_images rating_scores'
+          'actions actions'
+          'item_details item_details';
+      }
+
+      &.user_info {
+        grid-template-columns: minmax(6em, 10em);
+        grid-template-areas:
+          'avatar user_info'
+          'avatar rating_scores'
+          'avatar actions'
+          'user_details user_details';
+      }
+
+      item_images {
+        max-width: 60vw;
+      }
+    }
+
+}

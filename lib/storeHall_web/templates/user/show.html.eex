@@ -1,42 +1,34 @@
 
 <show>
-  <div id="info">
+  <div id="info" class="user_info">
 
-    <img class="lazy profile_image" data-src="<%= @user.image %>">
-    <ul>
+    <avatar>
+      <%= link to: Routes.user_path(@conn, :show, @user.id || "") do %>
+        <img class="lazy" data-src="<%= @user.image %>" />
+      <% end %>
+    </avatar>
 
-      <li>
-        <strong><%= Gettext.gettext("First name") %>:</strong>
-        <%= @user.first_name %>
-      </li>
+    <user_info>
+      <%= render "_show_info_data.html", user: @user %>
+    </user_info>
 
-      <li>
-        <strong><%= Gettext.gettext("Last name") %>:</strong>
-        <%= @user.last_name %>
-      </li>
+    <rating_scores>
+      <strong><%= Gettext.gettext("Scores") %>:</strong>
+      <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
+    </rating_scores>
 
-      <li>
-        <strong><%= Gettext.gettext("Email") %>:</strong>
-        <%= @user.email %>
-      </li>
+    <actions>
+      <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{
+        id: nil,
+        user_id: @user.id,
+        details: %{}
+      } %>
+    </actions>
 
-      <li>
-        <strong><%= Gettext.gettext("Details") %>:</strong>
-        <%= @user.details %>
-      </li>
+    <user_details>
+      <%= @user.details %>
+    </user_details>
 
-      <li>
-        <strong><%= Gettext.gettext("Scores") %>:</strong>
-        <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
-      </li>
-
-    </ul>
-
-    <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{
-      id: nil,
-      user_id: @user.id,
-      details: %{}
-    } %>
   </div>
 
   <div id="comments">
