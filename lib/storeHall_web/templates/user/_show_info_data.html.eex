@@ -24,6 +24,6 @@
   <%= if Map.has_key?(@user.details, "open") do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
-      <span class="inline_block"><%= raw(@user.details["open"]) %></span>
+      <span class="inline_block"><%= sanitize @user.details["open"] %></span>
     </span>
   <% end %>
