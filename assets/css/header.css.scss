@@ -36,6 +36,7 @@ header {
     cursor: pointer;
     margin-left: auto;
     display: inline-block;
+    visibility: hidden;
 
     .badge {
       font-size: 0.7em;
