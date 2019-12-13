@@ -1,6 +1,6 @@
 
 <title>
-  <%= page_title(@conn.assigns) %>
+  <%= page_title(@assigns) %>
 </title>
 
 <notifications>

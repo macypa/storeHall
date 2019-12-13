@@ -9,6 +9,12 @@ defmodule StoreHallWeb.PageTitle do
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: title <> " - " <> @suffix
 
+  defp get(%{view_module: StoreHallWeb.AboutView, view_template: "contacts.html"}), do: StoreHallWeb.Gettext.gettext("Contacts")
+  defp get(%{view_module: StoreHallWeb.AboutView, view_template: "cookies.html"}), do: StoreHallWeb.Gettext.gettext("Cookies")
+  defp get(%{view_module: StoreHallWeb.AboutView, view_template: "privacy.html"}), do: StoreHallWeb.Gettext.gettext("Privacy")
+  defp get(%{view_module: StoreHallWeb.AboutView, view_template: "terms.html"}), do: StoreHallWeb.Gettext.gettext("Terms")
+  defp get(%{view_module: StoreHallWeb.AboutView}), do: StoreHallWeb.Gettext.gettext("About Us")
+
   defp get(%{users: _user}), do: StoreHallWeb.Gettext.gettext("Listing users")
 
   defp get(%{user: user}) do
