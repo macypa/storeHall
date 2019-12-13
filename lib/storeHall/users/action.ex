@@ -51,7 +51,7 @@ defmodule StoreHall.Users.Action do
           if reaction_db.reaction == reaction do
             fun_on_update.(repo, user_item_id, [-reaction_to_rating(reaction_db.reaction)])
           else
-            with {:ok, split_field} <-
+            with {:ok, _split_field} <-
                    fun_on_update.(repo, user_item_id, [
                      -reaction_to_rating(reaction_db.reaction)
                    ]) do

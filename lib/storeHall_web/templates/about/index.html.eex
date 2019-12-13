@@ -15,7 +15,7 @@
     <rating_scores>
       <%= link to: "#ratings" do %>
         <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"] %>
-      <%= end %>
+      <% end %>
     </rating_scores>
 
     <actions>

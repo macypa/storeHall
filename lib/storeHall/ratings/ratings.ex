@@ -27,7 +27,7 @@ defmodule StoreHall.Ratings do
   ]
   def scode_names, do: @scode_names
   def max_score_points, do: 10
-  def max_scores_sum_points, do: length(scode_names()) * max_score_points
+  def max_scores_sum_points, do: length(scode_names()) * max_score_points()
 
   def validate_scores(rating) do
     max_score = max_scores_sum_points()
