@@ -57,7 +57,9 @@ add_events(".auto-submit-item", "change", function() {
 
 channel.on("filtered_items", payload => {
   var items_template_source = "{{#each this}}<item>" +
-       unescape(document.getElementById("item_template").innerHTML).replace(/{{id}}-name/g, "{{id}}") +
+       unescape(document.getElementById("item_template").innerHTML)
+       .replace(/{{id}}-name/g, "{{id}}")
+       .replace("<a href=\"{{#each details.images}}<a href='{{this}}'></a>{{/each}}\"></a>", "{{#each details.images}}<a href='{{this}}'></a>{{/each}}")  +
        "</item>{{/each}}";
   var items_template = Handlebars.compile(items_template_source);
 
@@ -72,6 +74,7 @@ channel.on("filtered_items", payload => {
   } else {
     document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
   }
+  $('.fotorama').fotorama();
   update_next_page_link(payload);
 })
 
@@ -89,5 +92,6 @@ channel.on("filtered_users", payload => {
   } else {
     document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
   }
+  $('.fotorama').fotorama();
   update_next_page_link(payload);
 })
