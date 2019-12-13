@@ -1,0 +1,14 @@
+
+<rating_block>
+  <div class="review_score_badge">
+    <%= @rating["score"] %>
+  </div>
+  <div class="review_score_content">
+    <div class="review_score_title">
+      Good
+    </div>
+    <div class="review_score_count">
+      <%= @rating["count"] %> <%= Gettext.gettext("ratings") %>
+    </div>
+  </div>
+</rating_block>

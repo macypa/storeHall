@@ -10,23 +10,54 @@
         <% end %>
       </avatar>
 
-      
       <%= render StoreHallWeb.UserView, "_show_info_data.html", user: @item.user %>
 
     </item_user_info>
 
     <item_details>
-      <%= @item.details %>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Price") %></span>
+          <%= @item.details["price"] %>
+        </span>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Description") %> </span>
+          <span class="inline_block"><%= raw @item.details["description"] %></span>
+        </span>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Expiration") %> </span>
+          <%= raw @item.details["expiration"] %>
+        </span>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Tags") %> </span>
+          <%= @item.details["tags"] %>
+        </span>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Features") %> </span>
+          <%= @item.details["features"] %>
+        </span>
+
+        <span>
+          <span class="info_title"><%= Gettext.gettext("Conditions") %> </span>
+          <span class="inline_block"><%= raw @item.details["conditions"] %></span>
+        </span>
+
     </item_details>
 
-    <rating_scores>
-      <strong><%= Gettext.gettext("Scores") %>:</strong>
-      <span id="rating-score"><%= @item.details["rating"]["score"] %></span> from <span id="rating-count"><%= @item.details["rating"]["count"] %></span> votes
-    </rating_scores>
 
     <!-- links to mark image as inappropriate -->
     <!-- https://help.twitter.com/en/rules-and-policies/media-policy -->
     <item_images>
+      <rating_scores>
+        <%= link to: "#ratings" do %>
+          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @item.details["rating"] %>
+        <%= end %>
+      </rating_scores>
+
       <div class="fotorama"
           data-allowfullscreen="native"
           data-arrows="always"

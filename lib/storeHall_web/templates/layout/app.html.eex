@@ -25,7 +25,7 @@
           Крали Марко<% end %>
       </logo>
 
-      <%= render "header.html", conn: @conn %>
+      <%= render "header.html", conn: @conn, assigns: assigns %>
     </header>
 
     <main>

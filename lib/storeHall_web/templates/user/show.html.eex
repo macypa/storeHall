@@ -13,8 +13,9 @@
     </user_info>
 
     <rating_scores>
-      <strong><%= Gettext.gettext("Scores") %>:</strong>
-      <span id="rating-score"><%= @user.details["rating"]["score"] %></span> from <span id="rating-count"><%= @user.details["rating"]["count"] %></span> votes
+      <%= link to: "#ratings" do %>
+        <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"] %>
+      <%= end %>
     </rating_scores>
 
     <actions>
@@ -24,10 +25,6 @@
         details: %{}
       } %>
     </actions>
-
-    <user_details>
-      <%= @user.details %>
-    </user_details>
 
   </div>
 

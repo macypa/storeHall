@@ -8,7 +8,8 @@
     float: left;
   }
 
-  .info_open {
+  .inline_block {
+    padding-left: 1em;
     display: inline-block;
 
     white-space: pre-wrap;
@@ -22,9 +23,9 @@
 
   &.item_info {
     display: grid;
+    grid-template-columns: minmax(30vw, 1fr);
     grid-template-areas:
       'item_images'
-      'rating_scores'
       'actions'
       'item_user_info'
       'item_details';
@@ -40,9 +41,20 @@
 
     item_images {
       grid-area: item_images;
-      max-width: 80vw;
-      max-height: 85vh;
+      width: 100%;
+      height: auto;
+      position: relative;
     }
+
+    rating_scores {
+      padding: 0.2em;
+      margin: 0.5em;
+      position: absolute;
+      z-index: 10;
+      background-color: white;
+      border-radius: 6px;
+    }
+
 
     item_title {
       grid-area: item_title;
@@ -58,24 +70,14 @@
 
     item_details {
       grid-area: item_details;
-      padding: 1em;
+      display: flex;
+      flex-direction: column;
 
-      white-space: pre-wrap;
-      word-break: break-word;
-      /* Adds a hyphen where the word breaks, if supported (No Blink) */
-      -ms-hyphens: auto;
-      -moz-hyphens: auto;
-      -webkit-hyphens: auto;
-      hyphens: auto;
+      & > span {
+        padding-top: 1em;
+      }
+
     }
-
-    rating_scores {
-      grid-area: rating_scores;
-
-      margin: 1em;
-      margin-top: auto;
-    }
-
 
   }
 
@@ -83,19 +85,20 @@
     display: grid;
     grid-template-areas:
       'avatar'
-      'user_info'
       'rating_scores'
       'actions'
-      'user_details';
+      'user_info';
 
     avatar {
       grid-area: avatar;
 
-      margin: auto;
-      min-height: 6em;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0.2em;
+
   		img {
-  			max-width: 5em;
-  			border-radius: 50%;
+  			max-height: 45vh;
+  			border-radius: 1%;
   		}
     }
 
@@ -105,13 +108,11 @@
       flex-direction: column;
     }
 
-    user_details {
-      grid-area: user_details;
-      padding: 1em;
-    }
-
     rating_scores {
       grid-area: rating_scores;
+
+      padding: 0.2em;
+      margin: 0.5em;
     }
 
   }
@@ -135,21 +136,21 @@
 
     #info {
       &.item_info {
-        grid-template-columns: minmax(30vw, 66vw);
+        grid-template-columns: minmax(30vw, 1fr) 1fr;
+        grid-template-rows: min-content 1fr;
         grid-template-areas:
           'item_images item_user_info'
-          'item_images rating_scores'
           'actions actions'
           'item_details item_details';
       }
 
       &.user_info {
-        grid-template-columns: minmax(6em, 10em);
+        grid-template-columns: minmax(20vw, 1fr) 1fr;
+        grid-template-rows: min-content min-content 1fr;
         grid-template-areas:
-          'avatar user_info'
           'avatar rating_scores'
-          'avatar actions'
-          'user_details user_details';
+          'avatar user_info'
+          'avatar actions';
       }
 
       item_images {

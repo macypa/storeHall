@@ -134,6 +134,47 @@ ratings {
 	}
 }
 
+rating_block {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.5em;
+
+  .review_score_badge {
+    background:  #003580;
+    color:  #fff;
+    padding: 0.2em;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: center;
+    vertical-align: baseline;
+    border-radius: 5px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .review_score_content {
+    margin-left: 8px;
+
+    .review_score_title {
+      color:#003580;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .review_score_count {
+      color: #707070;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      margin-top: 4px;
+    }
+  }
+}
+
 // tablet view
 @media only screen and (min-width: $width-header) {
 
