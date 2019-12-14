@@ -2,21 +2,39 @@
 <show>
   <div id="info" class="user_info">
 
-    <avatar>
-      <%= link to: Routes.user_path(@conn, :show, @user.id || "") do %>
-        <img class="lazy" data-src="<%= @user.image %>" />
-      <% end %>
-    </avatar>
+    <user_images>
+      <rating_scores>
+        <%= link to: "#ratings" do %>
+          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"] %>
+        <% end %>
+      </rating_scores>
+
+      <div class="fotorama"
+          data-allowfullscreen="native"
+          data-arrows="always"
+          data-nav="thumbs"
+          data-loop="true"
+          data-width="100%"
+          data-maxheight="80%">
+        <%= link to: Routes.user_path(@conn, :show, @user.id || "") do %>
+          <img class="lazy" data-src="<%= @user.image %>" />
+        <% end %>
+        <%= for image <- @user.details["images"] do %>
+          <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
+        <% end %>
+      </div>
+
+    </user_images>
 
     <user_info>
       <%= render StoreHallWeb.UserView, "_show_info_data.html", user: @user %>
     </user_info>
 
-    <rating_scores>
-      <%= link to: "#ratings" do %>
-        <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"] %>
-      <% end %>
-    </rating_scores>
+    <user_details>
+      <span>
+        <span class="inline_block"><%= sanitize @user.details["description"] %></span>
+      </span>
+    </user_details>
 
     <actions>
       <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{

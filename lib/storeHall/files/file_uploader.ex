@@ -68,8 +68,12 @@ defmodule StoreHall.FileUploader do
     end
   end
 
-  def storage_dir(_, {_file, item}) do
+  def storage_dir(_, {_file, item = %StoreHall.Items.Item{}}) do
     "uploads/#{item.user_id}/#{item.id}"
+  end
+
+  def storage_dir(_, {_file, user = %StoreHall.Users.User{}}) do
+    "uploads/#{user.id}"
   end
 
   # To add a thumbnail version:

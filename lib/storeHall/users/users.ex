@@ -2,7 +2,9 @@ defmodule StoreHall.Users do
   import Ecto.Query, warn: false
   alias StoreHall.Repo
   alias StoreHall.DeepMerge
+  alias Ecto.Multi
 
+  alias StoreHall.Images
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
 
@@ -12,6 +14,7 @@ defmodule StoreHall.Users do
   def list_users(params \\ nil) do
     apply_filters(params)
     |> Repo.all()
+    |> Images.append_images()
   end
 
   def apply_filters(params) do
@@ -54,22 +57,33 @@ defmodule StoreHall.Users do
   def load_settings(%User{} = user) do
     settings =
       upsert_settings(user)
+      |> case do
+        {:ok, model} -> model
+      end
       |> Map.get(:settings)
 
     Map.put(user, :settings, settings)
   end
 
   def update_user(%User{} = user, attrs) do
-    upsert_settings(user, Map.get(attrs, "settings"))
+    Ecto.Multi.new()
+    |> upsert_settings_on_multi(user, Map.get(attrs, "settings"))
+    |> Multi.update(:update, User.changeset(user, Images.prepare_images(attrs)))
+    |> Images.clean_images(user, details_to_remove(user, attrs, "images"))
+    |> Images.upsert_images(attrs, :update)
+    |> Repo.transaction()
+    |> case do
+      {:ok, multi} ->
+        {:ok, multi.update}
 
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
+      {:error, _op, value, _changes} ->
+        {:error, value}
+    end
   end
 
-  defp upsert_settings(user, changes \\ %{}) do
+  defp upsert_settings(user, changes \\ %{}, repo \\ Repo) do
     settings =
-      case Repo.get(Settings, user.id) do
+      case repo.get(Settings, user.id) do
         nil -> %Settings{id: user.id}
         settings -> settings
       end
@@ -82,22 +96,44 @@ defmodule StoreHall.Users do
 
     settings
     |> Settings.changeset(Map.put(%{}, :settings, changes))
-    |> Repo.insert_or_update()
-    |> case do
-      {:ok, model} -> model
-    end
+    |> repo.insert_or_update()
+  end
+
+  defp upsert_settings_on_multi(multi, user, changes \\ %{}) do
+    multi
+    |> Ecto.Multi.run(:upsert_settings, fn repo, _ ->
+      upsert_settings(user, changes, repo)
+    end)
+  end
+
+  def details_to_remove(user, attrs, detail_type) do
+    old_details = user.details[detail_type]
+    new_details = attrs["details"][detail_type]
+
+    MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
+    |> MapSet.to_list()
   end
 
   def delete_user(%User{} = user) do
-    Repo.delete(user)
+    Ecto.Multi.new()
+    |> Multi.delete(:delete, user)
+    |> Ecto.Multi.run(:settings, fn repo, _changes ->
+      case repo.get(Settings, user.id) do
+        nil -> {:error, :not_found}
+        settings -> {:ok, settings}
+      end
+    end)
+    |> Ecto.Multi.delete(:delete, fn %{settings: settings} ->
+      settings
+    end)
+    |> Images.clean_images(user, user.details["images"])
+    |> Repo.transaction()
+    |> case do
+      {:ok, multi} ->
+        {:ok, multi.delete}
 
-    case Repo.get(Settings, user.id) do
-      nil ->
-        {:ok}
-
-      user_setting ->
-        Repo.delete(user_setting)
-        {:ok}
+      {:error, _op, value, _changes} ->
+        {:error, value}
     end
   end
 
@@ -105,7 +141,18 @@ defmodule StoreHall.Users do
     User.changeset(user, %{})
   end
 
-  def decode_params(user_params) do
+  def decode_params(user_params = %{"details" => details}) do
+    user_params
+    |> put_in(
+      ["details"],
+      Jason.decode!(details)
+    )
+    |> decode_settings()
+  end
+
+  def decode_params(user_params), do: decode_settings(user_params)
+
+  defp decode_settings(user_params) do
     user_params
     |> put_in(
       ["settings", "labels"],

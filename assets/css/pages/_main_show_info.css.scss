@@ -83,23 +83,18 @@
 
   &.user_info {
     display: grid;
+    grid-template-columns: minmax(30vw, 1fr);
     grid-template-areas:
-      'avatar'
-      'rating_scores'
+      'user_images'
       'actions'
-      'user_info';
+      'user_info'
+      'user_details';
 
-    avatar {
-      grid-area: avatar;
-
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0.2em;
-
-  		img {
-  			max-height: 45vh;
-  			border-radius: 1%;
-  		}
+    user_images {
+      grid-area: user_images;
+      width: 100%;
+      height: auto;
+      position: relative;
     }
 
     user_info {
@@ -109,12 +104,24 @@
     }
 
     rating_scores {
-      grid-area: rating_scores;
-
       padding: 0.2em;
       margin: 0.5em;
+      position: absolute;
+      z-index: 10;
+      background-color: white;
+      border-radius: 6px;
     }
 
+    user_details {
+      grid-area: user_details;
+      display: flex;
+      flex-direction: column;
+
+      & > span {
+        padding-top: 1em;
+      }
+
+    }
   }
 
   actions {
@@ -148,9 +155,9 @@
         grid-template-columns: minmax(20vw, 1fr) 1fr;
         grid-template-rows: min-content min-content 1fr;
         grid-template-areas:
-          'avatar rating_scores'
-          'avatar user_info'
-          'avatar actions';
+          'user_images user_info'
+          'actions actions'
+          'user_details user_details';
       }
 
       item_images {

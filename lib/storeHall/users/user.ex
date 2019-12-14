@@ -24,7 +24,12 @@ defmodule StoreHall.Users.User do
     field :provider, :string
 
     field :details, :map,
-      default: %{"rating" => %{"count" => 0, "score" => -1}, "comments_count" => 0}
+      default: %{
+        "images" => [],
+        "description" => "",
+        "rating" => %{"count" => 0, "score" => -1},
+        "comments_count" => 0
+      }
 
     has_many :items, StoreHall.Items.Item
     has_many :comments, StoreHall.Comments.UserComment
