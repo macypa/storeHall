@@ -17,8 +17,26 @@ defmodule StoreHall.FileUploader do
     Enum.member?(@extension_whitelist, file_extension)
   end
 
-  def transform(:thumb, _) do
-    {:magick, " -strip -thumbnail 150x150^ -gravity center -extent 150x150 -format png"}
+  def transform(:thumb, {%Arc.File{file_name: file_name}, _}) do
+    case file_name |> String.ends_with?(".gif") do
+      true ->
+        :skip
+
+      false ->
+        {:magick, "-strip -thumbnail 450x450^> -gravity center -extent 450x450 -format png"}
+    end
+  end
+
+  def transform(:image, {%Arc.File{file_name: file_name}, _}) do
+    case file_name |> String.ends_with?(".gif") do
+      true ->
+        :noaction
+
+      false ->
+        {:magick, " -strip -resize x700^> -depth 8 -quality 75 -density 72 -units pixelsperinch"}
+
+        # for Unix {:magick, " -resize  x700\> -depth 8 -quality 92 -density 72 -units pixelsperinch "}
+    end
   end
 
   def filename(version, {file, _item}) do
@@ -41,7 +59,13 @@ defmodule StoreHall.FileUploader do
     # end
 
     # "#{version}-#{file.file_name |> String.replace(~r"\..*", "")}"
-    "#{version}-#{slug}"
+    case file.file_name |> String.ends_with?(".gif") do
+      true ->
+        "#{:image}-#{slug}"
+
+      false ->
+        "#{version}-#{slug}"
+    end
   end
 
   def storage_dir(_, {_file, item}) do
