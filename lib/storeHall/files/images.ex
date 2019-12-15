@@ -11,10 +11,16 @@ defmodule StoreHall.Images do
         model.details
         |> put_in(
           ["images"],
-          model.details["images"]
-          |> Enum.map(fn image ->
-            image_url(model, image)
-          end)
+          case model.details["images"] do
+            nil ->
+              []
+
+            images ->
+              images
+              |> Enum.map(fn image ->
+                image_url(model, image)
+              end)
+          end
         )
       )
     end)
