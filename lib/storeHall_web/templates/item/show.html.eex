@@ -59,6 +59,7 @@
       </rating_scores>
 
       <div class="fotorama"
+          data-autoplay="true"
           data-allowfullscreen="native"
           data-arrows="always"
           data-nav="thumbs"

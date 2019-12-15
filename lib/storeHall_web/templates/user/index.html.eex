@@ -27,10 +27,20 @@
       <user>
     <% end %>
 
-      <div class="cover">
-        <%= link to: Routes.user_path(@conn, :show, user) do %>
-          <img class="lazy" data-src="<%= user.image %>"/>
-        <% end %>
+      <div class="cover fotorama"
+            data-autoplay="true"
+            data-nav="false"
+            data-arrows="false"
+            data-width="100%">
+
+          <%= case user.details["images"] do %>
+            <%= [] -> %>
+              <img src="<%= user.image%>"></img>
+            <%= images -> %>
+              <%= for image <- images do %>
+                <a href='<%= image %>'></a>
+              <% end %>
+          <% end %>
       </div>
       <div class="title">
         <%= link to: Routes.user_path(@conn, :show, user) do %>

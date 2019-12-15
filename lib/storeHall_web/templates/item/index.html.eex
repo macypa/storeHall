@@ -18,6 +18,7 @@
     <% end %>
 
       <div class="cover fotorama"
+            data-autoplay="true"
             data-nav="false"
             data-arrows="false"
             data-width="100%">
