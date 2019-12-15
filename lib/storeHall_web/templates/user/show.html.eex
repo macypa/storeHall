@@ -17,9 +17,13 @@
           data-width="100%"
           data-maxheight="80%">
 
-        <img src="<%= @user.image%>"></img>
-        <%= for image <- @user.details["images"] do %>
-          <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
+        <%= case @user.details["images"] do %>
+          <%= [] -> %>
+            <img src="<%= @user.image%>"></img>
+          <%= images -> %>
+            <%= for image <- images do %>
+              <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
+            <% end %>
         <% end %>
       </div>
 
