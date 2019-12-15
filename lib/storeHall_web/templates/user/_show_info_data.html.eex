@@ -2,28 +2,61 @@
   <%= if Map.has_key?(@user.details, "address") do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Address") %>: </span>
-      <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> @user.details["address"],
-                target: "_blank", do: @user.details["address"] %>
+      <div>
+        <%= for address_map <- @user.details["address"] do %>
+          <%= for {address_name, address} <- address_map do %>
+            <div>
+              <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> address,
+                      target: "_blank", do: address_name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </span>
   <% end %>
 
   <%= if Map.has_key?(@user.details, "mail") do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("E-mail") %>: </span>
-      <%= link to: "mailto:" <> @user.details["mail"], do: @user.details["mail"] %>
+      <div>
+        <%= for mail_map <- @user.details["mail"] do %>
+          <%= for {mail_name, mail} <- mail_map do %>
+            <div>
+              <%= link to: "mailto:" <> mail, target: "_blank", do: mail_name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </span>
   <% end %>
 
   <%= if Map.has_key?(@user.details, "web") do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Website") %>: </span>
-      <%= link to: @user.details["web"], do: @user.details["web"] %>
+      <div>
+        <%= for web_map <- @user.details["web"] do %>
+          <%= for {web_name, web} <- web_map do %>
+            <div>
+              <%= link to: web, target: "_blank", do: web_name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </span>
   <% end %>
 
   <%= if Map.has_key?(@user.details, "open") do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
-      <span class="inline_block"><%= sanitize @user.details["open"] %></span>
+      <div>
+        <%= for open_map <- @user.details["open"] do %>
+          <%= for {open_name, open} <- open_map do %>
+            <div>
+              <span><%= sanitize open_name %>:</span>
+              <span><%= sanitize open %></span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </span>
   <% end %>
