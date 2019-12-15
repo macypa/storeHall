@@ -51,7 +51,7 @@
       <div class="price"><%= item.details["price"] %> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
       <div class="rating">
         <%= link to: Routes.item_path(@conn, :show, item) <> "#ratings" do %>
-          <%= Gettext.gettext("Rating") %>: <%= item.details["rating"]["score"] %>
+          <%= Gettext.gettext("Ratings") %>: <%= item.details["rating"]["score"] %>
         <% end %>
       </div>
       <div class="comments">
