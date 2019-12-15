@@ -16,9 +16,9 @@
           data-loop="true"
           data-width="100%"
           data-maxheight="80%">
-        <%= link to: Routes.user_path(@conn, :show, @user.id || "") do %>
-          <img class="lazy" data-src="<%= @user.image %>" />
-        <% end %>
+
+        <img src="<%= @user.image%>"></img>
+
         <%= for image <- @user.details["images"] do %>
           <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
         <% end %>

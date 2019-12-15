@@ -112,6 +112,9 @@ defmodule StoreHall.Images do
     end
   end
 
+  def clean_images(multi, _model, nil), do: multi
+  def clean_images(multi, _model, []), do: multi
+
   def clean_images(multi, model, images_to_remove) do
     multi
     |> Multi.run(:clean_images, fn _repo, _ ->

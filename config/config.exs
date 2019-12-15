@@ -27,7 +27,7 @@ config :storeHall, :about,
     first_name: "Крали Марко",
     last_name: "",
     email: "krali.marko@gmail.com",
-    image: "/logo.svg",
+    image: "/images/logo.png",
     provider: "krali.marko"
   }
 

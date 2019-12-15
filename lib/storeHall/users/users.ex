@@ -99,7 +99,7 @@ defmodule StoreHall.Users do
     |> repo.insert_or_update()
   end
 
-  defp upsert_settings_on_multi(multi, user, changes \\ %{}) do
+  defp upsert_settings_on_multi(multi, user, changes) do
     multi
     |> Ecto.Multi.run(:upsert_settings, fn repo, _ ->
       upsert_settings(user, changes, repo)
@@ -108,10 +108,16 @@ defmodule StoreHall.Users do
 
   def details_to_remove(user, attrs, detail_type) do
     old_details = user.details[detail_type]
-    new_details = attrs["details"][detail_type]
 
-    MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
-    |> MapSet.to_list()
+    attrs["details"][detail_type]
+    |> case do
+      nil ->
+        []
+
+      new_details ->
+        MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
+        |> MapSet.to_list()
+    end
   end
 
   def delete_user(%User{} = user) do
