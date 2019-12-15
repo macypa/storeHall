@@ -58,9 +58,10 @@ add_events(".auto-submit-item", "change", function() {
 channel.on("filtered_items", payload => {
   var items_template_source = "{{#each this}}<item>" +
        unescape(document.getElementById("item_template").innerHTML)
+       .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
+                "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}")
        .replace(/{{id}}-name/g, "{{id}}")
-       .replace("<a href=\"{{#each details.images}}<a href='{{this}}'></a>{{/each}}\"></a>", "{{#each details.images}}<a href='{{this}}'></a>{{/each}}")  +
-       "</item>{{/each}}";
+       + "</item>{{/each}}";
   var items_template = Handlebars.compile(items_template_source);
 
   var json_payload = JSON.parse(payload.filtered)
@@ -80,7 +81,9 @@ channel.on("filtered_items", payload => {
 
 channel.on("filtered_users", payload => {
   var users_template_source = "{{#each this}}<user>" +
-       unescape(document.getElementById("user_template").innerHTML) +
+       unescape(document.getElementById("user_template").innerHTML)
+       .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
+                "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}") +
        "</user>{{/each}}";
   var users_template = Handlebars.compile(users_template_source);
 

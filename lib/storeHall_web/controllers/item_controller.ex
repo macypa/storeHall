@@ -27,7 +27,7 @@ defmodule StoreHallWeb.ItemController do
         details: %{
           "item_template_tag_id" => "item_template",
           "price" => "{{json details.price}}",
-          "images" => ["{{#each details.images}}<a href='{{this}}'></a>{{/each}}"],
+          "images" => ["{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"],
           "rating" => %{"score" => "{{json details.rating.score}}"},
           "comments_count" => "{{json details.comments_count}}"
         }

@@ -21,7 +21,7 @@ defmodule StoreHallWeb.UserController do
         updated_at: "{{updated_at}}",
         details: %{
           "user_template_tag_id" => "user_template",
-          "images" => ["{{#each details.images}}<a href='{{this}}'></a>{{/each}}"],
+          "images" => ["{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"],
           "rating" => %{"score" => "{{json details.rating.score}}"},
           "comments_count" => "{{json details.comments_count}}"
         }

@@ -27,7 +27,10 @@
       <user>
     <% end %>
 
-      <div class="cover fotorama"
+      <div class="cover">
+        <%= link to: Routes.user_path(@conn, :show, user) do %>
+
+          <div class="fotorama"
             data-autoplay="true"
             data-nav="false"
             data-arrows="false"
@@ -38,9 +41,12 @@
               <img src="<%= user.image%>"></img>
             <%= images -> %>
               <%= for image <- images do %>
-                <a href='<%= image %>'></a>
+                <div data-img='<%= image %>'> </div>
               <% end %>
-          <% end %>
+            <% end %>
+
+          </div>
+        <% end %>
       </div>
       <div class="title">
         <%= link to: Routes.user_path(@conn, :show, user) do %>
