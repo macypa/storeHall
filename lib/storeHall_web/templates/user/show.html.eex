@@ -19,9 +19,9 @@
           data-maxheight="80%">
 
         <%= case @user.details["images"] do %>
-          <%= [] -> %>
+          <% [] -> %>
             <img src="<%= @user.image%>"></img>
-          <%= images -> %>
+          <% images -> %>
             <%= for image <- images do %>
               <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
             <% end %>
@@ -67,7 +67,7 @@
 
       <span>
         <%= link Gettext.gettext("Edit"), to: Routes.user_path(@conn, :edit, @user) %>
-        <%= link Gettext.gettext("Delete"), to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link Gettext.gettext("Delete"), to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
       </span>
 
     </div>

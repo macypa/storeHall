@@ -113,7 +113,7 @@
 
       <span>
         <%= link Gettext.gettext("Edit"), to: Routes.item_path(@conn, :edit, @item) %>
-        <%= link Gettext.gettext("Delete"), to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link Gettext.gettext("Delete"), to: Routes.item_path(@conn, :delete, @item), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
       </span>
 
     </div>

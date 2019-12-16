@@ -27,8 +27,8 @@
               data-width="100%">
 
             <%= case item.details["images"] do %>
-              <%= [] -> %>
-              <%= images -> %>
+              <% [] -> %>
+              <% images -> %>
                 <%= for image <- images do %>
                   <div data-img='<%= image %>'> </div>
                 <% end %>
