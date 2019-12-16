@@ -64,11 +64,18 @@ defmodule StoreHallWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = get_user!(conn, id)
-    {:ok} = Users.delete_user(user)
 
-    conn
-    |> put_flash(:info, Gettext.gettext("User deleted successfully."))
-    |> redirect(to: Routes.user_path(conn, :index))
+    case Users.delete_user(user) do
+      {:ok} ->
+        conn
+        |> put_flash(:info, Gettext.gettext("User deleted successfully."))
+        |> redirect(to: Routes.auth_path(conn, :delete))
+
+      {:error} ->
+        conn
+        |> put_flash(:error, Gettext.gettext("User not deleted."))
+        |> redirect(to: Routes.user_path(conn, :show, user))
+    end
   end
 
   defp check_owner(conn, _params) do

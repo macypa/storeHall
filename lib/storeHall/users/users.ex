@@ -5,6 +5,7 @@ defmodule StoreHall.Users do
   alias Ecto.Multi
 
   alias StoreHall.Images
+  alias StoreHall.Items
   alias StoreHall.Users.User
   alias StoreHall.Users.Settings
 
@@ -29,9 +30,18 @@ defmodule StoreHall.Users do
   end
 
   def get_user!(id, repo \\ Repo) do
-    user = User |> repo.get!(id)
+    User
+    |> repo.get!(id)
+    |> update_default_user_details(repo)
+  end
 
-    update_default_user_details(user, repo)
+  def get_user(id, repo \\ Repo) do
+    User
+    |> repo.get(id)
+    |> case do
+      nil -> nil
+      user -> update_default_user_details(user, repo)
+    end
   end
 
   defp update_default_user_details(user, repo) do
@@ -49,9 +59,16 @@ defmodule StoreHall.Users do
   end
 
   def get_user_with_settings!(id) do
-    user = get_user!(id)
+    get_user!(id)
+    |> load_settings()
+  end
 
-    load_settings(user)
+  def get_user_with_settings(id) do
+    get_user(id)
+    |> case do
+      nil -> nil
+      user -> load_settings(user)
+    end
   end
 
   def load_settings(%User{} = user) do
@@ -121,26 +138,39 @@ defmodule StoreHall.Users do
   end
 
   def delete_user(%User{} = user) do
+    delete_items_for_user(user)
+
     Ecto.Multi.new()
-    |> Multi.delete(:delete, user)
     |> Ecto.Multi.run(:settings, fn repo, _changes ->
       case repo.get(Settings, user.id) do
         nil -> {:error, :not_found}
         settings -> {:ok, settings}
       end
     end)
-    |> Ecto.Multi.delete(:delete, fn %{settings: settings} ->
+    |> Ecto.Multi.delete(:delete_settings, fn %{settings: settings} ->
       settings
     end)
     |> Images.clean_images(user, user.details["images"])
+    |> Multi.delete(:delete_user, user)
     |> Repo.transaction()
     |> case do
-      {:ok, multi} ->
-        {:ok, multi.delete}
+      {:ok, _multi} ->
+        {:ok}
 
-      {:error, _op, value, _changes} ->
-        {:error, value}
+      {:error, _op, _value, _changes} ->
+        {:error}
     end
+  end
+
+  def delete_items_for_user(%User{} = user) do
+    user =
+      user
+      |> Repo.preload(:items)
+
+    user.items
+    |> Enum.each(fn item ->
+      Items.delete_item(item)
+    end)
   end
 
   def change_user(%User{} = user) do

@@ -66,37 +66,49 @@ defmodule StoreHall.DefaultFilter do
   def min_author_rating_filter(query, -1), do: query
 
   def min_author_rating_filter(query, current_user_id) do
-    min_rating =
-      Users.get_user_with_settings!(current_user_id).settings["filters"]["show_with_min_rating"]
+    Users.get_user_with_settings(current_user_id)
+    |> case do
+      nil ->
+        query
 
-    dynamic =
-      dynamic(
-        [c, a: u],
-        fragment(
-          " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
-          u,
-          u,
-          ^min_rating
-        )
-      )
+      user ->
+        min_rating = user.settings["filters"]["show_with_min_rating"]
 
-    query
-    |> join(:left, [c], u in assoc(c, :author), as: :a)
-    |> where(^dynamic)
+        dynamic =
+          dynamic(
+            [c, a: u],
+            fragment(
+              " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
+              u,
+              u,
+              ^min_rating
+            )
+          )
+
+        query
+        |> join(:left, [c], u in assoc(c, :author), as: :a)
+        |> where(^dynamic)
+    end
   end
 
   def hide_guests_filter(query, nil), do: query
   def hide_guests_filter(query, -1), do: query
 
   def hide_guests_filter(query, current_user_id) do
-    hide_guests =
-      Users.get_user_with_settings!(current_user_id).settings["filters"]["hide_guests"]
+    Users.get_user_with_settings(current_user_id)
+    |> case do
+      nil ->
+        query
 
-    if hide_guests do
-      query
-      |> where([c], not is_nil(c.author_id))
-    else
-      query
+      user ->
+        hide_guests = user.settings["filters"]["hide_guests"]
+
+        if hide_guests do
+          query
+          |> where([c], not is_nil(c.author_id))
+        else
+          query
+        end
     end
   end
 

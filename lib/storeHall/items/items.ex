@@ -259,13 +259,13 @@ defmodule StoreHall.Items do
       -1
     )
     |> update_list_filters("tags", item.details["tags"], -1)
-    |> Multi.delete(:delete, item)
+    |> Multi.delete(:delete_item, item)
     |> clean_filters()
     |> Images.clean_images(item, item.details["images"])
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.delete}
+        {:ok, multi.delete_item}
 
       {:error, _op, value, _changes} ->
         {:error, value}
