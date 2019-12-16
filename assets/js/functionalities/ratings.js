@@ -48,6 +48,7 @@ function add_rating_events() {
     } else {
       var error_msg = this.parentNode.getElementsByClassName("rating-error-msg")[0].value
       alert(error_msg);
+      check_if_logged();
     }
   });
 }

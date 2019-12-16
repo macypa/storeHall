@@ -66,18 +66,24 @@ channel.join()
   .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-
-channel_user.on("error", payload => {
-  alert(payload.message)
-})
-
-// channel_push('message:add', "test")
 window.channel_push = function(topic, data) {
   channel.push(topic, { data: data })
 };
 
+channel_user.on("error", payload => {
+  alert(payload.message)
+  check_if_logged();
+})
+
 channel.on("error", payload => {
   alert(payload.message)
+  check_if_logged();
 })
+
+window.check_if_logged = function() {
+  if (window.loggedUserId  == "") {
+    window.location.href = "/auth/google";
+  }
+};
 
 export default socket
