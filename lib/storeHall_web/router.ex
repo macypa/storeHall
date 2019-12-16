@@ -42,6 +42,8 @@ defmodule StoreHallWeb.Router do
     get "/terms", AboutController, :terms
     get "/privacy", AboutController, :privacy
     get "/cookies", AboutController, :cookies
+
+    get "/*path", Redirector, to: "/about"
   end
 
   scope "/auth", StoreHallWeb do
@@ -50,6 +52,12 @@ defmodule StoreHallWeb.Router do
     get "/delete", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :new
+  end
+
+  scope "/", StoreHallWeb do
+    pipe_through :browser
+
+    get "/*path", Redirector, to: "/items"
   end
 
   # Other scopes may use custom stacks.
