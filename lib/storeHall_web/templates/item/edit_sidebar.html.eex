@@ -1,0 +1,34 @@
+
+<sidebar-show>
+
+  <div class="tab">
+    <a href="#info">
+      <label class="tab-label"><%= Gettext.gettext("Info") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#comments">
+      <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#ratings">
+      <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
+    </a>
+  </div>
+
+  <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @conn.assigns.item.user_id do %>
+
+    <div class="tab">
+      <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.item_path(@conn, :edit, @conn.assigns.item) %>
+    </div>
+
+    <div class="tab">
+      <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.item_path(@conn, :delete, @conn.assigns.item), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
+    </div>
+
+  <% end %>
+
+</sidebar-show>
