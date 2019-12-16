@@ -111,6 +111,19 @@ body {
   width: 100vw;
 }
 
+.bg_red {
+  background-color: red;
+}
+.bg_green {
+  background-color: green;
+}
+.bg_blue {
+  background-color: blue;
+}
+.bg_orange {
+  background-color: orange;
+}
+
 // tablet view
 @media only screen and (min-width: $width-header) {
 

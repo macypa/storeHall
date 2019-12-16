@@ -141,7 +141,6 @@ rating_block {
   font-size: 1.5em;
 
   .review_score_badge {
-    background:  #003580;
     color:  #fff;
     padding: 0.2em;
     display: flex;
@@ -151,7 +150,6 @@ rating_block {
     justify-content: center;
     vertical-align: baseline;
     border-radius: 5px;
-    height: 32px;
     min-width: 32px;
   }
 
