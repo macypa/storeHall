@@ -22,9 +22,11 @@
   <%= if @conn.assigns[:logged_user] != nil and @conn.assigns[:logged_user].id == @conn.assigns.user.id do %>
 
     <div class="tab">
-      <a href="#manage">
-        <label class="tab-label"><%= Gettext.gettext("Manage") %></label>
-      </a>
+      <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.user_path(@conn, :edit, @conn.assigns.user) %>
+    </div>
+
+    <div class="tab">
+      <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_path(@conn, :delete, @conn.assigns.user), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
     </div>
 
   <% end %>
