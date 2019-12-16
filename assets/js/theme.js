@@ -62,7 +62,7 @@ window.rating_badge_color = function() {
   $(".review_score_badge[data-content]").each(function() {
     var rating = parseInt($(this).attr("data-content"));
 
-    if (rating < 0) {
+    if (rating < -10) {
       $(this).addClass("bg_red");
       rating_title.text(Bad);
     } else if (rating > 1000) {
@@ -70,7 +70,7 @@ window.rating_badge_color = function() {
       rating_title.text(Good);
     } else if (rating > 100) {
       $(this).addClass("bg_blue");
-    } else if (rating > 0) {
+    } else if (rating >= -10) {
       $(this).addClass("bg_orange");
     } else {
       $(this).addClass("bg_blue");
