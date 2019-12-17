@@ -2,19 +2,19 @@
 <sidebar-show>
 
   <div class="tab">
-    <a href="#info">
+    <a href="./#info">
       <label class="tab-label"><%= Gettext.gettext("Info") %></label>
     </a>
   </div>
 
   <div class="tab">
-    <a href="#comments">
+    <a href="./#comments">
       <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
     </a>
   </div>
 
   <div class="tab">
-    <a href="#ratings">
+    <a href="./#ratings">
       <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
     </a>
   </div>
