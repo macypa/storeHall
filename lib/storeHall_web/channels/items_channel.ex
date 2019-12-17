@@ -141,52 +141,55 @@ defmodule StoreHallWeb.ItemsChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case Ratings.validate_scores(rating["details"]["scores"]) do
-          false ->
-            push(socket, "error", %{
-              message:
-                Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
-                  max_score: Ratings.max_scores_sum_points()
-                )
-            })
+        unless logged_user == rating["user_id"] do
+          case Ratings.validate_scores(rating) do
+            false ->
+              push(socket, "error", %{
+                message:
+                  Gettext.gettext(
+                    "All Scores absolute values should add up to max %{max_score} !",
+                    max_score: Ratings.max_scores_sum_points()
+                  )
+              })
 
-          true ->
-            case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
-              {:ok, rating} ->
-                broadcast!(
-                  socket,
-                  "new_rating",
-                  %{
-                    rating_parent_id: rating.rating_id,
-                    new_rating: Jason.encode!(rating)
-                  }
-                )
+            true ->
+              case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
+                {:ok, rating} ->
+                  broadcast!(
+                    socket,
+                    "new_rating",
+                    %{
+                      rating_parent_id: rating.rating_id,
+                      new_rating: Jason.encode!(rating)
+                    }
+                  )
 
-              {:ok, rating, item_rating, user_rating} ->
-                broadcast!(
-                  socket,
-                  "new_rating",
-                  %{
-                    rating_parent_id: rating.rating_id,
-                    new_rating: Jason.encode!(rating)
-                  }
-                )
+                {:ok, rating, item_rating, user_rating} ->
+                  broadcast!(
+                    socket,
+                    "new_rating",
+                    %{
+                      rating_parent_id: rating.rating_id,
+                      new_rating: Jason.encode!(rating)
+                    }
+                  )
 
-                broadcast!(socket, "update_rating", %{
-                  new_rating: item_rating,
-                  for_id: rating.item_id
-                })
+                  StoreHallWeb.UsersChannel.broadcast_updated_rating_item(
+                    Items.get_item!(rating.item_id),
+                    item_rating
+                  )
 
-                StoreHallWeb.UsersChannel.broadcast_msg!(rating.user_id, "update_rating", %{
-                  new_rating: user_rating,
-                  for_user_id: rating.user_id
-                })
+                  StoreHallWeb.UsersChannel.broadcast_updated_rating_user(
+                    rating.user_id,
+                    user_rating
+                  )
 
-              {:error, _rating} ->
-                push(socket, "error", %{
-                  message: Gettext.gettext("you already did it :)")
-                })
-            end
+                {:error, _rating} ->
+                  push(socket, "error", %{
+                    message: Gettext.gettext("you already did it :)")
+                  })
+              end
+          end
         end
     end
 

@@ -472,7 +472,7 @@ msgstr "Е-мейл"
 #, elixir-format
 #: lib/storeHall_web/templates/rating/form.html.eex:12
 msgid "Edit Rating"
-msgstr "Добави ревю"
+msgstr "Промени ревю"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/show.html.eex:30

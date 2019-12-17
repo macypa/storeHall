@@ -30,21 +30,27 @@ defmodule StoreHall.Ratings do
   def max_scores_sum_points, do: length(scode_names()) * max_score_points()
 
   def validate_scores(rating) do
-    max_score = max_scores_sum_points()
+    case rating["rating_id"] do
+      nil ->
+        max_score = max_scores_sum_points()
 
-    rating
-    |> Map.values()
-    |> Enum.reduce(0, fn score, acc -> acc + score end)
-    |> case do
-      x when x > max_score -> false
-      _ -> validate_individual_scores(rating)
+        rating["details"]["scores"]
+        |> Map.values()
+        |> Enum.reduce(0, fn score, acc -> acc + score end)
+        |> case do
+          x when x > max_score -> false
+          _ -> validate_individual_scores(rating)
+        end
+
+      _ ->
+        true
     end
   end
 
-  def validate_individual_scores(rating) do
+  defp validate_individual_scores(rating) do
     max_score = max_score_points()
 
-    rating
+    rating["details"]["scores"]
     |> Map.values()
     |> Enum.reduce(true, fn score, acc ->
       case score do

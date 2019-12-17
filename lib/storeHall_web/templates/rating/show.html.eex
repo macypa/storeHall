@@ -53,7 +53,7 @@
       <%= render_shared "reactions.html",
         model: @rating,
         reaction: @rating.reaction,
-        react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id} %>
+        react_to: %{type: "rating", id: @rating.id, author_id: @rating.author_id, user_id: @rating.author_id} %>
 
       <%= render "form.html", conn: @conn, rating: Map.put(@rating, :rating_id, @rating.id) %>
     <% end %>

@@ -10,6 +10,8 @@ channel.on("update_rating", payload => {
   rating_badge.attr("data-content", payload.new_rating);
   var rating_count = rating_badge.next().find(".review_score_count > span").first();
   rating_count.text(parseInt(rating_count.text()) + 1);
+
+  rating_badge_color();
 })
 
 function on_rating_events() {
@@ -18,6 +20,7 @@ function on_rating_events() {
   add_load_more_events();
   add_rating_events();
   add_reaction_events();
+  rating_pros_cons_format();
 }
 
 
@@ -45,8 +48,8 @@ function add_rating_events() {
       rating_field_value.details.scores = JSON.parse(scores_field[0].value)
     }
 
-    var max_scores_sum = this.parentNode.getElementsByClassName("rating-error-msg")[0].getAttribute("max_scores_sum");
-    if (validate_scores(rating_field_value.details.scores, max_scores_sum)) {
+    var max_scores_sum = this.parentNode.getElementsByClassName("rating-error-msg")[0];
+    if (!max_scores_sum || validate_scores(rating_field_value.details.scores, max_scores_sum.getAttribute("max_scores_sum"))) {
       channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
 
       this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
@@ -70,7 +73,13 @@ channel.on("new_rating", payload => {
        "</rating>";
   var rating_template = Handlebars.compile(rating_template_source);
 
-  var new_rating_html = rating_template( JSON.parse(payload.new_rating) )
+  var new_rating = JSON.parse(payload.new_rating)
+  var new_rating_html = rating_template( new_rating )
+
+  var rating_form_tag = document.querySelector("#rating-" + new_rating.id)
+  if (rating_form_tag) {
+    $(rating_form_tag.parentNode.parentNode).remove();
+  }
 
   if (payload.rating_parent_id == null || payload.rating_parent_id == -1) {
     document.querySelector("ratings").insertAdjacentHTML( 'afterbegin', new_rating_html)
@@ -128,8 +137,16 @@ channel.on("filtered_ratings", payload => {
 })
 
 $( document ).ready(function() {
+  rating_pros_cons_format();
+});
+
+window.rating_pros_cons_format = function() {
   $("pro_scores").each(function() {
-    if (!this.innerText.startsWith("{{") ) {
+    if (this.innerText == "" ) {
+      $(this).parent().remove()
+    }
+
+    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{") ) {
       var json_data = JSON.parse(this.innerText);
       var html = "";
       for(var score in json_data) {
@@ -137,12 +154,20 @@ $( document ).ready(function() {
           html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
         }
       }
-      this.innerHTML = html;
+
+      if (html == "") {
+        $(this).parent().remove()
+      } else {
+        this.innerHTML = html;
+      }
     }
   });
 
   $("con_scores").each(function() {
-    if (!this.innerText.startsWith("{{") ) {
+    if (this.innerText == "" ) {
+      $(this).parent().remove()
+    }
+    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{") ) {
       var json_data = JSON.parse(this.innerText);
       var html = "";
       for(var score in json_data) {
@@ -150,7 +175,12 @@ $( document ).ready(function() {
           html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
         }
       }
-      this.innerHTML = html;
+
+      if (html == "") {
+        $(this).parent().remove()
+      } else {
+        this.innerHTML = html;
+      }
     }
   });
-});
+};

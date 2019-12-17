@@ -59,8 +59,15 @@ channel_user.join()
   .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
+window.channel_topic_from_url = function() {
+  var url = window.location.pathname;
+  if (url.search(/\/items\/\w/) == 0) {
+    return url.match(/(\/items\/\w+).*/)[1];
+  }
+  return url
+};
 // Now that you are connected, you can join channels with a topic:
-window.channel_topic = decodeURI(window.location.pathname)
+window.channel_topic = decodeURI(channel_topic_from_url())
 window.channel = socket.channel(channel_topic, {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })

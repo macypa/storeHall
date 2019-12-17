@@ -226,47 +226,47 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        case Ratings.validate_scores(rating["details"]["scores"]) do
-          false ->
-            push(socket, "error", %{
-              message:
-                Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
-                  max_score: Ratings.max_scores_sum_points()
-                )
-            })
+        unless logged_user == rating["user_id"] do
+          case Ratings.validate_scores(rating["details"]["scores"]) do
+            false ->
+              push(socket, "error", %{
+                message:
+                  Gettext.gettext(
+                    "All Scores absolute values should add up to max %{max_score} !",
+                    max_score: Ratings.max_scores_sum_points()
+                  )
+              })
 
-          true ->
-            case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
-              {:ok, rating} ->
-                broadcast!(
-                  socket,
-                  "new_rating",
-                  %{
-                    rating_parent_id: rating.rating_id,
-                    new_rating: Jason.encode!(rating)
-                  }
-                )
+            true ->
+              case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
+                {:ok, rating} ->
+                  broadcast!(
+                    socket,
+                    "new_rating",
+                    %{
+                      rating_parent_id: rating.rating_id,
+                      new_rating: Jason.encode!(rating)
+                    }
+                  )
 
-              {:ok, rating, user_rating} ->
-                broadcast!(
-                  socket,
-                  "new_rating",
-                  %{
-                    rating_parent_id: rating.rating_id,
-                    new_rating: Jason.encode!(rating)
-                  }
-                )
+                {:ok, rating, user_rating} ->
+                  broadcast!(
+                    socket,
+                    "new_rating",
+                    %{
+                      rating_parent_id: rating.rating_id,
+                      new_rating: Jason.encode!(rating)
+                    }
+                  )
 
-                broadcast!(socket, "update_rating", %{
-                  new_rating: user_rating,
-                  for_id: rating.user_id
-                })
+                  broadcast_updated_rating_user(rating.user_id, user_rating)
 
-              {:error, _rating} ->
-                push(socket, "error", %{
-                  message: Gettext.gettext("you already did it :)")
-                })
-            end
+                {:error, _rating} ->
+                  push(socket, "error", %{
+                    message: Gettext.gettext("you already did it :)")
+                  })
+              end
+          end
         end
     end
 
@@ -283,30 +283,33 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user ->
-        %{"id" => reacted_to, "author_id" => author_id, "type" => type} = Jason.decode!(data)
+        %{"id" => reacted_to, "user_id" => user_id, "author_id" => author_id, "type" => type} =
+          Jason.decode!(data)
 
-        Multi.new()
-        |> Action.toggle_or_change_reaction(
-          reacted_to,
-          logged_user,
-          type,
-          reaction,
-          &update_user_rating_fun/3,
-          author_id
-        )
-        # |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
-        |> Repo.transaction()
-        |> case do
-          {:ok, multi} ->
-            push(socket, "reaction_persisted", %{data: data, reaction: reaction})
+        unless logged_user == user_id do
+          Multi.new()
+          |> Action.toggle_or_change_reaction(
+            reacted_to,
+            logged_user,
+            type,
+            reaction,
+            &update_user_rating_fun/3,
+            author_id
+          )
+          # |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
+          |> Repo.transaction()
+          |> case do
+            {:ok, multi} ->
+              push(socket, "reaction_persisted", %{data: data, reaction: reaction})
 
-            broadcast_updated_rating_user(multi.update_rating_for_reaction)
-            broadcast_updated_rating_item(multi.update_rating_for_reaction)
+              broadcast_updated_rating_user(multi.update_rating_for_reaction)
+              broadcast_updated_rating_item(multi.update_rating_for_reaction)
 
-          {:error, _op, _value, _changes} ->
-            push(socket, "error", %{
-              message: Gettext.gettext("you already did it :)")
-            })
+            {:error, _op, _value, _changes} ->
+              push(socket, "error", %{
+                message: Gettext.gettext("you already did it :)")
+              })
+          end
         end
     end
 
@@ -328,34 +331,40 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   defp broadcast_updated_rating_user(multi) do
-    user_id = to_string(multi.user.id)
+    broadcast_updated_rating_user(multi.user.id, multi.calc_user_rating)
+  end
 
+  def broadcast_updated_rating_user(user_id, rating) do
     StoreHallWeb.Endpoint.broadcast_from!(self(), topic_prefix(), "update_rating", %{
-      new_rating: multi.calc_user_rating,
+      new_rating: rating,
       for_user_id: user_id
     })
 
     user_room = topic_prefix() <> "/" <> user_id
 
     StoreHallWeb.Endpoint.broadcast_from!(self(), user_room, "update_rating", %{
-      new_rating: multi.calc_user_rating,
+      new_rating: rating,
       for_user_id: user_id
     })
   end
 
   defp broadcast_updated_rating_item(multi) do
-    item_id = StoreHall.Items.Item.slug_id(multi.item)
+    broadcast_updated_rating_item(multi.item, multi.calc_item_rating)
+  end
+
+  def broadcast_updated_rating_item(item, rating) do
+    item_id = to_string(item.id)
     item_room = StoreHallWeb.ItemsChannel.topic_prefix()
 
     StoreHallWeb.Endpoint.broadcast_from!(self(), item_room, "update_rating", %{
-      new_rating: multi.calc_item_rating,
+      new_rating: rating,
       for_id: item_id
     })
 
     item_room = StoreHallWeb.ItemsChannel.topic_prefix() <> "/" <> item_id
 
     StoreHallWeb.Endpoint.broadcast_from!(self(), item_room, "update_rating", %{
-      new_rating: multi.calc_item_rating,
+      new_rating: rating,
       for_id: item_id
     })
   end

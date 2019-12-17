@@ -80,7 +80,7 @@
         <%= render_shared "reactions.html",
           model: @item,
           reaction: @item.reaction,
-          react_to: %{type: "item", id: @item.id, author_id: @item.id} %>
+          react_to: %{type: "item", id: @item.id, author_id: @item.id, user_id: @item.user_id} %>
 
         <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @item.ratings, rating: %{
           id: nil,

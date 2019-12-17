@@ -40,7 +40,7 @@
       <%= render_shared "reactions.html",
         model: @comment,
         reaction: @comment.reaction,
-        react_to: %{type: "comment", id: @comment.id, author_id: @comment.author_id} %>
+        react_to: %{type: "comment", id: @comment.id, author_id: @comment.author_id, user_id: @comment.author_id} %>
 
       <%= render StoreHallWeb.CommentView, "form.html",
         comment: Map.put(@comment, :comment_id, @comment.id) %>
