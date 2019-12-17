@@ -5,7 +5,7 @@
     <button class="comment-button" onclick='show_hide("comment-<%=@comment.id%>")'><%= Gettext.gettext("comment") %></button>
     <comment-form class="hidable-form" id="comment-<%=@comment.id%>" style="display: none">
 <% end %>
-      <textarea class="comment-textarea" type="text" name="body" value=""></textarea>
+      <textarea placeholder='<%= Gettext.gettext("Add Comment") %> <%= Gettext.gettext("and remember, be nice!") %>' class="comment-textarea" type="text" name="body" value=""></textarea>
       <input class="comment" type="hidden" name="comment"
               value="<%= @comment
                         |> Map.take([:author_id, :comment_id, :details, :id, :item_id, :user_id])

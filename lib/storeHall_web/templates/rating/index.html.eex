@@ -1,5 +1,5 @@
 
-<h1><%= Gettext.gettext("Ratings") %></h1>
+<div class="panel_title"><%= Gettext.gettext("Ratings") %></div>
 
 <ratings>
   <%= for rating <- @ratings do %>

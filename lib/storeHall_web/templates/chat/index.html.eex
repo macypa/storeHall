@@ -53,6 +53,6 @@
 
 <% else %>
 
-  <h3>Init chat</h3>
+  <div class="panel_title">Init chat</div>
 	<%= render "form.html", chat_msg: @chat_msg_template %>
 <% end %>

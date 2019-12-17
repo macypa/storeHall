@@ -1,4 +1,4 @@
-<h1><%= Gettext.gettext("Edit Item") %></h1>
+<div class="panel_title"><%= Gettext.gettext("Edit Item") %></div>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.item_path(@conn, :update, @item)) %>
 

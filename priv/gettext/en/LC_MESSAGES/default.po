@@ -133,31 +133,37 @@ msgid "Add Rating"
 msgstr "Add Review"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/show.html.eex:116
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:29
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:29
 #: lib/storeHall_web/templates/user/edit.html.eex:5
-#: lib/storeHall_web/templates/user/show.html.eex:70
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:29
+#: lib/storeHall_web/templates/user/show_sidebar.html.eex:29
 msgid "Are you sure?"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:18
-#: lib/storeHall_web/templates/item/index.html.eex:59
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:12
+#: lib/storeHall_web/templates/item/index.html.eex:60
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:12
-#: lib/storeHall_web/templates/user/index.html.eex:63
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12
+#: lib/storeHall_web/templates/user/index.html.eex:69
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:12
 msgid "Comments"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/chat/index.html.eex:34
-#: lib/storeHall_web/templates/item/show.html.eex:116
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:29
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:29
 #: lib/storeHall_web/templates/user/edit.html.eex:5
-#: lib/storeHall_web/templates/user/show.html.eex:70
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:29
+#: lib/storeHall_web/templates/user/show_sidebar.html.eex:29
 msgid "Delete"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:16
+#: lib/storeHall_web/templates/item/form.html.eex:24
 msgid "Details"
 msgstr ""
 
@@ -168,7 +174,9 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:6
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:6
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:6
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:6
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:6
 msgid "Info"
 msgstr ""
@@ -196,21 +204,22 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:64
-#: lib/storeHall_web/templates/user/index.html.eex:58
+#: lib/storeHall_web/templates/user/index.html.eex:64
 msgid "Rating"
 msgstr "Review"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:24
-#: lib/storeHall_web/templates/item/index.html.eex:54
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:18
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:18
 #: lib/storeHall_web/templates/rating/index.html.eex:2
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:18
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:18
 msgid "Ratings"
 msgstr "Reviews"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:34
+#: lib/storeHall_web/templates/item/form.html.eex:42
 #: lib/storeHall_web/templates/user/form.html.eex:31
 msgid "Save"
 msgstr ""
@@ -264,7 +273,7 @@ msgid "show more"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/comment/index.html.eex:2
+#: lib/storeHall_web/templates/comment/form.html.eex:8
 msgid "Add Comment"
 msgstr ""
 
@@ -275,8 +284,10 @@ msgid "Back"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/show.html.eex:115
-#: lib/storeHall_web/templates/user/show.html.eex:69
+#: lib/storeHall_web/templates/item/edit_sidebar.html.eex:25
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:25
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:25
+#: lib/storeHall_web/templates/user/show_sidebar.html.eex:25
 msgid "Edit"
 msgstr ""
 
@@ -286,20 +297,14 @@ msgid "Edit Item"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:23
+#: lib/storeHall_web/templates/item/form.html.eex:31
 #: lib/storeHall_web/templates/user/form.html.eex:18
 msgid "Images"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/comment/index.html.eex:5
+#: lib/storeHall_web/templates/comment/index.html.eex:4
 msgid "Listing Comments"
-msgstr ""
-
-#, elixir-format
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:26
-#: lib/storeHall_web/templates/user/show_sidebar.html.eex:26
-msgid "Manage"
 msgstr ""
 
 #, elixir-format
@@ -308,7 +313,7 @@ msgid "Merchants"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:9
+#: lib/storeHall_web/templates/item/form.html.eex:17
 msgid "Name"
 msgstr ""
 
@@ -358,7 +363,7 @@ msgid "Choose"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index.html.eex:51
+#: lib/storeHall_web/templates/item/index.html.eex:57
 msgid "lv"
 msgstr ""
 
@@ -427,7 +432,7 @@ msgstr ""
 msgid "Terms"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/rating/_form.html.eex:16
 msgid "Add Scores"
 msgstr "Add Ratings"
@@ -459,12 +464,12 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:20
 msgid "E-mail"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/rating/form.html.eex:12
 msgid "Edit Rating"
 msgstr "Edit Review"
@@ -509,7 +514,7 @@ msgstr ""
 msgid "friendly"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall/ratings/ratings.ex:25
 msgid "price"
 msgstr ""
@@ -519,12 +524,18 @@ msgstr ""
 msgid "quality"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/templates/rating/_rating_block.html.eex:11
+#, elixir-format
+#: lib/storeHall_web/templates/rating/_rating_block.html.eex:10
 msgid "ratings"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall/ratings/ratings.ex:22
 msgid "staff"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/comment/form.html.eex:8
+#: lib/storeHall_web/templates/rating/_form.html.eex:3
+msgid "and remember, be nice!"
 msgstr ""
