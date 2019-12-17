@@ -153,7 +153,12 @@ rating_block {
     min-width: 32px;
   }
 
+  .review_score_badge:hover + .review_score_content {
+    display: block;
+  }
+
   .review_score_content {
+    display: none;
     margin-left: 8px;
 
     .review_score_title {

@@ -26,6 +26,7 @@ reload_next_items = function() {
     load_next_items();
   }
   load_lazy_imgs();
+  rating_badge_color();
 }
 
 jQuery(function($) {

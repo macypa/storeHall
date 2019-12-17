@@ -18,6 +18,12 @@
     <% end %>
 
       <div class="cover">
+        <rating_scores>
+          <%= link to: Routes.item_path(@conn, :show, item) <> "#ratings" do %>
+            <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: item.details["rating"] %>
+          <% end %>
+        </rating_scores>
+
         <%= link to: Routes.item_path(@conn, :show, item) do %>
 
           <div class="fotorama"
@@ -49,11 +55,6 @@
         <% end %>
       </div>
       <div class="price"><%= item.details["price"] %> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
-      <div class="rating">
-        <%= link to: Routes.item_path(@conn, :show, item) <> "#ratings" do %>
-          <%= Gettext.gettext("Ratings") %>: <%= item.details["rating"]["score"] %>
-        <% end %>
-      </div>
       <div class="comments">
         <%= link to: Routes.item_path(@conn, :show, item) <> "#comments" do %>
           <%= Gettext.gettext("Comments") %>: <%= item.details["comments_count"] %>

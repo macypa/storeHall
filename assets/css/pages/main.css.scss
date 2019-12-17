@@ -26,7 +26,6 @@
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
-  text-align: center;
   padding: 5px;
 
   a {
@@ -37,20 +36,20 @@
 
 .listing > item {
   display: grid;
+  grid-template-rows: $width-header/1.5 1fr;
   grid-template-areas:
-    'cover cover cover cover'
-    'rating rating comments comments'
-    'title title title title'
-    '. . merchant merchant'
-    '. price price .';
+    'cover cover'
+    'title title'
+    'comments merchant'
+    'price price';
 }
 
 .listing > user {
   display: grid;
   grid-template-areas:
-    'cover cover'
-    'rating comments'
-    'title title';
+    'cover'
+    'comments'
+    'title';
 }
 
 .listing .cover {
@@ -67,6 +66,17 @@
   width: auto;
   min-width: $width-header/2;
 
+  position: relative;
+
+}
+
+.listing rating_scores {
+  padding: 0.2em;
+  margin: 0.5em;
+  position: absolute;
+  z-index: 10;
+  background-color: white;
+  border-radius: 6px;
 }
 
 .listing .title {
@@ -74,17 +84,12 @@
   padding-top: 1em;
   font-size: 1em;
   font-weight: 700;
+  text-align: center;
 
   a {
     text-decoration: none;
     // color: #0b5d19;
   }
-}
-
-.listing .merchant {
-  grid-area: merchant;
-  margin-bottom: 2em;
-  font-size: 0.6em;
 }
 
 .listing .price {
@@ -97,18 +102,17 @@
   font-weight: 700;
 }
 
-.listing .rating {
-  grid-area: rating;
-
-  margin: auto;
-  margin-right: 5px;
-  font-size: 0.5em;
+.listing .merchant {
+  grid-area: merchant;
+  margin-bottom: 2em;
+  font-size: 0.6em;
+  margin-left: auto;
 }
 
 .listing .comments {
   grid-area: comments;
 
-  margin: auto;
-  margin-left: 5px;
-  font-size: 0.5em;
+  margin-right: auto;
+  margin-bottom: 2em;
+  font-size: 0.6em;
 }
