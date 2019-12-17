@@ -172,10 +172,14 @@ defmodule StoreHallWeb.ItemsChannel do
                   }
                 )
 
-                broadcast!(socket, "update_rating", %{new_rating: item_rating})
+                broadcast!(socket, "update_rating", %{
+                  new_rating: item_rating,
+                  for_id: rating.item_id
+                })
 
                 StoreHallWeb.UsersChannel.broadcast_msg!(rating.user_id, "update_rating", %{
-                  new_rating: user_rating
+                  new_rating: user_rating,
+                  for_user_id: rating.user_id
                 })
 
               {:error, _rating} ->

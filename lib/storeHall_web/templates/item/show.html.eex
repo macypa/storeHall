@@ -54,7 +54,7 @@
     <item_images>
       <rating_scores>
         <%= link to: "#ratings" do %>
-          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @item.details["rating"] %>
+          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @item.details["rating"], for_id: @item.id %>
         <% end %>
       </rating_scores>
 

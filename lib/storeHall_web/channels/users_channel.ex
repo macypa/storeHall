@@ -257,7 +257,10 @@ defmodule StoreHallWeb.UsersChannel do
                   }
                 )
 
-                broadcast!(socket, "update_rating", %{new_rating: user_rating})
+                broadcast!(socket, "update_rating", %{
+                  new_rating: user_rating,
+                  for_id: rating.user_id
+                })
 
               {:error, _rating} ->
                 push(socket, "error", %{
@@ -295,11 +298,10 @@ defmodule StoreHallWeb.UsersChannel do
         |> Repo.transaction()
         |> case do
           {:ok, multi} ->
-            broadcast!(socket, "update_rating", %{
-              new_rating: multi.update_rating_for_reaction.calc_user_rating
-            })
-
             push(socket, "reaction_persisted", %{data: data, reaction: reaction})
+
+            broadcast_updated_rating_user(multi.update_rating_for_reaction)
+            broadcast_updated_rating_item(multi.update_rating_for_reaction)
 
           {:error, _op, _value, _changes} ->
             push(socket, "error", %{
@@ -323,6 +325,39 @@ defmodule StoreHallWeb.UsersChannel do
         |> Ratings.update_user_rating(user_id, reaction)
         |> repo.transaction()
     end
+  end
+
+  defp broadcast_updated_rating_user(multi) do
+    user_id = to_string(multi.user.id)
+
+    StoreHallWeb.Endpoint.broadcast_from!(self(), topic_prefix(), "update_rating", %{
+      new_rating: multi.calc_user_rating,
+      for_user_id: user_id
+    })
+
+    user_room = topic_prefix() <> "/" <> user_id
+
+    StoreHallWeb.Endpoint.broadcast_from!(self(), user_room, "update_rating", %{
+      new_rating: multi.calc_user_rating,
+      for_user_id: user_id
+    })
+  end
+
+  defp broadcast_updated_rating_item(multi) do
+    item_id = StoreHall.Items.Item.slug_id(multi.item)
+    item_room = StoreHallWeb.ItemsChannel.topic_prefix()
+
+    StoreHallWeb.Endpoint.broadcast_from!(self(), item_room, "update_rating", %{
+      new_rating: multi.calc_item_rating,
+      for_id: item_id
+    })
+
+    item_room = StoreHallWeb.ItemsChannel.topic_prefix() <> "/" <> item_id
+
+    StoreHallWeb.Endpoint.broadcast_from!(self(), item_room, "update_rating", %{
+      new_rating: multi.calc_item_rating,
+      for_id: item_id
+    })
   end
 
   def broadcast_msg!(user_id, message, body) when is_bitstring(user_id) do

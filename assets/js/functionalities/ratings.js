@@ -1,7 +1,15 @@
 
 channel.on("update_rating", payload => {
-  document.querySelector("#rating-score").innerText = payload.new_rating
-  document.querySelector("#rating-count").innerText = parseInt(document.querySelector("#rating-count").innerText) + 1
+  var rating_badge;
+  if (payload.for_user_id) {
+    rating_badge = $("#rating-score_" + payload.for_user_id);
+  } else {
+    rating_badge = $("#rating-score_" +parseInt(payload.for_id));
+  }
+  rating_badge.text(payload.new_rating);
+  rating_badge.attr("data-content", payload.new_rating);
+  var rating_count = rating_badge.next().find(".review_score_count > span").first();
+  rating_count.text(parseInt(rating_count.text()) + 1);
 })
 
 function on_rating_events() {

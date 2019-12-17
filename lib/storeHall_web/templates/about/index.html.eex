@@ -5,7 +5,7 @@
     <user_images>
       <rating_scores>
         <%= link to: "#ratings" do %>
-          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"] %>
+          <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: @user.details["rating"], for_id: @user.id %>
         <% end %>
       </rating_scores>
 

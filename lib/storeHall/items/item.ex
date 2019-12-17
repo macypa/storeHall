@@ -41,10 +41,14 @@ defmodule StoreHall.Items.Item do
     |> validate_length(:name, max: 255)
     |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
   end
+
+  def slug_id(item) do
+    "#{item.id}-#{Slug.slugify(item.name)}"
+  end
 end
 
 defimpl Phoenix.Param, for: StoreHall.Items.Item do
-  def to_param(%{id: id, name: name}) do
-    "#{id}-#{Slug.slugify(name)}"
+  def to_param(item = %{id: id, name: name}) do
+    StoreHall.Items.Item.slug_id(item)
   end
 end
