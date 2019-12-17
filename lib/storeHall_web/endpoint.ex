@@ -42,7 +42,9 @@ defmodule StoreHallWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_session_key",
-    signing_salt: "8x6mVJBW"
+    signing_salt: "8x6mVJBW",
+    # 60*60*24*30
+    max_age: 2_592_000
 
   plug StoreHallWeb.Router
 end
