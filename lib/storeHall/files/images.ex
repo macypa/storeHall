@@ -2,36 +2,44 @@ defmodule StoreHall.Images do
   alias Ecto.Multi
   alias StoreHall.FileUploader
 
-  def append_images(query_result) do
-    query_result
-    |> Enum.map(fn model ->
-      Map.put(
-        model,
-        :details,
-        model.details
-        |> put_in(
-          ["images"],
-          case model.details["images"] do
-            nil ->
-              []
+  def append_images(list_models, version \\ :thumb) when is_list(list_models) do
+    list_models
+    |> Enum.map(fn model -> append_images(model, version) end)
+  end
 
-            images ->
-              images
-              |> Enum.map(fn image ->
-                image_url(model, image)
-              end)
-          end
-        )
+  def append_images(model, version) do
+    Map.put(
+      model,
+      :details,
+      model.details
+      |> put_in(
+        ["images"],
+        case model.details["images"] do
+          nil ->
+            []
+
+          images ->
+            images
+            |> Enum.map(fn image ->
+              image_url(model, image, version)
+            end)
+        end
       )
-    end)
+    )
   end
 
   def image_url(model, image, version \\ :thumb) do
-    image = StoreHall.FileUploader.url({image, model}, version)
+    case String.starts_with?(image, "http") do
+      false ->
+        image = StoreHall.FileUploader.url({image, model}, version)
 
-    case String.ends_with?(image, to_string(version) <> "-") do
-      false -> image
-      true -> ""
+        case String.ends_with?(image, to_string(version) <> "-") do
+          false -> image
+          true -> ""
+        end
+
+      true ->
+        image
     end
 
     # case File.exists?("." <> image) do

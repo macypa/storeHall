@@ -9,7 +9,7 @@ defmodule StoreHall.FileUploader do
   @versions [:image, :thumb]
   @acl :public_read
 
-  @extension_whitelist ~w(.jpg .jpeg .gif .png)
+  @extension_whitelist ~w(.jpg .jpeg .png .gif)
   def extension_whitelist, do: @extension_whitelist
 
   def validate({file, _}) do
@@ -23,7 +23,15 @@ defmodule StoreHall.FileUploader do
         :skip
 
       false ->
-        {:magick, "-strip -thumbnail 450x450^> -gravity center -extent 450x450 -format png"}
+        {
+          :magick,
+          fn input, output ->
+            "#{input}[0] -strip -thumbnail x450\> -background none -gravity center -extent 450x450 -format jpg #{
+              output
+            }"
+          end
+          # , :jpg
+        }
     end
   end
 
@@ -33,7 +41,11 @@ defmodule StoreHall.FileUploader do
         :noaction
 
       false ->
-        {:magick, " -strip -resize x700^> -depth 8 -quality 75 -density 72 -units pixelsperinch"}
+        {
+          :magick,
+          "-strip -resize x700^> -background none -depth 8 -quality 75 -density 72 -units pixelsperinch -format jpg"
+          # , :jpg
+        }
 
         # for Unix {:magick, " -resize  x700\> -depth 8 -quality 92 -density 72 -units pixelsperinch "}
     end

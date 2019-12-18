@@ -66,8 +66,12 @@
           data-loop="true"
           data-width="100%"
           data-maxheight="80%">
-        <%= for image <- @item.details["images"] do %>
-          <a href="<%= StoreHall.FileUploader.url({image, @item})%>"></a>
+        <%= for image <- @item.details["images"] || [] do %>
+          <a href="<%= image %>"></a>
+        <% end %>
+
+        <%= for video <- @item.details["videos"] || [] do %>
+          <a href="<%= video %>"></a>
         <% end %>
       </div>
 

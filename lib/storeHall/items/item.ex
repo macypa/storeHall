@@ -19,6 +19,7 @@ defmodule StoreHall.Items.Item do
         "expiration" => "",
         "features" => %{},
         "images" => [],
+        "videos" => [],
         "tags" => [],
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 0

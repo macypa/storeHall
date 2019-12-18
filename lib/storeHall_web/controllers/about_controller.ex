@@ -5,10 +5,12 @@ defmodule StoreHallWeb.AboutController do
   alias StoreHall.Users
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Images
 
   def index(conn, params) do
     user =
       Users.get_user!(Application.get_env(:storeHall, :about)[:user_id])
+      |> Images.append_images(:image)
       |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
 

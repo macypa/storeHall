@@ -19,8 +19,12 @@
 
         <img src="<%= @user.image%>"></img>
 
-        <%= for image <- @user.details["images"] do %>
-          <a href="<%= StoreHall.FileUploader.url({image, @user})%>"></a>
+        <%= for image <- @user.details["images"] || [] do %>
+          <a href="<%= image %>"></a>
+        <% end %>
+
+        <%= for video <- @user.details["videos"] || [] do %>
+          <a href="<%= video %>"></a>
         <% end %>
       </div>
 

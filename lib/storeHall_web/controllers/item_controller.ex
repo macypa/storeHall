@@ -6,6 +6,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Items.Item
   alias StoreHall.Ratings
   alias StoreHall.Comments
+  alias StoreHall.Images
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -66,6 +67,7 @@ defmodule StoreHallWeb.ItemController do
         params |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
       )
       |> Items.preload_user()
+      |> Images.append_images(:image)
       |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
       |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
 
