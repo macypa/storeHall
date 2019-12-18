@@ -289,7 +289,7 @@ msgstr "Назад"
 #: lib/storeHall_web/templates/user/edit_sidebar.html.eex:25
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:25
 msgid "Edit"
-msgstr "Редактирай профил"
+msgstr "Редактирай"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/edit.html.eex:1
