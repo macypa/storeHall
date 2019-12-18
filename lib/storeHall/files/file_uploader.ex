@@ -26,11 +26,11 @@ defmodule StoreHall.FileUploader do
         {
           :magick,
           fn input, output ->
-            "#{input}[0] -strip -thumbnail x450\> -background none -gravity center -extent 450x450 -format jpg #{
+            "#{input}[0] -strip -thumbnail x450\> -background none -gravity center -format jpg #{
               output
             }"
           end
-          # , :jpg
+          # , :jpg  -extent 450x450
         }
     end
   end
