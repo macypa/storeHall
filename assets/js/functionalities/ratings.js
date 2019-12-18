@@ -136,10 +136,6 @@ channel.on("filtered_ratings", payload => {
   update_next_page_link(payload);
 })
 
-$( document ).ready(function() {
-  rating_pros_cons_format();
-});
-
 window.rating_pros_cons_format = function() {
   $("pro_scores").each(function() {
     if (this.innerText == "" ) {
@@ -184,3 +180,28 @@ window.rating_pros_cons_format = function() {
     }
   });
 };
+
+window.rating_badge_color = function() {
+  $(".review_score_badge[data-content]").each(function() {
+    var rating = parseInt($(this).attr("data-content"));
+
+    if (rating < -10) {
+      $(this).addClass("bg_red");
+      // rating_title.text(Bad);
+    } else if (rating > 1000) {
+    $(this).addClass("bg_blue");
+      // rating_title.text(Good);
+    } else if (rating > 100) {
+      $(this).addClass("bg_green");
+        // rating_title.text(Good);
+    } else if (rating >= -10) {
+      $(this).addClass("bg_orange");
+        // rating_title.text(Good);
+    }
+  });
+};
+
+$( document ).ready(function() {
+  rating_pros_cons_format();
+  rating_badge_color();
+});

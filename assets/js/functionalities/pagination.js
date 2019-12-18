@@ -18,6 +18,7 @@ load_next_items = function() {
   var next_page_link = $('#next-page-link');
   if (next_page_link.is(":visible")) {
     channel_push_filter(next_page_link[0]);
+    rating_badge_color();
   }
 }
 
@@ -26,7 +27,6 @@ reload_next_items = function() {
     load_next_items();
   }
   load_lazy_imgs();
-  rating_badge_color();
 }
 
 jQuery(function($) {
