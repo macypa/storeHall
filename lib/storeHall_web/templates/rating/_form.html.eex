@@ -21,7 +21,6 @@
           <% end %>
         </select>
         <input class="scores select7_input" type="hidden" name="scores" format="json"
-               max_spinner="<%= Ratings.max_score_points %>"
                value='<%= @rating.details["scores"] || "{}" %>' />
 
         <div class="select7_items"></div>
