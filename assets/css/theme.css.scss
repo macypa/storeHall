@@ -49,8 +49,21 @@ html {
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
+.flash:empty,
 .alert:empty {
   display: none;
+}
+
+.alert {
+  padding: 5px;
+}
+
+.alert-danger {
+
+}
+
+.help-block {
+  color: red;
 }
 
 a {
