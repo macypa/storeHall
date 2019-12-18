@@ -18,32 +18,32 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Price") %></span>
-          <%= @item.details["price"] %>
+          <span class="info_content"><%= @item.details["price"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Description") %> </span>
-          <span class="inline_block"><%= sanitize @item.details["description"] %></span>
+          <span class="info_content"><%= sanitize @item.details["description"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Expiration") %> </span>
-          <%= sanitize @item.details["expiration"] %>
+          <span class="info_content"><%= sanitize @item.details["expiration"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Tags") %> </span>
-          <%= @item.details["tags"] %>
+          <span class="info_content"><%= @item.details["tags"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Features") %> </span>
-          <%= @item.details["features"] %>
+          <span class="info_content"><%= @item.details["features"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Conditions") %> </span>
-          <span class="inline_block"><%= sanitize @item.details["conditions"] %></span>
+          <span class="info_content"><%= sanitize @item.details["conditions"] %></span>
         </span>
 
     </item_details>

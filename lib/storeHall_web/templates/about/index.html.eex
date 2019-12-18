@@ -36,7 +36,7 @@
 
     <user_details>
       <span>
-        <span class="inline_block"><%= sanitize @user.details["description"] %></span>
+        <span class="info_content"><%= sanitize @user.details["description"] %></span>
       </span>
     </user_details>
 
