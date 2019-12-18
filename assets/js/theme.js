@@ -58,6 +58,21 @@ window.timeago = function() {
 
 };
 
+$("textarea").focusout(function(){
+  this.style.height = "3em";
+});
+
+$('textarea').on('focus', function() {
+  this.style.height = "";
+  this.style.height = this.scrollHeight + "px"
+});
+
+$('textarea').on('input', function() {
+  this.style.height = "";
+  this.style.height = this.scrollHeight + "px"
+});
+
+
 $( document ).ready(function() {
   timeago();
   load_lazy_imgs();
