@@ -19,6 +19,17 @@ $height-footer: 1.5em;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+@mixin pre-wrap {
+  white-space: pre-wrap;
+
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 @mixin spinner_number_input {
   -moz-appearance:textfield;
   &::-webkit-outer-spin-button,

@@ -18,32 +18,50 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Price") %></span>
-          <span class="info_content"><%= @item.details["price"] %></span>
+          <span class="info_content price"><%= @item.details["price"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Description") %> </span>
-          <span class="info_content"><%= sanitize @item.details["description"] %></span>
+          <span class="info_content description"><%= sanitize @item.details["description"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Expiration") %> </span>
-          <span class="info_content"><%= sanitize @item.details["expiration"] %></span>
+          <span class="info_content expiration"><%= sanitize @item.details["expiration"] %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Tags") %> </span>
-          <span class="info_content"><%= @item.details["tags"] %></span>
+          <span class="info_content tags">
+            <div class="select7_container">
+              <div class="select7_arrow"></div>
+              <div class="select7_placeholder">s</div>
+
+              <select class="select7_select">
+                <%= for tag <- @item.details["tags"] do %>
+                  <option value="<%= tag %>" ><%= tag %></option>
+                <% end %>
+              </select>
+              <input class="select7_input" type="hidden" value='' />
+              <div class="select7_items"></div>
+            </div>
+          </span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Features") %> </span>
-          <span class="info_content"><%= @item.details["features"] %></span>
+          <span class="info_content features">
+            <%= for {feature_name, feature} <- @item.details["features"] do %>
+              <div class="feature_name"><%= feature_name %>:</div>
+              <div class="feature_value"><%= feature %></div>
+            <% end %>
+          </span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Conditions") %> </span>
-          <span class="info_content"><%= sanitize @item.details["conditions"] %></span>
+          <span class="info_content conditions"><%= sanitize @item.details["conditions"] %></span>
         </span>
 
     </item_details>
@@ -65,7 +83,7 @@
           data-nav="thumbs"
           data-loop="true"
           data-width="100%"
-          data-maxheight="80%">
+          data-height="80%">
         <%= for image <- @item.details["images"] || [] do %>
           <a href="<%= image %>"></a>
         <% end %>

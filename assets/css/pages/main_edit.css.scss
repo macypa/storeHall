@@ -1,0 +1,52 @@
+
+.edit_form {
+  .form-image-group {
+    display: none;
+  }
+
+  .form-group {
+    display: grid;
+    padding: 1em;
+
+    textarea {
+      max-width: 99%;
+      resize: vertical;
+    }
+
+  }
+
+  .submit_button {
+    position: fixed;
+    top: $height-header;
+    right: 1em;
+    padding: 1em;
+  }
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+  .edit_form {
+    .form-group {
+      grid-template-columns: 20vw 1fr;
+
+      label {
+        text-align: right;
+        padding-right: 1em;
+        grid-column: 1 / 2;
+      }
+
+      .help-block,
+      input,
+      textarea {
+        grid-column: 2 / 6;
+      }
+    }
+  }
+
+}

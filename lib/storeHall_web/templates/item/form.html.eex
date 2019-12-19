@@ -1,4 +1,8 @@
-<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+<%= form_for @changeset, @action, [multipart: true, class: "edit_form"], fn f -> %>
+
+  <div class="submit_button">
+    <%= submit Gettext.gettext("Save") %>
+  </div>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= Gettext.gettext("Oops, something went wrong! Please check the errors below.") %></p>
@@ -13,24 +17,83 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :details, Gettext.gettext("Details") %>
-    <%= error_tag f, :details %>
+    <%= label f, :price, Gettext.gettext("Price") %>
+    <%= text_input f, :details_price, name: input_name(f, :details) <> "[price]", value: f.data.details["price"] %>
+  </div>
 
-    <!-- <%= label f, :tags %>
-    <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]", value: Jason.encode!(f.data.details["tags"]) |> String.replace(",\"", ",\n\"") %> -->
+  <div class="form-group">
+    <%= label f, :description, Gettext.gettext("Description") %>
+    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: f.data.details["description"] %>
+  </div>
 
-    <div class="form-image-group">
+  <div class="form-group">
+    <%= label f, :conditions, Gettext.gettext("Conditions") %>
+    <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: f.data.details["conditions"] %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :expiration, Gettext.gettext("Expiration") %>
+    <%= textarea f, :details_expiration, name: input_name(f, :details) <> "[expiration]", value: f.data.details["expiration"] %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :features, Gettext.gettext("Features") %>
+    <div class="select7_container">
+      <div class="select7_arrow"></div>
+      <div class="select7_placeholder"><%= Gettext.gettext("Add feature") %></div>
+
+      <select class="select7_select">
+        <%= for {feature_name, feature_text}  <- StoreHall.Ratings.scode_names do %>
+          <option value="<%= feature_name %>" ><%= feature_text %></option>
+        <% end %>
+      </select>
+      <input class="feature select7_input" type="hidden" format="json"
+              name="<%= input_name(f, :details) <> "[features]" %>",
+              value="<%= f.data.details["features"] %>" />
+
+      <div class="select7_items"></div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :videos, Gettext.gettext("Videos") %>
+    <%= textarea f, :details_videos, name: input_name(f, :details) <> "[videos]",
+              value: Jason.encode!(f.data.details["videos"]) %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :Images, Gettext.gettext("Images") %>
+    <%= textarea f, :details_Images, name: input_name(f, :details) <> "[images]",
+              value: Jason.encode!(f.data.details["images"]) %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :tags, Gettext.gettext("Tags") %>
+    <%= textarea f, :details_tags, name: input_name(f, :details) <> "[tags]",
+              value: Jason.encode!(f.data.details["tags"]) %>
+  </div>
+
+
+
+
+  <%= if false do %>
+    <div class="form-image-group disabled_because_user_should_not_upload_images_to_our_servers_for_now only_links">
       <%= label f, :images, Gettext.gettext("Images") %>
       <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple",
       accept: StoreHall.FileUploader.extension_whitelist |> Enum.join(",") %>
       <%= error_tag f, :images %>
     </div>
 
-    <%= textarea  f, :details, name: input_name(f, :details), value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
+    <div class="form-group">
+      <%= label f, :details, Gettext.gettext("Details") %>
+      <%= error_tag f, :details %>
 
-  </div>
+      <%= textarea  f, :details, name: input_name(f, :details),
+        value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
+    </div>
 
-  <div>
-    <%= submit Gettext.gettext("Save") %>
-  </div>
+
+  <% end %>
+
+
 <% end %>

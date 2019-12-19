@@ -226,19 +226,23 @@ defmodule StoreHall.Items do
   end
 
   def details_to_add(item, attrs, detail_type) do
-    old_details = item.details[detail_type]
-    new_details = attrs["details"][detail_type]
+    if Map.has_key?(attrs["details"], detail_type) do
+      old_details = item.details[detail_type]
+      new_details = attrs["details"][detail_type]
 
-    MapSet.difference(MapSet.new(new_details), MapSet.new(old_details))
-    |> MapSet.to_list()
+      MapSet.difference(MapSet.new(new_details), MapSet.new(old_details))
+      |> MapSet.to_list()
+    end
   end
 
   def details_to_remove(item, attrs, detail_type) do
-    old_details = item.details[detail_type]
-    new_details = attrs["details"][detail_type]
+    if Map.has_key?(attrs["details"], detail_type) do
+      old_details = item.details[detail_type]
+      new_details = attrs["details"][detail_type]
 
-    MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
-    |> MapSet.to_list()
+      MapSet.difference(MapSet.new(old_details), MapSet.new(new_details))
+      |> MapSet.to_list()
+    end
   end
 
   @doc """
@@ -293,7 +297,30 @@ defmodule StoreHall.Items do
     )
   end
 
+  def decode_params(item_params = %{"details" => details}) when is_map(details) do
+    item_params
+    |> put_in(
+      ["details"],
+      details
+      |> decode_details_param("images")
+      |> decode_details_param("videos")
+      |> decode_details_param("tags")
+      |> decode_details_param("features")
+    )
+  end
+
   def decode_params(item_params), do: item_params
+
+  def decode_details_param(details, param) do
+    case Map.has_key?(details, param) do
+      true ->
+        details
+        |> put_in([param], Jason.decode!(details[param]))
+
+      false ->
+        details
+    end
+  end
 
   def item_filters() do
     Filters |> Repo.all() |> Filters.to_map()
