@@ -82,8 +82,8 @@ $( document ).ready(function() {
     var json = input_field.getAttribute("format") == "json";
 
     select.onchange = function(){Select7.add(this, event)};
-    select.innerHTML = "<option value='' class='select7_hide' disabled></option>" + select.innerHTML;
-
+    // select.innerHTML = "<option value='' class='select7_hide' disabled></option>" + select.innerHTML;
+    select.value = ''; // reset select options to enable next user select
     //let input = document.createRange().createContextualFragment('<input class="select7_input auto-submit-item" name="'+ select.name +'" type="hidden">');
     //select_container.appendChild(input);
     $(select).removeAttr("name");
@@ -150,6 +150,7 @@ Select7.add = (elem, e) => {
 Select7.remove = (elem, e) => {
     e.stopPropagation();
     var select = elem.parentElement.parentElement.parentElement.querySelector(".select7_select");
+    select.value = ''; // reset select options to enable next user select
     var option_text = elem.parentElement.querySelector(".select7_content").innerHTML;
     var option_value = elem.parentElement.querySelector(".select7_content").dataset.optionValue;
     var selector = elem.parentElement.parentElement.parentElement.querySelector(".select7_select");
