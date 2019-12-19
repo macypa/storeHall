@@ -43,7 +43,7 @@ function update_placeholder(selected_items, option) {
   var input_field = selected_items.parentElement.querySelector(".select7_input");
   var json = input_field.getAttribute("format") == "json";
 
-  selected_items.innerHTML += "<div class='select7_item'> \
+  selected_items.innerHTML += "<div draggable='true' class='select7_item'> \
                                 " + (json ? "<input class='select7_spinner' min='-10' max='10' step='1' type='number' value='" +
                                 option.getAttribute("json_value")  + "'> " : "") + " \
                                 <div class='select7_del'>\
@@ -53,6 +53,11 @@ function update_placeholder(selected_items, option) {
                                 <div data-option-value='"+ option.getAttribute("value")
                                 +"' class='select7_content'>"+ option.innerText +"</div>\
                               </div> ";
+
+  update_items_events(selected_items);
+}
+
+function update_items_events(selected_items) {
 
   var spinners = selected_items.getElementsByClassName("select7_spinner");
   for( var x = 0; x < spinners.length; x++ ){
@@ -65,7 +70,9 @@ function update_placeholder(selected_items, option) {
     var del_button = del_buttons[x];
     del_button.onclick = function(){Select7.remove(this, event)};
   }
+  add_drag_events();
 }
+
 
 function update_spinner_val(){
   this.setAttribute("value", this.value);
@@ -171,3 +178,79 @@ Select7.remove = (elem, e) => {
 
     update_input_field(select, true);
 };
+
+
+
+var dragSrcEl = null;
+var cols = document.querySelectorAll('.select7_item');
+
+function handleDragStart(e) {
+  this.style.opacity = '0.4';  // this / e.target is the source node.
+
+  dragSrcEl = this;
+
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault(); // Necessary. Allows us to drop.
+  }
+
+  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+
+  return false;
+}
+
+function handleDragEnter(e) {
+  // this / e.target is the current hover target.
+  this.classList.add('over');
+}
+
+function handleDragLeave(e) {
+  this.classList.remove('over');  // this / e.target is previous target element.
+}
+
+function handleDrop(e) {
+  // this/e.target is current target element.
+
+  if (e.stopPropagation) {
+    e.stopPropagation(); // Stops some browsers from redirecting.
+  }
+
+  // Don't do anything if dropping the same column we're dragging.
+  if (dragSrcEl != this) {
+    // Set the source column's HTML to the HTML of the column we dropped on.
+    dragSrcEl.innerHTML = this.innerHTML;
+    this.innerHTML = e.dataTransfer.getData('text/html');
+
+    var select = this.parentElement.parentElement.querySelector(".select7_select");
+    update_input_field(select, true);
+    update_items_events(this.parentElement);
+
+
+  }
+
+  return false;
+}
+
+function handleDragEnd(e) {
+  // this/e.target is the source node.
+  this.style.opacity = '1';
+  [].forEach.call(cols, function (col) {
+    col.classList.remove('over');
+  });
+}
+
+function add_drag_events() {
+  var cols = document.querySelectorAll('.select7_item');
+  [].forEach.call(cols, function(col) {
+    col.addEventListener('dragstart', handleDragStart, false);
+    col.addEventListener('dragenter', handleDragEnter, false);
+    col.addEventListener('dragover', handleDragOver, false);
+    col.addEventListener('dragleave', handleDragLeave, false);
+    col.addEventListener('drop', handleDrop, false);
+    col.addEventListener('dragend', handleDragEnd, false);
+  });
+}
