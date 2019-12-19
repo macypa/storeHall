@@ -34,18 +34,9 @@
         <span>
           <span class="info_title"><%= Gettext.gettext("Tags") %> </span>
           <span class="info_content tags">
-            <div class="select7_container">
-              <div class="select7_arrow"></div>
-              <div class="select7_placeholder">s</div>
-
-              <select class="select7_select">
-                <%= for tag <- @item.details["tags"] do %>
-                  <option value="<%= tag %>" ><%= tag %></option>
-                <% end %>
-              </select>
-              <input class="select7_input" type="hidden" value='' />
-              <div class="select7_items"></div>
-            </div>
+            <%= for tag <- @item.details["tags"] do %>
+              <span class="tag_value"><%= tag %></span>
+            <% end %>
           </span>
         </span>
 
