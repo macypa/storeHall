@@ -22,18 +22,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :description, Gettext.gettext("Description") %>
-    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: f.data.details["description"] %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :conditions, Gettext.gettext("Conditions") %>
-    <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: f.data.details["conditions"] %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :expiration, Gettext.gettext("Expiration") %>
-    <%= textarea f, :details_expiration, name: input_name(f, :details) <> "[expiration]", value: f.data.details["expiration"] %>
+    <%= label f, :tags, Gettext.gettext("Tags") %>
+    <%= textarea f, :details_tags, name: input_name(f, :details) <> "[tags]",
+              value: Jason.encode!(f.data.details["tags"]) %>
   </div>
 
   <div class="form-group">
@@ -56,23 +47,31 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :videos, Gettext.gettext("Videos") %>
-    <%= textarea f, :details_videos, name: input_name(f, :details) <> "[videos]",
-              value: Jason.encode!(f.data.details["videos"]) %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :Images, Gettext.gettext("Images") %>
     <%= textarea f, :details_Images, name: input_name(f, :details) <> "[images]",
               value: Jason.encode!(f.data.details["images"]) %>
   </div>
 
   <div class="form-group">
-    <%= label f, :tags, Gettext.gettext("Tags") %>
-    <%= textarea f, :details_tags, name: input_name(f, :details) <> "[tags]",
-              value: Jason.encode!(f.data.details["tags"]) %>
+    <%= label f, :videos, Gettext.gettext("Videos") %>
+    <%= textarea f, :details_videos, name: input_name(f, :details) <> "[videos]",
+              value: Jason.encode!(f.data.details["videos"]) %>
   </div>
 
+  <div class="form-group">
+    <%= label f, :description, Gettext.gettext("Description") %>
+    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: f.data.details["description"] %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :conditions, Gettext.gettext("Conditions") %>
+    <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: f.data.details["conditions"] %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :expiration, Gettext.gettext("Expiration") %>
+    <%= textarea f, :details_expiration, name: input_name(f, :details) <> "[expiration]", value: f.data.details["expiration"] %>
+  </div>
 
 
 
