@@ -140,7 +140,7 @@ function add_item(e) {
 
     let key = select.value;
     let human_readable_key = select.value;
-    let custom_tag_value = 0;
+    let custom_tag_value = "";
     if (has_select_tag(container)) {
       let option = select.querySelector("option[value='" + select.value + "']");
       custom_tag_value = option.getAttribute("data-template-value");
@@ -148,7 +148,7 @@ function add_item(e) {
     }
 
     if (custom_tag_value == null) {
-      custom_tag_value = human_readable_key;
+      custom_tag_value = "";
     }
 
     let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
@@ -168,7 +168,7 @@ function placeholder_item_html(container, data, key, human_readable_key, value) 
           <div class='datalist_x'></div>\
         </div>"
       : ">")
-      + "<div class='datalist_item_html' key='"+ key +"' value='"+ value +"'>"+ html_from_template(container, data, key, human_readable_key, value) +"</div>\
+      + "<div class='datalist_item_html' key='"+ sanitize(key) +"' value='"+ sanitize(value) +"'>"+ html_from_template(container, data, key, human_readable_key, value) +"</div>\
       </div> ";
 }
 
@@ -252,9 +252,9 @@ function get_html_template(container, data) {
 function html_from_template(container, data, key, human_readable_key, value) {
   let template = get_html_template(container, data)
 
-  html = template.html.split(template.value).join(value)
-  html = html.split(template.key).join(key);
-  html = html.split(template.hkey).join(human_readable_key);
+  html = template.html.split(template.value).join(sanitize(value))
+  html = html.split(template.key).join(sanitize(key));
+  html = html.split(template.hkey).join(sanitize(human_readable_key));
 
   return html;
 }

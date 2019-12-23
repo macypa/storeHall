@@ -2,12 +2,18 @@
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
+window.sanitize = function(str) {
+  var temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
+}
+
 window.regExp_escape = function(s) {
   return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
 window.isNumeric = function(num) {
-  return !isNaN(num)
+  return num != null && num.trim() != "" && !isNaN(num)
 }
 
 window.isString = function(obj) {
