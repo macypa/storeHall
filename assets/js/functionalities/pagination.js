@@ -26,6 +26,7 @@ reload_next_items = function() {
   if ($("main").height() > $("#items-listing").height()) {
     load_next_items();
   }
+  rating_badge_color();
   load_lazy_imgs();
 }
 
