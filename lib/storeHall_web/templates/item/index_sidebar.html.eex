@@ -96,23 +96,16 @@
       <input type="checkbox" id="sort" class="collapsible">
       <label class="tab-label" for="sort"><%= Gettext.gettext("Sort") %></label>
       <div class="tab-content">
-        <div class="select7_container">
-          <div class="select7_arrow"></div>
-          <div class="select7_placeholder"><%= Gettext.gettext("Sort") %></div>
-
-          <%= select f, :sort,
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Sort") %>'>
+          <%= text_input f, :sort, class: "auto-submit-item" %>
+          <%= select f, :sort_select,
             %{
               "Дата низх." => "inserted_at:desc",
               "Дата възх." => "inserted_at:аsc",
               "Име низх." => "name:desc",
               "Име възх." => "name:аsc"
-            },
-            class: "select7_select"  %>
-          <%= text_input f, :sort, type: "hidden", class: "select7_input auto-submit-item" %>
-
-          <div class="select7_items"></div>
+            }, name: nil %>
         </div>
-
       </div>
     </div>
 
@@ -120,17 +113,12 @@
       <input type="checkbox" id="merchants" class="collapsible">
       <label class="tab-label" for="merchants"><%= Gettext.gettext("Merchants") %></label>
       <div class="tab-content">
-        <div class="select7_container">
-          <div class="select7_arrow"></div>
-          <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
-
-          <%= select f, :merchant,
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :merchant, class: "auto-submit-item" %>
+          <%= select f, :merchant_select,
             @conn.assigns.filters["merchant"]
             |> Enum.map(fn {k, _v} -> {k, k} end),
-            class: "select7_select"  %>
-          <%= text_input f, :merchant, type: "hidden", class: "select7_input auto-submit-item" %>
-
-          <div class="select7_items"></div>
+            name: nil %>
         </div>
       </div>
     </div>
@@ -140,19 +128,13 @@
       <input type="checkbox" id="tags" class="collapsible">
       <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
       <div class="tab-content">
-        <div class="select7_container">
-          <div class="select7_arrow"></div>
-          <div class="select7_placeholder"><%= Gettext.gettext("Choose") %></div>
-
-          <%= select f, :tags,
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :tags, class: "auto-submit-item" %>
+          <%= select f, :tags_select,
             @conn.assigns.filters["tags"]
             |> Enum.map(fn {k, _v} -> {k, k} end),
-            class: "select7_select"  %>
-          <%= text_input f, :tags, type: "hidden", class: "select7_input auto-submit-item" %>
-
-          <div class="select7_items"></div>
+            name: nil %>
         </div>
-
       </div>
     </div>
 

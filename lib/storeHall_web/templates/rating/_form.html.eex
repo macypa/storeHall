@@ -8,23 +8,20 @@
 
   <%= if am_author or first_level do %>
 
-      <input class="rating-error-msg" type="hidden" max_scores_sum="<%= Ratings.max_scores_sum_points %>"
-                    value='<%= Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
-                                                max_score: Ratings.max_scores_sum_points ) %>' />
-      <div class="select7_container">
-        <div class="select7_arrow"></div>
-        <div class="select7_placeholder"><%= Gettext.gettext("Add Scores") %></div>
+    <input class="rating-error-msg" type="hidden" max_scores_sum="<%= Ratings.max_scores_sum_points %>"
+                  value='<%= Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
+                                              max_score: Ratings.max_scores_sum_points ) %>' />
 
-        <select class="select7_select">
-          <%= for {score_name, score_text}  <- StoreHall.Ratings.scode_names do %>
-            <option value="<%= score_name %>" ><%= score_text %></option>
-          <% end %>
-        </select>
-        <input class="scores select7_input" type="hidden" name="scores" format="json"
-               value='<%= @rating.details["scores"] || "{}" %>' />
-
-        <div class="select7_items"></div>
-      </div>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add Scores") %>'>
+      <input class="scores" name="scores"
+             value='<%= @rating.details["scores"] || "{}" %>' />
+      <template data-key="_key_" data-value="_value_"><span>_key_</span>:<input class='datalist_item_oninput_event datalist_item_spinner' min='-10' max='10' step='1' type='number' value='_value_'></template>
+      <select>
+        <%= for {score_name, score_text}  <- StoreHall.Ratings.scode_names do %>
+          <option value="<%= score_name %>" ><%= score_text %></option>
+        <% end %>
+      </select>
+    </div>
 
   <% end %>
 

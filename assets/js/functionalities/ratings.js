@@ -39,13 +39,13 @@ function validate_scores(rating_scores, max) {
 function add_rating_events() {
   add_events("[rating-topic]", "click", function() {
     var body_field_value = this.parentNode.getElementsByClassName("rating-textarea")[0].value
-    var scores_field = this.parentNode.getElementsByClassName("scores");
+    var scores_field = this.parentNode.querySelector("input[name]");
     var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
 
     rating_field_value.details = {}
     rating_field_value.details.body = body_field_value
-    if (scores_field[0]) {
-      rating_field_value.details.scores = JSON.parse(scores_field[0].value)
+    if (scores_field) {
+      rating_field_value.details.scores = JSON.parse(scores_field.value)
     }
 
     var max_scores_sum = this.parentNode.getElementsByClassName("rating-error-msg")[0];

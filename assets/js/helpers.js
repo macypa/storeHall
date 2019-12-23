@@ -2,6 +2,32 @@
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
+window.regExp_escape = function(s) {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
+
+window.isNumeric = function(num) {
+  return !isNaN(num)
+}
+
+window.isString = function(obj) {
+  if (obj == null) return true;
+  return typeof obj === "string";
+}
+
+window.isEmpty = function(obj) {
+  if (obj == null) return true;
+  if (typeof obj === "string" && (obj == "" || obj.trim() == "")) return true;
+
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      return false;
+    }
+  }
+
+  return JSON.stringify(obj) === JSON.stringify({}) || JSON.stringify(obj) === JSON.stringify([]);
+}
+
 window.Handlebars = require('handlebars');
 Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
@@ -29,3 +55,17 @@ window.show_hide = function(element_id) {
         x.style.display = "none";
     }
 }
+
+$("input").not($(":button")).keypress(function (evt) {
+  if (evt.keyCode == 13) {
+    let iname = $(this).val();
+    if (iname !== 'Submit') {
+      var fields = $(this).parents('form:eq(0),body').find('button, input, textarea, select');
+      var index = fields.index(this);
+      if (index > -1 && (index + 1) < fields.length) {
+        fields.eq(index + 1).focus();
+      }
+      return false;
+    }
+  }
+});
