@@ -181,8 +181,9 @@ function update_placeholder(container) {
     let human_readable_key = i_data.key;
     if (has_select_tag(container)) {
       let option = container.querySelector("select").querySelector("option[value='" + i_data.key + "']");
-      custom_tag_value = option.getAttribute("data-template-value");
-      human_readable_key = option.innerText;
+      if (option) {
+        human_readable_key = option.innerText;
+      }
     }
     let item = placeholder_item_html(container, input_field_data, i_data.key, human_readable_key, i_data.value);
     items.insertAdjacentHTML( 'beforeend', item);
@@ -227,7 +228,7 @@ function get_html_template(container, data) {
   let template_data_value = "_value_";
   let template = "<span>" + template_data_hkey + ":</span><span>" + template_data_value + "</span>";
   if (!data.is_json) {
-    template = "<span>" + template_data_value + "</span>";
+    template = "<span>" + template_data_hkey + "</span>";
   }
 
   let datalist_item_template = container.getElementsByTagName("template");
@@ -251,11 +252,9 @@ function html_from_template(container, data, key, human_readable_key, value) {
   let template = get_html_template(container, data)
 
   html = template.html.split(template.value).join(value)
-  if (data.is_json) {
-    html = html.split(template.key).join(key);
-    html = html.split(template.hkey).join(human_readable_key);
-  }
-
+  html = html.split(template.key).join(key);
+  html = html.split(template.hkey).join(human_readable_key);
+  
   return html;
 }
 
@@ -266,9 +265,9 @@ function parse_item_data(container, data, item) {
 
   if (isNumeric(data_value)) data_value = parseInt(data_value);
 
-  if (data.is_string) return data_value;
+  if (data.is_string) return data_key;
 
-  if (data.is_array) return data_value;
+  if (data.is_array) return data_key;
 
   let json_data = {};
   json_data[data_key] = data_value;
