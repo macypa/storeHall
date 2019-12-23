@@ -35,10 +35,10 @@
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add feature") %>'>
       <%= text_input f, :details_features, name: input_name(f, :details) <> "[features]",
               value: Jason.encode!(f.data.details["features"]) %>
-      <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_:</span><input class='datalist_item_oninput_event datalist_item_spinner' min='-10' max='10' step='1' type='number' value='_value_'></template>
+      <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <select>
         <%= for {feature_name, feature_text}  <- StoreHall.Ratings.scode_names do %>
-          <option value="<%= feature_name %>" data-template-value="1"><%= feature_text %></option>
+          <option value="<%= feature_name %>" ><%= feature_text %></option>
         <% end %>
       </select>
     </div>
