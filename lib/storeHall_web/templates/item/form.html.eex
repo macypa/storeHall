@@ -46,14 +46,20 @@
 
   <div class="form-group">
     <%= label f, :Images, Gettext.gettext("Images") %>
-    <%= textarea f, :details_Images, name: input_name(f, :details) <> "[images]",
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add images") %>'>
+      <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
               value: Jason.encode!(f.data.details["images"]) %>
+      <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+    </div>
   </div>
 
   <div class="form-group">
     <%= label f, :videos, Gettext.gettext("Videos") %>
-    <%= textarea f, :details_videos, name: input_name(f, :details) <> "[videos]",
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add videos") %>'>
+      <%= text_input f, :details_videos, name: input_name(f, :details) <> "[videos]",
               value: Jason.encode!(f.data.details["videos"]) %>
+      <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+    </div>
   </div>
 
   <div class="form-group">

@@ -43,10 +43,9 @@
         <span>
           <span class="info_title"><%= Gettext.gettext("Features") %> </span>
           <div class="info_content features">
-            <%= for {feature_name, feature} <- @item.details["features"] do %>
-              <div class="feature_name"><%= feature_name %>:</div>
-              <div class="feature_value"><%= feature %></div>
-            <% end %>
+            <div class="datalist_container">
+              <input value="<%= Jason.encode!(@item.details["features"]) %>">
+            </div>
           </div>
         </span>
 
