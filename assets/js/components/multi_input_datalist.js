@@ -24,12 +24,7 @@ function init() {
 
       input_field = get_input(container);
       input_field.onchange = add_item;
-      input_field.onkeypress = function(e) {
-        var key = e.charCode || e.keyCode || 0;
-        if (key == 13) {
-          add_item(e);
-        }
-      }
+      disable_enter_key_press(input_field, add_item);
 
       let select = container.getElementsByTagName("select");
       if (select[0]) {
@@ -49,6 +44,17 @@ function init() {
 
     update_placeholder(container);
   }
+}
+
+function disable_enter_key_press(node, fun) {
+  node.onkeypress = function(e) {
+    var key = e.charCode || e.keyCode || 0;
+    if (key == 13) {
+      e.stopPropagation();
+      e.preventDefault();
+      fun(e);
+    }
+  };
 }
 
 function get_parent_container(child) {
@@ -86,9 +92,17 @@ function is_editable(container) {
   return false;
 }
 
+function allow_duplicate(container) {
+  if (container.getAttribute("allow_duplicate")) {
+    return true;
+  }
+  return false;
+}
+
 function get_input_data(container) {
   let data = {};
   let input = container.querySelector("input[name]");
+  data.allow_duplicate = allow_duplicate(container);
 
   if (!input) {
     data.str = get_input(container).value;
@@ -139,6 +153,8 @@ function add_item(e) {
     let input_field_data = get_input_data(container);
 
     let key = select.value;
+    if (isEmpty(key)) return;
+
     let human_readable_key = select.value;
     let custom_tag_value = "";
     if (has_select_tag(container)) {
@@ -199,6 +215,7 @@ function update_items_events(container) {
   let item_oninputs = container.getElementsByClassName("datalist_item_oninput_event");
   Array.from(item_oninputs).forEach(element => {
     element.oninput = update_on_input_event;
+    disable_enter_key_press(element, function() { });
   });
 
   let del_buttons = container.getElementsByClassName("datalist_del");
@@ -268,7 +285,7 @@ function parse_item_data(container, data, item) {
 
   if (data.is_string) return data_key;
 
-  if (data.is_array) return data_key;
+  if (data.is_array && !data.allow_duplicate) return data_key;
 
   let json_data = {};
   json_data[data_key] = data_value;
@@ -276,6 +293,13 @@ function parse_item_data(container, data, item) {
 }
 
 function item_data(data, key, value) {
+  if (data.allow_duplicate && !isString(value)) {
+    let json = value;
+    for (key_value in json) {
+      key = key_value;
+      value = json[key_value];
+    }
+  }
 
   if (isNumeric(value)) value = parseInt(value);
 
@@ -293,7 +317,7 @@ function update_input_field(container) {
   let data = get_input_data(container);
 
   let input_data = new Array();
-  if (data.is_json) {
+  if (data.is_json && !data.allow_duplicate) {
     input_data = {};
   }
 
@@ -301,7 +325,7 @@ function update_input_field(container) {
   children.forEach(function(item) {
     let item_data = parse_item_data(container, data, item);
 
-    if (data.is_json) {
+    if (data.is_json && !data.allow_duplicate) {
       Object.assign(input_data, item_data);
     } else {
       input_data.push(item_data);
