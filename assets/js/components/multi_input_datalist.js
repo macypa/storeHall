@@ -264,6 +264,8 @@ function parse_item_data(container, data, item) {
   data_key = item_html.getAttribute("key");
   data_value = item_html.getAttribute("value");
 
+  if (isNumeric(data_value)) data_value = parseInt(data_value);
+
   if (data.is_string) return data_value;
 
   if (data.is_array) return data_value;
