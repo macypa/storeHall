@@ -160,13 +160,14 @@ function add_item(e) {
 };
 
 function placeholder_item_html(container, data, key, human_readable_key, value) {
-  return "<div draggable='true' class='datalist_item'>" +
+  return "<div class='datalist_item'" +
   (is_editable(container) ?
-        "<div class='datalist_del'>\
+        " draggable='true'>\
+        <div class='datalist_del'>\
           <div class='datalist_x'></div>\
           <div class='datalist_x'></div>\
         </div>"
-      : "")
+      : ">")
       + "<div class='datalist_item_html' key='"+ key +"' value='"+ value +"'>"+ html_from_template(container, data, key, human_readable_key, value) +"</div>\
       </div> ";
 }
@@ -254,7 +255,7 @@ function html_from_template(container, data, key, human_readable_key, value) {
   html = template.html.split(template.value).join(value)
   html = html.split(template.key).join(key);
   html = html.split(template.hkey).join(human_readable_key);
-  
+
   return html;
 }
 
