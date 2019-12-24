@@ -1,19 +1,106 @@
-<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+
+<%= form_for @changeset, @action, [multipart: true, class: "edit_form"], fn f -> %>
+
+  <div class="submit_button">
+    <%= submit Gettext.gettext("Save") %>
+  </div>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= Gettext.gettext("Oops, something went wrong! Please check the errors below.") %></p>
     </div>
   <% end %>
 
-  <%= if @conn.assigns[:logged_user] do %>
+  <div class="form-group">
+    <%= label f, :first_name, Gettext.gettext("First Name") %>
+    <%= text_input f, :first_name %>
+    <%= error_tag f, :first_name %>
+  </div>
 
-    <div class="form-group">
+  <div class="form-group">
+    <%= label f, :last_name, Gettext.gettext("Last Name") %>
+    <%= text_input f, :last_name %>
+    <%= error_tag f, :last_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :address, Gettext.gettext("Address") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Address") %>' allow_duplicate="true">
+      <%= text_input f, :details_address, name: input_name(f, :details) <>"[address]", value: Jason.encode!(f.data.details["address"]) %>
+      <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :address, Gettext.gettext("E-mail") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("E-mail") %>' allow_duplicate="true">
+      <%= text_input f, :details_mail, name: input_name(f, :details) <>"[mail]", value: Jason.encode!(f.data.details["mail"]) %>
+      <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :address, Gettext.gettext("Website") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Website") %>' allow_duplicate="true">
+      <%= text_input f, :details_web, name: input_name(f, :details) <>"[web]", value: Jason.encode!(f.data.details["web"]) %>
+      <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :address, Gettext.gettext("Open hours") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Open hours") %>' allow_duplicate="true">
+      <%= text_input f, :details_open, name: input_name(f, :details) <>"[open]", value: Jason.encode!(f.data.details["open"]) %>
+      <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :Images, Gettext.gettext("Images") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add images") %>'>
+      <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
+              value: Jason.encode!(f.data.details["images"]) %>
+      <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :videos, Gettext.gettext("Videos") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add videos") %>'>
+      <%= text_input f, :details_videos, name: input_name(f, :details) <> "[videos]",
+              value: Jason.encode!(f.data.details["videos"]) %>
+      <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description, Gettext.gettext("Description") %>
+    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: f.data.details["description"] %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :filters, Gettext.gettext("Filters") %>
+    <div>
+      <div>
+        <span><%= Gettext.gettext("hide_guests") %>:</span>
+        <%= checkbox f, :settings_filters_hide_guests, name: input_name(f, :settings) <>"[filters][hide_guests]", value: f.data.settings["filters"]["hide_guests"] %>
+      </div>
+      <div>
+        <span><%= Gettext.gettext("show_with_min_rating") %>:</span>
+        <%= number_input f, :settings_filters_show_with_min_rating, name: input_name(f, :settings) <>"[filters][show_with_min_rating]", value: f.data.settings["filters"]["show_with_min_rating"] %>
+      </div>
+    </div>
+  </dWiv>
+
+
+  <%= if false do %>
+
+    <div class="form-group"> <!-- should be in show only -->
       <%= label f, :labels, Gettext.gettext("Labels") %>
       <%= text_input f, :settings_labels, name: input_name(f, :settings) <>"[labels]", value: Jason.encode!(f.data.settings["labels"]) |> String.replace(",\"", ",\n\"") %>
+    </div>
 
-      <%= label f, :filters, Gettext.gettext("Filters") %>
-      <%= text_input f, :settings_filters, name: input_name(f, :settings) <>"[filters]", value: Jason.encode!(f.data.settings["filters"]) |> String.replace(",\"", ",\n\"") %>
 
+    <div class="form-group">
       <div class="form-image-group">
         <%= label f, :images, Gettext.gettext("Images") %>
         <%= file_input f, :add_images, name: input_name(f, :images), multiple: "multiple",
@@ -25,9 +112,7 @@
 
     </div>
 
+
   <% end %>
 
-  <div>
-    <%= submit Gettext.gettext("Save") %>
-  </div>
 <% end %>

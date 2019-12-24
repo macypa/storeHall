@@ -26,6 +26,11 @@ defmodule StoreHall.Users.User do
     field :details, :map,
       default: %{
         "images" => [],
+        "videos" => [],
+        "address" => {},
+        "mail" => {},
+        "web" => {},
+        "open" => {},
         "description" => "",
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 0

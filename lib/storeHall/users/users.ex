@@ -177,7 +177,7 @@ defmodule StoreHall.Users do
     User.changeset(user, %{})
   end
 
-  def decode_params(user_params = %{"details" => details}) do
+  def decode_params(user_params = %{"details" => details}) when is_binary(details) do
     user_params
     |> put_in(
       ["details"],
@@ -186,17 +186,60 @@ defmodule StoreHall.Users do
     |> decode_settings()
   end
 
-  def decode_params(user_params), do: decode_settings(user_params)
-
-  defp decode_settings(user_params) do
+  def decode_params(user_params = %{"details" => details}) when is_map(details) do
     user_params
     |> put_in(
-      ["settings", "labels"],
-      Jason.decode!(get_in(user_params, ["settings", "labels"]))
+      ["details"],
+      details
+      |> decode_param_in("images")
+      |> decode_param_in("videos")
+      |> decode_param_in("address")
+      |> decode_param_in("mail")
+      |> decode_param_in("web")
+      |> decode_param_in("open")
     )
+    |> decode_settings()
+  end
+
+  defp decode_param_in(map, param) do
+    case Map.has_key?(map, param) do
+      true ->
+        map
+        |> put_in([param], Jason.decode!(map[param]))
+
+      false ->
+        map
+    end
+  end
+
+  def decode_params(user_params), do: decode_settings(user_params)
+
+  defp decode_settings(user_params = %{"settings" => settings}) do
+    user_params
     |> put_in(
-      ["settings", "filters"],
-      Jason.decode!(get_in(user_params, ["settings", "filters"]))
+      ["settings"],
+      settings
+      |> decode_filter_params("filters")
     )
+  end
+
+  defp decode_settings(user_params), do: user_params
+
+  defp decode_filter_params(map, param) do
+    case Map.has_key?(map, param) do
+      true ->
+        map
+        |> put_in(
+          [param],
+          map[param]
+          |> Enum.reduce(%{}, fn {k, v}, acc ->
+            acc
+            |> Map.put(k, Jason.decode!(v))
+          end)
+        )
+
+      false ->
+        map
+    end
   end
 end
