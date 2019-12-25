@@ -81,10 +81,6 @@
     <%= label f, :filters, Gettext.gettext("Filters") %>
     <div>
       <div>
-        <span><%= Gettext.gettext("hide_guests") %>:</span>
-        <%= checkbox f, :settings_filters_hide_guests, name: input_name(f, :settings) <>"[filters][hide_guests]", value: f.data.settings["filters"]["hide_guests"] %>
-      </div>
-      <div>
         <span><%= Gettext.gettext("show_with_min_rating") %>:</span>
         <%= number_input f, :settings_filters_show_with_min_rating, name: input_name(f, :settings) <>"[filters][show_with_min_rating]", value: f.data.settings["filters"]["show_with_min_rating"] %>
       </div>
