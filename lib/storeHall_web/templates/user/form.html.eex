@@ -80,9 +80,12 @@
   <div class="form-group">
     <%= label f, :filters, Gettext.gettext("Filters") %>
     <div>
-      <div>
+      <div class="filters_field">
         <span><%= Gettext.gettext("show_with_min_rating") %>:</span>
-        <%= number_input f, :settings_filters_show_with_min_rating, name: input_name(f, :settings) <>"[filters][show_with_min_rating]", value: f.data.settings["filters"]["show_with_min_rating"] %>
+        <%= number_input f, :settings_filters_show_with_min_rating,
+                            class: "filters_field_value",
+                            name: input_name(f, :settings) <>"[filters][show_with_min_rating]",
+                            value: f.data.settings["filters"]["show_with_min_rating"] %>
       </div>
     </div>
   </dWiv>
