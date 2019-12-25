@@ -233,8 +233,14 @@ defmodule StoreHall.Users do
           [param],
           map[param]
           |> Enum.reduce(%{}, fn {k, v}, acc ->
-            acc
-            |> Map.put(k, Jason.decode!(v))
+            case v do
+              "" ->
+                acc
+
+              _ ->
+                acc
+                |> Map.put(k, Jason.decode!(v))
+            end
           end)
         )
 

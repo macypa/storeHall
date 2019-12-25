@@ -9,7 +9,7 @@ defmodule StoreHall.Users.Settings do
       default: %{
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0},
-        "filters" => %{"show_with_min_rating" => -1, "hide_guests" => false}
+        "filters" => %{"show_with_min_rating" => "", "hide_guests" => false}
       }
 
     timestamps(type: :utc_datetime)

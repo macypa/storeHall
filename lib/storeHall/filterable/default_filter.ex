@@ -74,20 +74,26 @@ defmodule StoreHall.DefaultFilter do
       user ->
         min_rating = user.settings["filters"]["show_with_min_rating"]
 
-        dynamic =
-          dynamic(
-            [c, a: u],
-            fragment(
-              " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
-              u,
-              u,
-              ^min_rating
-            )
-          )
+        case min_rating do
+          "" ->
+            query
 
-        query
-        |> join(:left, [c], u in assoc(c, :author), as: :a)
-        |> where(^dynamic)
+          _ ->
+            dynamic =
+              dynamic(
+                [c, a: u],
+                fragment(
+                  " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
+                  u,
+                  u,
+                  ^min_rating
+                )
+              )
+
+            query
+            |> join(:left, [c], u in assoc(c, :author), as: :a)
+            |> where(^dynamic)
+        end
     end
   end
 
