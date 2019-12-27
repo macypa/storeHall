@@ -98,13 +98,7 @@
       <div class="tab-content">
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Sort") %>'>
           <%= text_input f, :sort, class: "auto-submit-item" %>
-          <%= select f, :sort_select,
-            %{
-              "Дата низх." => "inserted_at:desc",
-              "Дата възх." => "inserted_at:аsc",
-              "Име низх." => "name:desc",
-              "Име възх." => "name:аsc"
-            }, name: nil %>
+          <%= select f, :sort_select, StoreHall.DefaultFilter.accepted_sorting(), name: nil %>
         </div>
       </div>
     </div>

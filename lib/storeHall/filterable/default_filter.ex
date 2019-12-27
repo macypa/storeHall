@@ -5,37 +5,48 @@ defmodule StoreHall.DefaultFilter do
 
   @accepted_orders [
     :asc,
-    :asc_nulls_last,
-    :asc_nulls_first,
-    :desc,
-    :desc_nulls_last,
-    :desc_nulls_first
+    :desc
+    # :asc_nulls_last,
+    # :asc_nulls_first,
+    # :desc_nulls_last,
+    # :desc_nulls_first
   ]
 
-  @accepted_fields [:id, :inserted_at, :updated_at, :name]
-
+  @accepted_fields [:id, :inserted_at, :updated_at, :name, :first_name, :last_name]
+  @accepted_sorting %{
+    "Цена низх." => "price:desc",
+    "Цена възх." => "price:asc",
+    "Рейтинг низх." => "rating:desc",
+    "Рейтинг възх." => "rating:asc",
+    "Дата низх." => "inserted_at:desc",
+    "Дата възх." => "inserted_at:аsc",
+    "Име низх." => "name:desc",
+    "Име възх." => "name:аsc"
+  }
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
 
   def sort_filter(query, %{"filter" => %{"sort" => value}}) do
     value
-    |> String.split(";")
+    |> String.split(",")
     |> Enum.reduce(query, fn field, q ->
-      with {:ok, split_field} <- {:ok, String.split(field, ":")},
-           {:ok, field_atom} <-
-             {:ok,
-              split_field
-              |> hd
-              |> to_existing_atom(:inserted_at)
-              |> to_accepted_fields()},
-           {:ok, order_atom} <-
-             {:ok,
-              split_field
-              |> Enum.reverse()
-              |> hd
-              |> to_existing_atom(:asc)
-              |> to_accepted_orders()} do
-        q |> order_by([{^order_atom, ^field_atom}])
+      split_field = field |> String.split(":")
+      field_atom = split_field |> hd
+
+      order_atom =
+        split_field |> Enum.reverse() |> hd |> to_existing_atom(:asc) |> to_accepted_orders(:asc)
+
+      @accepted_fields
+      |> Enum.find(field_atom, fn accepted_field ->
+        to_existing_atom(field_atom, field_atom) == accepted_field
+      end)
+      |> case do
+        field when is_atom(field) ->
+          q
+          |> order_by([{^order_atom, ^field}])
+
+        details_field ->
+          order_by_details_field(q, details_field, order_atom)
       end
     end)
   end
@@ -132,10 +143,46 @@ defmodule StoreHall.DefaultFilter do
     end
   end
 
-  defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
-  defp to_accepted_fields(_string), do: :id
-  def accepted_fields(), do: @accepted_fields
-  defp to_accepted_orders(atom) when atom in @accepted_orders, do: atom
-  defp to_accepted_orders(_string), do: :asc
+  defmacro order_by_details_field_fragment(query, field_frag) do
+    quote do
+      unquote(query)
+      |> order_by(fragment(unquote(field_frag)))
+    end
+  end
+
+  defmacro order_by_details_field_fragment(query, field_frag, feature) do
+    quote do
+      unquote(query)
+      |> order_by(fragment(unquote(field_frag), ^unquote(feature)))
+    end
+  end
+
+  defp order_by_details_field(query, "price", :desc),
+    do: order_by_details_field_fragment(query, "details->>'price' DESC NULLS LAST")
+
+  defp order_by_details_field(query, "rating", :desc),
+    do:
+      order_by_details_field_fragment(
+        query,
+        "(details->'rating'->>'score')::numeric DESC NULLS LAST"
+      )
+
+  defp order_by_details_field(query, "feature_" <> feature, :desc),
+    do: order_by_details_field_fragment(query, "details->'features'->>? DESC NULLS LAST", feature)
+
+  defp order_by_details_field(query, "price", _),
+    do: order_by_details_field_fragment(query, "details->>'price'")
+
+  defp order_by_details_field(query, "rating", _),
+    do: order_by_details_field_fragment(query, "(details->'rating'->>'score')::numeric")
+
+  defp order_by_details_field(query, "feature_" <> feature, _),
+    do: order_by_details_field_fragment(query, "details->'features'->>?", feature)
+
+  # defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
+  # defp to_accepted_fields(string), do: string
+  def accepted_sorting(), do: @accepted_sorting
+  defp to_accepted_orders(atom, _default) when atom in @accepted_orders, do: atom
+  defp to_accepted_orders(_string, default), do: default
   def accepted_orders(), do: @accepted_orders
 end
