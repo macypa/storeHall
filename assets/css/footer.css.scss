@@ -2,6 +2,12 @@
 footer {
   about {
     margin-left: auto;
+    margin-right: 3px;
+    background-color: $baseBackgroundColor;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
   }
 
   about:hover .dropdown {

@@ -2,8 +2,8 @@
 header {
 
   .menu_svg_icon {
-    width: 24px;
-    height: 24px;
+    width: calc(#{$height-header} - #{$height-header}/3);
+    height: calc(#{$height-header} - #{$height-header}/3);
   }
   .svg_icon {
     padding-right: 5px;
@@ -16,7 +16,6 @@ header {
     align-items: center;
     min-height: $height-header;
     min-width: $width-sidebar;
-    background-color: $baseBackgroundColor;
 
     .brand-link {
       font-weight: bold;
@@ -56,9 +55,12 @@ header {
     @include dropdown_icon_border;
     position: relative;
     cursor: pointer;
+    margin-right: 3px;
 
     img {
-      max-height: $height-header;
+      margin-top: calc(#{$height-header}/10);
+      height: calc(#{$height-header} - #{$height-header}/3);
+      // max-height: $height-header;
       @include dropdown_icon_border;
     }
   }

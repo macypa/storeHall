@@ -61,22 +61,26 @@ sidebar {
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2);
     margin: 2px;
     margin-bottom: 5px;
+    border-radius: 0.5em;
 
     &-label {
       display: flex;
+      height: 2em;
       justify-content: space-between;
-      background: $baseBackgroundColor;
+      background: $sidebarBackgroundColor;
       // font-weight: bold;
       cursor: pointer;
       padding-left: 5px;
+      align-items: center;
+
 
       &:hover {
-        background: darken($baseBackgroundColor, 5%);
+        background: darken($sidebarBackgroundColor, 5%);
       }
 
       &::after {
         content: "\276F";
-        color: $baseColor;
+        color: $sidebarColor;
         transition: all .1s;
       }
     }
@@ -88,7 +92,7 @@ sidebar {
     // :checked
     input:checked {
       + .tab-label {
-        background: darken($baseBackgroundColor, 5%);
+        background: darken($sidebarBackgroundColor, 5%);
         &::after {
           transform: rotate(90deg);
         }
