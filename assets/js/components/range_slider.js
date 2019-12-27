@@ -41,6 +41,8 @@ function getVals(){
   // Get slider values
   var parent = this.parentNode;
   var slides = parent.getElementsByTagName("input");
+  var slides_min = slides[0].getAttribute("min") || 0;
+  var slides_max = slides[0].getAttribute("max") || 100;
   var slide1 = parseFloat( slides[0].value );
   var slide2 = parseFloat( slides[1].value );
 
@@ -70,5 +72,12 @@ function getVals(){
   }
   if (displayElement.getElementsByClassName("max")[0].value != slide2) {
     displayElement.getElementsByClassName("max")[0].value = slide2;
+  }
+
+  if (slide1 == slides_min || slide2 == slides_min) {
+    displayElement.getElementsByClassName("min")[0].value = '';
+  }
+  if (slide1 == slides_max || slide2 == slides_max) {
+    displayElement.getElementsByClassName("max")[0].value = '';
   }
 }

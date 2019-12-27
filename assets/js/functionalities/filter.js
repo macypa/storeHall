@@ -33,18 +33,6 @@ add_events(".auto-submit-item", "change", function() {
                                 if (!this.value) {
                                   return false;
                                 }
-                                if (this.name.includes("filter[price]") && this.value == 0) {
-                                  return false;
-                                }
-                                if (this.name.includes("filter[price][max]") && this.value == 1000) {
-                                  return false;
-                                }
-                                if (this.name.includes("filter[rating][min]") && this.value == 0) {
-                                  return false;
-                                }
-                                if (this.name.includes("filter[rating][max]") && this.value == 100) {
-                                  return false;
-                                }
                                 return true;
                               })
   var filter_params = form.serialize();
