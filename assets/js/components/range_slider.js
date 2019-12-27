@@ -4,8 +4,11 @@ for (let sliderSections of sliderSections) {
 
   var sliders = sliderSections.getElementsByTagName("input");
   var displayElement = sliderSections.getElementsByClassName("rangeValues")[0];
-  displayElement.getElementsByClassName("min")[0].oninput = setVals;
-  displayElement.getElementsByClassName("max")[0].oninput = setVals;
+
+    const myHandler = (event) => setVals(event);
+    const dHandler = debounced(200, myHandler);
+  displayElement.getElementsByClassName("min")[0].oninput = dHandler;
+  displayElement.getElementsByClassName("max")[0].oninput = dHandler;
 
   for( var y = 0; y < sliders.length; y++ ){
     if( sliders[y].type ==="range" ){
@@ -15,8 +18,8 @@ for (let sliderSections of sliderSections) {
   }
 }
 
-function setVals(){
-  var parent = this.parentNode.parentNode;
+function setVals(e) {
+  var parent = e.target.parentNode.parentNode;
   var slides = parent.getElementsByTagName("input");
   var field_min = slides[0];
   var field_max = slides[1];
@@ -26,8 +29,12 @@ function setVals(){
     slides[3].value = field_max.value;
   }
 
+  trigger_event(parent);
+}
+
+function trigger_event(parent){
   //need to trigger for only one of the inputs
-  $(parent.getElementsByClassName("min-slider")[0]).trigger('change');
+  $(parent.getElementsByClassName("min-slider")[0]).trigger('change')
 }
 
 function getVals(){

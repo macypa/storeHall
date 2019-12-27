@@ -62,6 +62,31 @@ window.show_hide = function(element_id) {
     }
 }
 
+window.throttled = function(delay, fn) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = (new Date).getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return fn(...args);
+  }
+}
+
+window.debounced = function(delay, fn) {
+  let timerId;
+  return function (...args) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  }
+}
+
 $("input").not($(":button")).keypress(function (evt) {
   if (evt.keyCode == 13) {
     let iname = $(this).val();
