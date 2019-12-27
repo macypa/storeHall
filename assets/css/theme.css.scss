@@ -1,7 +1,8 @@
+$themeColor: #FFA500;
 $baseColor: white;
-$baseBackgroundColor: #FFA500;
+$baseBackgroundColor: $themeColor;
 // $baseBackgroundColor: #fff1d0;
-$sidebarColor: $baseBackgroundColor;
+$sidebarColor: $themeColor;
 $sidebarBackgroundColor: $baseColor;
 
 $height-header: 2em;
