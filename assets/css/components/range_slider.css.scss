@@ -54,44 +54,44 @@
     height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px $baseColor;
-    background: $baseColor;
+    box-shadow: 1px 1px 1px $themeColor;
+    background: $themeColor;
     border-radius: 50px;
-    border: 0px solid $baseColor;
+    border: 0px solid $themeColor;
   }
   input[type=range]::-webkit-slider-thumb {
     pointer-events: all;
-    box-shadow: 0px 0px 0px $baseColor;
-    border: 0px solid $baseColor;
+    box-shadow: 0px 0px 0px $themeColor;
+    border: 0px solid $themeColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: $baseColor;
+    background: $themeColor;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -7px;
   }
   .min-slider:focus::-webkit-slider-runnable-track {
-    background: $baseColor;
+    background: $themeColor;
   }
   .min-slider::-moz-range-track {
     width: 100%;
     height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px $baseColor;
-    background: $baseColor;
+    box-shadow: 1px 1px 1px $themeColor;
+    background: $themeColor;
     border-radius: 50px;
-    border: 0px solid $baseColor;
+    border: 0px solid $themeColor;
   }
   input[type=range]::-moz-range-thumb {
     pointer-events: all;
-    box-shadow: 0px 0px 0px $baseColor;
-    border: 0px solid $baseColor;
+    box-shadow: 0px 0px 0px $themeColor;
+    border: 0px solid $themeColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: $baseColor;
+    background: $themeColor;
     cursor: pointer;
   }
   .min-slider::-ms-track {
@@ -104,33 +104,33 @@
     color: transparent;
   }
   .min-slider::-ms-fill-lower {
-    background: $baseColor;
-    border: 0px solid $baseColor;
+    background: $themeColor;
+    border: 0px solid $themeColor;
     border-radius: 100px;
-    box-shadow: 1px 1px 1px $baseColor;
+    box-shadow: 1px 1px 1px $themeColor;
   }
   .min-slider::-ms-fill-upper {
-    background: $baseColor;
-    border: 0px solid $baseColor;
+    background: $themeColor;
+    border: 0px solid $themeColor;
     border-radius: 100px;
-    box-shadow: 1px 1px 1px $baseColor;
+    box-shadow: 1px 1px 1px $themeColor;
   }
   .min-slider::-ms-thumb {
     pointer-events: all;
     margin-top: 1px;
-    box-shadow: 0px 0px 0px $baseColor;
-    border: 0px solid $baseColor;
+    box-shadow: 0px 0px 0px $themeColor;
+    border: 0px solid $themeColor;
     height: 17px;
     width: 10px;
     border-radius: 39px;
-    background: $baseColor;
+    background: $themeColor;
     cursor: pointer;
   }
   .min-slider:focus::-ms-fill-lower {
-    background: $baseColor;
+    background: $themeColor;
   }
   .min-slider:focus::-ms-fill-upper {
-    background: $baseColor;
+    background: $themeColor;
   }
 
 
