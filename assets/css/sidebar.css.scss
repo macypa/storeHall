@@ -21,9 +21,12 @@ sidebar {
                user-select: none; /* Non-prefixed version, currently
                                      supported by Chrome, Opera and Firefox */
 
+      align-items: center;
+      display: flex;
+      
       .sidebar_svg_icon {
         width: 1em;
-        height: auto;
+        height: 3em;
       }
 
       + div {

@@ -88,6 +88,8 @@ a {
   width: 1em;
   height: 1em;
   fill: $baseColor;
+  background-color: $baseBackgroundColor;
+  border-radius: 5em;
 }
 
 header {
