@@ -69,7 +69,9 @@
 
   <div class="form-group">
     <%= label f, :expiration, Gettext.gettext("Expiration") %>
-    <%= textarea f, :details_expiration, name: input_name(f, :details) <> "[expiration]", value: f.data.details["expiration"] %>
+    <%= date_input f, :details_expiration, pattern: "\d{4}-\d{2}-\d{2}",
+                      name: input_name(f, :details) <> "[expiration]",
+                      value: f.data.details["expiration"] %>
   </div>
 
 
