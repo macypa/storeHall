@@ -133,6 +133,22 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
+  defp filter(:cities, dynamic, value) when value == "", do: dynamic
+
+  defp filter(:cities, dynamic, value) do
+    FilterableQuery.construct_where_fragment(
+      dynamic,
+      %{
+        in: %{
+          field: ["cities"],
+          value:
+            value
+            |> String.split(";")
+        }
+      }
+    )
+  end
+
   defp filter(:merchant, dynamic, value) when value == "", do: dynamic
 
   defp filter(:merchant, dynamic, value) do
