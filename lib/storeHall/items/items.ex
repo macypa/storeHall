@@ -4,6 +4,8 @@ defmodule StoreHall.Items do
   """
 
   import Ecto.Query, warn: false
+  import PhoenixHtmlSanitizer.Helpers
+
   alias StoreHall.Repo
   alias StoreHall.DeepMerge
   alias Ecto.Multi
@@ -115,6 +117,7 @@ defmodule StoreHall.Items do
     Ecto.Multi.new()
     |> update_filter(%Filters{name: item["user_id"], type: "merchant", count: 1})
     |> update_list_filters("tags", item["details"]["tags"])
+    |> update_list_filters("cities", item["details"]["cities"])
     |> Multi.insert(:insert, Item.changeset(%Item{}, Images.prepare_images(item)))
     |> Images.upsert_images(item, :insert)
     |> Repo.transaction()
@@ -164,7 +167,10 @@ defmodule StoreHall.Items do
         |> Ecto.Multi.run(multi_name, fn repo, _ ->
           for filter <- filters do
             filter
-            |> get_parents
+            |> sanitize(:strip_tags)
+            |> elem(1)
+            |> get_parents()
+            |> IO.inspect()
             |> Enum.map(fn f ->
               repo.insert(%Filters{count: count, name: f, type: filter_type},
                 on_conflict: [inc: [count: increase_by]],
@@ -205,6 +211,7 @@ defmodule StoreHall.Items do
   def update_item(%Item{} = item, attrs) do
     Ecto.Multi.new()
     |> update_list_tags(item, attrs)
+    |> update_list_cities(item, attrs)
     |> Multi.update(:update, Item.changeset(item, Images.prepare_images(attrs)))
     |> Images.clean_images(item, details_to_remove(item, attrs, "images"))
     |> Images.upsert_images(attrs, :update)
@@ -223,6 +230,12 @@ defmodule StoreHall.Items do
     multi
     |> update_list_filters("tags", details_to_add(item, attrs, "tags"))
     |> update_list_filters("tags", details_to_remove(item, attrs, "tags"), -1)
+  end
+
+  def update_list_cities(multi, item, attrs) do
+    multi
+    |> update_list_filters("cities", details_to_add(item, attrs, "cities"))
+    |> update_list_filters("cities", details_to_remove(item, attrs, "cities"), -1)
   end
 
   def details_to_add(item, attrs, detail_type) do
@@ -263,6 +276,7 @@ defmodule StoreHall.Items do
       -1
     )
     |> update_list_filters("tags", item.details["tags"], -1)
+    |> update_list_filters("cities", item.details["cities"], -1)
     |> Multi.delete(:delete_item, item)
     |> clean_filters()
     |> Images.clean_images(item, item.details["images"])
@@ -305,6 +319,7 @@ defmodule StoreHall.Items do
       |> decode_details_param("images")
       |> decode_details_param("videos")
       |> decode_details_param("tags")
+      |> decode_details_param("cities")
       |> decode_details_param("features")
     )
   end

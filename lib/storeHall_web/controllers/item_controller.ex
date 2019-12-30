@@ -42,7 +42,8 @@ defmodule StoreHallWeb.ItemController do
 
   def new(conn, _params) do
     changeset = Items.change_item(%Item{})
-    render(conn, :new, changeset: changeset)
+    filters = Items.item_filters()
+    render(conn, :new, changeset: changeset, filters: filters)
   end
 
   def create(conn, %{"item" => item_params}) do
@@ -79,7 +80,8 @@ defmodule StoreHallWeb.ItemController do
   def edit(conn, %{"id" => id}) do
     item = Items.get_item!(id)
     changeset = Items.change_item(item)
-    render(conn, :edit, item: item, changeset: changeset)
+    filters = Items.item_filters()
+    render(conn, :edit, item: item, changeset: changeset, filters: filters)
   end
 
   def update(conn, %{"id" => id, "item" => item_params}) do

@@ -18,7 +18,7 @@ defmodule StoreHall.Items.Filters do
     |> unique_constraint(:item_filters, name: :name_type_index)
   end
 
-  @empty_map %{"merchant" => %{}, "tags" => %{}}
+  @empty_map %{"merchant" => %{}, "tags" => %{}, "cities" => %{}}
   def to_map(data) do
     case data do
       [] ->

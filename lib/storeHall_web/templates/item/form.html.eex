@@ -27,6 +27,22 @@
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add tags") %>'>
       <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]",
               value: Jason.encode!(f.data.details["tags"]) %>
+      <%= select f, :tags_select,
+              @conn.assigns.filters["tags"]
+              |> Enum.map(fn {k, _v} -> {k, k} end),
+              name: nil %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :cities, Gettext.gettext("Cities") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add cities") %>'>
+      <%= text_input f, :details_cities, name: input_name(f, :details) <> "[cities]",
+              value: Jason.encode!(f.data.details["cities"]) %>
+      <%= select f, :cities_select,
+              @conn.assigns.filters["cities"]
+              |> Enum.map(fn {k, _v} -> {k, k} end),
+              name: nil %>
     </div>
   </div>
 
