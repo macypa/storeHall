@@ -18,6 +18,8 @@ defmodule StoreHall.DefaultFilter do
     "Цена възх." => "price:asc",
     "Рейтинг низх." => "rating:desc",
     "Рейтинг възх." => "rating:asc",
+    "Изтичащи низх." => "expiration:desc",
+    "Изтичащи възх." => "expiration:asc",
     "Дата низх." => "inserted_at:desc",
     "Дата възх." => "inserted_at:аsc",
     "Име низх." => "name:desc",
@@ -167,6 +169,9 @@ defmodule StoreHall.DefaultFilter do
         "(details->'rating'->>'score')::numeric DESC NULLS LAST"
       )
 
+  defp order_by_details_field(query, "expiration", :desc),
+    do: order_by_details_field_fragment(query, "details->>'expiration' DESC NULLS LAST")
+
   defp order_by_details_field(query, "feature_" <> feature, :desc),
     do: order_by_details_field_fragment(query, "details->'features'->>? DESC NULLS LAST", feature)
 
@@ -175,6 +180,9 @@ defmodule StoreHall.DefaultFilter do
 
   defp order_by_details_field(query, "rating", _),
     do: order_by_details_field_fragment(query, "(details->'rating'->>'score')::numeric")
+
+  defp order_by_details_field(query, "expiration", _),
+    do: order_by_details_field_fragment(query, "details->>'expiration'")
 
   defp order_by_details_field(query, "feature_" <> feature, _),
     do: order_by_details_field_fragment(query, "details->'features'->>?", feature)
