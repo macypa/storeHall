@@ -50,7 +50,7 @@ defmodule StoreHall.Items.Item do
 end
 
 defimpl Phoenix.Param, for: StoreHall.Items.Item do
-  def to_param(item = %{id: id, name: name}) do
+  def to_param(item = %{id: _id, name: _name}) do
     StoreHall.Items.Item.slug_id(item)
   end
 end

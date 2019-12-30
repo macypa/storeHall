@@ -2,7 +2,9 @@ defmodule StoreHall.Images do
   alias Ecto.Multi
   alias StoreHall.FileUploader
 
-  def append_images(list_models, version \\ :thumb) when is_list(list_models) do
+  def append_images(models, version \\ :thumb)
+
+  def append_images(list_models, version) when is_list(list_models) do
     list_models
     |> Enum.map(fn model -> append_images(model, version) end)
   end

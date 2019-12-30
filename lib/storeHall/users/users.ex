@@ -201,6 +201,8 @@ defmodule StoreHall.Users do
     |> decode_settings()
   end
 
+  def decode_params(user_params), do: decode_settings(user_params)
+
   defp decode_param_in(map, param) do
     case Map.has_key?(map, param) do
       true ->
@@ -211,8 +213,6 @@ defmodule StoreHall.Users do
         map
     end
   end
-
-  def decode_params(user_params), do: decode_settings(user_params)
 
   defp decode_settings(user_params = %{"settings" => settings}) do
     user_params
