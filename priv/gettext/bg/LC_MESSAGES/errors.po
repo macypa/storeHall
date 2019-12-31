@@ -95,3 +95,6 @@ msgstr "трябва да има по-голямо или %{number}"
 
 msgid "must be equal to %{number}"
 msgstr "трябва да равно на %{number}"
+
+msgid "https protocol only"
+msgstr "Http протоколът не се приема за линкове."

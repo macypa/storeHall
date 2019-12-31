@@ -95,3 +95,6 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+msgid "https protocol only"
+msgstr "The protocol http is not accepted in links"

@@ -29,7 +29,7 @@ defmodule StoreHallWeb.Router do
     pipe_through :browser
 
     get "/", Redirector, to: "/items"
-    get "/accept_cookies", CookieConsent, to: "/items"
+    # get "/accept_cookies", CookieConsent, to: "/items"
 
     resources "/users", UserController, only: [:index, :show]
     resources "/items", ItemController, only: [:index, :show]
@@ -76,12 +76,12 @@ defmodule StoreHallWeb.Redirector do
   end
 end
 
-defmodule StoreHallWeb.CookieConsent do
-  def init(opts), do: opts
-
-  def call(conn, opts) do
-    conn
-    |> Plug.Conn.put_session(:cookie_consent_agreed, "cookie_consent_agreed")
-    |> Phoenix.Controller.redirect(opts)
-  end
-end
+# defmodule StoreHallWeb.CookieConsent do
+#   def init(opts), do: opts
+#
+#   def call(conn, opts) do
+#     conn
+#     |> Plug.Conn.put_session(:cookie_consent_agreed, "cookie_consent_agreed")
+#     |> Phoenix.Controller.redirect(opts)
+#   end
+# end

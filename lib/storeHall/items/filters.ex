@@ -30,7 +30,7 @@ defmodule StoreHall.Items.Filters do
             count when count < 10 ->
               acc
 
-            count ->
+            _ ->
               acc
               |> put_in([data.type, data.name], data.count)
           end

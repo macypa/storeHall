@@ -1,6 +1,8 @@
 defmodule StoreHall.DefaultFilter do
   import Ecto.Query, warn: false
 
+  require StoreHallWeb.Gettext
+  alias StoreHallWeb.Gettext, as: Gettext
   alias StoreHall.Users
 
   @accepted_orders [
@@ -14,16 +16,16 @@ defmodule StoreHall.DefaultFilter do
 
   @accepted_fields [:id, :inserted_at, :updated_at, :name, :first_name, :last_name]
   @accepted_sorting %{
-    "Цена низх." => "price:desc",
-    "Цена възх." => "price:asc",
-    "Рейтинг низх." => "rating:desc",
-    "Рейтинг възх." => "rating:asc",
-    "Изтичащи низх." => "expiration:desc",
-    "Изтичащи възх." => "expiration:asc",
-    "Дата низх." => "inserted_at:desc",
-    "Дата възх." => "inserted_at:аsc",
-    "Име низх." => "name:desc",
-    "Име възх." => "name:аsc"
+    Gettext.gettext("price desc") => "price:desc",
+    Gettext.gettext("price asc") => "price:asc",
+    Gettext.gettext("rating desc") => "rating:desc",
+    Gettext.gettext("rating asc") => "rating:asc",
+    Gettext.gettext("expiration desc") => "expiration:desc",
+    Gettext.gettext("expiration asc") => "expiration:asc",
+    Gettext.gettext("inserted_at desc") => "inserted_at:desc",
+    Gettext.gettext("inserted_at asc") => "inserted_at:аsc",
+    Gettext.gettext("name desc") => "name:desc",
+    Gettext.gettext("name asc") => "name:аsc"
   }
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
