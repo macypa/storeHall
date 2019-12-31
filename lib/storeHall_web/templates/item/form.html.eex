@@ -12,21 +12,23 @@
 
   <div class="form-group">
     <%= label f, :name, Gettext.gettext("Name") %>
-    <%= text_input f, :name %>
+    <%= text_input f, :name, value: input_value(f, :name) %>
     <%= error_tag f, :name %>
     <%= error_tag f, :not_unique_name_for_user %>
   </div>
 
   <div class="form-group">
     <%= label f, :price, Gettext.gettext("Price") %>
-    <%= text_input f, :details_price, name: input_name(f, :details) <> "[price]", value: f.data.details["price"] %>
+    <%= text_input f, :details_price, name: input_name(f, :details) <> "[price]", value: input_value(f, :details)["price"] %>
   </div>
 
   <div class="form-group">
     <%= label f, :tags, Gettext.gettext("Tags") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add tags") %>'>
-      <%= text_input f, :details_tags, name: input_name(f, :details) <> "[tags]",
-              value: Jason.encode!(f.data.details["tags"]) %>
+      <%= text_input f, :details_tags,
+              class: "datalist_editable_input",
+              name: input_name(f, :details) <> "[tags]",
+              value: Jason.encode!(input_value(f, :details)["tags"]) %>
       <%= select f, :tags_select,
               @conn.assigns.filters["tags"]
               |> Enum.map(fn {k, _v} -> {k, k} end),
@@ -38,7 +40,7 @@
     <%= label f, :cities, Gettext.gettext("Cities") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add cities") %>'>
       <%= text_input f, :details_cities, name: input_name(f, :details) <> "[cities]",
-              value: Jason.encode!(f.data.details["cities"]) %>
+              value: Jason.encode!(input_value(f, :details)["cities"]) %>
       <%= select f, :cities_select,
               @conn.assigns.filters["cities"]
               |> Enum.map(fn {k, _v} -> {k, k} end),
@@ -50,7 +52,7 @@
     <%= label f, :features, Gettext.gettext("Features") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add feature") %>'>
       <%= text_input f, :details_features, name: input_name(f, :details) <> "[features]",
-              value: Jason.encode!(f.data.details["features"]) %>
+              value: Jason.encode!(input_value(f, :details)["features"]) %>
       <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
     </div>
   </div>
@@ -59,7 +61,7 @@
     <%= label f, :Images, Gettext.gettext("Images") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add images") %>'>
       <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
-              value: Jason.encode!(f.data.details["images"]) %>
+              value: Jason.encode!(input_value(f, :details)["images"]) %>
       <template><a href="_hkey_" target="_blank">_hkey_</a></template>
     </div>
   </div>
@@ -68,26 +70,26 @@
     <%= label f, :videos, Gettext.gettext("Videos") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add videos") %>'>
       <%= text_input f, :details_videos, name: input_name(f, :details) <> "[videos]",
-              value: Jason.encode!(f.data.details["videos"]) %>
+              value: Jason.encode!(input_value(f, :details)["videos"]) %>
       <template><a href="_hkey_" target="_blank">_hkey_</a></template>
     </div>
   </div>
 
   <div class="form-group">
     <%= label f, :description, Gettext.gettext("Description") %>
-    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: f.data.details["description"] %>
+    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: input_value(f, :details)["description"] %>
   </div>
 
   <div class="form-group">
     <%= label f, :conditions, Gettext.gettext("Conditions") %>
-    <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: f.data.details["conditions"] %>
+    <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: input_value(f, :details)["conditions"] %>
   </div>
 
   <div class="form-group">
     <%= label f, :expiration, Gettext.gettext("Expiration") %>
     <%= date_input f, :details_expiration, pattern: "\d{4}-\d{2}-\d{2}",
                       name: input_name(f, :details) <> "[expiration]",
-                      value: f.data.details["expiration"] %>
+                      value: input_value(f, :details)["expiration"] %>
   </div>
 
 
@@ -105,7 +107,7 @@
       <%= error_tag f, :details %>
 
       <%= textarea  f, :details, name: input_name(f, :details),
-        value: Jason.encode!(f.data.details) |> String.replace(",\"", ",\n\"") %>
+        value: Jason.encode!(input_value(f, :details)) |> String.replace(",\"", ",\n\"") %>
     </div>
 
 

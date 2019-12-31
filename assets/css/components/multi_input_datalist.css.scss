@@ -9,24 +9,40 @@
     // min-height: 30px;
     // user-select: none;
 
-    > input {
-      box-sizing: border-box;
-      width: 100%;
-      height: 1.5em;
-      border: none;
-    }
+}
+
+.datalist_input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 1.5em;
+  border: none;
+}
+
+.datalist_editable_input {
+  width: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  height: 1.5em;
+  border: none;
+  z-index: 2;
+
+  + .datalist_items {
+    padding-top: 1.5em;
+  }
 }
 
 .datalist_select {
-    position: absolute;
     border: none;
     width: 100%;
     height: 1.5em;
+    position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
     padding-left: 5px;
 }
 
@@ -56,6 +72,7 @@
 .datalist_items {
   display: flex;
   flex-direction: column;
+  // padding-top: 1.5em;
 }
 
 .datalist_item {

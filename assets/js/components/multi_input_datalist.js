@@ -17,10 +17,13 @@ function init() {
       cloned_input_field.removeAttribute("id");
       cloned_input_field.removeAttribute("name");
       cloned_input_field.removeAttribute("hidden");
-      cloned_input_field.classList.add("datalist_input");
       cloned_input_field.setAttribute("placeholder", container.getAttribute("placeholder"));
-
-      input_field.insertAdjacentHTML( 'beforebegin', cloned_input_field.outerHTML);
+      if (!cloned_input_field.classList.contains("datalist_editable_input")) {
+        cloned_input_field.classList.add("datalist_input");
+        container.insertAdjacentHTML( 'beforeend', cloned_input_field.outerHTML);
+      } else {
+        input_field.insertAdjacentHTML( 'beforebegin', cloned_input_field.outerHTML);
+      }
 
       input_field = get_input(container);
       input_field.onchange = add_item;
@@ -159,8 +162,10 @@ function add_item(e) {
     let custom_tag_value = "";
     if (has_select_tag(container)) {
       let option = select.querySelector("option[value='" + select.value + "']");
-      custom_tag_value = option.getAttribute("data-template-value");
-      human_readable_key = option.innerText;
+      if (option) {
+        custom_tag_value = option.getAttribute("data-template-value");
+        human_readable_key = option.innerText;
+      }
     }
 
     if (custom_tag_value == null) {

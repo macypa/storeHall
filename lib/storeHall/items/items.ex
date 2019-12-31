@@ -170,7 +170,6 @@ defmodule StoreHall.Items do
             |> sanitize(:strip_tags)
             |> elem(1)
             |> get_parents()
-            |> IO.inspect()
             |> Enum.map(fn f ->
               repo.insert(%Filters{count: count, name: f, type: filter_type},
                 on_conflict: [inc: [count: increase_by]],

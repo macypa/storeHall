@@ -87,6 +87,7 @@ header {
     transform: translateY(-5px);
     transition: all .3s;
     @include box-shadow;
+    z-index: 200;
 
     ul {
       margin: 0;

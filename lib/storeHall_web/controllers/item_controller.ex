@@ -57,7 +57,8 @@ defmodule StoreHallWeb.ItemController do
         |> redirect(to: Routes.item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        filters = Items.item_filters()
+        render(conn, :new, changeset: changeset, filters: filters)
     end
   end
 
@@ -94,7 +95,8 @@ defmodule StoreHallWeb.ItemController do
         |> redirect(to: Routes.item_path(conn, :show, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, item: item, changeset: changeset)
+        filters = Items.item_filters()
+        render(conn, :edit, item: item, changeset: changeset, filters: filters)
     end
   end
 
