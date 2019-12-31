@@ -40,7 +40,9 @@
   <div class="form-group">
     <%= label f, :cities, Gettext.gettext("Cities") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add cities") %>'>
-      <%= text_input f, :details_cities, name: input_name(f, :details) <> "[cities]",
+      <%= text_input f, :details_cities,
+              class: "datalist_editable_input",
+              name: input_name(f, :details) <> "[cities]",
               value: Jason.encode!(input_value(f, :details)["cities"]) %>
       <%= select f, :cities_select,
               @conn.assigns.filters["cities"]
