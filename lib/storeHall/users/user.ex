@@ -55,5 +55,6 @@ defmodule StoreHall.Users.User do
     |> cast(attrs, [:first_name, :last_name, :email, :image, :provider, :details])
     |> validate_required([:first_name, :email, :provider, :details])
     |> unique_constraint(:email)
+    |> StoreHall.Images.validate_images(:details)
   end
 end

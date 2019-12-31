@@ -42,6 +42,7 @@ defmodule StoreHall.Items.Item do
     |> validate_required([:name, :user_id, :details])
     |> validate_length(:name, max: 255)
     |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
+    |> StoreHall.Images.validate_images(:details)
   end
 
   def slug_id(item) do

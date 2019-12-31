@@ -2,6 +2,22 @@ defmodule StoreHall.Images do
   alias Ecto.Multi
   alias StoreHall.FileUploader
 
+  def validate_images(changeset, details_field, options \\ []) do
+    Ecto.Changeset.validate_change(changeset, details_field, fn _, details ->
+      details["images"]
+      |> Enum.reduce(false, fn img, acc ->
+        case String.starts_with?(img, "http://") do
+          true -> true
+          false -> acc
+        end
+      end)
+      |> case do
+        true -> [{details_field, options[:message] || "https protocol only"}]
+        false -> []
+      end
+    end)
+  end
+
   def append_images(models, version \\ :thumb)
 
   def append_images(list_models, version) when is_list(list_models) do
