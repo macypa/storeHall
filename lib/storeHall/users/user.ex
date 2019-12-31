@@ -27,10 +27,10 @@ defmodule StoreHall.Users.User do
       default: %{
         "images" => [],
         "videos" => [],
-        "address" => {},
-        "mail" => {},
-        "web" => {},
-        "open" => {},
+        "address" => %{},
+        "mail" => %{},
+        "web" => %{},
+        "open" => %{},
         "description" => "",
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 0
