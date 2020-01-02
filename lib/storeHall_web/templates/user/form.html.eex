@@ -88,9 +88,22 @@
       <div class="settings_field">
         <span><%= Gettext.gettext("locale") %>:</span>
         <%= select f, :settings_locale, %{"Български" => "bg", "English" => "en"},
-                class: "filters_field_value",
+                class: "settings_field_value",
                 name: input_name(f, :settings) <>"[locale]",
                 value: input_value(f, :settings)["locale"] %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :cookie_consent, "" %>
+    <div>
+      <div class="settings_field">
+        <span><%= Gettext.gettext("cookie_consent") %>:</span>
+        <%= select f, :settings_locale, %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
+                class: "settings_field_value",
+                name: input_name(f, :settings) <>"[cookie_consent]",
+                value: input_value(f, :settings)["cookie_consent"] %>
       </div>
     </div>
   </div>
@@ -102,10 +115,10 @@
   <div class="form-group">
     <%= label f, :filters, "" %>
     <div>
-      <div class="filters_field">
+      <div class="settings_field">
         <span><%= Gettext.gettext("show_with_min_rating") %>:</span>
         <%= number_input f, :settings_filters_show_with_min_rating,
-                            class: "filters_field_value",
+                            class: "settings_field_value",
                             name: input_name(f, :settings) <>"[filters][show_with_min_rating]",
                             value: input_value(f, :settings)["filters"]["show_with_min_rating"] %>
       </div>
@@ -119,7 +132,6 @@
       <%= label f, :labels, Gettext.gettext("Labels") %>
       <%= text_input f, :settings_labels, name: input_name(f, :settings) <>"[labels]", value: Jason.encode!(input_value(f, :settings)["labels"]) |> String.replace(",\"", ",\n\"") %>
     </div>
-
 
     <div class="form-group">
       <div class="form-image-group">

@@ -93,4 +93,16 @@ window.check_if_logged = function() {
   }
 };
 
+window.add_cookie_consent_event = function() {
+  add_events("[cookie_consent]", "click", function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/accept_cookies", true);
+    xhttp.send();
+
+    var element = document.getElementById("cookie_consent");
+    element.parentNode.removeChild(element);
+  });
+};
+add_cookie_consent_event();
+
 export default socket

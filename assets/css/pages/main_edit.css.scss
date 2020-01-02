@@ -26,13 +26,13 @@
       }
     }
 
-    .filters_field {
+    .settings_field {
       & > span {
         display: inline-block;
         width: 10em;
       }
 
-      .filters_field_value {
+      .settings_field_value {
         width:  calc(100% - 13em);
       }
     }

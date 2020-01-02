@@ -29,7 +29,7 @@ defmodule StoreHallWeb.AuthController do
         conn
         |> configure_session(renew: true)
         |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
-        |> put_session(:logged_user, Users.load_settings(user))
+        |> Users.put_in_session(Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
       {:error, reason} ->

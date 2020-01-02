@@ -21,6 +21,7 @@ defmodule StoreHall.Plugs.SetUser do
       conn
       |> assign(:logged_user, user)
       |> assign(:user_token, token)
+      |> StoreHallWeb.CookieConsentController.set_cookie_consent(user)
     end
   end
 

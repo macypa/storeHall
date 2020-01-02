@@ -14,11 +14,9 @@
   		</span>
   	</div>
   	<div id="cookie_consent_agree">
-      <a href="/accept_cookies" >
-    		<button>
-    			<%= Gettext.gettext("Agree") %>
-    		</button>
-      </a>
+  		<button cookie_consent="agree" >
+  			<%= Gettext.gettext("Agree") %>
+  		</button>
   	  <a href="/about/cookies" >
   			<button id="cookie_consent_info_link">
   				<%= Gettext.gettext("Learn more") %>

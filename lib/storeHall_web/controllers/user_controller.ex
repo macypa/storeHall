@@ -59,7 +59,7 @@ defmodule StoreHallWeb.UserController do
         SetUser.set_locale(user)
 
         conn
-        |> put_session(:logged_user, user)
+        |> Users.put_in_session(user)
         |> put_flash(:info, Gettext.gettext("User updated successfully."))
         |> redirect(to: Routes.user_path(conn, :show, user))
 
