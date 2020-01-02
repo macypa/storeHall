@@ -55,12 +55,12 @@
               value: f.params["price"]["max"] %>
           </div>
           <div class="rangeSliders">
-            <%= range_input f, :price_min,
+            <%= range_input f, :price_min_slider,
               min: 0, max: 1000, step: 1,
               class: "min-slider auto-submit-item",
               value: f.params["price"]["min"] || 0 %>
 
-            <%= range_input f, :price_max,
+            <%= range_input f, :price_max_slider,
               min: 0, max: 1000, step: 1,
               class: "max-slider auto-submit-item",
               value: f.params["price"]["max"] || 1000 %>
@@ -132,11 +132,11 @@
               value: f.params["rating"]["max"] %>
           </div>
           <div class="rangeSliders">
-            <%= range_input f, :rating_min,
+            <%= range_input f, :rating_min_slider,
               class: "min-slider auto-submit-item",
               min: 0, max: 1000, step: 1,
               value: f.params["rating"]["min"] || 0 %>
-            <%= range_input f, :rating_max,
+            <%= range_input f, :rating_max_slider,
               class: "max-slider auto-submit-item",
               min: 0, max: 1000, step: 1,
               value: f.params["rating"]["max"] || 1000 %>
