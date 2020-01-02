@@ -1,8 +1,7 @@
 defmodule StoreHall.DefaultFilter do
   import Ecto.Query, warn: false
 
-  require StoreHallWeb.Gettext
-  alias StoreHallWeb.Gettext, as: Gettext
+  import StoreHallWeb.Gettext
   alias StoreHall.Users
 
   @accepted_orders [
@@ -16,16 +15,16 @@ defmodule StoreHall.DefaultFilter do
 
   @accepted_fields [:id, :inserted_at, :updated_at, :name, :first_name, :last_name]
   @accepted_sorting %{
-    Gettext.gettext("price desc") => "price:desc",
-    Gettext.gettext("price asc") => "price:asc",
-    Gettext.gettext("rating desc") => "rating:desc",
-    Gettext.gettext("rating asc") => "rating:asc",
-    Gettext.gettext("expiration desc") => "expiration:desc",
-    Gettext.gettext("expiration asc") => "expiration:asc",
-    Gettext.gettext("inserted_at desc") => "inserted_at:desc",
-    Gettext.gettext("inserted_at asc") => "inserted_at:аsc",
-    Gettext.gettext("name desc") => "name:desc",
-    Gettext.gettext("name asc") => "name:аsc"
+    "price desc" => "price:desc",
+    "price asc" => "price:asc",
+    "rating desc" => "rating:desc",
+    "rating asc" => "rating:asc",
+    "expiration desc" => "expiration:desc",
+    "expiration asc" => "expiration:asc",
+    "inserted_at desc" => "inserted_at:desc",
+    "inserted_at asc" => "inserted_at:аsc",
+    "name desc" => "name:desc",
+    "name asc" => "name:аsc"
   }
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
@@ -191,7 +190,13 @@ defmodule StoreHall.DefaultFilter do
 
   # defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
   # defp to_accepted_fields(string), do: string
-  def accepted_sorting(), do: @accepted_sorting
+  def accepted_sorting() do
+    @accepted_sorting
+    |> Enum.reduce(%{}, fn {key, value}, acc ->
+      acc |> Map.put(Gettext.gettext(StoreHallWeb.Gettext, key), value)
+    end)
+  end
+
   defp to_accepted_orders(atom, _default) when atom in @accepted_orders, do: atom
   defp to_accepted_orders(_string, default), do: default
   def accepted_orders(), do: @accepted_orders
