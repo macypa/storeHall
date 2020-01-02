@@ -91,7 +91,7 @@ defmodule StoreHall.Users do
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
-        {:ok, multi.update}
+        {:ok, multi.update |> load_settings()}
 
       {:error, _op, value, _changes} ->
         {:error, value}

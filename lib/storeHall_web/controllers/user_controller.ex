@@ -8,6 +8,7 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Images
+  alias StoreHall.Plugs.SetUser
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -55,7 +56,10 @@ defmodule StoreHallWeb.UserController do
 
     case Users.update_user(user, Users.decode_params(user_params)) do
       {:ok, user} ->
+        SetUser.set_locale(user)
+
         conn
+        |> put_session(:logged_user, user)
         |> put_flash(:info, Gettext.gettext("User updated successfully."))
         |> redirect(to: Routes.user_path(conn, :show, user))
 
