@@ -1,7 +1,5 @@
 defmodule StoreHall.DefaultFilter do
   import Ecto.Query, warn: false
-
-  import StoreHallWeb.Gettext
   alias StoreHall.Users
 
   @accepted_orders [

@@ -37,18 +37,18 @@ msgid "Thank you for signing in!"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:73
+#: lib/storeHall_web/controllers/user_controller.ex:77
 msgid "User deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:59
+#: lib/storeHall_web/controllers/user_controller.ex:63
 msgid "User updated successfully."
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/controllers/item_controller.ex:120
-#: lib/storeHall_web/controllers/user_controller.ex:90
+#: lib/storeHall_web/controllers/user_controller.ex:94
 msgid "You cannot do that"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgid "Delete"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:107
+#: lib/storeHall_web/templates/item/form.html.eex:109
 msgid "Details"
 msgstr ""
 
@@ -242,6 +242,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:73
+#: lib/storeHall_web/templates/user/form.html.eex:82
 msgid "Settings"
 msgstr ""
 
@@ -289,10 +290,10 @@ msgid "Edit Item"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:62
-#: lib/storeHall_web/templates/item/form.html.eex:100
+#: lib/storeHall_web/templates/item/form.html.eex:64
+#: lib/storeHall_web/templates/item/form.html.eex:102
 #: lib/storeHall_web/templates/user/form.html.eex:59
-#: lib/storeHall_web/templates/user/form.html.eex:105
+#: lib/storeHall_web/templates/user/form.html.eex:118
 msgid "Images"
 msgstr ""
 
@@ -369,12 +370,12 @@ msgid "Chats"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:82
+#: lib/storeHall_web/templates/user/form.html.eex:95
 msgid "Filters"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:98
+#: lib/storeHall_web/templates/user/form.html.eex:111
 msgid "Labels"
 msgstr ""
 
@@ -448,7 +449,7 @@ msgid "All Scores absolute values should add up to max %{max_score} !"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:85
+#: lib/storeHall_web/templates/item/form.html.eex:87
 #: lib/storeHall_web/templates/item/show.html.eex:62
 msgid "Conditions"
 msgstr ""
@@ -459,7 +460,7 @@ msgid "Cons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:80
+#: lib/storeHall_web/templates/item/form.html.eex:82
 #: lib/storeHall_web/templates/item/show.html.eex:25
 #: lib/storeHall_web/templates/user/form.html.eex:77
 #: lib/storeHall_web/templates/user/show.html.eex:43
@@ -479,13 +480,13 @@ msgid "Edit Rating"
 msgstr "Edit Review"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:90
+#: lib/storeHall_web/templates/item/form.html.eex:92
 #: lib/storeHall_web/templates/item/show.html.eex:30
 msgid "Expiration"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:53
+#: lib/storeHall_web/templates/item/form.html.eex:55
 #: lib/storeHall_web/templates/item/show.html.eex:53
 msgid "Features"
 msgstr ""
@@ -503,7 +504,7 @@ msgid "Pros"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:78
+#: lib/storeHall_web/controllers/user_controller.ex:82
 msgid "User not deleted."
 msgstr ""
 
@@ -556,12 +557,12 @@ msgid "Add cities"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:54
+#: lib/storeHall_web/templates/item/form.html.eex:56
 msgid "Add feature"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:63
+#: lib/storeHall_web/templates/item/form.html.eex:65
 #: lib/storeHall_web/templates/user/form.html.eex:60
 msgid "Add images"
 msgstr ""
@@ -572,7 +573,7 @@ msgid "Add tags"
 msgstr "Add Review"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:72
+#: lib/storeHall_web/templates/item/form.html.eex:74
 #: lib/storeHall_web/templates/user/form.html.eex:69
 msgid "Add videos"
 msgstr ""
@@ -604,62 +605,57 @@ msgid "Sorting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:71
+#: lib/storeHall_web/templates/item/form.html.eex:73
 #: lib/storeHall_web/templates/user/form.html.eex:68
 msgid "Videos"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:85
+#: lib/storeHall_web/templates/user/form.html.eex:98
 msgid "show_with_min_rating"
 msgstr "Show results only from users with minimal rating"
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:24
+## lib/storeHall/filterable/default_filter.ex:24
 msgid "expiration asc"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:23
+## lib/storeHall/filterable/default_filter.ex:23
 msgid "expiration desc"
 msgstr ""
 
-#, elixir-format
-#: lib/storeHall/filterable/default_filter.ex:26
+## lib/storeHall/filterable/default_filter.ex:26
 msgid "inserted_at asc"
 msgstr ""
 
-#, elixir-format
-#: lib/storeHall/filterable/default_filter.ex:25
+## lib/storeHall/filterable/default_filter.ex:25
 msgid "inserted_at desc"
 msgstr ""
 
-#, elixir-format
-#: lib/storeHall/filterable/default_filter.ex:28
+## lib/storeHall/filterable/default_filter.ex:28
 msgid "name asc"
 msgstr ""
 
-#, elixir-format
-#: lib/storeHall/filterable/default_filter.ex:27
+## lib/storeHall/filterable/default_filter.ex:27
 msgid "name desc"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:20
+## lib/storeHall/filterable/default_filter.ex:20
 msgid "price asc"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:19
+## lib/storeHall/filterable/default_filter.ex:19
 msgid "price desc"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:22
+## lib/storeHall/filterable/default_filter.ex:22
 msgid "rating asc"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall/filterable/default_filter.ex:21
+## lib/storeHall/filterable/default_filter.ex:21
 msgid "rating desc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:85
+msgid "locale"
 msgstr ""
