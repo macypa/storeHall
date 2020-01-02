@@ -236,6 +236,7 @@ defmodule StoreHall.Users do
             case v do
               "" ->
                 acc
+                |> Map.put(k, v)
 
               _ ->
                 acc
