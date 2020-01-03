@@ -13,7 +13,7 @@ window.regExp_escape = function(s) {
 };
 
 window.isNumeric = function(num) {
-  return num != null && !isNaN(num) && num.trim() != ""
+  return num != null && !isNaN(num) && (num+"").trim() != ""
 }
 
 window.isString = function(obj) {
