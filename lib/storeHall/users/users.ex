@@ -44,14 +44,6 @@ defmodule StoreHall.Users do
     end
   end
 
-  def put_in_session(conn, user) do
-    user_for_session = user
-    # |> Map.delete(:details)
-
-    conn
-    |> Plug.Conn.put_session(:logged_user, user_for_session)
-  end
-
   defp update_default_user_details(user, repo) do
     details =
       %User{}.details

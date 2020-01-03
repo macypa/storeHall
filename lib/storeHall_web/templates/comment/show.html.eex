@@ -33,7 +33,7 @@
 
   <actions>
 
-    <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+    <% current_user_id = get_logged_user_id(@conn) 
       am_author = Map.has_key?(@comment, :author_id) and @comment.author_id == current_user_id %>
     <%= unless am_author do %>
 

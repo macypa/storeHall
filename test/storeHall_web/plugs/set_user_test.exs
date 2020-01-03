@@ -7,9 +7,9 @@ defmodule StoreHallWeb.SetUserTest do
   test "assign nil as user, guest as token", %{conn: conn} do
     conn = get(conn, Routes.user_path(conn, :index))
 
-    case conn.private.plug_session["logged_user"] do
+    case conn.private.plug_session["logged_user_id"] do
       nil ->
-        assert conn.assigns.logged_user == nil
+        assert conn.assigns.logged_user_id == nil
         assert conn.assigns.user_token == "guest"
 
       _ ->
@@ -22,13 +22,13 @@ defmodule StoreHallWeb.SetUserTest do
 
     conn =
       conn
-      |> Plug.Test.init_test_session(%{logged_user: user})
+      |> Plug.Test.init_test_session(%{logged_user_id: user})
 
     conn =
       conn
       |> get(Routes.user_path(conn, :index))
 
-    assert conn.assigns.logged_user == user
+    assert conn.assigns.logged_user_id == user
 
     {:ok, user_id} =
       Phoenix.Token.verify(conn, "user token", conn.assigns.user_token, max_age: 60)

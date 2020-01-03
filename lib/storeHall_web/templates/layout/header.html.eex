@@ -29,8 +29,8 @@
         </ul>
       </li>
 
-      <%= if @conn.assigns.logged_user do %>
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#messages" do %>
+      <%= if @conn.assigns.logged_user_id do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
@@ -44,8 +44,8 @@
 </notifications>
 
 <avatar>
-  <%= if @conn.assigns[:logged_user] != nil and Map.has_key?(@conn.assigns[:logged_user], :image) do %>
-    <img src="<%= @conn.assigns.logged_user.image %>" alt="">
+  <%= if get_logged_user_image(@conn) != nil do %>
+    <img src="<%= get_logged_user_image(@conn) %>" alt="">
   <% else %>
     <svg class="svg_icon menu_svg_icon">
       <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
@@ -54,9 +54,9 @@
   <div class="dropdown">
     <ul>
 
-      <%= if @conn.assigns.logged_user do %>
+      <%= if @conn.assigns.logged_user_id do %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#info" do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#info" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
@@ -65,7 +65,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user)do %>
+        <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user_id)do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-cog"></use>
@@ -74,7 +74,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user) <> "#messages" do %>
+        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
@@ -83,7 +83,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> @conn.assigns.logged_user.id do %>
+        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> @conn.assigns.logged_user_id do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-list-ul"></use>

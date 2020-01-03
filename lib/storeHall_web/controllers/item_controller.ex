@@ -49,7 +49,7 @@ defmodule StoreHallWeb.ItemController do
   def create(conn, %{"item" => item_params}) do
     case Items.create_item(
            Items.decode_params(item_params)
-           |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
+           |> Map.put("user_id", AuthController.get_logged_user_id(conn))
          ) do
       {:ok, item} ->
         conn
@@ -66,14 +66,14 @@ defmodule StoreHallWeb.ItemController do
     item =
       Items.get_item_with_reactions!(
         id,
-        params |> Map.put("user_id", AuthController.get_user_id_from_conn(conn))
+        params |> Map.put("user_id", AuthController.get_logged_user_id(conn))
       )
       |> Items.preload_user()
       |> Images.append_images(:image)
-      |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
-      |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
+      |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
+      |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
 
-    # |> Chats.preload_for(AuthController.get_user_id_from_conn(conn))
+    # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
 
     render(conn, :show, item: item)
   end

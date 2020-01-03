@@ -38,9 +38,9 @@ defmodule StoreHallWeb.UserController do
     user =
       get_user!(conn, id)
       |> Images.append_images(:image)
-      |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
-      |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
-      |> Chats.preload_for(AuthController.get_user_id_from_conn(conn))
+      |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
+      |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
+      |> Chats.preload_for(AuthController.get_logged_user_id(conn))
 
     render(conn, :show, user: user)
   end
@@ -56,10 +56,10 @@ defmodule StoreHallWeb.UserController do
 
     case Users.update_user(user, Users.decode_params(user_params)) do
       {:ok, user} ->
-        SetUser.set_locale(user)
+        SetUser.set_locale(user.settings)
 
         conn
-        |> Users.put_in_session(user)
+        |> AuthController.put_user_props_in_session(user)
         |> put_flash(:info, Gettext.gettext("User updated successfully."))
         |> redirect(to: Routes.user_path(conn, :show, user))
 

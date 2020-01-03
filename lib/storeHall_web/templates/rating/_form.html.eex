@@ -2,7 +2,7 @@
 <rating-form class="hidable-form" id="rating-<%=@rating.id%>" style="display: none">
   <textarea placeholder='<%= Gettext.gettext("and remember, be nice!") %>' class="rating-textarea" type="text" name="body"><%= @rating.details["body"] %></textarea>
 
-  <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+  <% current_user_id = get_logged_user_id(@conn)
      am_author = Map.has_key?(@rating, :author_id) and @rating.author_id == current_user_id
      first_level = @rating.id == nil  %>
 

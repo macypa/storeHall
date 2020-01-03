@@ -11,8 +11,8 @@ defmodule StoreHallWeb.AboutController do
     user =
       Users.get_user!(Application.get_env(:storeHall, :about)[:user_id])
       |> Images.append_images(:image)
-      |> Comments.preload_for(AuthController.get_user_id_from_conn(conn), params)
-      |> Ratings.preload_for(AuthController.get_user_id_from_conn(conn), params)
+      |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
+      |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
 
     render(conn, "index.html", user: user)
   end

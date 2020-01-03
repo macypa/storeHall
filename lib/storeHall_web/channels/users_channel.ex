@@ -122,9 +122,9 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        unless logged_user != chat_msg["owner_id"] and
-                 logged_user != chat_msg["user_id"] do
+      logged_user_id ->
+        unless logged_user_id != chat_msg["owner_id"] and
+                 logged_user_id != chat_msg["user_id"] do
           chats_for_room =
             Chats.for_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
             |> Chats.preload_author()
@@ -145,9 +145,9 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        unless logged_user != chat_msg["owner_id"] and
-                 logged_user != chat_msg["user_id"] do
+      logged_user_id ->
+        unless logged_user_id != chat_msg["owner_id"] and
+                 logged_user_id != chat_msg["user_id"] do
           Chats.delete_chat_room(chat_msg["item_id"], chat_msg["owner_id"], chat_msg["user_id"])
         end
     end
@@ -164,8 +164,8 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        case Chats.create_chat_message(chat_msg |> Map.put("author_id", logged_user)) do
+      logged_user_id ->
+        case Chats.create_chat_message(chat_msg |> Map.put("author_id", logged_user_id)) do
           {:ok, chat_msg} ->
             chat_msg = chat_msg |> Chats.preload_author()
 
@@ -199,8 +199,8 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        case Comments.create_user_comment(comment |> Map.put("author_id", logged_user)) do
+      logged_user_id ->
+        case Comments.create_user_comment(comment |> Map.put("author_id", logged_user_id)) do
           {:ok, comment} ->
             broadcast!(
               socket,
@@ -225,8 +225,8 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        unless logged_user == rating["user_id"] do
+      logged_user_id ->
+        unless logged_user_id == rating["user_id"] do
           case Ratings.validate_scores(rating["details"]["scores"]) do
             false ->
               push(socket, "error", %{
@@ -238,7 +238,7 @@ defmodule StoreHallWeb.UsersChannel do
               })
 
             true ->
-              case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user)) do
+              case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user_id)) do
                 {:ok, rating} ->
                   broadcast!(
                     socket,
@@ -282,15 +282,15 @@ defmodule StoreHallWeb.UsersChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
+      logged_user_id ->
         %{"id" => reacted_to, "user_id" => user_id, "author_id" => author_id, "type" => type} =
           Jason.decode!(data)
 
-        unless logged_user == user_id do
+        unless logged_user_id == user_id do
           Multi.new()
           |> Action.toggle_or_change_reaction(
             reacted_to,
-            logged_user,
+            logged_user_id,
             type,
             reaction,
             &update_user_rating_fun/3,

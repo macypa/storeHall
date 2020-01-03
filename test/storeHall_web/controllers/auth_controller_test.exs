@@ -20,8 +20,8 @@ defmodule StoreHallWeb.AuthControllerTest do
       case conn.private.plug_session["phoenix_flash"]["error_reason"] do
         nil ->
           assert get_flash(conn, :error) == nil
-          assert conn.private.plug_session["logged_user"].id != ""
-          assert conn.private.plug_session["logged_user"].inserted_at != ""
+          assert conn.private.plug_session["logged_user_id"].id != ""
+          assert conn.private.plug_session["logged_user_id"].inserted_at != ""
           assert get_flash(conn, :info) == "Thank you for signing in!"
 
         reason ->
@@ -35,7 +35,7 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> assign(:logged_user, user)
+      |> assign(:logged_user_id, user)
       |> get("/users")
 
     assert get_flash(conn, :error) == nil
@@ -47,11 +47,11 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> assign(:logged_user, user)
+      |> assign(:logged_user_id, user)
       |> get("/auth/delete")
       |> get("/")
 
     assert get_flash(conn, :error) == nil
-    assert conn.assigns.logged_user == nil
+    assert conn.assigns.logged_user_id == nil
   end
 end

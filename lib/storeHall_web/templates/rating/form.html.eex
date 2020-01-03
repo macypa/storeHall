@@ -1,5 +1,5 @@
 
-<% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+<% current_user_id = get_logged_user_id(@conn)
 
   button_text = case @rating.id do
     nil ->

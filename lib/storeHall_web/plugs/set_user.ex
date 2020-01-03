@@ -5,34 +5,34 @@ defmodule StoreHall.Plugs.SetUser do
   end
 
   def call(conn, _params) do
-    if conn.assigns[:logged_user] do
+    if conn.assigns[:logged_user_id] do
       conn
     else
-      user = get_session(conn, :logged_user)
+      user_id = get_session(conn, :logged_user_id)
 
       token =
-        case user do
+        case user_id do
           nil -> "guest"
-          user -> Phoenix.Token.sign(conn, "user token", user.id)
+          user_id -> Phoenix.Token.sign(conn, "user token", user_id)
         end
 
-      set_locale(user)
+      set_locale(get_session(conn, :logged_user_settings))
 
       conn
-      |> assign(:logged_user, user)
+      |> assign(:logged_user_id, user_id)
       |> assign(:user_token, token)
-      |> StoreHallWeb.CookieConsentController.set_cookie_consent(user)
+      |> StoreHallWeb.CookieConsentController.set_cookie_consent(user_id)
     end
   end
 
-  def set_locale(user) do
-    case user do
+  def set_locale(user_settings) do
+    case user_settings do
       nil ->
         nil
 
-      user ->
-        if Map.has_key?(user.settings, "locale") do
-          StoreHallWeb.Gettext |> Gettext.put_locale(user.settings["locale"])
+      user_settings ->
+        if Map.has_key?(user_settings, "locale") do
+          StoreHallWeb.Gettext |> Gettext.put_locale(user_settings["locale"])
         end
     end
   end

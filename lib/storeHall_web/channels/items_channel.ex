@@ -114,8 +114,8 @@ defmodule StoreHallWeb.ItemsChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        case Comments.create_item_comment(comment |> Map.put("author_id", logged_user)) do
+      logged_user_id ->
+        case Comments.create_item_comment(comment |> Map.put("author_id", logged_user_id)) do
           {:ok, comment} ->
             broadcast!(
               socket,
@@ -140,8 +140,8 @@ defmodule StoreHallWeb.ItemsChannel do
       nil ->
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
-      logged_user ->
-        unless logged_user == rating["user_id"] do
+      logged_user_id ->
+        unless logged_user_id == rating["user_id"] do
           case Ratings.validate_scores(rating) do
             false ->
               push(socket, "error", %{
@@ -153,7 +153,7 @@ defmodule StoreHallWeb.ItemsChannel do
               })
 
             true ->
-              case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user)) do
+              case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user_id)) do
                 {:ok, rating} ->
                   broadcast!(
                     socket,

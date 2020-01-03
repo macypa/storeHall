@@ -95,7 +95,7 @@
     </item_images>
 
     <actions>
-      <% current_user_id = if @conn.assigns[:logged_user] != nil do @conn.assigns[:logged_user].id end
+      <% current_user_id = get_logged_user_id(@conn)
         am_author = Map.has_key?(@item, :user_id) and @item.user_id == current_user_id %>
       <%= unless am_author do %>
         <%= render_shared "reactions.html",

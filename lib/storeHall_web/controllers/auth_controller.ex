@@ -2,6 +2,8 @@ defmodule StoreHallWeb.AuthController do
   use StoreHallWeb, :controller
   plug Ueberauth
   import Ecto.Query, warn: false
+  import Plug.Conn
+
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Repo
@@ -29,7 +31,7 @@ defmodule StoreHallWeb.AuthController do
         conn
         |> configure_session(renew: true)
         |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
-        |> Users.put_in_session(Users.load_settings(user))
+        |> put_user_props_in_session(Users.load_settings(user))
         |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
 
       {:error, reason} ->
@@ -88,27 +90,33 @@ defmodule StoreHallWeb.AuthController do
   end
 
   def check_owner?(conn, user_id) do
-    if conn.assigns && conn.assigns.logged_user &&
-         (user_id == conn.assigns.logged_user.id || user_id == nil) do
+    if get_session(conn, :logged_user_id) &&
+         (user_id == get_session(conn, :logged_user_id) || user_id == nil) do
       true
     else
       false
     end
   end
 
-  def get_user_id_from_conn(conn) do
-    if conn.assigns && conn.assigns.logged_user && conn.assigns.logged_user.id do
-      conn.assigns.logged_user.id
+  def get_logged_user_id(conn) do
+    if get_session(conn, :logged_user_id) do
+      get_session(conn, :logged_user_id)
     else
       -1
     end
   end
 
-  def get_user_from_conn(conn) do
-    if conn.assigns && conn.assigns.logged_user && conn.assigns.logged_user.id do
-      conn.assigns.logged_user
-    else
-      -1
-    end
+  def get_logged_user_image(conn) do
+    get_session(conn, :logged_user_image)
+  end
+
+  def put_user_props_in_session(conn, user) do
+    conn
+    |> put_session(:logged_user_id, user.id)
+    |> put_session(:logged_user_image, user.image)
+    |> put_session(
+      :logged_user_settings,
+      user.settings |> Map.take(["locale", "cookie_consent", "filters"])
+    )
   end
 end
