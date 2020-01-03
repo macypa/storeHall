@@ -99,11 +99,7 @@ defmodule StoreHallWeb.AuthController do
   end
 
   def get_logged_user_id(conn) do
-    if get_session(conn, :logged_user_id) do
-      get_session(conn, :logged_user_id)
-    else
-      -1
-    end
+    get_session(conn, :logged_user_id)
   end
 
   def get_logged_user_image(conn) do

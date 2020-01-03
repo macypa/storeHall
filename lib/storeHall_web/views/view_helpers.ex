@@ -7,10 +7,7 @@ defmodule StoreHallWeb.ViewHelpers do
   alias StoreHallWeb.AuthController
 
   def get_logged_user_id(conn) do
-    case AuthController.get_logged_user_id(conn) do
-      -1 -> nil
-      id -> id
-    end
+    AuthController.get_logged_user_id(conn)
   end
 
   def is_logged_user?(conn, user_id) do

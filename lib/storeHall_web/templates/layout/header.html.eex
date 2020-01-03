@@ -1,4 +1,6 @@
 
+<% logged_user_id = get_logged_user_id(@conn) %>
+
 <title>
   <%= page_title(@assigns) %>
 </title>
@@ -29,8 +31,8 @@
         </ul>
       </li>
 
-      <%= if @conn.assigns.logged_user_id do %>
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#messages" do %>
+      <%= if logged_user_id do %>
+        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
@@ -54,9 +56,9 @@
   <div class="dropdown">
     <ul>
 
-      <%= if @conn.assigns.logged_user_id do %>
+      <%= if logged_user_id do %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#info" do %>
+        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
@@ -65,7 +67,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :edit, @conn.assigns.logged_user_id)do %>
+        <%= link to: Routes.user_path(@conn, :edit, logged_user_id)do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-cog"></use>
@@ -74,7 +76,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :show, @conn.assigns.logged_user_id) <> "#messages" do %>
+        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
@@ -83,7 +85,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> @conn.assigns.logged_user_id do %>
+        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> logged_user_id do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-list-ul"></use>

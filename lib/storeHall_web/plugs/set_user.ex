@@ -1,27 +1,28 @@
 defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
+  alias StoreHallWeb.AuthController
 
   def init(_params) do
   end
 
   def call(conn, _params) do
-    if conn.assigns[:logged_user_id] do
-      conn
-    else
-      user_id = get_session(conn, :logged_user_id)
+    case AuthController.get_logged_user_id(conn) do
+      nil ->
+        conn
 
-      token =
-        case user_id do
-          nil -> "guest"
-          user_id -> Phoenix.Token.sign(conn, "user token", user_id)
-        end
+      user_id ->
+        token =
+          case user_id do
+            nil -> "guest"
+            user_id -> Phoenix.Token.sign(conn, "user token", user_id)
+          end
 
-      set_locale(get_session(conn, :logged_user_settings))
+        set_locale(get_session(conn, :logged_user_settings))
 
-      conn
-      |> assign(:logged_user_id, user_id)
-      |> assign(:user_token, token)
-      |> StoreHallWeb.CookieConsentController.set_cookie_consent(user_id)
+        conn
+        # |> assign(:logged_user_id, user_id)
+        |> assign(:user_token, token)
+        |> StoreHallWeb.CookieConsentController.set_cookie_consent(user_id)
     end
   end
 
