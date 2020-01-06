@@ -35,8 +35,6 @@ jQuery(function($) {
   $('main').scroll(function() {
     if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
       load_next_items();
-    } else {
-      load_lazy_imgs();
     }
   })
 });
