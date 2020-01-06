@@ -1,5 +1,8 @@
 # StoreHall
 
+To install Erlang and Elixir:
+  https://lobotuerto.com/blog/how-to-install-elixir-in-manjaro-linux/
+
 To install Phoenix:
   https://medium.com/@rpw952/elixir-development-on-windows-10-ff7ca03769d
 
@@ -8,7 +11,7 @@ To start your Phoenix server:
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
   * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+  * Start Phoenix endpoint with `mix phx.server` in root dir
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
@@ -16,6 +19,8 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 to start psql:
 'psql -U postgres'
+'sudo -u postgres psql' for linux
+'\password' - to change the password before running mix ecto.setup
 '\l' - list databases
 '\dt' - display tables when connected to database
 '\c storehall_dev' - connect to storehall_dev database
