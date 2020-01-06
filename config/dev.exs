@@ -12,8 +12,9 @@ config :storeHall, StoreHallWeb.Endpoint,
     port: 4001,
     compress: true,
     cipher_suite: :strong,
-    certfile: "priv/cert/selfsigned.pem",
-    keyfile: "priv/cert/selfsigned_key.pem"
+    certfile: "priv/cert/cert.pem",
+    cacertfile: "priv/cert/chain.pem",  
+    keyfile: "priv/cert/privkey.pem"
   ],
   debug_errors: true,
   code_reloader: true,

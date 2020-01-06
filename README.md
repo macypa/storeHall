@@ -2,6 +2,7 @@
 
 To install Erlang and Elixir:
   https://lobotuerto.com/blog/how-to-install-elixir-in-manjaro-linux/
+  https://gist.github.com/rubencaro/6a28138a40e629b06470
 
 To install Phoenix:
   https://medium.com/@rpw952/elixir-development-on-windows-10-ff7ca03769d
@@ -35,7 +36,7 @@ to start psql:
 
 
 List of technologies that could be useful:
-https://letsencrypt.org/getting-started/
+https://letsencrypt.org/getting-started/  to configure on linux https://medium.com/@a4word/phoenix-app-secured-with-let-s-encrypt-469ac0995775
 https://github.com/annkissam/rummage_phoenix or https://github.com/duffelhq/paginator
 https://tg.pl/drab
 https://github.com/nico-amsterdam/phoenix_form_awesomplete
