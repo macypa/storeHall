@@ -13,7 +13,7 @@ config :storeHall, StoreHallWeb.Endpoint,
     compress: true,
     cipher_suite: :strong,
     certfile: "priv/cert/cert.pem",
-    cacertfile: "priv/cert/chain.pem",  
+    cacertfile: "priv/cert/chain.pem",
     keyfile: "priv/cert/privkey.pem"
   ],
   debug_errors: true,
@@ -86,3 +86,10 @@ config :storeHall, StoreHall.Repo,
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "561597658888-jf8k47pmjvnuo362h8kjg2cb389khroa.apps.googleusercontent.com",
   client_secret: "LWT6NmLgy33tTXoIyRkrVG5b"
+
+
+# Configure Facebook OAuth
+# https://theonetechnologies.com/blog/post/how-to-get-facebook-application-id-and-secret-key
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: "756211974869558",
+  client_secret: "87f7ceaa854cdec115524644e9c29851"

@@ -42,7 +42,9 @@ config :phoenix, :json_library, Jason
 config :ueberauth, Ueberauth,
   providers: [
     google:
-      {Ueberauth.Strategy.Google, [default_scope: "email profile", prompt: "select_account"]}
+      {Ueberauth.Strategy.Google, [default_scope: "email profile", prompt: "select_account"]},
+    facebook:
+      {Ueberauth.Strategy.Facebook, [default_scope: "email,public_profile"]}
   ]
 
 config :arc,

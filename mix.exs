@@ -47,6 +47,7 @@ defmodule StoreHall.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:ueberauth, "~> 0.5"},
       {:ueberauth_google, "~> 0.7"},
+      {:ueberauth_facebook, "~> 0.8"},
       {:hackney, "~> 1.15 and >= 1.15.2"},
       {:arc, "~> 0.11.0"},
       {:slugify, "~> 1.1"},

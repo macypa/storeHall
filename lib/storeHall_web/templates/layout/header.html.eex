@@ -123,6 +123,14 @@
           </li>
         <% end %>
 
+        <%= link to: Routes.auth_path(@conn, :request, "facebook") do %>
+          <li>
+            <svg class="svg_icon">
+              <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
+            </svg>
+            <span class="text"><%= Gettext.gettext("Sign in with Facebook") %></span>
+          </li>
+        <% end %>
       <% end %>
 
     </ul>
