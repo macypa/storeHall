@@ -4,13 +4,14 @@ $baseBackgroundColor: $themeColor;
 // $baseBackgroundColor: #fff1d0;
 $sidebarColor: $themeColor;
 $sidebarBackgroundColor: $baseColor;
+$reactionIconBackgroundColor: $baseColor;
 
-$height-header: 2em;
-$height-header_desktop: 2em;
+$height-header: 3em;
+$height-header_desktop: 3em;
 $width-header: 25em;
 $width-header_desktop: 40em;
 $width-sidebar: 11em;
-$height-footer: 1.5em;
+$height-footer: 2em;
 
 @mixin dropdown_icon_border {
   background-size: cover;
@@ -69,7 +70,7 @@ html {
 }
 
 .alert {
-  padding: 5px;
+  // padding: 5px;
 }
 
 .alert-danger {
@@ -90,6 +91,10 @@ a {
   fill: $baseColor;
   background-color: $baseBackgroundColor;
   border-radius: 5em;
+
+  &[reaction-topic] {
+    background-color: $reactionIconBackgroundColor;
+  }
 }
 
 header {
