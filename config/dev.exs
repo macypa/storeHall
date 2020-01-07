@@ -16,6 +16,7 @@ config :storeHall, StoreHallWeb.Endpoint,
     cacertfile: "priv/cert/chain.pem",
     keyfile: "priv/cert/privkey.pem"
   ],
+  force_ssl: [hsts: true],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
