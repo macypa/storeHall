@@ -19,7 +19,7 @@ msgstr "Създадено успешно."
 #, elixir-format
 #: lib/storeHall_web/controllers/auth_controller.ex:38
 msgid "Error signing in"
-msgstr "Не мога да те регистрирам."
+msgstr "Не мога да те логна."
 
 #, elixir-format
 #: lib/storeHall_web/controllers/item_controller.ex:108
@@ -34,7 +34,7 @@ msgstr "Подновено успешно."
 #, elixir-format
 #: lib/storeHall_web/controllers/auth_controller.ex:32
 msgid "Thank you for signing in!"
-msgstr "Благодаря, че се регистрирахте."
+msgstr "Благодаря, че се логна."
 
 #, elixir-format
 #: lib/storeHall_web/controllers/user_controller.ex:76
@@ -249,7 +249,7 @@ msgstr "Настройки"
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:122
 msgid "Sign in with Google"
-msgstr "Регистрирай се с Google"
+msgstr "Логни се с Google"
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:111
@@ -654,7 +654,7 @@ msgstr "Език"
 #, elixir-format, fuzzy
 #: lib/storeHall_web/templates/layout/header.html.eex:131
 msgid "Sign in with Facebook"
-msgstr "Регистрирай се с Google"
+msgstr "Логни се с Facebook"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/sponsor.html.eex:1
