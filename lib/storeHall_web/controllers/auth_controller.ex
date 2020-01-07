@@ -9,11 +9,12 @@ defmodule StoreHallWeb.AuthController do
   alias StoreHall.Repo
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    first_name = if auth.info.first_name == nil and auth.info.last_name == nil do
-      auth.info.name
-    else
-      auth.info.first_name
-    end
+    first_name =
+      if auth.info.first_name == nil and auth.info.last_name == nil do
+        auth.info.name
+      else
+        auth.info.first_name
+      end
 
     user_params = %{
       token: auth.credentials.token,
@@ -48,21 +49,32 @@ defmodule StoreHallWeb.AuthController do
     end
   end
 
-  defp insert_or_update_user(user_params) do
-    case Repo.get_by(User, email: user_params.email) do
-      nil ->
-        try do
-          changeset(&genId/1, user_params)
-          |> Repo.insert()
-        rescue
-          _ ->
-            changeset(&genNextId/1, user_params)
-            |> Repo.insert()
-        end
+  defp insert_or_update_user(user_params = %{email: email})
+       when is_binary(email) and email != "" do
+    case String.trim(email) do
+      "" ->
+        {:error, Gettext.gettext("no email")}
 
-      user ->
-        Users.update_user(user, user_params)
+      email ->
+        case Repo.get_by(User, email: email) do
+          nil ->
+            try do
+              changeset(&genId/1, user_params)
+              |> Repo.insert()
+            rescue
+              _ ->
+                changeset(&genNextId/1, user_params)
+                |> Repo.insert()
+            end
+
+          user ->
+            {:ok, user}
+        end
     end
+  end
+
+  defp insert_or_update_user(_user_params) do
+    {:error, Gettext.gettext("no email")}
   end
 
   def genId(info) do
