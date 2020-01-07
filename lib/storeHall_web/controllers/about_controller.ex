@@ -29,7 +29,7 @@ defmodule StoreHallWeb.AboutController do
     render(conn, "cookies.html")
   end
 
-  def donation(conn, _) do
-    render(conn, "donation.html")
+  def sponsor(conn, _) do
+    render(conn, "sponsor.html")
   end
 end
