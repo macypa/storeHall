@@ -5,8 +5,7 @@ defmodule StoreHall.UserFilter do
     query
     |> where(
       [u],
-      ilike(u.first_name, ^"%#{value}%") or
-        ilike(u.last_name, ^"%#{value}%")
+      ilike(u.name, ^"%#{value}%")
     )
   end
 

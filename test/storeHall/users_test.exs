@@ -11,11 +11,10 @@ defmodule StoreHall.UsersTest do
   @update_attrs %{
     id: "some_id",
     email: "some updated email",
-    first_name: "some updated first_name",
-    last_name: "some updated last_name",
+    name: "some updated name",
     provider: "some updated provider"
   }
-  @invalid_attrs %{id: "some_id", email: nil, first_name: nil, last_name: nil, provider: nil}
+  @invalid_attrs %{id: "some_id", email: nil, name: nil, provider: nil}
 
   test "list_users/0 returns all users" do
     users = Fixture.insert_users(@users_count)
@@ -24,7 +23,7 @@ defmodule StoreHall.UsersTest do
 
   describe "get" do
     test "get_user!/1 returns the user with given id" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         assert Users.get_user!(user.id) == user
       end
     end
@@ -41,7 +40,7 @@ defmodule StoreHall.UsersTest do
     end
 
     test "get_user_with_settings!/1 returns the user with loaded settings" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
 
         assert Users.get_user_with_settings!(user.id).settings["custom_setting"] == 0
@@ -49,7 +48,7 @@ defmodule StoreHall.UsersTest do
     end
 
     test "load_settings/1 returns the user with loaded settings" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
 
         assert Users.load_settings(user).settings["custom_setting"] == 0
@@ -59,11 +58,10 @@ defmodule StoreHall.UsersTest do
 
   describe "update" do
     test "update_user/2 with valid data updates the user" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
         assert user.email == "some updated email"
-        assert user.first_name == "some updated first_name"
-        assert user.last_name == "some updated last_name"
+        assert user.name == "some updated name"
         assert user.provider == "some updated provider"
       end
     end
@@ -75,7 +73,7 @@ defmodule StoreHall.UsersTest do
     end
 
     test "update_user/2 with custom settings creates user settings field in settings table" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         assert nil == Repo.get(Settings, user.id)
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
 
@@ -84,7 +82,7 @@ defmodule StoreHall.UsersTest do
     end
 
     test "update_user/2 adding custom settings updates user settings field in settings table" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
         Users.update_user(user, %{"settings" => %{"custom_setting" => 1}})
         Users.update_user(user, %{"settings" => %{"new_custom_setting" => 1}})
@@ -97,14 +95,14 @@ defmodule StoreHall.UsersTest do
 
   describe "delete" do
     test "delete_user/1 deletes the user" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         assert {:ok} = Users.delete_user(user)
         assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id) end
       end
     end
 
     test "delete_user/1 deletes the user settings" do
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
 
         assert {:ok} = Users.delete_user(user)
@@ -115,7 +113,7 @@ defmodule StoreHall.UsersTest do
   end
 
   test "change_user/1 returns a user changeset" do
-    check all user <- Fixture.user_generator() do
+    check all(user <- Fixture.user_generator()) do
       assert %Ecto.Changeset{} = Users.change_user(user)
     end
   end

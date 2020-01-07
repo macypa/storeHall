@@ -12,15 +12,9 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :first_name, Gettext.gettext("First Name") %>
-    <%= text_input f, :first_name %>
-    <%= error_tag f, :first_name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :last_name, Gettext.gettext("Last Name") %>
-    <%= text_input f, :last_name %>
-    <%= error_tag f, :last_name %>
+    <%= label f, :name, Gettext.gettext("Name") %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">

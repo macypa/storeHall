@@ -11,7 +11,7 @@ defmodule StoreHall.DefaultFilter do
     # :desc_nulls_first
   ]
 
-  @accepted_fields [:id, :inserted_at, :updated_at, :name, :first_name, :last_name]
+  @accepted_fields [:id, :inserted_at, :updated_at, :name]
   @accepted_sorting %{
     "price desc" => "price:desc",
     "price asc" => "price:asc",

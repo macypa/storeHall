@@ -9,8 +9,7 @@ defmodule StoreHall.Users.User do
            only: [
              :id,
              :email,
-             :first_name,
-             :last_name,
+             :name,
              :image,
              :details,
              :inserted_at,
@@ -18,8 +17,7 @@ defmodule StoreHall.Users.User do
            ]}
   schema "users" do
     field :email, :string, unique: true
-    field :first_name, :string
-    field :last_name, :string
+    field :name, :string
     field :image, :string, default: ""
     field :provider, :string
 
@@ -52,8 +50,8 @@ defmodule StoreHall.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :email, :image, :provider, :details])
-    |> validate_required([:first_name, :email, :provider, :details])
+    |> cast(attrs, [:name, :email, :image, :provider, :details])
+    |> validate_required([:name, :email, :provider, :details])
     |> unique_constraint(:email)
     |> StoreHall.Images.validate_images(:details)
   end

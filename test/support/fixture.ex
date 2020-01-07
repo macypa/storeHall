@@ -13,16 +13,16 @@ defmodule StoreHall.Fixture do
   @item_comments_count 100
 
   def ueberauth_generator() do
-    ExUnitProperties.gen all token <- StreamData.string(:alphanumeric),
-                             first_name <- StreamData.string(:alphanumeric),
-                             last_name <- StreamData.string(:alphanumeric),
-                             email <- StreamData.string(:alphanumeric) do
+    ExUnitProperties.gen all(
+                           token <- StreamData.string(:alphanumeric),
+                           name <- StreamData.string(:alphanumeric),
+                           email <- StreamData.string(:alphanumeric)
+                         ) do
       %{
         credentials: %{token: token},
         info: %{
           email: "#{email}@gmail.com",
-          first_name: "test_#{first_name}",
-          last_name: last_name,
+          name: "test_#{name}",
           image: ""
         },
         provider: :google
@@ -35,16 +35,17 @@ defmodule StoreHall.Fixture do
   end
 
   def user_generator(fun \\ &Repo.insert/1) do
-    ExUnitProperties.gen all seed <- StreamData.string(:alphanumeric),
-                             seed not in Enum.map(Repo.all(User), fn u -> u.id end),
-                             seed != "" do
+    ExUnitProperties.gen all(
+                           seed <- StreamData.string(:alphanumeric),
+                           seed not in Enum.map(Repo.all(User), fn u -> u.id end),
+                           seed != ""
+                         ) do
       {:ok, user} =
         fun.(
           User.changeset(%User{id: seed}, %{
             email: seed,
             image: "",
-            first_name: seed,
-            last_name: seed,
+            name: seed,
             provider: seed
           })
         )
@@ -81,25 +82,27 @@ defmodule StoreHall.Fixture do
         user -> user
       end
 
-    ExUnitProperties.gen all name <- StreamData.string(:alphanumeric),
-                             # name not in Enum.map(
-                             #   Repo.all(Item |> where(user_id: ^user.id)),
-                             #   fn item -> item.name end
-                             # ),
-                             name != "",
-                             tags <-
-                               StreamData.uniq_list_of(
-                                 StreamData.string(:alphanumeric, max_length: 5),
-                                 max_length: 5
-                               ),
-                             images <-
-                               StreamData.uniq_list_of(
-                                 StreamData.string(:alphanumeric, max_length: 5),
-                                 max_length: 5
-                               ),
-                             count <- StreamData.positive_integer(),
-                             score <- StreamData.integer(-1..500),
-                             comments_count <- StreamData.positive_integer() do
+    ExUnitProperties.gen all(
+                           name <- StreamData.string(:alphanumeric),
+                           # name not in Enum.map(
+                           #   Repo.all(Item |> where(user_id: ^user.id)),
+                           #   fn item -> item.name end
+                           # ),
+                           name != "",
+                           tags <-
+                             StreamData.uniq_list_of(
+                               StreamData.string(:alphanumeric, max_length: 5),
+                               max_length: 5
+                             ),
+                           images <-
+                             StreamData.uniq_list_of(
+                               StreamData.string(:alphanumeric, max_length: 5),
+                               max_length: 5
+                             ),
+                           count <- StreamData.positive_integer(),
+                           score <- StreamData.integer(-1..500),
+                           comments_count <- StreamData.positive_integer()
+                         ) do
       %{
         "details" => %{
           "tags" => tags |> Enum.reject(&is_nil/1) |> Enum.reject(fn x -> x == "" end),
@@ -148,7 +151,7 @@ defmodule StoreHall.Fixture do
         item -> item
       end
 
-    ExUnitProperties.gen all body <- StreamData.string(:alphanumeric) do
+    ExUnitProperties.gen all(body <- StreamData.string(:alphanumeric)) do
       {:ok, item_comment} =
         fun.(
           ItemComment.changeset(%ItemComment{}, %{
@@ -188,7 +191,7 @@ defmodule StoreHall.Fixture do
         user -> user
       end
 
-    ExUnitProperties.gen all body <- StreamData.string(:alphanumeric) do
+    ExUnitProperties.gen all(body <- StreamData.string(:alphanumeric)) do
       {:ok, user_comment} =
         fun.(
           UserComment.changeset(%UserComment{}, %{

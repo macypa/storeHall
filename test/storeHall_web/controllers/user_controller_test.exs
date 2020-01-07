@@ -9,8 +9,7 @@ defmodule StoreHallWeb.UserControllerTest do
   @user_attrs %{
     id: "some_id",
     email: "some updated email",
-    first_name: "some updated first_name",
-    last_name: "some updated last_name",
+    name: "some updated name",
     provider: "some updated provider",
     settings: %{
       labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
@@ -19,8 +18,7 @@ defmodule StoreHallWeb.UserControllerTest do
   }
   @invalid_attrs %{
     email: nil,
-    first_name: nil,
-    last_name: nil,
+    name: nil,
     provider: nil,
     settings: %{
       labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
@@ -59,7 +57,7 @@ defmodule StoreHallWeb.UserControllerTest do
           conn,
           Routes.user_path(conn, :show, %User{
             id: "non-existing-user",
-            first_name: @user_attrs["first_name"],
+            name: @user_attrs["name"],
             email: @user_attrs["email"]
           })
         )

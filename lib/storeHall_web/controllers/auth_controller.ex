@@ -9,17 +9,9 @@ defmodule StoreHallWeb.AuthController do
   alias StoreHall.Repo
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    first_name =
-      if auth.info.first_name == nil and auth.info.last_name == nil do
-        auth.info.name
-      else
-        auth.info.first_name
-      end
-
     user_params = %{
       token: auth.credentials.token,
-      first_name: first_name,
-      last_name: auth.info.last_name,
+      name: auth.info.name,
       email: auth.info.email,
       image: auth.info.image,
       provider: to_string(auth.provider)
@@ -79,7 +71,7 @@ defmodule StoreHallWeb.AuthController do
 
   def genId(info) do
     info
-    |> Map.take([:first_name, :last_name])
+    |> Map.take([:name])
     |> Map.values()
     |> Enum.reject(&is_nil/1)
     |> Enum.join("")

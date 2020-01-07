@@ -24,8 +24,7 @@ config :storeHall, :about,
   user_id: "krali.marko",
   user: %{
     token: "",
-    first_name: "Крали Марко",
-    last_name: "",
+    name: "Крали Марко",
     email: "krali.marko@gmail.com",
     image: "/images/logo.png",
     provider: "krali.marko"
@@ -43,8 +42,7 @@ config :ueberauth, Ueberauth,
   providers: [
     google:
       {Ueberauth.Strategy.Google, [default_scope: "email profile", prompt: "select_account"]},
-    facebook:
-      {Ueberauth.Strategy.Facebook, [default_scope: "email,public_profile"]}
+    facebook: {Ueberauth.Strategy.Facebook, [default_scope: "email,public_profile"]}
   ]
 
 config :arc,
