@@ -62,6 +62,12 @@
         </li>
       <% end %>
 
+      <%= link to: Routes.about_path(@conn, :donation) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("Donation") %></span>
+        </li>
+      <% end %>
+
     </ul>
   </div>
 </about>
