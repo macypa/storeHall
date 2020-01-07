@@ -83,3 +83,16 @@ config :storeHall, StoreHall.Repo,
   pool_size: 10
 
 import_config "dev.secret.exs"
+
+# in dev.secret.exs set client_id and client_secret for oath
+# from https://developers.facebook.com/apps/ and https://console.developers.google.com
+#
+# # Configure Google OAuth
+# config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+#   client_id: "",
+#   client_secret: ""
+#
+# # Configure Facebook OAuth
+# config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+#   client_id: "",
+#   client_secret: ""
