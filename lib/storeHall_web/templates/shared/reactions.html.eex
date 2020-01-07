@@ -1,4 +1,4 @@
-<span id="reactions">
+<reactions>
 
   <% reaction = if (@reaction != nil and Map.has_key?(@reaction, :reaction)) do
     @reaction.reaction
@@ -36,4 +36,4 @@
     <count class="reaction_count"><%= @model.wowz_count %></count>
   </span>
 
-</span>
+</reactions>
