@@ -13,7 +13,7 @@ defmodule StoreHall.Items.Item do
 
     field :details, :map,
       default: %{
-        "price" => "",
+        "price" => 0,
         "description" => "",
         "conditions" => "",
         "expiration" => "",
@@ -40,9 +40,23 @@ defmodule StoreHall.Items.Item do
     item
     |> cast(attrs, [:name, :user_id, :details])
     |> validate_required([:name, :user_id, :details])
+    |> validate_required_details(["price"])
     |> validate_length(:name, max: 255)
     |> unique_constraint(:not_unique_name_for_user, name: :unique_name_for_user)
     |> StoreHall.Images.validate_images(:details)
+  end
+
+  def validate_required_details(changeset, details_fields, options \\ []) do
+    details_fields
+    |> Enum.reduce(changeset, fn field, acc ->
+      validate_change(acc, :details, fn _, details ->
+        details[field]
+        |> case do
+          "" -> [{:details, options[:message] || "#{field} can't be empty"}]
+          _ -> []
+        end
+      end)
+    end)
   end
 
   def slug_id(item) do

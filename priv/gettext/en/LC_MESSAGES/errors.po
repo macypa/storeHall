@@ -98,3 +98,6 @@ msgstr ""
 
 msgid "https protocol only"
 msgstr "The protocol http is not accepted in links"
+
+msgid "price can't be empty"
+msgstr ""

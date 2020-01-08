@@ -98,3 +98,6 @@ msgstr "трябва да равно на %{number}"
 
 msgid "https protocol only"
 msgstr "Http протоколът не се приема за линкове."
+
+msgid "price can't be empty"
+msgstr "Цената трябва да е число"

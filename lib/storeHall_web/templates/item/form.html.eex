@@ -23,7 +23,7 @@
     <%= number_input f, :details_price,
             min: 0, step: 1,
             name: input_name(f, :details) <> "[price]",
-            value: input_value(f, :details)["price"] %>
+            value: input_value(f, :details)["price"] || 0 %>
   </div>
 
   <div class="form-group">

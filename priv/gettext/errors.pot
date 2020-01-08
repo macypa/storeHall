@@ -95,3 +95,6 @@ msgstr ""
 
 msgid "https protocol only"
 msgstr ""
+
+msgid "price can't be empty"
+msgstr ""
