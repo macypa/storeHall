@@ -5,13 +5,13 @@ for (let sliderSections of sliderSections) {
   var sliders = sliderSections.getElementsByTagName("input");
   var displayElement = sliderSections.getElementsByClassName("rangeValues")[0];
 
-    const myHandler = (event) => setVals(event);
-    const dHandler = debounced(200, myHandler);
+  const myHandler = (event) => setVals(event);
+  const dHandler = debounced(200, myHandler);
   displayElement.getElementsByClassName("min")[0].oninput = dHandler;
   displayElement.getElementsByClassName("max")[0].oninput = dHandler;
 
-  for( var y = 0; y < sliders.length; y++ ){
-    if( sliders[y].type ==="range" ){
+  for (var y = 0; y < sliders.length; y++) {
+    if (sliders[y].type === "range") {
       sliders[y].removeAttribute("name");
       sliders[y].oninput = getVals;
     }
@@ -32,25 +32,25 @@ function setVals(e) {
   trigger_event(parent);
 }
 
-function trigger_event(parent){
+function trigger_event(parent) {
   //need to trigger for only one of the inputs
   $(parent.getElementsByClassName("min-slider")[0]).trigger('change')
 }
 
-function getVals(){
+function getVals() {
   // Get slider values
   var parent = this.parentNode;
   var slides = parent.getElementsByTagName("input");
   var slides_min = slides[0].getAttribute("min") || 0;
   var slides_max = slides[0].getAttribute("max") || 100;
-  var slide1 = parseFloat( slides[0].value );
-  var slide2 = parseFloat( slides[1].value );
+  var slide1 = parseFloat(slides[0].value);
+  var slide2 = parseFloat(slides[1].value);
 
   var slides1_name = slides[0].name;
   var slides2_name = slides[1].name;
 
   // Neither slider will clip the other, so make sure we determine which is larger
-  if ( slide1 > slide2 ) {
+  if (slide1 > slide2) {
     var tmp = slide2;
     slide2 = slide1;
     slide1 = tmp;

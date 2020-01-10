@@ -1,16 +1,16 @@
 
-window.add_reaction_events = function() {
-  add_events("[reaction-topic]", "click", function() {
+window.add_reaction_events = function () {
+  add_events("[reaction-topic]", "click", function () {
     channel_user.push(this.getAttribute("reaction-topic"), { data: this.getAttribute("data") })
   });
 };
 add_reaction_events();
 
-window.reaction_persisted_event = function(payload) {
+window.reaction_persisted_event = function (payload) {
 
-  $("[data='" + payload.data + "']").each(function() {
+  $("[data='" + payload.data + "']").each(function () {
     var klass = $(this).attr("class");
-    if (klass.includes(payload.reaction+"z_icon")) {
+    if (klass.includes(payload.reaction + "z_icon")) {
       return;
     }
 

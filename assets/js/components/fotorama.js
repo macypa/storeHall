@@ -2,38 +2,38 @@
  * Fotorama 4.6.4 | http://fotorama.io/license/
  */
 fotoramaVersion = "4.6.4",
-    function(a, b, c, d, e) {
+    function (a, b, c, d, e) {
         "use strict";
 
         function f(a) {
             var b = "bez_" + d.makeArray(arguments).join("_").replace(".", "p");
             if ("function" != typeof d.easing[b]) {
-                var c = function(a, b) {
+                var c = function (a, b) {
                     var c = [null, null],
                         d = [null, null],
                         e = [null, null],
-                        f = function(f, g) {
+                        f = function (f, g) {
                             return e[g] = 3 * a[g], d[g] = 3 * (b[g] - a[g]) - e[g], c[g] = 1 - e[g] - d[g], f * (e[g] + f * (d[g] + f * c[g]))
                         },
-                        g = function(a) {
+                        g = function (a) {
                             return e[0] + a * (2 * d[0] + 3 * c[0] * a)
                         },
-                        h = function(a) {
+                        h = function (a) {
                             for (var b, c = a, d = 0; ++d < 14 && (b = f(c, 0) - a, !(Math.abs(b) < .001));) c -= b / g(c);
                             return c
                         };
-                    return function(a) {
+                    return function (a) {
                         return f(h(a), 1)
                     }
                 };
-                d.easing[b] = function(b, d, e, f, g) {
+                d.easing[b] = function (b, d, e, f, g) {
                     return f * c([a[0], a[1]], [a[2], a[3]])(d / g) + e
                 }
             }
             return b
         }
 
-        function g() {}
+        function g() { }
 
         function h(a, b, c) {
             return Math.max(isNaN(b) ? -1 / 0 : b, Math.min(isNaN(c) ? 1 / 0 : c, a))
@@ -97,7 +97,7 @@ fotoramaVersion = "4.6.4",
                         msTransition: "MSTransitionEnd",
                         transition: "transitionend"
                     };
-                T(c, d[uc.prefixed("transition")], function(a) {
+                T(c, d[uc.prefixed("transition")], function (a) {
                     b.tProp && a.propertyName.match(b.tProp) && b.onEndFn()
                 }), b.tEnd = !0
             }
@@ -105,9 +105,9 @@ fotoramaVersion = "4.6.4",
 
         function u(a, b, c, d) {
             var e, f = a.data();
-            f && (f.onEndFn = function() {
+            f && (f.onEndFn = function () {
                 e || (e = !0, clearTimeout(f.tT), c())
-            }, f.tProp = b, clearTimeout(f.tT), f.tT = setTimeout(function() {
+            }, f.tProp = b, clearTimeout(f.tT), f.tT = setTimeout(function () {
                 f.onEndFn()
             }, 1.5 * d), t(a))
         }
@@ -116,7 +116,7 @@ fotoramaVersion = "4.6.4",
             if (a.length) {
                 var c = a.data();
                 Ic ? (a.css(l(0)), c.onEndFn = g, clearTimeout(c.tT)) : a.stop();
-                var d = w(b, function() {
+                var d = w(b, function () {
                     return j(a)
                 });
                 return a.css(k(d)), d
@@ -163,7 +163,7 @@ fotoramaVersion = "4.6.4",
             return "youtube" === g.type ? (f = y() + "img.youtube.com/vi/" + g.id + "/default.jpg", e = f.replace(/\/default.jpg$/, "/hqdefault.jpg"), a.thumbsReady = !0) : "vimeo" === g.type ? d.ajax({
                 url: y() + "vimeo.com/api/v2/video/" + g.id + ".json",
                 dataType: "jsonp",
-                success: function(d) {
+                success: function (d) {
                     a.thumbsReady = !0, C(b, {
                         img: d[0].thumbnail_large,
                         thumb: d[0].thumbnail_small
@@ -214,7 +214,7 @@ fotoramaVersion = "4.6.4",
                 })
             }
             var e = [];
-            return a.children().each(function() {
+            return a.children().each(function () {
                 var a = d(this),
                     f = R(d.extend(a.data(), {
                         id: a.attr("id")
@@ -240,7 +240,7 @@ fotoramaVersion = "4.6.4",
         }
 
         function G(a, b, c, d) {
-            return G.i || (G.i = 1, G.ii = [!0]), d = d || G.i, "undefined" == typeof G.ii[d] && (G.ii[d] = !0), a() ? b() : G.ii[d] && setTimeout(function() {
+            return G.i || (G.i = 1, G.ii = [!0]), d = d || G.i, "undefined" == typeof G.ii[d] && (G.ii[d] = !0), a() ? b() : G.ii[d] && setTimeout(function () {
                 G.ii[d] && G(a, b, c, d)
             }, c || 100), G.i++
         }
@@ -302,16 +302,16 @@ fotoramaVersion = "4.6.4",
         }
 
         function M(a, b, c) {
-            c = c || {}, a.each(function() {
+            c = c || {}, a.each(function () {
                 var a, e = d(this),
                     f = e.data();
                 f.clickOn || (f.clickOn = !0, d.extend(cb(e, {
-                    onStart: function(b) {
+                    onStart: function (b) {
                         a = b, (c.onStart || g).call(this, b)
                     },
                     onMove: c.onMove || g,
                     onTouchEnd: c.onTouchEnd || g,
-                    onEnd: function(c) {
+                    onEnd: function (c) {
                         c.moved || b.call(this, a)
                     }
                 }), {
@@ -334,7 +334,7 @@ fotoramaVersion = "4.6.4",
         }
 
         function P(a) {
-            return "[object Array]" == Object.prototype.toString.call(a) && d.map(a, function(a) {
+            return "[object Array]" == Object.prototype.toString.call(a) && d.map(a, function (a) {
                 return d.extend({}, a)
             })
         }
@@ -346,7 +346,7 @@ fotoramaVersion = "4.6.4",
         function R(a) {
             if (a) {
                 var b = {};
-                return d.each(a, function(a, c) {
+                return d.each(a, function (a, c) {
                     b[a.toLowerCase()] = c
                 }), b
             }
@@ -375,13 +375,13 @@ fotoramaVersion = "4.6.4",
         }
 
         function W(a, b) {
-            T(a, "keyup", function(c) {
+            T(a, "keyup", function (c) {
                 U(a) || 13 == c.keyCode && b.call(a, c)
             })
         }
 
         function X(a, b) {
-            T(a, "focus", a.onfocusin = function(c) {
+            T(a, "focus", a.onfocusin = function (c) {
                 b.call(a, c)
             }, !0)
         }
@@ -404,10 +404,10 @@ fotoramaVersion = "4.6.4",
         function _(a, b) {
             var c = a.data(),
                 e = Math.round(b.pos),
-                f = function() {
+                f = function () {
                     c.sliding = !1, (b.onEnd || g)()
                 };
-            "undefined" != typeof b.overPos && b.overPos !== b.pos && (e = b.overPos, f = function() {
+            "undefined" != typeof b.overPos && b.overPos !== b.pos && (e = b.overPos, f = function () {
                 _(a, d.extend({}, b, {
                     overPos: b.pos,
                     time: Math.max(Qc, b.time / 2)
@@ -426,7 +426,7 @@ fotoramaVersion = "4.6.4",
                 var j = a[0],
                     k = b[0],
                     l = "crossfade" === e.method,
-                    m = function() {
+                    m = function () {
                         if (!m.done) {
                             m.done = !0;
                             var a = (i || f.shift()) && f.shift();
@@ -448,11 +448,11 @@ fotoramaVersion = "4.6.4",
                 return m = d(a.target), u.checked = p = q = s = !1, k || u.flow || a.touches && a.touches.length > 1 || a.which > 1 || ed && ed.type !== a.type && gd || (p = c.select && m.is(c.select, t)) ? p : (o = "touchstart" === a.type, q = m.is("a, a *", t), n = u.control, r = u.noMove || u.noSwipe || n ? 16 : u.snap ? 0 : 4, bb(a), l = ed = a, fd = a.type.replace(/down|start/, "move").replace(/Down/, "Move"), (c.onStart || g).call(t, a, {
                     control: n,
                     $target: m
-                }), k = u.flow = !0, void((!o || u.go) && Y(a)))
+                }), k = u.flow = !0, void ((!o || u.go) && Y(a)))
             }
 
             function f(a) {
-                if (a.touches && a.touches.length > 1 || Nc && !a.isPrimary || fd !== a.type || !k) return k && h(), void(c.onTouchEnd || g)();
+                if (a.touches && a.touches.length > 1 || Nc && !a.isPrimary || fd !== a.type || !k) return k && h(), void (c.onTouchEnd || g)();
                 bb(a);
                 var b = Math.abs(a._x - l._x),
                     d = Math.abs(a._y - l._y),
@@ -467,7 +467,7 @@ fotoramaVersion = "4.6.4",
             function h(a) {
                 (c.onTouchEnd || g)();
                 var b = k;
-                u.control = k = !1, b && (u.flow = !1), !b || q && !u.checked || (a && Y(a), gd = !0, clearTimeout(hd), hd = setTimeout(function() {
+                u.control = k = !1, b && (u.flow = !1), !b || q && !u.checked || (a && Y(a), gd = !0, clearTimeout(hd), hd = setTimeout(function () {
                     gd = !1
                 }, 1e3), (c.onEnd || g).call(t, {
                     moved: s,
@@ -480,19 +480,19 @@ fotoramaVersion = "4.6.4",
             }
 
             function i() {
-                u.flow || setTimeout(function() {
+                u.flow || setTimeout(function () {
                     u.flow = !0
                 }, 10)
             }
 
             function j() {
-                u.flow && setTimeout(function() {
+                u.flow && setTimeout(function () {
                     u.flow = !1
                 }, Pc)
             }
             var k, l, m, n, o, p, q, r, s, t = a[0],
                 u = {};
-            return Nc ? (T(t, "MSPointerDown", e), T(b, "MSPointerMove", f), T(b, "MSPointerCancel", h), T(b, "MSPointerUp", h)) : (T(t, "touchstart", e), T(t, "touchmove", f), T(t, "touchend", h), T(b, "touchstart", i), T(b, "touchend", j), T(b, "touchcancel", j), Ec.on("scroll", j), a.on("mousedown", e), Fc.on("mousemove", f).on("mouseup", h)), a.on("click", "a", function(a) {
+            return Nc ? (T(t, "MSPointerDown", e), T(b, "MSPointerMove", f), T(b, "MSPointerCancel", h), T(b, "MSPointerUp", h)) : (T(t, "touchstart", e), T(t, "touchmove", f), T(t, "touchend", h), T(b, "touchstart", i), T(b, "touchend", j), T(b, "touchcancel", j), Ec.on("scroll", j), a.on("mousedown", e), Fc.on("mousemove", f).on("mouseup", h)), a.on("click", "a", function (a) {
                 u.checked && Y(a)
             }), u
         }
@@ -553,7 +553,7 @@ fotoramaVersion = "4.6.4",
                 i = {
                     prevent: {}
                 };
-            return T(h, Oc, function(a) {
+            return T(h, Oc, function (a) {
                 var h = a.wheelDeltaY || -1 * a.deltaY || 0,
                     j = a.wheelDeltaX || -1 * a.deltaX || 0,
                     k = Math.abs(j) && !Math.abs(h),
@@ -561,14 +561,14 @@ fotoramaVersion = "4.6.4",
                     m = e === l,
                     n = d.now(),
                     o = Pc > n - f;
-                e = l, f = n, k && i.ok && (!i.prevent[l] || c) && (Y(a, !0), c && m && o || (b.shift && (c = !0, clearTimeout(i.t), i.t = setTimeout(function() {
+                e = l, f = n, k && i.ok && (!i.prevent[l] || c) && (Y(a, !0), c && m && o || (b.shift && (c = !0, clearTimeout(i.t), i.t = setTimeout(function () {
                     c = !1
                 }, Rc)), (b.onEnd || g)(a, b.shift ? l : j)))
             }), i
         }
 
         function fb() {
-            d.each(d.Fotorama.instances, function(a, b) {
+            d.each(d.Fotorama.instances, function (a, b) {
                 b.index = a
             })
         }
@@ -647,7 +647,7 @@ fotoramaVersion = "4.6.4",
             sc = d && d.fn.jquery.split(".");
         if (!sc || sc[0] < 1 || 1 == sc[0] && sc[1] < 8) throw "Fotorama requires jQuery 1.8 or later and will not run without it.";
         var tc = {},
-            uc = function(a, b, c) {
+            uc = function (a, b, c) {
                 function d(a) {
                     r.cssText = a
                 }
@@ -694,7 +694,7 @@ fotoramaVersion = "4.6.4",
                     w = {},
                     x = [],
                     y = x.slice,
-                    z = function(a, c, d, e) {
+                    z = function (a, c, d, e) {
                         var f, g, h, i, j = b.createElement("div"),
                             k = b.body,
                             l = k || b.createElement("body");
@@ -703,17 +703,17 @@ fotoramaVersion = "4.6.4",
                         return f = ["&#173;", '<style id="s', p, '">', a, "</style>"].join(""), j.id = p, (k ? j : l).innerHTML += f, l.appendChild(j), k || (l.style.background = "", l.style.overflow = "hidden", i = o.style.overflow, o.style.overflow = "hidden", o.appendChild(l)), g = c(j, a), k ? j.parentNode.removeChild(j) : (l.parentNode.removeChild(l), o.style.overflow = i), !!g
                     },
                     A = {}.hasOwnProperty;
-                l = e(A, "undefined") || e(A.call, "undefined") ? function(a, b) {
+                l = e(A, "undefined") || e(A.call, "undefined") ? function (a, b) {
                     return b in a && e(a.constructor.prototype[b], "undefined")
-                } : function(a, b) {
+                } : function (a, b) {
                     return A.call(a, b)
-                }, Function.prototype.bind || (Function.prototype.bind = function(a) {
+                }, Function.prototype.bind || (Function.prototype.bind = function (a) {
                     var b = this;
                     if ("function" != typeof b) throw new TypeError;
                     var c = y.call(arguments, 1),
-                        d = function() {
+                        d = function () {
                             if (this instanceof d) {
-                                var e = function() {};
+                                var e = function () { };
                                 e.prototype = b.prototype;
                                 var f = new e,
                                     g = b.apply(f, c.concat(y.call(arguments)));
@@ -722,12 +722,12 @@ fotoramaVersion = "4.6.4",
                             return b.apply(a, c.concat(y.call(arguments)))
                         };
                     return d
-                }), w.csstransforms3d = function() {
+                }), w.csstransforms3d = function () {
                     var a = !!i("perspective");
                     return a
                 };
                 for (var B in w) l(w, B) && (k = B.toLowerCase(), n[k] = w[B](), x.push((n[k] ? "" : "no-") + k));
-                return n.addTest = function(a, b) {
+                return n.addTest = function (a, b) {
                     if ("object" == typeof a)
                         for (var d in a) l(a, d) && n.addTest(d, a[d]);
                     else {
@@ -735,19 +735,19 @@ fotoramaVersion = "4.6.4",
                         b = "function" == typeof b ? b() : b, "undefined" != typeof enableClasses && enableClasses && (o.className += " " + (b ? "" : "no-") + a), n[a] = b
                     }
                     return n
-                }, d(""), q = j = null, n._version = m, n._prefixes = s, n._domPrefixes = v, n._cssomPrefixes = u, n.testProp = function(a) {
+                }, d(""), q = j = null, n._version = m, n._prefixes = s, n._domPrefixes = v, n._cssomPrefixes = u, n.testProp = function (a) {
                     return g([a])
-                }, n.testAllProps = i, n.testStyles = z, n.prefixed = function(a, b, c) {
+                }, n.testAllProps = i, n.testStyles = z, n.prefixed = function (a, b, c) {
                     return b ? i(a, b, c) : i(a, "pfx")
                 }, n
             }(a, b),
             vc = {
                 ok: !1,
-                is: function() {
+                is: function () {
                     return !1
                 },
-                request: function() {},
-                cancel: function() {},
+                request: function () { },
+                cancel: function () { },
                 event: "",
                 prefix: ""
             },
@@ -758,38 +758,38 @@ fotoramaVersion = "4.6.4",
                 if (vc.prefix = wc[xc], "undefined" != typeof b[vc.prefix + "CancelFullScreen"]) {
                     vc.ok = !0;
                     break
-                } vc.ok && (vc.event = vc.prefix + "fullscreenchange", vc.is = function() {
-            switch (this.prefix) {
-                case "":
-                    return b.fullScreen;
-                case "webkit":
-                    return b.webkitIsFullScreen;
-                default:
-                    return b[this.prefix + "FullScreen"]
-            }
-        }, vc.request = function(a) {
-            return "" === this.prefix ? a.requestFullScreen() : a[this.prefix + "RequestFullScreen"]()
-        }, vc.cancel = function() {
-            return "" === this.prefix ? b.cancelFullScreen() : b[this.prefix + "CancelFullScreen"]()
-        });
+                } vc.ok && (vc.event = vc.prefix + "fullscreenchange", vc.is = function () {
+                    switch (this.prefix) {
+                        case "":
+                            return b.fullScreen;
+                        case "webkit":
+                            return b.webkitIsFullScreen;
+                        default:
+                            return b[this.prefix + "FullScreen"]
+                    }
+                }, vc.request = function (a) {
+                    return "" === this.prefix ? a.requestFullScreen() : a[this.prefix + "RequestFullScreen"]()
+                }, vc.cancel = function () {
+                    return "" === this.prefix ? b.cancelFullScreen() : b[this.prefix + "CancelFullScreen"]()
+                });
         var zc, Ac = {
-                lines: 12,
-                length: 5,
-                width: 2,
-                radius: 7,
-                corners: 1,
-                rotate: 15,
-                color: "rgba(128, 128, 128, .75)",
-                hwaccel: !0
-            },
+            lines: 12,
+            length: 5,
+            width: 2,
+            radius: 7,
+            corners: 1,
+            rotate: 15,
+            color: "rgba(128, 128, 128, .75)",
+            hwaccel: !0
+        },
             Bc = {
                 top: "auto",
                 left: "auto",
                 className: ""
             };
-        ! function(a, b) {
+        ! function (a, b) {
             zc = b()
-        }(this, function() {
+        }(this, function () {
             function a(a, c) {
                 var d, e = b.createElement(a || "div");
                 for (d in c) e[d] = c[d];
@@ -832,9 +832,9 @@ fotoramaVersion = "4.6.4",
 
             function i(a) {
                 for (var b = {
-                        x: a.offsetLeft,
-                        y: a.offsetTop
-                    }; a = a.offsetParent;) b.x += a.offsetLeft, b.y += a.offsetTop;
+                    x: a.offsetLeft,
+                    y: a.offsetTop
+                }; a = a.offsetParent;) b.x += a.offsetLeft, b.y += a.offsetTop;
                 return b
             }
 
@@ -843,14 +843,14 @@ fotoramaVersion = "4.6.4",
             }
 
             function k(a) {
-                return "undefined" == typeof this ? new k(a) : void(this.opts = h(a || {}, k.defaults, q))
+                return "undefined" == typeof this ? new k(a) : void (this.opts = h(a || {}, k.defaults, q))
             }
 
             function l() {
                 function b(b, c) {
                     return a("<" + b + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', c)
                 }
-                p.addRule(".spin-vml", "behavior:url(#default#VML)"), k.prototype.lines = function(a, d) {
+                p.addRule(".spin-vml", "behavior:url(#default#VML)"), k.prototype.lines = function (a, d) {
                     function e() {
                         return g(b("group", {
                             coordsize: k + " " + k,
@@ -892,14 +892,14 @@ fotoramaVersion = "4.6.4",
                         for (h = 1; h <= d.lines; h++) f(h, -2, "progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");
                     for (h = 1; h <= d.lines; h++) f(h);
                     return c(a, m)
-                }, k.prototype.opacity = function(a, b, c, d) {
+                }, k.prototype.opacity = function (a, b, c, d) {
                     var e = a.firstChild;
                     d = d.shadow && d.lines || 0, e && b + d < e.childNodes.length && (e = e.childNodes[b + d], e = e && e.firstChild, e = e && e.firstChild, e && (e.opacity = c))
                 }
             }
             var m, n = ["webkit", "Moz", "ms", "O"],
                 o = {},
-                p = function() {
+                p = function () {
                     var d = a("style", {
                         type: "text/css"
                     });
@@ -925,7 +925,7 @@ fotoramaVersion = "4.6.4",
                     position: "relative"
                 };
             k.defaults = {}, h(k.prototype, {
-                spin: function(b) {
+                spin: function (b) {
                     this.stop();
                     var c, d, e = this,
                         f = e.opts,
@@ -938,9 +938,9 @@ fotoramaVersion = "4.6.4",
                         }),
                         j = f.radius + f.length + f.width;
                     if (b && (b.insertBefore(h, b.firstChild || null), d = i(b), c = i(h), g(h, {
-                            left: ("auto" == f.left ? d.x - c.x + (b.offsetWidth >> 1) : parseInt(f.left, 10) + j) + "px",
-                            top: ("auto" == f.top ? d.y - c.y + (b.offsetHeight >> 1) : parseInt(f.top, 10) + j) + "px"
-                        })), h.setAttribute("role", "progressbar"), e.lines(h, e.opts), !m) {
+                        left: ("auto" == f.left ? d.x - c.x + (b.offsetWidth >> 1) : parseInt(f.left, 10) + j) + "px",
+                        top: ("auto" == f.top ? d.y - c.y + (b.offsetHeight >> 1) : parseInt(f.top, 10) + j) + "px"
+                    })), h.setAttribute("role", "progressbar"), e.lines(h, e.opts), !m) {
                         var k, l = 0,
                             n = (f.lines - 1) * (1 - f.direction) / 2,
                             o = f.fps,
@@ -955,11 +955,11 @@ fotoramaVersion = "4.6.4",
                     }
                     return e
                 },
-                stop: function() {
+                stop: function () {
                     var a = this.el;
                     return a && (clearTimeout(this.timeout), a.parentNode && a.parentNode.removeChild(a), this.el = e), this
                 },
-                lines: function(b, e) {
+                lines: function (b, e) {
                     function f(b, c) {
                         return g(a(), {
                             position: "absolute",
@@ -983,7 +983,7 @@ fotoramaVersion = "4.6.4",
                     })), c(b, c(h, f(j(e.color, i), "0 0 1px rgba(0,0,0,.1)")));
                     return b
                 },
-                opacity: function(a, b, c) {
+                opacity: function (a, b, c) {
                     b < a.childNodes.length && (a.childNodes[b].style.opacity = c)
                 }
             });
@@ -1070,13 +1070,13 @@ fotoramaVersion = "4.6.4",
                 home: !1,
                 end: !1
             };
-        G.stop = function(a) {
+        G.stop = function (a) {
             G.ii[a] = !1
         };
         var ed, fd, gd, hd;
-        jQuery.Fotorama = function(a, e) {
+        jQuery.Fotorama = function (a, e) {
             function f() {
-                d.each(yd, function(a, b) {
+                d.each(yd, function (a, b) {
                     if (!b.i) {
                         b.i = me++;
                         var c = A(b.video, !0);
@@ -1100,14 +1100,14 @@ fotoramaVersion = "4.6.4",
                     c = ib + je,
                     d = "keydown." + c,
                     f = "resize." + c + " orientationchange." + c;
-                a ? (Fc.on(d, function(a) {
+                a ? (Fc.on(d, function (a) {
                     var b, c;
                     Cd && 27 === a.keyCode ? (b = !0, md(Cd, !0, !0)) : (ie.fullScreen || e.keyboard && !ie.index) && (27 === a.keyCode ? (b = !0, ie.cancelFullScreen()) : a.shiftKey && 32 === a.keyCode && g("space") || 37 === a.keyCode && g("left") || 38 === a.keyCode && g("up") ? c = "<" : 32 === a.keyCode && g("space") || 39 === a.keyCode && g("right") || 40 === a.keyCode && g("down") ? c = ">" : 36 === a.keyCode && g("home") ? c = "<<" : 35 === a.keyCode && g("end") && (c = ">>")), (b || c) && Y(a), c && ie.show({
                         index: c,
                         slow: a.altKey,
                         user: !0
                     })
-                }), ie.index || Fc.off(b).on(b, "textarea, input, select", function(a) {
+                }), ie.index || Fc.off(b).on(b, "textarea, input, select", function (a) {
                     !Dc.hasClass(jb) && a.stopPropagation()
                 }), Ec.on(f, ie.resize)) : (Fc.off(d), Ec.off(f))
             }
@@ -1183,7 +1183,7 @@ fotoramaVersion = "4.6.4",
                     a = new Array(a);
                     var e = !0
                 }
-                return d.each(a, function(a, d) {
+                return d.each(a, function (a, d) {
                     if (e && (d = a), "number" == typeof d) {
                         var f = yd[x(d)];
                         if (f) {
@@ -1203,7 +1203,7 @@ fotoramaVersion = "4.6.4",
             }
 
             function Pb(a, b, c, f, g, h) {
-                cb(a, b, function(a, i, j, k, l, m) {
+                cb(a, b, function (a, i, j, k, l, m) {
                     function n(a) {
                         var b = x(i);
                         fd(a, {
@@ -1222,16 +1222,16 @@ fotoramaVersion = "4.6.4",
                             width: s.width,
                             height: s.height,
                             ratio: s.width / s.height
-                        }, fb(u.measures.width, u.measures.height, u.measures.ratio, i), t.off("load error").addClass(fc + (r ? " " + gc : "")).prependTo(k), I(t, (d.isFunction(c) ? c() : c) || Le, f || j.fit || e.fit, g || j.position || e.position), d.Fotorama.cache[w] = m.state = "loaded", setTimeout(function() {
+                        }, fb(u.measures.width, u.measures.height, u.measures.ratio, i), t.off("load error").addClass(fc + (r ? " " + gc : "")).prependTo(k), I(t, (d.isFunction(c) ? c() : c) || Le, f || j.fit || e.fit, g || j.position || e.position), d.Fotorama.cache[w] = m.state = "loaded", setTimeout(function () {
                             k.trigger("f:load").removeClass(ac + " " + _b).addClass(bc + " " + (r ? cc : dc)), "stage" === b ? n("load") : (j.thumbratio === $c || !j.thumbratio && e.thumbratio === $c) && (j.thumbratio = u.measures.ratio, vd())
                         }, 0)
                     }
 
                     function q() {
                         var a = 10;
-                        G(function() {
+                        G(function () {
                             return !fe || !a-- && !Mc
-                        }, function() {
+                        }, function () {
                             p()
                         })
                     }
@@ -1264,14 +1264,14 @@ fotoramaVersion = "4.6.4",
 
             function Sb() {
                 var a = Dd[Xc];
-                a && !a.data().state && (Qb(a), a.on("f:load f:error", function() {
+                a && !a.data().state && (Qb(a), a.on("f:load f:error", function () {
                     a.off("f:load f:error"), Rb()
                 }))
             }
 
             function ec(a) {
-                W(a, sd), X(a, function() {
-                    setTimeout(function() {
+                W(a, sd), X(a, function () {
+                    setTimeout(function () {
                         Q(ye)
                     }, 0), Rc({
                         time: Vd,
@@ -1282,12 +1282,12 @@ fotoramaVersion = "4.6.4",
             }
 
             function lc(a, b) {
-                cb(a, b, function(a, c, e, f, g, h) {
+                cb(a, b, function (a, c, e, f, g, h) {
                     if (!f) {
                         f = e[g] = qe[g].clone(), h = f.data(), h.data = e;
                         var i = f[0];
-                        "stage" === b ? (e.html && d('<div class="' + kc + '"></div>').append(e._html ? d(e.html).removeAttr("id").html(e._html) : e.html).appendTo(f), e.caption && d(N(oc, N(pc, e.caption))).appendTo(f), e.video && f.addClass(zb).append(Fe.clone()), X(i, function() {
-                            setTimeout(function() {
+                        "stage" === b ? (e.html && d('<div class="' + kc + '"></div>').append(e._html ? d(e.html).removeAttr("id").html(e._html) : e.html).appendTo(f), e.caption && d(N(oc, N(pc, e.caption))).appendTo(f), e.video && f.addClass(zb).append(Fe.clone()), X(i, function () {
+                            setTimeout(function () {
                                 Q(re)
                             }, 0), pd({
                                 index: h.eq,
@@ -1303,7 +1303,7 @@ fotoramaVersion = "4.6.4",
             }
 
             function tc(a) {
-                cb(a, "stage", function(a, b, c, f, g, h) {
+                cb(a, "stage", function (a, b, c, f, g, h) {
                     if (f) {
                         var i = x(b),
                             j = c.fit || e.fit,
@@ -1319,11 +1319,11 @@ fotoramaVersion = "4.6.4",
                 if ("thumbs" === Nd && !isNaN(a)) {
                     var c = -a,
                         f = -a + Le.nw;
-                    Be.each(function() {
+                    Be.each(function () {
                         var a = d(this),
                             g = a.data(),
                             h = g.eq,
-                            i = function() {
+                            i = function () {
                                 return {
                                     h: Ud,
                                     w: g.w
@@ -1342,15 +1342,15 @@ fotoramaVersion = "4.6.4",
                 if (!wc[c]) {
                     var f = "nav" === c && Od,
                         g = 0;
-                    b.append(a.filter(function() {
+                    b.append(a.filter(function () {
                         for (var a, b = d(this), c = b.data(), e = 0, f = yd.length; f > e; e++)
                             if (c.data === yd[e]) {
                                 a = !0, c.eq = e;
                                 break
                             } return a || b.remove() && !1
-                    }).sort(function(a, b) {
+                    }).sort(function (a, b) {
                         return d(a).data().eq - d(b).data().eq
-                    }).each(function() {
+                    }).each(function () {
                         if (f) {
                             var a = d(this),
                                 b = a.data(),
@@ -1413,7 +1413,7 @@ fotoramaVersion = "4.6.4",
                     _(ze, {
                         time: g,
                         pos: f || 0,
-                        onEnd: function() {
+                        onEnd: function () {
                             uc(f, !0)
                         }
                     }), ld(ye, K(f, Oe.min, Oe.max)), Rc.l = e
@@ -1430,9 +1430,9 @@ fotoramaVersion = "4.6.4",
 
             function bd(a) {
                 var b = Re[a];
-                d.each(Ed, function(a, c) {
+                d.each(Ed, function (a, c) {
                     delete b[x(c)]
-                }), d.each(b, function(a, c) {
+                }), d.each(b, function (a, c) {
                     delete b[a], c.detach()
                 })
             }
@@ -1444,7 +1444,7 @@ fotoramaVersion = "4.6.4",
             }
 
             function ed(a, b) {
-                a && d.each(b, function(b, c) {
+                a && d.each(b, function (b, c) {
                     c && d.extend(c, {
                         width: a.width || c.width,
                         height: a.height,
@@ -1466,7 +1466,7 @@ fotoramaVersion = "4.6.4",
             }
 
             function hd() {
-                fe && (e.stopautoplayontouch || (id(), jd()), hd.t = setTimeout(function() {
+                fe && (e.stopautoplayontouch || (id(), jd()), hd.t = setTimeout(function () {
                     fe = 0
                 }, Qc + Pc))
             }
@@ -1476,20 +1476,20 @@ fotoramaVersion = "4.6.4",
             }
 
             function jd() {
-                if (clearTimeout(jd.t), G.stop(jd.w), !e.autoplay || ce) return void(ie.autoplay && (ie.autoplay = !1, fd("stopautoplay")));
+                if (clearTimeout(jd.t), G.stop(jd.w), !e.autoplay || ce) return void (ie.autoplay && (ie.autoplay = !1, fd("stopautoplay")));
                 ie.autoplay || (ie.autoplay = !0, fd("startautoplay"));
                 var a = Je,
                     b = Dd[Xc].data();
-                jd.w = G(function() {
+                jd.w = G(function () {
                     return b.state || a !== Je
-                }, function() {
-                    jd.t = setTimeout(function() {
+                }, function () {
+                    jd.t = setTimeout(function () {
                         if (!ce && a === Je) {
                             var b = Kd,
                                 c = yd[b][Xc].data();
-                            jd.w = G(function() {
+                            jd.w = G(function () {
                                 return c.state || b !== Kd
-                            }, function() {
+                            }, function () {
                                 ce || b !== Kd || ie.show(Md ? Z(!Yd) : Kd)
                             })
                         }
@@ -1522,11 +1522,11 @@ fotoramaVersion = "4.6.4",
             }
 
             function pd(a) {
-                clearTimeout(pd.t), e.clicktransition && e.clicktransition !== e.transition ? setTimeout(function() {
+                clearTimeout(pd.t), e.clicktransition && e.clicktransition !== e.transition ? setTimeout(function () {
                     var b = e.transition;
                     ie.setOptions({
                         transition: e.clicktransition
-                    }), Wd = b, pd.t = setTimeout(function() {
+                    }), Wd = b, pd.t = setTimeout(function () {
                         ie.show(a)
                     }, 10)
                 }, 0) : ie.show(a)
@@ -1565,8 +1565,8 @@ fotoramaVersion = "4.6.4",
             }
 
             function ud(a) {
-                X(a, function() {
-                    setTimeout(function() {
+                X(a, function () {
+                    setTimeout(function () {
                         Q(re)
                     }, 0), nd(!1)
                 })
@@ -1633,15 +1633,15 @@ fotoramaVersion = "4.6.4",
                 Re = {},
                 Se = 0,
                 Te = [];
-            qe[Xc] = d(N(yb)), qe[Zc] = d(N(Mb + " " + Ob + rc, N(ic))), qe[Yc] = d(N(Mb + " " + Nb + rc, N(hc))), Qe[Xc] = [], Qe[Zc] = [], Qe[Yc] = [], Re[Xc] = {}, qe.addClass(Ic ? mb : lb).toggleClass(qb, !e.controlsonstart), ne.fotorama = this, ie.startAutoplay = function(a) {
+            qe[Xc] = d(N(yb)), qe[Zc] = d(N(Mb + " " + Ob + rc, N(ic))), qe[Yc] = d(N(Mb + " " + Nb + rc, N(hc))), Qe[Xc] = [], Qe[Zc] = [], Qe[Yc] = [], Re[Xc] = {}, qe.addClass(Ic ? mb : lb).toggleClass(qb, !e.controlsonstart), ne.fotorama = this, ie.startAutoplay = function (a) {
                 return ie.autoplay ? this : (ce = de = !1, t(a || e.autoplay), jd(), this)
-            }, ie.stopAutoplay = function() {
+            }, ie.stopAutoplay = function () {
                 return ie.autoplay && (ce = de = !0, jd()), this
-            }, ie.show = function(a) {
+            }, ie.show = function (a) {
                 var b;
                 "object" != typeof a ? (b = a, a = {}) : b = a.index, b = ">" === b ? Gd + 1 : "<" === b ? Gd - 1 : "<<" === b ? 0 : ">>" === b ? zd - 1 : b, b = isNaN(b) ? L(b, yd, !0) : b, b = "undefined" == typeof b ? Je || 0 : b, ie.activeIndex = Je = z(b), Id = E(Je), Jd = U(Je), Kd = x(Je + (Yd ? -1 : 1)), Ed = [Je, Id, Jd], Gd = Md ? b : Je;
                 var c = Math.abs(Hd - Gd),
-                    d = w(a.time, function() {
+                    d = w(a.time, function () {
                         return Math.min(Vd * (1 + (c - 1) / 12), 2 * Vd)
                     }),
                     f = a.overPos;
@@ -1653,13 +1653,13 @@ fotoramaVersion = "4.6.4",
                     user: a.user,
                     time: d
                 }), ce = !0;
-                var j = ie.show.onEnd = function(b) {
+                var j = ie.show.onEnd = function (b) {
                     if (!j.ok) {
                         if (j.ok = !0, b || cd(!0), i || fd("showend", {
-                                user: a.user
-                            }), !b && Wd && Wd !== e.transition) return ie.setOptions({
+                            user: a.user
+                        }), !b && Wd && Wd !== e.transition) return ie.setOptions({
                             transition: Wd
-                        }), void(Wd = !1);
+                        }), void (Wd = !1);
                         Sb(), Pb(Ed, "stage"), rd("go", !1), Hc(), od(), id(), jd()
                     }
                 };
@@ -1688,15 +1688,15 @@ fotoramaVersion = "4.6.4",
                     }), Od && Oc(d)
                 }
                 return be = "undefined" != typeof Hd && Hd !== Je, Hd = Je, e.hash && be && !ie.eq && H(Dd.id || Je + 1), this
-            }, ie.requestFullScreen = function() {
+            }, ie.requestFullScreen = function () {
                 return Qd && !ie.fullScreen && (_d = Ec.scrollTop(), ae = Ec.scrollLeft(), Q(Ec), rd("x", !0), ee = d.extend({}, Le), a.addClass(Zb).appendTo(Dc.addClass(jb)), Cc.addClass(jb), md(Cd, !0, !0), ie.fullScreen = !0, Rd && vc.request(le), ie.resize(), Pb(Ed, "stage"), Sb(), fd("fullscreenenter")), this
-            }, ie.cancelFullScreen = function() {
+            }, ie.cancelFullScreen = function () {
                 return Rd && vc.is() ? vc.cancel(b) : kd(), this
-            }, ie.toggleFullScreen = function() {
+            }, ie.toggleFullScreen = function () {
                 return ie[(ie.fullScreen ? "cancel" : "request") + "FullScreen"]()
-            }, T(b, vc.event, function() {
+            }, T(b, vc.event, function () {
                 !yd || vc.is() || Cd || kd()
-            }), ie.resize = function(a) {
+            }), ie.resize = function (a) {
                 if (!yd) return this;
                 var b = arguments[1] || 0,
                     c = arguments[2];
@@ -1722,7 +1722,7 @@ fotoramaVersion = "4.6.4",
                 }), f = p(f, i), f = f || g && d / g, f && (d = Math.round(d), f = Le.h = Math.round(h(f, p(Le.minheight, i), p(Le.maxheight, i))), re.stop().animate({
                     width: d,
                     height: f
-                }, b, function() {
+                }, b, function () {
                     qe.removeClass(ub)
                 }), cd(), Nd && (ye.stop().animate({
                     width: Le.nw
@@ -1731,30 +1731,30 @@ fotoramaVersion = "4.6.4",
                     time: b,
                     keep: !0
                 }), Od && wc.nav && Oc(b)), $d = c || !0, xd())), Se = re.offset().left, this
-            }, ie.setOptions = function(a) {
+            }, ie.setOptions = function (a) {
                 return d.extend(e, a), vd(), this
-            }, ie.shuffle = function() {
+            }, ie.shuffle = function () {
                 return yd && O(yd) && vd(), this
-            }, ie.destroy = function() {
+            }, ie.destroy = function () {
                 return ie.cancelFullScreen(), ie.stopAutoplay(), yd = ie.data = null, j(), Ed = [], bd(Xc), vd.ok = !1, this
-            }, ie.playVideo = function() {
+            }, ie.playVideo = function () {
                 var a = Dd,
                     b = a.video,
                     c = Je;
-                return "object" == typeof b && a.videoReady && (Rd && ie.fullScreen && ie.cancelFullScreen(), G(function() {
+                return "object" == typeof b && a.videoReady && (Rd && ie.fullScreen && ie.cancelFullScreen(), G(function () {
                     return !vc.is() || c !== Je
-                }, function() {
+                }, function () {
                     c === Je && (a.$video = a.$video || d(d.Fotorama.jst.video(b)), a.$video.appendTo(a[Xc]), qe.addClass(nb), Cd = a.$video, o(), we.blur(), De.blur(), fd("loadvideo"))
                 })), this
-            }, ie.stopVideo = function() {
+            }, ie.stopVideo = function () {
                 return md(Cd, !0, !0), this
             }, re.on("mousemove", od), Me = db(se, {
                 onStart: gd,
-                onMove: function(a, b) {
+                onMove: function (a, b) {
                     ld(re, b.edge)
                 },
                 onTouchEnd: hd,
-                onEnd: function(a) {
+                onEnd: function (a) {
                     ld(re);
                     var b = (Nc && !ge || a.touch) && e.arrows && "always" !== e.arrows;
                     if (a.moved || b && a.pos !== a.newPos && !a.control) {
@@ -1774,11 +1774,11 @@ fotoramaVersion = "4.6.4",
                 $wrap: re
             }), Oe = db(ze, {
                 onStart: gd,
-                onMove: function(a, b) {
+                onMove: function (a, b) {
                     ld(ye, b.edge)
                 },
                 onTouchEnd: hd,
-                onEnd: function(a) {
+                onEnd: function (a) {
                     function b() {
                         Rc.l = a.newPos, id(), jd(), uc(a.newPos, !0)
                     }
@@ -1799,71 +1799,71 @@ fotoramaVersion = "4.6.4",
                 $wrap: ye
             }), Ne = eb(re, {
                 shift: !0,
-                onEnd: function(a, b) {
+                onEnd: function (a, b) {
                     gd(), hd(), ie.show({
                         index: b,
                         slow: a.altKey
                     })
                 }
             }), Pe = eb(ye, {
-                onEnd: function(a, b) {
+                onEnd: function (a, b) {
                     gd(), hd();
                     var c = v(ze) + .25 * b;
                     ze.css(k(h(c, Oe.min, Oe.max))), Xd && ld(ye, K(c, Oe.min, Oe.max)), Pe.prevent = {
                         "<": c >= Oe.max,
                         ">": c <= Oe.min
-                    }, clearTimeout(Pe.t), Pe.t = setTimeout(function() {
+                    }, clearTimeout(Pe.t), Pe.t = setTimeout(function () {
                         Rc.l = c, uc(c, !0)
                     }, Pc), uc(c)
                 }
-            }), qe.hover(function() {
-                setTimeout(function() {
+            }), qe.hover(function () {
+                setTimeout(function () {
                     fe || nd(!(ge = !0))
                 }, 0)
-            }, function() {
+            }, function () {
                 ge && nd(!(ge = !1))
-            }), M(we, function(a) {
+            }), M(we, function (a) {
                 Y(a), td.call(this, a)
             }, {
-                onStart: function() {
+                onStart: function () {
                     gd(), Me.control = !0
                 },
                 onTouchEnd: hd
-            }), we.each(function() {
-                W(this, function(a) {
+            }), we.each(function () {
+                W(this, function (a) {
                     td.call(this, a)
                 }), ud(this)
-            }), W(Ee, ie.toggleFullScreen), ud(Ee), d.each("load push pop shift unshift reverse sort splice".split(" "), function(a, b) {
-                ie[b] = function() {
+            }), W(Ee, ie.toggleFullScreen), ud(Ee), d.each("load push pop shift unshift reverse sort splice".split(" "), function (a, b) {
+                ie[b] = function () {
                     return yd = yd || [], "load" !== b ? Array.prototype[b].apply(yd, arguments) : arguments[0] && "object" == typeof arguments[0] && arguments[0].length && (yd = P(arguments[0])), vd(), ie
                 }
             }), vd()
-        }, d.fn.fotorama = function(b) {
-            return this.each(function() {
+        }, d.fn.fotorama = function (b) {
+            return this.each(function () {
                 var c = this,
                     e = d(this),
                     f = e.data(),
                     g = f.fotorama;
-                g ? g.setOptions(b, !0) : G(function() {
+                g ? g.setOptions(b, !0) : G(function () {
                     return !E(c)
-                }, function() {
+                }, function () {
                     f.urtext = e.html(), new d.Fotorama(e, d.extend({}, cd, a.fotoramaDefaults, b, f))
                 })
             })
-        }, d.Fotorama.instances = [], d.Fotorama.cache = {}, d.Fotorama.measures = {}, d = d || {}, d.Fotorama = d.Fotorama || {}, d.Fotorama.jst = d.Fotorama.jst || {}, d.Fotorama.jst.style = function(a) {
+        }, d.Fotorama.instances = [], d.Fotorama.cache = {}, d.Fotorama.measures = {}, d = d || {}, d.Fotorama = d.Fotorama || {}, d.Fotorama.jst = d.Fotorama.jst || {}, d.Fotorama.jst.style = function (a) {
             {
                 var b, c = "";
                 tc.escape
             }
             return c += ".fotorama" + (null == (b = a.s) ? "" : b) + " .fotorama__nav--thumbs .fotorama__nav__frame{\npadding:" + (null == (b = a.m) ? "" : b) + "px;\nheight:" + (null == (b = a.h) ? "" : b) + "px}\n.fotorama" + (null == (b = a.s) ? "" : b) + " .fotorama__thumb-border{\nheight:" + (null == (b = a.h - a.b * (a.q ? 0 : 2)) ? "" : b) + "px;\nborder-width:" + (null == (b = a.b) ? "" : b) + "px;\nmargin-top:" + (null == (b = a.m) ? "" : b) + "px}"
-        }, d.Fotorama.jst.video = function(a) {
+        }, d.Fotorama.jst.video = function (a) {
             function b() {
                 c += d.call(arguments, "")
             }
             var c = "",
                 d = (tc.escape, Array.prototype.join);
             return c += '<div class="fotorama__video"><iframe src="', b(("youtube" == a.type ? a.p + "youtube.com/embed/" + a.id + "?autoplay=1" : "vimeo" == a.type ? a.p + "player.vimeo.com/video/" + a.id + "?autoplay=1&badge=0" : a.id) + (a.s && "custom" != a.type ? "&" + a.s : "")), c += '" frameborder="0" allowfullscreen></iframe></div>\n'
-        }, d(function() {
+        }, d(function () {
             d("." + ib + ':not([data-auto="false"])').fotorama()
         })
     }(window, document, location, "undefined" != typeof jQuery && jQuery);

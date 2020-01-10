@@ -4,13 +4,13 @@ window.onpopstate = function (event) {
     render(event.state);
 
     var form = $('#form-filter');
-    $.each(event.state.filter_params_array, function(field, value) {
+    $.each(event.state.filter_params_array, function (field, value) {
       var input = form.find('[name="' + value.name + '"]');
-        input.val(value.value);
+      input.val(value.value);
 
-        if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
-          input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
-        }
+      if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
+        input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
+      }
     });
 
   }
@@ -23,45 +23,45 @@ function render(state) {
   channel.push("filter", { data: state.filter_params })
 }
 
-$( "#form-filter" ).submit(function( event ) {
+$("#form-filter").submit(function (event) {
   event.preventDefault();
 });
 
-add_events(".auto-submit-item", "change", function() {
+add_events(".auto-submit-item", "change", function () {
 
-  var form = $("#form-filter :input").filter(function() {
-                                if (!this.value) {
-                                  return false;
-                                }
-                                return true;
-                              })
+  var form = $("#form-filter :input").filter(function () {
+    if (!this.value) {
+      return false;
+    }
+    return true;
+  })
   var filter_params = form.serialize();
   channel.push("filter", { data: filter_params })
 
-  window.history.pushState({filter_params_array: form.serializeArray(), filter_params: filter_params},
-  document.title,
-  (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
+  window.history.pushState({ filter_params_array: form.serializeArray(), filter_params: filter_params },
+    document.title,
+    (filter_params == "") ? location.pathname : location.pathname + "?" + filter_params);
 });
 
 channel.on("filtered_items", payload => {
   var items_template_source = "{{#each this}}<item>" +
-       unescape(document.getElementById("item_template").innerHTML)
-       .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
-                "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}")
-       .replace(/{{id}}-name/g, "{{id}}")
-       + "</item>{{/each}}";
+    unescape(document.getElementById("item_template").innerHTML)
+      .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
+        "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}")
+      .replace(/{{id}}-name/g, "{{id}}")
+    + "</item>{{/each}}";
   var items_template = Handlebars.compile(items_template_source);
 
   var json_payload = JSON.parse(payload.filtered)
   json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
 
-  var filtered_items = items_template( json_payload )
+  var filtered_items = items_template(json_payload)
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#items-listing").innerHTML =
-          document.getElementById("item_template").outerHTML
-          + filtered_items;
+      document.getElementById("item_template").outerHTML
+      + filtered_items;
   } else {
-    document.querySelector("#items-listing").insertAdjacentHTML( 'beforeend', filtered_items);
+    document.querySelector("#items-listing").insertAdjacentHTML('beforeend', filtered_items);
   }
   $('.fotorama').fotorama();
   update_next_page_link(payload);
@@ -69,19 +69,19 @@ channel.on("filtered_items", payload => {
 
 channel.on("filtered_users", payload => {
   var users_template_source = "{{#each this}}<user>" +
-       unescape(document.getElementById("user_template").innerHTML)
-       .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
-                "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}") +
-       "</user>{{/each}}";
+    unescape(document.getElementById("user_template").innerHTML)
+      .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
+        "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}") +
+    "</user>{{/each}}";
   var users_template = Handlebars.compile(users_template_source);
 
-  var filtered_users = users_template( JSON.parse(payload.filtered) )
+  var filtered_users = users_template(JSON.parse(payload.filtered))
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#users-listing").innerHTML =
-          document.getElementById("user_template").outerHTML
-          + filtered_users;
+      document.getElementById("user_template").outerHTML
+      + filtered_users;
   } else {
-    document.querySelector("#users-listing").insertAdjacentHTML( 'beforeend', filtered_users);
+    document.querySelector("#users-listing").insertAdjacentHTML('beforeend', filtered_users);
   }
   $('.fotorama').fotorama();
   update_next_page_link(payload);

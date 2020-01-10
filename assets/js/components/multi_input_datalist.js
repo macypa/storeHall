@@ -1,5 +1,5 @@
 
-$( document ).ready(function() {
+$(document).ready(function () {
   init();
 });
 
@@ -20,9 +20,9 @@ function init() {
       cloned_input_field.setAttribute("placeholder", container.getAttribute("placeholder"));
       if (!cloned_input_field.classList.contains("datalist_editable_input")) {
         cloned_input_field.classList.add("datalist_input");
-        container.insertAdjacentHTML( 'beforeend', cloned_input_field.outerHTML);
+        container.insertAdjacentHTML('beforeend', cloned_input_field.outerHTML);
       } else {
-        input_field.insertAdjacentHTML( 'beforebegin', cloned_input_field.outerHTML);
+        input_field.insertAdjacentHTML('beforebegin', cloned_input_field.outerHTML);
       }
 
       input_field = get_input(container);
@@ -42,7 +42,7 @@ function init() {
         input_field.setAttribute("list", datalist[0].id);
       }
     }
-    input_field.insertAdjacentHTML( 'afterEnd', "<div class='datalist_items'></div>");
+    input_field.insertAdjacentHTML('afterEnd', "<div class='datalist_items'></div>");
 
 
     update_placeholder(container);
@@ -50,7 +50,7 @@ function init() {
 }
 
 function disable_enter_key_press(node, fun) {
-  node.onkeypress = function(e) {
+  node.onkeypress = function (e) {
     var key = e.charCode || e.keyCode || 0;
     if (key == 13) {
       e.stopPropagation();
@@ -116,7 +116,7 @@ function get_input_data(container) {
   try {
     data.obj = JSON.parse(data.str);
     data.is_array = true;
-  } catch(error) {
+  } catch (error) {
     data.is_string = true;
     data.obj = data.str.split(",");
     if (data.obj[0] == '') {
@@ -139,57 +139,57 @@ function get_input_data(container) {
 }
 
 function remove_item(e) {
-    e.stopPropagation();
+  e.stopPropagation();
 
-    let container = get_parent_container(this);
-    this.parentElement.parentElement.removeChild(this.parentElement);
+  let container = get_parent_container(this);
+  this.parentElement.parentElement.removeChild(this.parentElement);
 
-    update_input_field(container);
+  update_input_field(container);
 };
 
 function add_item(e) {
-    e.stopPropagation();
-    e.preventDefault();
+  e.stopPropagation();
+  e.preventDefault();
 
-    let select = e.target;
-    let container = get_parent_container(select);
-    let input_field_data = get_input_data(container);
+  let select = e.target;
+  let container = get_parent_container(select);
+  let input_field_data = get_input_data(container);
 
-    let key = select.value;
-    if (isEmpty(key)) return;
+  let key = select.value;
+  if (isEmpty(key)) return;
 
-    let human_readable_key = select.value;
-    let custom_tag_value = "";
-    if (has_select_tag(container)) {
-      let option = select.querySelector("option[value='" + select.value + "']");
-      if (option) {
-        custom_tag_value = option.getAttribute("data-template-value");
-        human_readable_key = option.innerText;
-      }
+  let human_readable_key = select.value;
+  let custom_tag_value = "";
+  if (has_select_tag(container)) {
+    let option = select.querySelector("option[value='" + select.value + "']");
+    if (option) {
+      custom_tag_value = option.getAttribute("data-template-value");
+      human_readable_key = option.innerText;
     }
+  }
 
-    if (custom_tag_value == null) {
-      custom_tag_value = "";
-    }
+  if (custom_tag_value == null) {
+    custom_tag_value = "";
+  }
 
-    let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
-    get_items(container).insertAdjacentHTML( 'beforeend', item);
+  let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
+  get_items(container).insertAdjacentHTML('beforeend', item);
 
-    e.target.value = '';
-    update_input_field(container);
-    update_items_events(container);
+  e.target.value = '';
+  update_input_field(container);
+  update_items_events(container);
 };
 
 function placeholder_item_html(container, data, key, human_readable_key, value) {
   return "<div class='datalist_item'" +
-  (is_editable(container) ?
-        " draggable='true'>\
+    (is_editable(container) ?
+      " draggable='true'>\
         <div class='datalist_del'>\
           <div class='datalist_x'></div>\
           <div class='datalist_x'></div>\
         </div>"
       : ">")
-      + "<div class='datalist_item_html' key='"+ sanitize(key) +"' value='"+ sanitize(value) +"'>"+ html_from_template(container, data, key, human_readable_key, value) +"</div>\
+    + "<div class='datalist_item_html' key='" + sanitize(key) + "' value='" + sanitize(value) + "'>" + html_from_template(container, data, key, human_readable_key, value) + "</div>\
       </div> ";
 }
 
@@ -198,7 +198,7 @@ function update_placeholder(container) {
   let input_field_data = get_input_data(container);
 
   let items = get_items(container);
-// transform data to json to work with it
+  // transform data to json to work with it
   input_field_data.obj.forEach(i_data => {
     let human_readable_key = i_data.key;
     if (has_select_tag(container)) {
@@ -208,7 +208,7 @@ function update_placeholder(container) {
       }
     }
     let item = placeholder_item_html(container, input_field_data, i_data.key, human_readable_key, i_data.value);
-    items.insertAdjacentHTML( 'beforeend', item);
+    items.insertAdjacentHTML('beforeend', item);
   })
 
   update_items_events(container);
@@ -220,7 +220,7 @@ function update_items_events(container) {
   let item_oninputs = container.getElementsByClassName("datalist_item_oninput_event");
   Array.from(item_oninputs).forEach(element => {
     element.oninput = update_on_input_event;
-    disable_enter_key_press(element, function() { });
+    disable_enter_key_press(element, function () { });
   });
 
   let del_buttons = container.getElementsByClassName("datalist_del");
@@ -327,7 +327,7 @@ function update_input_field(container) {
   }
 
   const children = [...items.getElementsByClassName('datalist_item')];
-  children.forEach(function(item) {
+  children.forEach(function (item) {
     let item_data = parse_item_data(container, data, item);
 
     if (data.is_json && !data.allow_duplicate) {

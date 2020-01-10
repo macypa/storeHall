@@ -2,31 +2,31 @@
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
-window.sanitize = function(str) {
+window.sanitize = function (str) {
   var temp = document.createElement('div');
   temp.textContent = str;
   return temp.innerHTML;
 }
 
-window.regExp_escape = function(s) {
+window.regExp_escape = function (s) {
   return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
-window.isNumeric = function(num) {
-  return num != null && !isNaN(num) && (num+"").trim() != ""
+window.isNumeric = function (num) {
+  return num != null && !isNaN(num) && (num + "").trim() != ""
 }
 
-window.isString = function(obj) {
+window.isString = function (obj) {
   if (obj == null) return true;
   return typeof obj === "string";
 }
 
-window.isEmpty = function(obj) {
+window.isEmpty = function (obj) {
   if (obj == null) return true;
   if (typeof obj === "string" && (obj == "" || obj.trim() == "")) return true;
 
-  for(var prop in obj) {
-    if(obj.hasOwnProperty(prop)) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
       return false;
     }
   }
@@ -35,17 +35,21 @@ window.isEmpty = function(obj) {
 }
 
 window.Handlebars = require('handlebars');
-Handlebars.registerHelper('json', function(context) {
-    return JSON.stringify(context);
+Handlebars.registerHelper('json', function (context) {
+  return JSON.stringify(context);
 });
 
-window.add_events = function(selector, on_event, fun) {
-  Array.from(document.querySelectorAll(selector)).forEach(function(element) {
+window.add_events = function (selector, on_event, fun) {
+  Array.from(document.querySelectorAll(selector)).forEach(function (element) {
     if (on_event == "click") {
       element.onclick = fun;
     }
     if (on_event == "change") {
-      element.onchange = fun;
+      if (element.getAttribute("type") == "text") {
+        element.oninput = fun;
+      } else {
+        element.onchange = fun;
+      }
     }
     if (on_event == "load") {
       element.onload = fun;
@@ -53,16 +57,16 @@ window.add_events = function(selector, on_event, fun) {
   });
 };
 
-window.show_hide = function(element_id) {
-    var x = document.getElementById(element_id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+window.show_hide = function (element_id) {
+  var x = document.getElementById(element_id);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
 }
 
-window.throttled = function(delay, fn) {
+window.throttled = function (delay, fn) {
   let lastCall = 0;
   return function (...args) {
     const now = (new Date).getTime();
@@ -74,7 +78,7 @@ window.throttled = function(delay, fn) {
   }
 }
 
-window.debounced = function(delay, fn) {
+window.debounced = function (delay, fn) {
   let timerId;
   return function (...args) {
     if (timerId) {
@@ -87,21 +91,21 @@ window.debounced = function(delay, fn) {
   }
 }
 
-window.get_city = function() {
+window.get_city = function () {
   $.ajax({
-		url: "https://geolocation-db.com/jsonp",
-		jsonpCallback: "callback",
-		dataType: "jsonp",
-		success: function( location ) {
+    url: "https://geolocation-db.com/jsonp",
+    jsonpCallback: "callback",
+    dataType: "jsonp",
+    success: function (location) {
       window.city = location.city;
-			// $('#country').html(location.country_name);
-			// $('#state').html(location.state);
-			// $('#city').html(location.city);
-			// $('#latitude').html(location.latitude);
-			// $('#longitude').html(location.longitude);
-			// $('#ip').html(location.IPv4);
-		}
-	});
+      // $('#country').html(location.country_name);
+      // $('#state').html(location.state);
+      // $('#city').html(location.city);
+      // $('#latitude').html(location.latitude);
+      // $('#longitude').html(location.longitude);
+      // $('#ip').html(location.IPv4);
+    }
+  });
 }
 
 $("input").not($(":button")).keypress(function (evt) {

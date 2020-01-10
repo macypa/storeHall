@@ -4,7 +4,7 @@ channel.on("update_rating", payload => {
   if (payload.for_user_id) {
     rating_badge = $("#rating-score_" + payload.for_user_id);
   } else {
-    rating_badge = $("#rating-score_" +parseInt(payload.for_id));
+    rating_badge = $("#rating-score_" + parseInt(payload.for_id));
   }
   rating_badge.text(payload.new_rating);
   rating_badge.attr("data-content", payload.new_rating);
@@ -26,7 +26,7 @@ function on_rating_events() {
 
 function validate_scores(rating_scores, max) {
   var sum = 0;
-  for(var score in rating_scores) {
+  for (var score in rating_scores) {
     sum += Math.abs(rating_scores[score]);
   }
   if (sum > max) {
@@ -37,7 +37,7 @@ function validate_scores(rating_scores, max) {
 }
 
 function add_rating_events() {
-  add_events("[rating-topic]", "click", function() {
+  add_events("[rating-topic]", "click", function () {
     var body_field_value = this.parentNode.getElementsByClassName("rating-textarea")[0].value
     var scores_field = this.parentNode.querySelector("input[name]");
     var rating_field_value = JSON.parse(this.parentNode.getElementsByClassName("rating")[0].value)
@@ -53,7 +53,7 @@ function add_rating_events() {
       channel.push(this.getAttribute("rating-topic"), { data: rating_field_value })
 
       this.parentNode.getElementsByClassName("rating-textarea")[0].value = "";
-      $(".hidable-form").each(function(  ) {
+      $(".hidable-form").each(function () {
         $(this).hide();
       });
     } else {
@@ -68,13 +68,13 @@ add_rating_events();
 channel.on("new_rating", payload => {
 
   var rating_template_source = "<rating>" +
-       unescape(document.getElementById("rating_template").innerHTML)
-       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
-       "</rating>";
+    unescape(document.getElementById("rating_template").innerHTML)
+      .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+    "</rating>";
   var rating_template = Handlebars.compile(rating_template_source);
 
   var new_rating = JSON.parse(payload.new_rating)
-  var new_rating_html = rating_template( new_rating )
+  var new_rating_html = rating_template(new_rating)
 
   var rating_form_tag = document.querySelector("#rating-" + new_rating.id)
   if (rating_form_tag) {
@@ -82,15 +82,15 @@ channel.on("new_rating", payload => {
   }
 
   if (payload.rating_parent_id == null || payload.rating_parent_id == -1) {
-    document.querySelector("ratings").insertAdjacentHTML( 'afterbegin', new_rating_html)
+    document.querySelector("ratings").insertAdjacentHTML('afterbegin', new_rating_html)
   } else {
     var rating_parent = document.querySelector("#rating-" + payload.rating_parent_id).parentNode.parentNode
     if (rating_parent !== null) {
-      rating_parent.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', new_rating_html)
+      rating_parent.getElementsByTagName("replies")[0].insertAdjacentHTML('beforeend', new_rating_html)
     }
   }
 
-  document.querySelector("#new_notifications").insertAdjacentHTML( 'beforeend', new_rating_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, "") )
+  document.querySelector("#new_notifications").insertAdjacentHTML('beforeend', new_rating_html.replace(/(<actions>(.|\n)*<\/actions>)/m, "").replace(/(<replies>(.|\n)*<\/replies>)/m, ""))
   update_notifications_counter_alert()
 
   on_rating_events();
@@ -99,19 +99,19 @@ channel.on("new_rating", payload => {
 channel.on("show_for_rating", payload => {
 
   var ratings_template_source = "{{#each this}}<rating>" +
-       unescape(document.getElementById("rating_template").innerHTML)
-       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
-       "</rating>{{/each}}";
+    unescape(document.getElementById("rating_template").innerHTML)
+      .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+    "</rating>{{/each}}";
   var ratings_template = Handlebars.compile(ratings_template_source);
 
-  var filtered_ratings = ratings_template(JSON.parse(payload.filtered) )
+  var filtered_ratings = ratings_template(JSON.parse(payload.filtered))
   if (payload.filter.indexOf("show_for_rating_id=") == -1) {
-    document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
+    document.querySelector("ratings").insertAdjacentHTML('beforeend', filtered_ratings);
   } else {
     var rating_id = payload.filter.match("show_for_rating_id=\\d+");
     var link_node = document.getElementById(rating_id)
     link_node.innerHTML = "";
-    link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML( 'beforeend', filtered_ratings);
+    link_node.parentNode.parentNode.getElementsByTagName("replies")[0].insertAdjacentHTML('beforeend', filtered_ratings);
   }
 
   on_rating_events();
@@ -120,32 +120,32 @@ channel.on("show_for_rating", payload => {
 // import ratings_template from "../hbs/ratings.hbs"
 channel.on("filtered_ratings", payload => {
   var ratings_template_source = "{{#each this}}<rating>" +
-       unescape(document.getElementById("rating_template").innerHTML)
-       .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
-       "</rating>{{/each}}";
+    unescape(document.getElementById("rating_template").innerHTML)
+      .replace(/\{"\w+_template_tag_id":"\w+_template"\}/g, "{{json details}}") +
+    "</rating>{{/each}}";
   var ratings_template = Handlebars.compile(ratings_template_source);
 
-  var filtered_ratings = ratings_template( JSON.parse(payload.filtered) )
+  var filtered_ratings = ratings_template(JSON.parse(payload.filtered))
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("ratings").innerHTML = filtered_ratings;
   } else {
-    document.querySelector("ratings").insertAdjacentHTML( 'beforeend', filtered_ratings);
+    document.querySelector("ratings").insertAdjacentHTML('beforeend', filtered_ratings);
   }
 
   on_rating_events();
   update_next_page_link(payload);
 })
 
-window.rating_pros_cons_format = function() {
-  $("pro_scores").each(function() {
-    if (this.innerText == "" ) {
+window.rating_pros_cons_format = function () {
+  $("pro_scores").each(function () {
+    if (this.innerText == "") {
       $(this).parent().remove()
     }
 
-    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{") ) {
+    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
       var json_data = JSON.parse(this.innerText);
       var html = "";
-      for(var score in json_data) {
+      for (var score in json_data) {
         if (json_data[score] > 0) {
           html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
         }
@@ -159,14 +159,14 @@ window.rating_pros_cons_format = function() {
     }
   });
 
-  $("con_scores").each(function() {
-    if (this.innerText == "" ) {
+  $("con_scores").each(function () {
+    if (this.innerText == "") {
       $(this).parent().remove()
     }
-    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{") ) {
+    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
       var json_data = JSON.parse(this.innerText);
       var html = "";
-      for(var score in json_data) {
+      for (var score in json_data) {
         if (json_data[score] < 0) {
           html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
         }
@@ -181,27 +181,27 @@ window.rating_pros_cons_format = function() {
   });
 };
 
-window.rating_badge_color = function() {
-  $(".review_score_badge[data-content]").each(function() {
+window.rating_badge_color = function () {
+  $(".review_score_badge[data-content]").each(function () {
     var rating = parseInt($(this).attr("data-content"));
 
     if (rating < -10) {
       $(this).addClass("bg_red");
       // rating_title.text(Bad);
     } else if (rating > 1000) {
-    $(this).addClass("bg_blue");
+      $(this).addClass("bg_blue");
       // rating_title.text(Good);
     } else if (rating > 100) {
       $(this).addClass("bg_green");
-        // rating_title.text(Good);
+      // rating_title.text(Good);
     } else if (rating >= -10) {
       $(this).addClass("bg_orange");
-        // rating_title.text(Good);
+      // rating_title.text(Good);
     }
   });
 };
 
-$( document ).ready(function() {
+$(document).ready(function () {
   rating_pros_cons_format();
   rating_badge_color();
 });

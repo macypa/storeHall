@@ -57,9 +57,9 @@ function handleDragEnd(e) {
   // });
 }
 
-window.add_drag_events = function(draggable_container, fun_on_drop) {
+window.add_drag_events = function (draggable_container, fun_on_drop) {
   var draggables = draggable_container.querySelectorAll('[draggable]');
-  [].forEach.call(draggables, function(draggable) {
+  [].forEach.call(draggables, function (draggable) {
     draggable.addEventListener('dragstart', handleDragStart, false);
     // draggable.addEventListener('dragenter', handleDragEnter, false);
     draggable.addEventListener('dragover', handleDragOver, false);
@@ -68,6 +68,6 @@ window.add_drag_events = function(draggable_container, fun_on_drop) {
     draggable.addEventListener('drop', handleDrop, false);
     draggable.addEventListener('dragend', handleDragEnd, false);
 
-    draggable.ondrop = function(){fun_on_drop(this.parentElement)};
+    draggable.ondrop = function () { fun_on_drop(this.parentElement) };
   });
 }

@@ -6,9 +6,9 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import {Socket} from "phoenix"
+import { Socket } from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+let socket = new Socket("/socket", { params: { token: window.userToken } })
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -59,7 +59,7 @@ channel_user.join()
   .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-window.channel_topic_from_url = function() {
+window.channel_topic_from_url = function () {
   var url = window.location.pathname;
   if (url.search(/\/items\/\w/) == 0) {
     return url.match(/(\/items\/\w+).*/)[1];
@@ -73,7 +73,7 @@ channel.join()
   .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-window.channel_push = function(topic, data) {
+window.channel_push = function (topic, data) {
   channel.push(topic, { data: data })
 };
 
@@ -87,14 +87,14 @@ channel.on("error", payload => {
   check_if_logged();
 })
 
-window.check_if_logged = function() {
-  if (window.loggedUserId  == "") {
+window.check_if_logged = function () {
+  if (window.loggedUserId == "") {
     window.location.href = "/auth/google";
   }
 };
 
-window.add_cookie_consent_event = function() {
-  add_events("[cookie_consent]", "click", function() {
+window.add_cookie_consent_event = function () {
+  add_events("[cookie_consent]", "click", function () {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "/accept_cookies", true);
     xhttp.send();

@@ -1,4 +1,4 @@
-channel_push_filter = function(elem) {
+channel_push_filter = function (elem) {
   var next_page = elem.href.slice(elem.href.indexOf('?') + 1);
   var page_for = "";
   if (elem.href.indexOf('&more_') != -1) {
@@ -14,7 +14,7 @@ $('.page-link').on('click', e => {
   e.preventDefault();
 });
 
-load_next_items = function() {
+load_next_items = function () {
   var next_page_link = $('#next-page-link');
   if (next_page_link.is(":visible")) {
     channel_push_filter(next_page_link[0]);
@@ -22,7 +22,7 @@ load_next_items = function() {
   }
 }
 
-reload_next_items = function() {
+reload_next_items = function () {
   if ($("main").height() > $("#items-listing").height()) {
     load_next_items();
   }
@@ -30,17 +30,17 @@ reload_next_items = function() {
   load_lazy_imgs();
 }
 
-jQuery(function($) {
+jQuery(function ($) {
   reload_next_items();
-  $('main').scroll(function() {
-    if($(this).scrollTop() + $(this).innerHeight()+1 >=$(this)[0].scrollHeight) {
+  $('main').scroll(function () {
+    if ($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight) {
       load_next_items();
     }
   })
 });
 
-window.add_load_more_events = function() {
-  add_events("[load-more-topic]", "click", function() {
+window.add_load_more_events = function () {
+  add_events("[load-more-topic]", "click", function () {
     var params_attr = this.getAttribute("params")
     var params = params_attr.slice(params_attr.indexOf('?') + 1);
     var show_for = "";
@@ -55,7 +55,7 @@ window.add_load_more_events = function() {
 add_load_more_events();
 
 
-window.update_next_page_link = function(payload) {
+window.update_next_page_link = function (payload) {
 
   if (payload.filtered == "[]") {
     $('#next-page-link').hide();
@@ -63,8 +63,8 @@ window.update_next_page_link = function(payload) {
     filter_params = payload.filter;
     filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
 
-    $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function(page_param) {
-      return page_param.replace(/\d+/, function(n) {
+    $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function (page_param) {
+      return page_param.replace(/\d+/, function (n) {
         return ++n;
       })
     }));
