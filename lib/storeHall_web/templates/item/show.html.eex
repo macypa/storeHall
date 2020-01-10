@@ -18,7 +18,7 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Price") %></span>
-          <span class="info_content price"><%= @item.details["price"] %></span>
+          <span class="info_content price"><%= @item.details["price"] %> <%= @item.details["currency"] || Gettext.gettext("lv") %></span>
         </span>
 
         <span>

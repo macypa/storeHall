@@ -118,7 +118,7 @@ defmodule StoreHall.Items do
     |> update_filter(%Filters{name: item["user_id"], type: "merchant", count: 1})
     |> update_list_filters("tags", item["details"]["tags"])
     |> update_list_filters("cities", item["details"]["cities"])
-    |> Multi.insert(:insert, Item.changeset(%Item{}, Images.prepare_images(item)))
+    |> Multi.insert(:insert, Item.changeset(%Item{}, prepare_for_insert(item)))
     |> Images.upsert_images(item, :insert)
     |> Repo.transaction()
     |> case do
@@ -128,6 +128,22 @@ defmodule StoreHall.Items do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  defp prepare_for_insert(item) do
+    item |> Images.prepare_images() |> prepare_price()
+  end
+
+  defp prepare_price(item) do
+    price =
+      item["details"]["price"]
+      |> Float.parse()
+      |> case do
+        :error -> 0
+        {number, _} -> number |> Float.round(2)
+      end
+
+    item |> put_in(["details", "price"], price)
   end
 
   defp init_rating(item) do
@@ -211,7 +227,7 @@ defmodule StoreHall.Items do
     Ecto.Multi.new()
     |> update_list_tags(item, attrs)
     |> update_list_cities(item, attrs)
-    |> Multi.update(:update, Item.changeset(item, Images.prepare_images(attrs)))
+    |> Multi.update(:update, Item.changeset(item, prepare_for_insert(attrs)))
     |> Images.clean_images(item, details_to_remove(item, attrs, "images"))
     |> Images.upsert_images(attrs, :update)
     |> clean_filters()

@@ -45,12 +45,12 @@
           <div class="rangeValues">
             <%= number_input f, :price_min,
               class: "min",
-              min: 0, step: 1,
+              min: 0, step: 0.01,
               name: "filter[price][min]",
               value: f.params["price"]["min"] %>
             <%= number_input f, :price_max,
               class: "max",
-              min: 0, step: 1,
+              min: 0, step: 0.01,
               name: "filter[price][max]",
               value: f.params["price"]["max"] %>
           </div>
