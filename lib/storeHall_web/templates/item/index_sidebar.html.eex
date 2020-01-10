@@ -2,28 +2,28 @@
 <sidebar-filters>
   <%= form_for @conn, Routes.item_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
 
-    <!-- TODO:maybe use some spellchecker or suggestions -->
-
     <div class="tab">
+      <!-- TODO:maybe use some spellchecker or suggestions -->
       <%= text_input f, :q, placeholder: Gettext.gettext("Search by title, content..."),
         class: "auto-submit-item" %>
 
       <%= submit Gettext.gettext("Submit") %>
     </div>
-<!--
-    <label for="with-image">With image:
-      <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
-    </label>
 
-        <div class="tab">
-          <input type="checkbox" id="custom" class="collapsible">
-          <label class="tab-label" for="custom">Custom:</label>
-          <div class="tab-content">
-            <% textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
-             value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
-          </div>
+    <%= if false do %>
+      <label for="with-image">With image:
+        <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
+      </label>
+
+      <div class="tab">
+        <input type="checkbox" id="custom" class="collapsible">
+        <label class="tab-label" for="custom">Custom:</label>
+        <div class="tab-content">
+          <% textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
+          value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
         </div>
--->
+      </div>
+    <% end %>
 
     <div class="tab">
       <input type="checkbox" id="sort" class="collapsible">
@@ -99,7 +99,6 @@
     </div>
 
     <div class="tab">
-      <!-- probably good idea to use https://github.com/nico-amsterdam/phoenix_form_awesomplete or/and https://select2.org/getting-started/basic-usage   -->
       <input type="checkbox" id="tags" class="collapsible">
       <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
       <div class="tab-content">

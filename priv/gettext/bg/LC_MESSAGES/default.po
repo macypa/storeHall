@@ -119,8 +119,8 @@ msgstr "Първо се логнете."
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:1
-msgid "Latest contributor"
-msgstr "Последен дарител"
+msgid "Latest sponsor"
+msgstr "Последен спонсор"
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:102

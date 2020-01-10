@@ -1,6 +1,6 @@
-<%= Gettext.gettext("Latest contributor") %>:
-<%= if @conn.assigns[:contributor] != nil do %>
-  @conn.assigns[:contributor].id
+<%= if @conn.assigns[:sponsor] != nil do %>
+  <%= Gettext.gettext("Latest sponsor") %>:
+  <%= @conn.assigns[:sponsor].id %>
 <% end %>
 
 <%= if @conn.private.plug_session["cookie_consent_agreed"] == nil do %>
