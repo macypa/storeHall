@@ -30,12 +30,18 @@ defmodule StoreHall.ItemFilter do
     do: dynamic
 
   defp filter_q(search_string, dynamic) when is_binary(search_string) do
+    search_string = "%#{search_string}%"
+
     FilterableQuery.clean_dynamic(
       :and,
       dynamic,
       dynamic(
         [u],
-        ilike(u.name, ^"%#{search_string}%") or ilike(u.user_id, ^"%#{search_string}%")
+        ilike(u.name, ^search_string) or
+          ilike(u.user_id, ^search_string) or
+          fragment("?->>? ILIKE ?", u.details, "description", ^search_string) or
+          fragment("?->>? ILIKE ?", u.details, "conditions", ^search_string) or
+          fragment("?->>? ILIKE ?", u.details, "features", ^search_string)
       )
     )
   end
