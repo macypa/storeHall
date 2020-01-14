@@ -47,6 +47,7 @@ window.add_events = function (selector, on_event, fun) {
     if (on_event == "change") {
       if (element.getAttribute("type") == "text") {
         element.oninput = fun;
+        element.onchange = fun;
       } else {
         element.onchange = fun;
       }
