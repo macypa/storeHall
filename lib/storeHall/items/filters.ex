@@ -26,13 +26,20 @@ defmodule StoreHall.Items.Filters do
 
       data ->
         Enum.reduce(data, @empty_map, fn data, acc ->
-          case data.count do
-            count when count < 10 ->
-              acc
-
-            _ ->
+          case data.type do
+            type when type == "merchant" ->
               acc
               |> put_in([data.type, data.name], data.count)
+
+            _ ->
+              case data.count do
+                count when count < 10 ->
+                  acc
+
+                _ ->
+                  acc
+                  |> put_in([data.type, data.name], data.count)
+              end
           end
         end)
     end
