@@ -110,7 +110,11 @@ function get_input_data(container) {
   if (!input) {
     data.str = get_input(container).value;
   } else {
-    data.str = input.value;
+    data.str = input.getAttribute("value");
+
+    if (!data.str) {
+      data.str = input.value;
+    }
   }
 
   try {

@@ -177,6 +177,30 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
+  # example ?filter[features]=[{"harakteristika"%3A"rrr"}%2C{"friendly"%3A"www"}]
+  defp filter(:features, dynamic, value) do
+    try do
+      value
+      |> Jason.decode!()
+      |> Enum.reduce(dynamic, fn feat, dyn ->
+        feat
+        |> Enum.reduce(dyn, fn {feature, value}, dyn ->
+          FilterableQuery.construct_where_fragment(
+            dyn,
+            %{
+              has: %{
+                field: ["features", feature],
+                value: value
+              }
+            }
+          )
+        end)
+      end)
+    rescue
+      _ -> dynamic
+    end
+  end
+
   # example value: {"gte": {"field": "rating, core", "value": 4}}
   # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
   defp filter(:"custom-filters", dynamic, value) do

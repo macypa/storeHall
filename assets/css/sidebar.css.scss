@@ -90,6 +90,11 @@ sidebar {
     &-content {
       max-height: 0;
       transition: all .35s;
+      
+      .datalist_item_oninput_event {
+        width: calc(100% - 3em);
+        margin-left: 1em;
+      }
     }
 
     // :checked

@@ -355,4 +355,21 @@ defmodule StoreHall.Items do
   def item_filters() do
     Filters |> Repo.all() |> Filters.to_map()
   end
+
+  def get_feature_filters(items) do
+    items
+    |> Enum.reduce(%{}, fn item, acc ->
+      case item.details["features"] do
+        nil ->
+          acc
+
+        item_features ->
+          item_features
+          |> Enum.reduce(acc, fn {k, v}, acc ->
+            acc
+            |> Map.put(k, k)
+          end)
+      end
+    end)
+  end
 end
