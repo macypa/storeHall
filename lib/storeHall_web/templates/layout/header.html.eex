@@ -94,7 +94,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.item_path(@conn, :new) do %>
+        <%= link to: Routes.user_item_path(@conn, :new, logged_user_id) do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-plus"></use>

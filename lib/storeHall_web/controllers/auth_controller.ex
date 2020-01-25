@@ -31,13 +31,13 @@ defmodule StoreHallWeb.AuthController do
         |> configure_session(renew: true)
         |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
         |> put_user_props_in_session(Users.load_settings(user))
-        |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
+        |> redirect(to: Routes.item_path(conn, :index))
 
       {:error, reason} ->
         conn
         |> put_flash(:error, Gettext.gettext("Error signing in"))
         |> put_flash(:error_reason, reason)
-        |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
+        |> redirect(to: Routes.item_path(conn, :index))
     end
   end
 
@@ -96,7 +96,7 @@ defmodule StoreHallWeb.AuthController do
   def delete(conn, _params) do
     conn
     |> configure_session(drop: true)
-    |> redirect(to: StoreHallWeb.Router.Helpers.item_path(conn, :index))
+    |> redirect(to: Routes.item_path(conn, :index))
   end
 
   def check_owner?(conn, user_id) do

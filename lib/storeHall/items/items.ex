@@ -365,7 +365,7 @@ defmodule StoreHall.Items do
 
         item_features ->
           item_features
-          |> Enum.reduce(acc, fn {k, v}, acc ->
+          |> Enum.reduce(acc, fn {k, _v}, acc ->
             acc
             |> Map.put(k, k)
           end)

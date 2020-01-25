@@ -21,8 +21,9 @@ defmodule StoreHallWeb.Router do
   scope "/", StoreHallWeb do
     pipe_through [:browser, :auth]
 
-    resources "/users", UserController, only: [:edit, :update, :delete]
-    resources "/", ItemController, only: [:new, :create, :edit, :update, :delete]
+    resources "/users", UserController, only: [:edit, :update, :delete] do
+      resources "/items", ItemController, only: [:new, :create, :edit, :update, :delete]
+    end
   end
 
   scope "/", StoreHallWeb do
@@ -30,8 +31,11 @@ defmodule StoreHallWeb.Router do
 
     get "/accept_cookies", CookieConsentController, :agree
 
-    resources "/users", UserController, only: [:index, :show]
-    resources "/", ItemController, only: [:index, :show]
+    resources "/", ItemController, only: [:index]
+
+    resources "/users", UserController, only: [:index, :show] do
+      resources "/items", ItemController, only: [:index, :show]
+    end
   end
 
   scope "/about", StoreHallWeb do

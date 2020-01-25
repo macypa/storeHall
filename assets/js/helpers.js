@@ -21,7 +21,7 @@ window.isString = function (obj) {
   return typeof obj === "string";
 }
 window.contains_string = function (testData, lookup) {
-  return testData.toLowerCase().indexOf(lookup) === -1;
+  return testData.toLowerCase().indexOf(lookup) != -1;
 }
 window.isEmpty = function (obj) {
   if (obj == null) return true;

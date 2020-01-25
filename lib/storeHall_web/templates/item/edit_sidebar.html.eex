@@ -22,11 +22,11 @@
   <%= if is_logged_user?(@conn, @conn.assigns.item.user_id) do %>
 
     <div class="tab">
-      <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.item_path(@conn, :edit, @conn.assigns.item) %>
+      <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.user_item_path(@conn, :edit, @conn.assigns.item.user_id, @conn.assigns.item) %>
     </div>
 
     <div class="tab">
-      <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.item_path(@conn, :delete, @conn.assigns.item), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
+      <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_item_path(@conn, :delete, @conn.assigns.item.user_id, @conn.assigns.item), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
     </div>
 
   <% end %>
