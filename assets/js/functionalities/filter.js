@@ -30,7 +30,7 @@ $("#form-filter").submit(function (event) {
 add_events(".auto-submit-item", "change", function () {
 
   var form = $("#form-filter :input").filter(function () {
-    if (!this.value) {
+    if (!this.value || this.value == "{}" || this.value == "[]") {
       return false;
     }
     return true;
