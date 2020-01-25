@@ -34,7 +34,7 @@ defmodule StoreHallWeb.Router do
     resources "/", ItemController, only: [:index]
 
     resources "/users", UserController, only: [:index, :show] do
-      resources "/items", ItemController, only: [:index, :show]
+      resources "/items", ItemController, only: [:show]
     end
   end
 
