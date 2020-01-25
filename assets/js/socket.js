@@ -61,8 +61,8 @@ channel_user.join()
 
 window.channel_topic_from_url = function () {
   var url = window.location.pathname;
-  if (url.search(/\/items\/\w/) == 0) {
-    return url.match(/(\/items\/\w+).*/)[1];
+  if (!contains_string(url, "/user") && !contains_string(url, "/about")) {
+    return url.match(/(\/\w+).*/)[1];
   }
   return url
 };

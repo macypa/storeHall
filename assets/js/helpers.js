@@ -20,7 +20,9 @@ window.isString = function (obj) {
   if (obj == null) return true;
   return typeof obj === "string";
 }
-
+window.contains_string = function (testData, lookup) {
+  return testData.toLowerCase().indexOf(lookup) === -1;
+}
 window.isEmpty = function (obj) {
   if (obj == null) return true;
   if (typeof obj === "string" && (obj == "" || obj.trim() == "")) return true;

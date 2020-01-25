@@ -9,7 +9,7 @@ defmodule StoreHallWeb.ItemsChannel do
   alias StoreHall.Comments
   alias StoreHall.Items
 
-  @topic_prefix "/items"
+  @topic_prefix "/"
 
   def topic_prefix() do
     @topic_prefix

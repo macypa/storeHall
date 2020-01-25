@@ -22,17 +22,16 @@ defmodule StoreHallWeb.Router do
     pipe_through [:browser, :auth]
 
     resources "/users", UserController, only: [:edit, :update, :delete]
-    resources "/items", ItemController, only: [:new, :create, :edit, :update, :delete]
+    resources "/", ItemController, only: [:new, :create, :edit, :update, :delete]
   end
 
   scope "/", StoreHallWeb do
     pipe_through :browser
 
-    get "/", Redirector, to: "/items"
     get "/accept_cookies", CookieConsentController, :agree
 
     resources "/users", UserController, only: [:index, :show]
-    resources "/items", ItemController, only: [:index, :show]
+    resources "/", ItemController, only: [:index, :show]
   end
 
   scope "/about", StoreHallWeb do
@@ -58,7 +57,7 @@ defmodule StoreHallWeb.Router do
   scope "/", StoreHallWeb do
     pipe_through :browser
 
-    get "/*path", Redirector, to: "/items"
+    get "/*path", Redirector, to: "/"
   end
 
   # Other scopes may use custom stacks.

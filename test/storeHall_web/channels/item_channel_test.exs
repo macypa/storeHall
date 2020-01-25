@@ -121,10 +121,10 @@ defmodule StoreHallWeb.ItemChannelTest do
 
     token = Phoenix.Token.sign(@endpoint, "user token", user.id)
     {:ok, socket} = connect(UserSocket, %{"token" => token})
-    {:ok, _, item_socket} = subscribe_and_join(socket, ItemsChannel, "/items/#{item.id}")
+    {:ok, _, item_socket} = subscribe_and_join(socket, ItemsChannel, "/#{item.id}")
 
     {:ok, guest_socket} = connect(UserSocket, %{"token" => "guest"})
-    {:ok, _, guest_socket} = subscribe_and_join(guest_socket, ItemsChannel, "/items/#{item.id}")
+    {:ok, _, guest_socket} = subscribe_and_join(guest_socket, ItemsChannel, "/#{item.id}")
 
     {:ok, _, _user_socket} = subscribe_and_join(socket, UsersChannel, "/users/" <> user.id)
 
