@@ -56,7 +56,7 @@ defmodule StoreHall.DefaultFilter do
 
   def paging_filter(query, params) do
     page = parse_int(params["page"], 1)
-    page_size = parse_int(params["page-size"], 10)
+    page_size = parse_int(params["page-size"], 5)
     offset = page_size * (page - 1)
 
     query
