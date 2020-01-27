@@ -1,5 +1,8 @@
 # StoreHall
 
+General install guide:
+https://gist.github.com/beaorn/7b90a21b7e80e7744d8d2d08e49efcee
+
 To install Erlang and Elixir:
   https://lobotuerto.com/blog/how-to-install-elixir-in-manjaro-linux/
   https://gist.github.com/rubencaro/6a28138a40e629b06470
