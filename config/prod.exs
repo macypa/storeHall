@@ -10,9 +10,19 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :storeHall, StoreHallWeb.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000, compress: true],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  https: [
+    :inet6,
+    port: 443,
+    compress: true,
+    cipher_suite: :strong,
+    certfile: "priv/cert/cert.pem",
+    cacertfile: "priv/cert/chain.pem",
+    keyfile: "priv/cert/privkey.pem"
+  ],
+  force_ssl: [hsts: true],
+  code_reloader: true,
+  check_origin: false,
+  url: [host: "quupo.com", port: 443]
 
 # Do not print debug messages in production
 config :logger, level: :info
