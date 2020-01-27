@@ -20,7 +20,6 @@ config :storeHall, StoreHallWeb.Endpoint,
     keyfile: "priv/cert/privkey.pem"
   ],
   force_ssl: [hsts: true],
-  code_reloader: true,
   check_origin: false,
   url: [host: "quupo.com", port: 443]
 
