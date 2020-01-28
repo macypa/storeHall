@@ -10,9 +10,10 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :storeHall, StoreHallWeb.Endpoint,
+  http: [:inet6, port: 4400, compress: true],
   https: [
     :inet6,
-    port: 443,
+    port: 4403,
     compress: true,
     cipher_suite: :strong,
     certfile: "priv/cert/cert.pem",
