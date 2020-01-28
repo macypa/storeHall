@@ -10,19 +10,20 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :storeHall, StoreHallWeb.Endpoint,
+  http: [:inet6, port: 4400, compress: true],
   https: [
     :inet6,
-    port: 443,
+    port: 4403,
     compress: true,
     cipher_suite: :strong,
-    certfile: "priv/cert/cert.pem",
-    cacertfile: "priv/cert/chain.pem",
-    keyfile: "priv/cert/privkey.pem"
+    certfile: "/etc/letsencrypt/live/quupo.com/cert.pem",
+    cacertfile: "/etc/letsencrypt/live/quupo.com/chain.pem",
+    keyfile: "/etc/letsencrypt/live/quupo.com/privkey.pem"
   ],
   force_ssl: [hsts: true],
-  code_reloader: true,
   check_origin: false,
-  url: [host: "quupo.com", port: 443]
+  url: [host: "quupo.com", port: 443],
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
