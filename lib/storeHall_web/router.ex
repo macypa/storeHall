@@ -76,7 +76,7 @@ defmodule StoreHallWeb.Redirector do
 
   def call(conn, opts) do
     conn
-    |> put_status(:moved_permanently)
+    |> put_status(:not_found)
     |> redirect(opts)
     |> Plug.Conn.halt()
   end
