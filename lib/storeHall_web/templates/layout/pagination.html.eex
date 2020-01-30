@@ -1,5 +1,7 @@
 
 <% page_params = @conn.params
+    |> Map.delete("id")
+    |> Map.delete("user_id")
     |> Map.delete("page")
     |> Plug.Conn.Query.encode() %>
 

@@ -1,5 +1,5 @@
 channel_push_filter = function (elem) {
-  var next_page = elem.href.slice(elem.href.indexOf('?') + 1);
+  var next_page = params_from_href(elem.href);
   var page_for = "";
   if (elem.href.indexOf('&more_') != -1) {
     page_for = elem.href.slice(elem.href.indexOf('&more_') + 6);
@@ -7,6 +7,19 @@ channel_push_filter = function (elem) {
     page_for = elem.href.slice(elem.href.indexOf('?more_') + 6);
   }
   channel.push("filter", { data: next_page, page_for: page_for });
+}
+
+params_from_href = function (href) {
+  var params = href.slice(href.indexOf('?') + 1);
+
+  if (contains_string(href, "/users/")) {
+    params = params + "&user_id=" + href.match(/\/users\/(.*?)\//)[1];
+  }
+  if (contains_string(href, "/items/")) {
+    params = params + "&id=" + href.match(/\/items\/(\w+)/)[1];
+  }
+
+  return params;
 }
 
 $('.page-link').on('click', e => {
@@ -42,7 +55,7 @@ jQuery(function ($) {
 window.add_load_more_events = function () {
   add_events("[load-more-topic]", "click", function () {
     var params_attr = this.getAttribute("params")
-    var params = params_attr.slice(params_attr.indexOf('?') + 1);
+    var params = params_from_href(params_attr);
     var show_for = "";
     if (params_attr.indexOf('&show_for_') != -1) {
       show_for = params_attr.slice(params_attr.indexOf('&show_for_') + 10);
