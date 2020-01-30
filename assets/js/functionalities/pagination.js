@@ -15,7 +15,7 @@ $('.page-link').on('click', e => {
 });
 
 load_next_items = function () {
-  var next_page_link = $('#next-page-link');
+  var next_page_link = $('.next-page-link');
   if (next_page_link.is(":visible")) {
     channel_push_filter(next_page_link[0]);
     rating_badge_color();
@@ -58,18 +58,18 @@ add_load_more_events();
 window.update_next_page_link = function (payload) {
 
   if (payload.filtered == "[]") {
-    $('#next-page-link').hide();
+    $('.next-page-link').hide();
   } else {
     filter_params = payload.filter;
     filter_params = (filter_params.indexOf("page=") == -1) ? location.pathname + "?" + filter_params + "&page=1" : location.pathname + "?" + filter_params;
 
-    $('#next-page-link').attr('href', filter_params.replace(/page=\d+/, function (page_param) {
+    $('.next-page-link').attr('href', filter_params.replace(/page=\d+/, function (page_param) {
       return page_param.replace(/\d+/, function (n) {
         return ++n;
       })
     }));
 
-    $('#next-page-link').show();
+    $('.next-page-link').show();
     reload_next_items();
   }
 }
