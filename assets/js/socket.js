@@ -64,8 +64,12 @@ window.channel_topic_from_url = function () {
   if (url == "/") {
     return "/items";
   }
-  if (contains_string(url, "/items/")) {
-    return url.match(/.*(\/items\/\w+).*/)[1];
+  if (contains_string(url, "/items")) {
+    if (contains_string(url, "/items/")) {
+      return url.match(/.*(\/items\/\w+).*/)[1];
+    } else {
+      return "/items";
+    }
   }
   return url
 };
