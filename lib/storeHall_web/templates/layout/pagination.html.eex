@@ -20,7 +20,7 @@ end %>
 
 <ul class="pagination">
 
-  <%= unless length(@model) < per_page do %>
+  <%= if length(@model) > per_page do %>
       <li class="page-item">
         <a class="next-page-link page-link" href="?<%= page_params %>&page=<%= current_page+1 %><%= anchor %>" rel="next"><%= Gettext.gettext("show more") %></a>
       </li>
