@@ -83,6 +83,17 @@ config :storeHall, StoreHall.Repo,
   hostname: "localhost",
   pool_size: 10
 
+config :storeHall, :about,
+  title: "StoreHall",
+  user_id: "storeHall",
+  user: %{
+    token: "",
+    name: "StoreHall",
+    email: "storeHall@gmail.com",
+    image: "/images/logo.png",
+    provider: "storeHall"
+  }
+
 import_config "dev.secret.exs"
 
 # in dev.secret.exs set client_id and client_secret for oath

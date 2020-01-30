@@ -21,8 +21,9 @@
           <use xlink:href="/images/sprite.svg#si-ant-aliwangwang"></use>
         </svg>
 
-        <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do %>
-          Крали Марко<% end %>
+        <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do
+          Application.get_env(:storeHall, :about)[:title]
+        end %>
       </logo>
 
       <%= render "header.html", conn: @conn, assigns: assigns %>

@@ -19,17 +19,6 @@ config :storeHall, StoreHallWeb.Endpoint,
   render_errors: [view: StoreHallWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: StoreHall.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :storeHall, :about,
-  title: "Крали Марко",
-  user_id: "krali.marko",
-  user: %{
-    token: "",
-    name: "Крали Марко",
-    email: "krali.marko@gmail.com",
-    image: "/images/logo.png",
-    provider: "krali.marko"
-  }
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
