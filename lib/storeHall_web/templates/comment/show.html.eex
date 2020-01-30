@@ -6,7 +6,7 @@
 
   <avatar>
     <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
-      <img class="lazy" data-src="<%= @comment.author.image %>" />
+      <img class="lazy" data-src="<%= @comment.author.image %>" alt="<%= @comment.author.id %>">
     <% end %>
   </avatar>
 

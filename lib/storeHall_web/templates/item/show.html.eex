@@ -5,7 +5,7 @@
     <item_user_info>
       <avatar>
         <%= link to: Routes.user_path(@conn, :show, @item.user_id || "") do %>
-          <img class="lazy" data-src="<%= @item.user.image %>" />
+          <img class="lazy" data-src="<%= @item.user.image %>" alt="<%= @item.user.name %>">
           <name><%= "#{@item.user.name}" %></name>
         <% end %>
       </avatar>

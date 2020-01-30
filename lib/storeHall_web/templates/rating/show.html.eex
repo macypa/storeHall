@@ -6,7 +6,7 @@
 
   <avatar>
     <%= link to: Routes.user_path(@conn, :show, @rating.author_id || "") do %>
-      <img class="lazy" data-src="<%= @rating.author.image %>" />
+      <img class="lazy" data-src="<%= @rating.author.image %>" alt="<%= @rating.author.id %>">
     <% end %>
   </avatar>
 
