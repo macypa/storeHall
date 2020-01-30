@@ -4,7 +4,9 @@ defmodule StoreHallWeb.PageTitle do
   @suffix Application.get_env(:storeHall, :about)[:title]
 
   def page_title(assigns), do: assigns |> get
-  def page_title_with_suffix(assigns), do: page_title(assigns) |> put_suffix
+
+  def page_title_with_suffix(assigns),
+    do: page_title(assigns) |> String.slice(0..29) |> put_suffix
 
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: title <> " - " <> @suffix
