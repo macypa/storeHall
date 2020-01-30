@@ -20,7 +20,7 @@
 
         <%= case @user.details["images"] do %>
           <% [] -> %>
-            <img src="<%= @user.image%>"></img>
+            <img src="<%= @user.image%>">
           <% images -> %>
             <%= for image <- images || [] do %>
               <a href="<%= image %>"></a>
