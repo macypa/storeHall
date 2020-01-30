@@ -25,7 +25,16 @@ defmodule StoreHallWeb.PageTitle do
 
   defp get(%{view_module: StoreHallWeb.AboutView}), do: StoreHallWeb.Gettext.gettext("About Us")
 
-  defp get(%{users: _user}), do: StoreHallWeb.Gettext.gettext("Listing users")
+  defp get(%{items: _items, conn: %{params: %{"page" => page}}}) do
+    StoreHallWeb.Gettext.gettext(" Page ") <> page
+  end
+
+  defp get(%{users: _users, conn: %{params: %{"page" => page}}}) do
+    StoreHallWeb.Gettext.gettext("Listing users") <>
+      StoreHallWeb.Gettext.gettext(" Page ") <> page
+  end
+
+  defp get(%{users: _users}), do: StoreHallWeb.Gettext.gettext("Listing users")
 
   defp get(%{user: user}) do
     "#{user.name}"
