@@ -72,11 +72,14 @@ end
 
 defmodule StoreHallWeb.Redirector do
   use Phoenix.Controller
+  require StoreHallWeb.Gettext
+
   def init(opts), do: opts
 
   def call(conn, opts) do
     conn
     |> put_status(:moved_permanently)
+    |> put_flash(:error, StoreHallWeb.Gettext.gettext("Page not found"))
     |> redirect(opts)
     |> Plug.Conn.halt()
   end

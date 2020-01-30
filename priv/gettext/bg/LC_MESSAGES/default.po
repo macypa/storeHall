@@ -268,7 +268,7 @@ msgid "read more"
 msgstr "покажи повече"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/pagination.html.eex:25
+#: lib/storeHall_web/templates/layout/pagination.html.eex:27
 msgid "show more"
 msgstr "покажи повече"
 
@@ -692,3 +692,8 @@ msgstr "не приемам"
 #: lib/storeHall_web/views/page_title.ex:34
 msgid " Page "
 msgstr " Страница "
+
+#, elixir-format
+#: lib/storeHall_web/router.ex:82
+msgid "Page not found"
+msgstr "Не намирам такава страница"
