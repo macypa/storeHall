@@ -9,13 +9,10 @@ defmodule StoreHall.Plugs.SetUser do
     case AuthController.get_logged_user_id(conn) do
       nil ->
         conn
+        |> assign(:user_token, "guest")
 
       user_id ->
-        token =
-          case user_id do
-            nil -> "guest"
-            user_id -> Phoenix.Token.sign(conn, "user token", user_id)
-          end
+        token = Phoenix.Token.sign(conn, "user token", user_id)
 
         set_locale(get_session(conn, :logged_user_settings))
 
