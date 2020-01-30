@@ -71,11 +71,13 @@ defmodule StoreHallWeb.Router do
 end
 
 defmodule StoreHallWeb.Redirector do
+  use Phoenix.Controller
   def init(opts), do: opts
 
   def call(conn, opts) do
     conn
-    |> Phoenix.Controller.redirect(opts)
+    |> put_status(:moved_permanently)
+    |> redirect(opts)
     |> Plug.Conn.halt()
   end
 end
