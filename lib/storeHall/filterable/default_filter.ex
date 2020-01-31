@@ -74,8 +74,8 @@ defmodule StoreHall.DefaultFilter do
     ])
   end
 
-  def show_with_min_rating(query, author_user, nil), do: query
-  def show_with_min_rating(query, author_user, -1), do: query
+  def show_with_min_rating(query, _author_user, nil), do: query
+  def show_with_min_rating(query, _author_user, -1), do: query
 
   def show_with_min_rating(query, author_user, current_user_id) do
     Users.get_user_with_settings(current_user_id)
@@ -116,6 +116,29 @@ defmodule StoreHall.DefaultFilter do
               _ ->
                 query
             end
+        end
+    end
+  end
+
+  def show_with_max_alerts(query, nil), do: query
+  def show_with_max_alerts(query, -1), do: query
+
+  def show_with_max_alerts(query, current_user_id) do
+    Users.get_user_with_settings(current_user_id)
+    |> case do
+      nil ->
+        query
+
+      user ->
+        max_alerts = user.settings["filters"]["show_with_max_alerts"]
+
+        case max_alerts do
+          "" ->
+            query
+
+          _ ->
+            query
+            |> having([c, ra: r], count(r.id) <= ^max_alerts)
         end
     end
   end

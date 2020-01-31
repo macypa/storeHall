@@ -52,8 +52,8 @@ msgid "You cannot do that"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:115
-#: lib/storeHall_web/channels/items_channel.ex:141
+#: lib/storeHall_web/channels/items_channel.ex:116
+#: lib/storeHall_web/channels/items_channel.ex:142
 #: lib/storeHall_web/channels/users_channel.ex:123
 #: lib/storeHall_web/channels/users_channel.ex:146
 #: lib/storeHall_web/channels/users_channel.ex:165
@@ -64,7 +64,7 @@ msgid "must be logged in"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:189
+#: lib/storeHall_web/channels/items_channel.ex:190
 #: lib/storeHall_web/channels/users_channel.ex:266
 #: lib/storeHall_web/channels/users_channel.ex:310
 msgid "you already did it :)"
@@ -96,8 +96,8 @@ msgid "Listing items"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:33
-#: lib/storeHall_web/views/page_title.ex:37
+#: lib/storeHall_web/views/page_title.ex:36
+#: lib/storeHall_web/views/page_title.ex:40
 #: lib/storeHall_web/views/user_view.ex:6
 msgid "Listing users"
 msgstr ""
@@ -293,7 +293,7 @@ msgstr ""
 #: lib/storeHall_web/templates/item/form.html.eex:67
 #: lib/storeHall_web/templates/item/form.html.eex:105
 #: lib/storeHall_web/templates/user/form.html.eex:53
-#: lib/storeHall_web/templates/user/form.html.eex:132
+#: lib/storeHall_web/templates/user/form.html.eex:144
 msgid "Images"
 msgstr ""
 
@@ -378,7 +378,7 @@ msgid "Filters"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:126
+#: lib/storeHall_web/templates/user/form.html.eex:138
 msgid "Labels"
 msgstr ""
 
@@ -399,7 +399,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:37
-#: lib/storeHall_web/views/page_title.ex:26
+#: lib/storeHall_web/views/page_title.ex:29
 msgid "About Us"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgid "Address"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:149
+#: lib/storeHall_web/channels/items_channel.ex:150
 #: lib/storeHall_web/channels/users_channel.ex:234
 #: lib/storeHall_web/templates/rating/_form.html.eex:12
 msgid "All Scores absolute values should add up to max %{max_score} !"
@@ -662,6 +662,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/sponsor.html.eex:1
 #: lib/storeHall_web/templates/layout/footer.html.eex:67
+#: lib/storeHall_web/views/page_title.ex:27
 msgid "Sponsor"
 msgstr ""
 
@@ -687,12 +688,17 @@ msgid "not agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:29
-#: lib/storeHall_web/views/page_title.ex:34
+#: lib/storeHall_web/views/page_title.ex:32
+#: lib/storeHall_web/views/page_title.ex:37
 msgid " Page "
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/router.ex:82
 msgid "Page not found"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:125
+msgid "show_with_max_alerts"
 msgstr ""

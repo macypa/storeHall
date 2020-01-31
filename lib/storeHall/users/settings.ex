@@ -11,7 +11,11 @@ defmodule StoreHall.Users.Settings do
         "cookie_consent" => "not_agreed",
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0},
-        "filters" => %{"show_with_min_rating" => "", "hide_guests" => false}
+        "filters" => %{
+          "show_with_min_rating" => "",
+          "show_with_max_alerts" => "",
+          "hide_guests" => false
+        }
       }
 
     timestamps(type: :utc_datetime)

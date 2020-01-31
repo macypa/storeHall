@@ -43,7 +43,6 @@ defmodule StoreHallWeb.ItemController do
   def new(conn, _params) do
     changeset = Items.change_item(%Item{})
     filters = Items.item_filters()
-    changeset |> IO.inspect(label: 'changeset new')
 
     render(conn, :new, changeset: changeset, filters: filters)
   end
@@ -54,14 +53,11 @@ defmodule StoreHallWeb.ItemController do
            |> Map.put("user_id", AuthController.get_logged_user_id(conn))
          ) do
       {:ok, item} ->
-        item |> IO.inspect(label: 'item success')
-
         conn
         |> put_flash(:info, Gettext.gettext("Item created successfully."))
         |> redirect(to: Routes.user_item_path(conn, :show, item.user_id, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        changeset |> IO.inspect(label: 'changeset error')
         filters = Items.item_filters()
         render(conn, :new, changeset: changeset, filters: filters)
     end

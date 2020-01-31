@@ -31,6 +31,7 @@ defmodule StoreHall.Items do
     Item
     |> Reactions.preload_reaction(params["user_id"], "item")
     |> DefaultFilter.show_with_min_rating(:user, current_user_id)
+    |> DefaultFilter.show_with_max_alerts(current_user_id)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.paging_filter(params)
     |> ItemFilter.search_filter(params)

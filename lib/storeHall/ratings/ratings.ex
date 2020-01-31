@@ -147,6 +147,7 @@ defmodule StoreHall.Ratings do
     |> preload([:author])
     |> Reactions.preload_reaction(current_user_id, "rating")
     |> DefaultFilter.show_with_min_rating(:author, current_user_id)
+    |> DefaultFilter.show_with_max_alerts(current_user_id)
     |> DefaultFilter.order_first_for(current_user_id)
     |> DefaultFilter.sort_filter(params)
     |> DefaultFilter.paging_filter(params)
