@@ -33,7 +33,7 @@ defmodule StoreHallWeb.ItemController do
           "comments_count" => "{{json details.comments_count}}"
         }
       }
-      | Items.list_items(conn.params)
+      | Items.list_items(conn.params, AuthController.get_logged_user_id(conn))
     ]
 
     filters = Items.item_filters()

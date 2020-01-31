@@ -20,22 +20,17 @@ defmodule StoreHall.Items do
 
   @doc """
   Returns the list of items.
-
-  ## Examples
-
-      iex> list_items()
-      [%Item{}, ...]
-
   """
-  def list_items(params \\ nil) do
-    apply_filters(params)
+  def list_items(params, current_user_id) do
+    apply_filters(params, current_user_id)
     |> Repo.all()
     |> Images.append_images()
   end
 
-  defp apply_filters(params) do
+  defp apply_filters(params, current_user_id) do
     Item
     |> Reactions.preload_reaction(params["user_id"], "item")
+    |> DefaultFilter.show_with_min_rating(:user, current_user_id)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> DefaultFilter.paging_filter(params)
     |> ItemFilter.search_filter(params)

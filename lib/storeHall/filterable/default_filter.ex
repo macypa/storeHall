@@ -74,10 +74,10 @@ defmodule StoreHall.DefaultFilter do
     ])
   end
 
-  def min_author_rating_filter(query, nil), do: query
-  def min_author_rating_filter(query, -1), do: query
+  def show_with_min_rating(query, author_user, nil), do: query
+  def show_with_min_rating(query, author_user, -1), do: query
 
-  def min_author_rating_filter(query, current_user_id) do
+  def show_with_min_rating(query, author_user, current_user_id) do
     Users.get_user_with_settings(current_user_id)
     |> case do
       nil ->
@@ -102,9 +102,20 @@ defmodule StoreHall.DefaultFilter do
                 )
               )
 
-            query
-            |> join(:left, [c], u in assoc(c, :author), as: :a)
-            |> where(^dynamic)
+            case author_user do
+              :author ->
+                query
+                |> join(:left, [c], u in assoc(c, :author), as: :a)
+                |> where(^dynamic)
+
+              :user ->
+                query
+                |> join(:left, [c], u in assoc(c, :user), as: :a)
+                |> where(^dynamic)
+
+              _ ->
+                query
+            end
         end
     end
   end

@@ -98,7 +98,8 @@ defmodule StoreHallWeb.ItemsChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Items.list_items(filter |> Plug.Conn.Query.decode())
+    filtered =
+      Items.list_items(filter |> Plug.Conn.Query.decode(), socket.assigns.current_user_id)
 
     push(socket, "filtered_items", %{filter: filter, filtered: Jason.encode!(filtered)})
 

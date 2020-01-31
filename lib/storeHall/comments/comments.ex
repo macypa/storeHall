@@ -101,7 +101,7 @@ defmodule StoreHall.Comments do
     comments
     |> preload([:author])
     |> Reactions.preload_reaction(current_user_id, "comment")
-    |> DefaultFilter.min_author_rating_filter(current_user_id)
+    |> DefaultFilter.show_with_min_rating(:author, current_user_id)
     |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)
     |> DefaultFilter.paging_filter(params)
