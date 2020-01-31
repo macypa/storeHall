@@ -1,5 +1,5 @@
 <%= if Map.has_key?(@rating.details, "rating_template_tag_id") do %>
-  <rating id='rating_template' class='template'>
+  <template id='rating_template' class='template'>
 <% else %>
   <rating>
 <% end %>
@@ -66,4 +66,8 @@
             model: @rating,
             add_params: "show_for_rating_id=#{@rating.id}" %>
   </replies>
-</rating>
+<%= if Map.has_key?(@rating.details, "rating_template_tag_id") do %>
+  </template>
+<% else %>
+  </rating>
+<% end %>

@@ -23,6 +23,9 @@ defmodule StoreHallWeb.PageTitle do
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "terms.html"}),
     do: StoreHallWeb.Gettext.gettext("Terms")
 
+  defp get(%{view_module: StoreHallWeb.AboutView, view_template: "sponsor.html"}),
+    do: StoreHallWeb.Gettext.gettext("Sponsor")
+
   defp get(%{view_module: StoreHallWeb.AboutView}), do: StoreHallWeb.Gettext.gettext("About Us")
 
   defp get(%{items: _items, conn: %{params: %{"page" => page}}}) do

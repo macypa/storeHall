@@ -43,7 +43,7 @@
         <span>
           <span class="info_title"><%= Gettext.gettext("Cities") %> </span>
           <span class="info_content cities">
-            <%= for city <- @item.details["cities"] do %>
+            <%= for city <- @item.details["cities"] || [] do %>
               <span class="city_value"><%= city %></span>
             <% end %>
           </span>

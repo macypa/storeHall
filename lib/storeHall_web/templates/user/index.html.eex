@@ -22,7 +22,7 @@
 
   <%= for user <- @users do %>
     <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
-      <user id='user_template' class='template'>
+      <template id='user_template' class='template'>
     <% else %>
       <user>
     <% end %>
@@ -70,7 +70,11 @@
         <% end %>
       </div>
 
-    </user>
+    <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
+      </template>
+    <% else %>
+      </user>
+    <% end %>
   <% end %>
 
 </div>

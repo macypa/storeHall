@@ -1,5 +1,5 @@
 <%= if Map.has_key?(@comment.details, "comment_template_tag_id") do %>
-  <comment id='comment_template' class='template'>
+  <template id='comment_template' class='template'>
 <% else %>
   <comment>
 <% end %>
@@ -54,4 +54,8 @@
             model: @comment,
             add_params: "show_for_comment_id=#{@comment.id}" %>
   </replies>
-</comment>
+<%= if Map.has_key?(@comment.details, "comment_template_tag_id") do %>
+  </template>
+<% else %>
+  </comment>
+<% end %>
