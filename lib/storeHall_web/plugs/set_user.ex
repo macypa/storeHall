@@ -23,7 +23,9 @@ defmodule StoreHall.Plugs.SetUser do
     end
   end
 
-  def set_locale(user_settings, params = %{"locale" => _lang}) do
+  def set_locale(user_settings), do: set_locale(user_settings, nil)
+
+  def set_locale(_user_settings, params = %{"locale" => _lang}) do
     set_locale(params, nil)
   end
 
