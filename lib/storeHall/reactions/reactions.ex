@@ -28,12 +28,19 @@ defmodule StoreHall.Reactions do
   end
 
   def preload_reaction(query, current_user_id, type) do
-    reactions_query =
-      Reaction |> where([r], r.user_id == ^to_string(current_user_id) and r.type == ^type)
+    case current_user_id do
+      nil ->
+        query
 
-    query
-    |> preload(reaction: ^reactions_query)
-    |> preload_reactions_counts(type)
+      _ ->
+        reactions_query =
+          Reaction
+          |> where([r], r.user_id == ^to_string(current_user_id) and r.type == ^type)
+
+        query
+        |> preload(reaction: ^reactions_query)
+        |> preload_reactions_counts(type)
+    end
   end
 
   def preload_reaction(model, repo, current_user_id, type) do

@@ -165,6 +165,7 @@ defmodule StoreHall.DefaultFilter do
   end
 
   defp parse_int(nil, default), do: default
+  defp parse_int(x, _default) when is_integer(x), do: x
   defp parse_int(x, default) when is_binary(x), do: fetch_int(Integer.parse(x), default)
 
   defp fetch_int({number, ""}, _default) when is_integer(number), do: number
