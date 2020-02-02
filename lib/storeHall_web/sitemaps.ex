@@ -14,7 +14,7 @@ defmodule StoreHallWeb.Sitemaps do
     host: @host,
     filename: @filename,
     files_path: @files_path,
-    public_path: "sitemaps/"
+    public_path: @public_path
 
   def generate do
     create do
