@@ -29,6 +29,8 @@ defmodule StoreHallWeb.Router do
   scope "/", StoreHallWeb do
     pipe_through :browser
 
+    get "/robots.txt", SitemapController, :robots
+    get "/sitemap.xml.gz", SitemapController, :sitemap
     get "/accept_cookies", CookieConsentController, :agree
 
     resources "/", ItemController, only: [:index]

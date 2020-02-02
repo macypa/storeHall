@@ -368,4 +368,11 @@ defmodule StoreHall.Items do
       end
     end)
   end
+
+  def list_items_for_sitemap() do
+    Item
+    |> order_by([{:desc, :updated_at}])
+    |> select([:id, :user_id, :updated_at])
+    |> Repo.all()
+  end
 end

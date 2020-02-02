@@ -52,7 +52,8 @@ defmodule StoreHall.MixProject do
       {:arc, "~> 0.11.0"},
       {:slugify, "~> 1.1"},
       {:stream_data, "~> 0.1", only: :test},
-      {:phoenix_html_sanitizer, "~> 1.0.0"}
+      {:phoenix_html_sanitizer, "~> 1.0.0"},
+      {:sitemap, "~> 1.1"}
     ]
   end
 

@@ -32,6 +32,7 @@
   "poison": {:hex, :poison, "3.1.0", "d9eb636610e096f86f25d9a46f35a9facac35609a7591b3be3326e99a0484665", [:mix], [], "hexpm"},
   "postgrex": {:hex, :postgrex, "0.14.3", "5754dee2fdf6e9e508cbf49ab138df964278700b764177e8f3871e658b345a1e", [:mix], [{:connection, "~> 1.0", [hex: :connection, repo: "hexpm", optional: false]}, {:db_connection, "~> 2.0", [hex: :db_connection, repo: "hexpm", optional: false]}, {:decimal, "~> 1.5", [hex: :decimal, repo: "hexpm", optional: false]}, {:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: true]}], "hexpm"},
   "ranch": {:hex, :ranch, "1.7.1", "6b1fab51b49196860b733a49c07604465a47bdb78aa10c1c16a3d199f7f8c881", [:rebar3], [], "hexpm"},
+  "sitemap": {:hex, :sitemap, "1.1.0", "23a019cccef7c17090d0b493354ee47a94549db64fd1cf39bda7eb41c567729c", [:mix], [{:xml_builder, ">= 0.0.0", [hex: :xml_builder, repo: "hexpm", optional: false]}], "hexpm"},
   "slugify": {:hex, :slugify, "1.1.0", "945165e32c7ad22226c63101ac57a64d105fd4681d503c3302ae2c734a0e26ee", [:mix], [], "hexpm"},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.5", "6eaf7ad16cb568bb01753dbbd7a95ff8b91c7979482b95f38443fe2c8852a79b", [:make, :mix, :rebar3], [], "hexpm"},
   "stream_data": {:hex, :stream_data, "0.4.3", "62aafd870caff0849a5057a7ec270fad0eb86889f4d433b937d996de99e3db25", [:mix], [], "hexpm"},
@@ -40,4 +41,5 @@
   "ueberauth_facebook": {:hex, :ueberauth_facebook, "0.8.0", "9ec8571f804dd5c06f4e305d70606b39fc0ac8a8f43ed56ebb76012a97d14729", [:mix], [{:oauth2, "~> 0.9", [hex: :oauth2, repo: "hexpm", optional: false]}, {:ueberauth, "~> 0.4", [hex: :ueberauth, repo: "hexpm", optional: false]}], "hexpm"},
   "ueberauth_google": {:hex, :ueberauth_google, "0.8.0", "dc0e8417061c74107a3ba1419943cc930d3403b5c536b3757886964a3a70c333", [:mix], [{:oauth2, "~> 0.9", [hex: :oauth2, repo: "hexpm", optional: false]}, {:ueberauth, "~> 0.4", [hex: :ueberauth, repo: "hexpm", optional: false]}], "hexpm"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.4.1", "d869e4c68901dd9531385bb0c8c40444ebf624e60b6962d95952775cac5e90cd", [:rebar3], [], "hexpm"},
+  "xml_builder": {:hex, :xml_builder, "2.1.2", "90cb9ad382958934c78c6ddfbe6d385a8ce147d84b61cbfa83ec93a169d0feab", [:mix], [], "hexpm"},
 }
