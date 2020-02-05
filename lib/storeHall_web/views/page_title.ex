@@ -9,7 +9,7 @@ defmodule StoreHallWeb.PageTitle do
     do: page_title(assigns) |> String.slice(0..29) |> put_suffix
 
   defp put_suffix(nil), do: @suffix
-  defp put_suffix(title), do: title <> " - " <> @suffix
+  defp put_suffix(title), do: "#{title} - #{@suffix}"
 
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "contacts.html"}),
     do: StoreHallWeb.Gettext.gettext("Contacts")

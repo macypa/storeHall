@@ -15,9 +15,7 @@ defmodule StoreHall.ItemsTest do
         "images" => [],
         "rating" => %{"count" => 0, "score" => -1},
         "comments_count" => 1
-      },
-      "name" => "some updated name",
-      "user_id" => "some_id"
+      }
     }
     @invalid_attrs %{
       "details" => %{
@@ -35,8 +33,8 @@ defmodule StoreHall.ItemsTest do
     end
 
     test "get_item!/1 returns the item with given id" do
-      check all item <- Fixture.item_generator() do
-        assert Items.get_item!(item.id) == item
+      check all(item <- Fixture.item_generator()) do
+        assert Items.get_item!(item.id).id == item.id
       end
     end
 
@@ -59,7 +57,7 @@ defmodule StoreHall.ItemsTest do
     test "create_item/1 with valid data creates an item" do
       user = Fixture.generate_user()
 
-      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
+      check all(item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2)) do
         item_attrs
         |> Items.create_item()
         |> case do
@@ -69,16 +67,10 @@ defmodule StoreHall.ItemsTest do
           {:ok, item} ->
             assert %Item{} = item
 
-            assert item.details == %{
-                     "tags" => item_attrs["details"]["tags"],
-                     "images" => item_attrs["details"]["images"],
-                     "rating" => %{
-                       "count" => 0,
-                       "score" => user.details["rating"]["score"]
-                     },
-                     "comments_count" => item_attrs["details"]["comments_count"]
-                   }
+            assert item.details["tags"] == item_attrs["details"]["tags"]
+            assert item.details["images"] == item_attrs["details"]["images"]
 
+            assert item.details["comments_count"] == item_attrs["details"]["comments_count"]
             assert item.name == item_attrs["name"]
             assert item.user_id == item_attrs["user_id"]
         end
@@ -95,9 +87,10 @@ defmodule StoreHall.ItemsTest do
 
     test "create_item/1 updates item filters table" do
       user = Fixture.generate_user()
+      min_count = 1
 
-      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
-        filters_before = Items.item_filters()
+      check all(item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2)) do
+        filters_before = Items.item_filters(min_count)
 
         item_attrs
         |> Items.create_item()
@@ -119,8 +112,8 @@ defmodule StoreHall.ItemsTest do
               end)
 
             case item_attrs do
-              [] -> assert Items.item_filters()["tags"] != filters_before["tags"]
-              _ -> assert Items.item_filters()["tags"] == tags
+              [] -> assert Items.item_filters(min_count)["tags"] != filters_before["tags"]
+              _ -> assert Items.item_filters(min_count)["tags"] == tags
             end
         end
       end
@@ -130,25 +123,25 @@ defmodule StoreHall.ItemsTest do
       item = Fixture.generate_item()
       assert {:ok, %Item{} = item} = Items.update_item(item, @update_attrs)
 
-      assert item.details == %{
-               "tags" => [],
-               "images" => [],
-               "rating" => %{"count" => 0, "score" => -1},
-               "comments_count" => 1
-             }
-
-      assert item.name == "some updated name"
-      assert item.user_id == "some_id"
+      assert item.details["tags"] == []
+      assert item.details["images"] == []
+      assert item.details["rating"] == %{"count" => 0, "score" => -1}
+      assert item.details["comments_count"] == 1
     end
 
     test "update_item/2 with invalid data returns error changeset" do
       item = Fixture.generate_item()
       assert {:error, %Ecto.Changeset{}} = Items.update_item(item, @invalid_attrs)
-      assert item == Items.get_item!(item.id)
+
+      item_db = Items.get_item!(item.id)
+      assert item.details["tags"] == item_db.details["tags"]
+      assert item.details["images"] == item_db.details["images"]
+      assert item.details["rating"] == %{"count" => 0, "score" => 0}
+      assert item.details["comments_count"] == item_db.details["comments_count"]
     end
 
     test "delete_item/1 deletes the item" do
-      check all item <- Fixture.item_generator() do
+      check all(item <- Fixture.item_generator()) do
         assert {:ok, %Item{}} = Items.delete_item(item)
         assert_raise Ecto.NoResultsError, fn -> Items.get_item!(item.id) end
       end
@@ -159,7 +152,7 @@ defmodule StoreHall.ItemsTest do
       # Fixture.insert_items(@items_count)
       Fixture.insert_items(5)
 
-      check all item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2) do
+      check all(item_attrs <- Fixture.item_generator(user, &Fixture.item_generator_fun_do_none/2)) do
         item_attrs
         |> Items.create_item()
         |> case do
@@ -201,7 +194,7 @@ defmodule StoreHall.ItemsTest do
     end
 
     test "change_item/1 returns a item changeset" do
-      check all item <- Fixture.item_generator() do
+      check all(item <- Fixture.item_generator()) do
         assert %Ecto.Changeset{} = Items.change_item(item)
       end
     end

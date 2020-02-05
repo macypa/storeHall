@@ -20,7 +20,6 @@
   <body>
     <header>
       <logo>
-        <!--svg icons https://github.com/leungwensen/svg-icon-->
         <svg class="svg_icon menu_svg_icon" id="logo_icon">
           <use xlink:href="/images/sprite.svg#si-ant-aliwangwang"></use>
         </svg>

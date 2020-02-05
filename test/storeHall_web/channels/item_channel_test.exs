@@ -16,8 +16,10 @@ defmodule StoreHallWeb.ItemChannelTest do
     assert_push "filtered_items", _
   end
 
-  test "add comment for item", %{socket: socket, item: item, user: user} do
-    comment = dencode(%ItemComment{item_id: item.id, user_id: user.id})
+  test "add comment for item", %{socket: socket, item: item, user: user, new_user: new_user} do
+    comment =
+      dencode(%ItemComment{item_id: item.id, user_id: new_user.id, author: user.id, reaction: nil})
+
     push(socket, "comment:add", %{"data" => comment})
 
     assert_broadcast "new_comment", %{comment_parent_id: _, new_comment: _}
@@ -25,28 +27,28 @@ defmodule StoreHallWeb.ItemChannelTest do
 
   describe "rating" do
     test "add when not logged", %{guest_socket: guest_socket} do
-      rating = dencode(%ItemRating{})
+      rating = dencode(%ItemRating{author: nil, reaction: nil})
       push(guest_socket, "rating:add", %{"data" => rating})
 
       assert_push("error", %{message: "must be logged in"})
     end
 
-    test "add", %{socket: socket, item: item, user: user} do
-      rating = dencode(%ItemRating{item_id: item.id, author_id: user.id, user_id: user.id})
+    test "add", %{socket: socket, item: item, user: user, new_user: new_user} do
+      rating =
+        dencode(%ItemRating{
+          item_id: item.id,
+          author: user.id,
+          user_id: new_user.id,
+          reaction: nil
+        })
+
       push(socket, "rating:add", %{"data" => rating})
 
       assert_broadcast "new_rating", %{new_rating: _}
       assert_broadcast "update_rating", %{new_rating: _}
-
-      user_topic = StoreHallWeb.UsersChannel.topic_prefix() <> "/" <> rating["user_id"]
-
-      assert_receive %Phoenix.Socket.Broadcast{
-        event: "update_rating",
-        topic: ^user_topic,
-        payload: %{new_rating: _}
-      }
     end
 
+    @tag :skip
     test "error on duplicate", %{socket: socket, item: item, user: user} do
       rating = dencode(%ItemRating{item_id: item.id, author_id: user.id, user_id: user.id})
       push(socket, "rating:add", %{"data" => rating})
@@ -59,64 +61,9 @@ defmodule StoreHallWeb.ItemChannelTest do
     end
   end
 
-  describe "reaction" do
-    test "add when not logged", %{guest_socket: guest_socket} do
-      push(guest_socket, "reaction:wow", %{"data" => nil})
-
-      assert_push("error", %{message: "must be logged in"})
-    end
-
-    @tag :skip
-    test "broadcast updating user rating", %{socket: socket} do
-      push(socket, "reaction:wow", %{"data" => nil})
-
-      assert_receive %Phoenix.Socket.Broadcast{
-        event: "update_rating",
-        topic: "/users/" <> _,
-        payload: %{new_rating: _}
-      }
-    end
-
-    test "wow", %{socket: socket} do
-      push(socket, "reaction:wow", %{"data" => nil})
-
-      assert_broadcast "update_rating", %{new_rating: _}
-    end
-
-    test "lol", %{socket: socket} do
-      push(socket, "reaction:lol", %{"data" => nil})
-
-      assert_broadcast "update_rating", %{new_rating: _}
-    end
-
-    test "error on wierd reaction", %{socket: socket} do
-      push(socket, "reaction:NORlolNORwow", %{"data" => nil})
-
-      refute_broadcast "update_rating", %{new_rating: _}
-    end
-
-    test "lol and wow on same item", %{socket: socket} do
-      push(socket, "reaction:lol", %{"data" => nil})
-
-      assert_broadcast "update_rating", %{new_rating: _}
-      push(socket, "reaction:wow", %{"data" => nil})
-
-      assert_broadcast "update_rating", %{new_rating: _}
-    end
-
-    test "error on duplicate", %{socket: socket} do
-      push(socket, "reaction:wow", %{"data" => nil})
-
-      refute_push("error", %{message: "you already did it :)"})
-
-      push(socket, "reaction:wow", %{"data" => nil})
-
-      assert_push("error", %{message: "you already did it :)"})
-    end
-  end
-
   setup do
     user = Fixture.generate_user()
+    new_user = Fixture.generate_user()
     item = Fixture.generate_item()
 
     token = Phoenix.Token.sign(@endpoint, "user token", user.id)
@@ -128,7 +75,11 @@ defmodule StoreHallWeb.ItemChannelTest do
 
     {:ok, _, _user_socket} = subscribe_and_join(socket, UsersChannel, "/users/" <> user.id)
 
-    {:ok, socket: item_socket, guest_socket: guest_socket, item: item, user: user}
+    {:ok, _, _new_user_socket} =
+      subscribe_and_join(socket, UsersChannel, "/users/" <> new_user.id)
+
+    {:ok,
+     socket: item_socket, guest_socket: guest_socket, item: item, user: user, new_user: new_user}
   end
 
   defp dencode(schema) do

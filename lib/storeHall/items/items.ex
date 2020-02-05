@@ -21,7 +21,7 @@ defmodule StoreHall.Items do
   @doc """
   Returns the list of items.
   """
-  def list_items(params, current_user_id) do
+  def list_items(params, current_user_id \\ nil) do
     apply_filters(params, current_user_id)
     |> Repo.all()
     |> Images.append_images()
@@ -29,7 +29,7 @@ defmodule StoreHall.Items do
 
   defp apply_filters(params, current_user_id) do
     Item
-    |> Reactions.preload_reaction(params["user_id"], "item")
+    |> Reactions.preload_reaction(current_user_id, "item")
     |> DefaultFilter.show_with_min_rating(:user, current_user_id)
     |> DefaultFilter.show_with_max_alerts(current_user_id)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
@@ -133,10 +133,17 @@ defmodule StoreHall.Items do
   defp prepare_price(item) do
     price =
       item["details"]["price"]
-      |> Float.parse()
       |> case do
-        :error -> 0
-        {number, _} -> number |> Float.round(2)
+        nil ->
+          0
+
+        price ->
+          price
+          |> Float.parse()
+          |> case do
+            :error -> 0
+            {number, _} -> number |> Float.round(2)
+          end
       end
 
     item |> put_in(["details", "price"], price)
@@ -348,8 +355,8 @@ defmodule StoreHall.Items do
     end
   end
 
-  def item_filters() do
-    Filters |> Repo.all() |> Filters.to_map()
+  def item_filters(min_count \\ 10) do
+    Filters |> Repo.all() |> Filters.to_map(min_count)
   end
 
   def get_feature_filters(items) do

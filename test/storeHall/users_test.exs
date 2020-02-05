@@ -18,7 +18,7 @@ defmodule StoreHall.UsersTest do
 
   test "list_users/0 returns all users" do
     users = Fixture.insert_users(@users_count)
-    assert length(Repo.all(User)) == length(users)
+    assert length(Users.list_users(%{"page-size" => @users_count + 1})) == length(users)
   end
 
   describe "get" do
@@ -96,7 +96,8 @@ defmodule StoreHall.UsersTest do
   describe "delete" do
     test "delete_user/1 deletes the user" do
       check all(user <- Fixture.user_generator()) do
-        assert {:ok} = Users.delete_user(user)
+        Users.update_user(user, %{})
+        assert {:ok} == Users.delete_user(user)
         assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id) end
       end
     end
@@ -105,7 +106,7 @@ defmodule StoreHall.UsersTest do
       check all(user <- Fixture.user_generator()) do
         Users.update_user(user, %{"settings" => %{"custom_setting" => 0}})
 
-        assert {:ok} = Users.delete_user(user)
+        assert {:ok} == Users.delete_user(user)
         assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id) end
         assert_raise Ecto.NoResultsError, fn -> Repo.get!(Settings, user.id) end
       end

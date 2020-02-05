@@ -35,10 +35,10 @@ defmodule StoreHallWeb.UserSocketTest do
   end
 
   test "connect to items channel", %{socket: socket} do
-    {:ok, _, socket} = subscribe_and_join(socket, "/")
+    {:ok, _, socket} = subscribe_and_join(socket, "/items")
     assert socket.channel == StoreHallWeb.ItemsChannel
 
-    {:ok, _, socket} = subscribe_and_join(socket, "/some_item")
+    {:ok, _, socket} = subscribe_and_join(socket, "/items/some_item")
     assert socket.channel == StoreHallWeb.ItemsChannel
   end
 

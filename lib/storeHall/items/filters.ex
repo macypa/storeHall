@@ -19,7 +19,7 @@ defmodule StoreHall.Items.Filters do
   end
 
   @empty_map %{"merchant" => %{}, "tags" => %{}, "cities" => %{}}
-  def to_map(data) do
+  def to_map(data, min_count \\ 10) do
     case data do
       [] ->
         @empty_map
@@ -33,7 +33,7 @@ defmodule StoreHall.Items.Filters do
 
             _ ->
               case data.count do
-                count when count < 10 ->
+                count when count < min_count ->
                   acc
 
                 _ ->

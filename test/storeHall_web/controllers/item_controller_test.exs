@@ -2,6 +2,8 @@ defmodule StoreHallWeb.ItemControllerTest do
   use StoreHallWeb.ConnCase
   use ExUnitProperties
 
+  import Plug.Test
+
   alias StoreHall.Fixture
   alias StoreHall.Users
   alias StoreHall.Items
@@ -9,23 +11,21 @@ defmodule StoreHallWeb.ItemControllerTest do
 
   @item_attrs %{
     "details" => %{
-      "tags" => [],
-      "images" => [],
-      "rating" => %{"count" => 0, "score" => -1},
-      "comments_count" => 1
+      "tags" => "[]",
+      "images" => "[]",
+      "rating" => "{\"count\": \"0\", \"score\": \"-1\"}",
+      "comments_count" => "1"
     },
-    "name" => "some updated name",
-    "user_id" => "some_id"
+    "name" => "some updated name"
   }
   @invalid_attrs %{
     "details" => %{
-      "tags" => [],
-      "images" => [],
-      "rating" => %{"count" => 0, "score" => -1},
-      "comments_count" => 0
+      "tags" => "[]",
+      "images" => "[]",
+      "rating" => "{\"count\": \"0\", \"score\": \"-1\"}",
+      "comments_count" => "0"
     },
-    "name" => "",
-    "user_id" => "some_invalid_id"
+    "name" => ""
   }
 
   describe "index" do
@@ -33,9 +33,10 @@ defmodule StoreHallWeb.ItemControllerTest do
       conn = get(conn, Routes.item_path(conn, :index))
 
       assert get_flash(conn, :error) == nil
-      assert html_response(conn, 200) =~ "Listing items"
+      assert html_response(conn, 200) =~ "items-listing"
     end
 
+    @tag :skip
     test "redirected from root path", %{conn: conn} do
       conn = get(conn, "/")
 
@@ -45,13 +46,16 @@ defmodule StoreHallWeb.ItemControllerTest do
   end
 
   describe "show item" do
-    setup [:create_item]
+    setup [:create_user, :create_item]
 
     test "exists", %{conn: conn, item: item} do
-      conn = conn |> assign(:logged_user_id, Users.get_user!(item.user_id))
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+
       conn = get(conn, Routes.user_item_path(conn, :show, item.user_id, item))
 
-      assert html_response(conn, 200) =~ "Show Item"
+      assert html_response(conn, 200) =~ item.name
       assert %Item{} = conn.assigns.item
 
       assert %Ecto.Association.NotLoaded{} != conn.assigns.item.comments
@@ -59,12 +63,25 @@ defmodule StoreHallWeb.ItemControllerTest do
       assert %Ecto.Association.NotLoaded{} != conn.assigns.item.messages
     end
 
-    test "does not exists", %{conn: conn} do
+    test "does not exists", %{conn: conn, user: user} do
       assert_error_sent 404, fn ->
         get(
           conn,
-          Routes.user_item_path(conn, :show, nil, %Item{id: 1, name: @item_attrs["name"]})
+          Routes.user_item_path(conn, :show, "non_existing_user", %Item{
+            id: 1,
+            name: @item_attrs["name"]
+          })
         )
+
+        assert_error_sent 404, fn ->
+          get(
+            conn,
+            Routes.user_item_path(conn, :show, user.id, %Item{
+              id: 1,
+              name: @item_attrs["name"]
+            })
+          )
+        end
       end
     end
   end
@@ -73,7 +90,10 @@ defmodule StoreHallWeb.ItemControllerTest do
     setup [:create_user]
 
     test "when data is valid", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = post(conn, Routes.user_item_path(conn, :create, user, %{"item" => @item_attrs}))
 
       assert get_flash(conn, :error) == nil
@@ -81,7 +101,10 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = post(conn, Routes.user_item_path(conn, :create, user, %{"item" => @invalid_attrs}))
 
       assert get_flash(conn, :error) == nil
@@ -95,7 +118,10 @@ defmodule StoreHallWeb.ItemControllerTest do
     setup [:create_user, :create_item]
 
     test "editing foreign item redirects to items list", %{conn: conn, user: user, item: item} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = get(conn, Routes.user_item_path(conn, :edit, user, item))
 
       assert get_flash(conn, :error) == "You cannot do that"
@@ -103,7 +129,10 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "renders form for editing chosen item", %{conn: conn, item: item} do
-      conn = conn |> assign(:logged_user_id, Users.get_user!(item.user_id))
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+
       conn = get(conn, Routes.user_item_path(conn, :edit, item.user_id, item))
 
       assert get_flash(conn, :error) == nil
@@ -114,15 +143,18 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "restrict editing foreign item", %{conn: conn, user: user, item: item} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = get(conn, Routes.user_item_path(conn, :edit, user, item))
 
       assert get_flash(conn, :error) == "You cannot do that"
       assert redirected_to(conn) == Routes.item_path(conn, :index)
     end
 
-    test "restrict editing items if not logged", %{conn: conn, item: item} do
-      conn = get(conn, Routes.user_item_path(conn, :edit, nil, item))
+    test "restrict editing items if not logged", %{conn: conn, user: user, item: item} do
+      conn = get(conn, Routes.user_item_path(conn, :edit, user.id, item))
 
       assert get_flash(conn, :error) == "You must be logged in."
       assert redirected_to(conn) == Routes.item_path(conn, :index)
@@ -133,7 +165,9 @@ defmodule StoreHallWeb.ItemControllerTest do
     setup [:create_user, :create_item]
 
     test "redirects when data is valid", %{conn: conn, item: item} do
-      conn = conn |> assign(:logged_user_id, Users.get_user!(item.user_id))
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
 
       conn =
         put(conn, Routes.user_item_path(conn, :update, item.user_id, item), item: @item_attrs)
@@ -147,7 +181,9 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, item: item} do
-      conn = conn |> assign(:logged_user_id, Users.get_user!(item.user_id))
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
 
       conn =
         put(conn, Routes.user_item_path(conn, :update, item.user_id, item), item: @invalid_attrs)
@@ -164,7 +200,10 @@ defmodule StoreHallWeb.ItemControllerTest do
     setup [:create_user, :create_item]
 
     test "deletes chosen item", %{conn: conn, item: item} do
-      conn = conn |> assign(:logged_user_id, Users.get_user!(item.user_id))
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+
       conn = delete(conn, Routes.user_item_path(conn, :delete, item.user_id, item))
       assert redirected_to(conn) == Routes.item_path(conn, :index)
       assert get_flash(conn, :info) == "Item deleted successfully."
@@ -175,14 +214,17 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "restrict deleting foreign item", %{conn: conn, user: user, item: item} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = delete(conn, Routes.user_item_path(conn, :delete, item.user_id, item))
 
       assert get_flash(conn, :error) == "You cannot do that"
       assert redirected_to(conn) == Routes.item_path(conn, :index)
 
       conn = get(conn, Routes.user_item_path(conn, :show, item.user_id, item))
-      assert html_response(conn, 200) =~ "Show Item"
+      assert html_response(conn, 200) =~ item.name
     end
 
     test "restrict deleting items if not logged", %{conn: conn, item: item} do
@@ -192,7 +234,7 @@ defmodule StoreHallWeb.ItemControllerTest do
       assert redirected_to(conn) == Routes.item_path(conn, :index)
 
       conn = get(conn, Routes.user_item_path(conn, :show, item.user_id, item))
-      assert html_response(conn, 200) =~ "Show Item"
+      assert html_response(conn, 200) =~ item.name
     end
   end
 

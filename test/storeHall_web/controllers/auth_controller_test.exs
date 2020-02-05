@@ -2,7 +2,10 @@ defmodule StoreHallWeb.AuthControllerTest do
   use StoreHallWeb.ConnCase
   use ExUnitProperties
 
+  import Plug.Test
+
   alias StoreHall.Fixture
+  alias StoreHallWeb.AuthController
 
   test "redirects user to Google for authentication", %{conn: conn} do
     conn = get(conn, "/auth/google")
@@ -11,7 +14,7 @@ defmodule StoreHallWeb.AuthControllerTest do
 
   test "creates user from Google information", %{conn: conn} do
     # ueberauth_auth = Fixture.generate_ueberauth()
-    check all ueberauth_auth <- Fixture.ueberauth_generator() do
+    check all(ueberauth_auth <- Fixture.ueberauth_generator()) do
       conn =
         conn
         |> assign(:ueberauth_auth, ueberauth_auth)
@@ -20,8 +23,7 @@ defmodule StoreHallWeb.AuthControllerTest do
       case conn.private.plug_session["phoenix_flash"]["error_reason"] do
         nil ->
           assert get_flash(conn, :error) == nil
-          assert conn.private.plug_session["logged_user_id"].id != ""
-          assert conn.private.plug_session["logged_user_id"].inserted_at != ""
+          assert AuthController.get_logged_user_id(conn) != ""
           assert get_flash(conn, :info) == "Thank you for signing in!"
 
         reason ->
@@ -35,7 +37,7 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> assign(:logged_user_id, user)
+      |> init_test_session(logged_user_id: user.id)
       |> get("/users")
 
     assert get_flash(conn, :error) == nil
@@ -47,11 +49,11 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> assign(:logged_user_id, user)
+      |> init_test_session(logged_user_id: user.id)
       |> get("/auth/delete")
       |> get("/")
 
     assert get_flash(conn, :error) == nil
-    assert conn.assigns.logged_user_id == nil
+    assert AuthController.get_logged_user_id(conn) == nil
   end
 end

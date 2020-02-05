@@ -163,7 +163,7 @@ defmodule StoreHall.Ratings do
     id
   end
 
-  def create_item_rating(rating \\ %{}) do
+  def upsert_item_rating(rating \\ %{}) do
     Multi.new()
     |> insert_or_update_item_rating(rating)
     |> Repo.transaction()
@@ -189,7 +189,7 @@ defmodule StoreHall.Ratings do
     end
   end
 
-  def create_user_rating(rating \\ %{}) do
+  def upsert_user_rating(rating \\ %{}) do
     Multi.new()
     |> insert_or_update_user_rating(rating)
     |> Repo.transaction()
@@ -201,7 +201,7 @@ defmodule StoreHall.Ratings do
              multi.insert
              |> Repo.preload(:author)
              |> Reactions.preload_reaction(Repo, rating["author_id"], "rating"),
-             multi.calc_item_rating, multi.calc_user_rating}
+             multi.calc_user_rating}
 
           _ ->
             {:ok,

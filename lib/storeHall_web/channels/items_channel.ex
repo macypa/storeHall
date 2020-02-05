@@ -154,7 +154,7 @@ defmodule StoreHallWeb.ItemsChannel do
               })
 
             true ->
-              case Ratings.create_item_rating(rating |> Map.put("author_id", logged_user_id)) do
+              case Ratings.upsert_item_rating(rating |> Map.put("author_id", logged_user_id)) do
                 {:ok, rating} ->
                   broadcast!(
                     socket,
@@ -187,7 +187,7 @@ defmodule StoreHallWeb.ItemsChannel do
 
                 {:error, _rating} ->
                   push(socket, "error", %{
-                    message: Gettext.gettext("you already did it :)")
+                    message: Gettext.gettext("Something unexpected happened")
                   })
               end
           end

@@ -2,18 +2,19 @@ defmodule StoreHallWeb.UserControllerTest do
   use StoreHallWeb.ConnCase
   use ExUnitProperties
 
+  import Plug.Test
+
   alias StoreHall.Fixture
   alias StoreHall.Users
   alias StoreHall.Users.User
 
   @user_attrs %{
     id: "some_id",
-    email: "some updated email",
     name: "some updated name",
     provider: "some updated provider",
     settings: %{
-      labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
-      filters: "{\"show_with_min_rating\":-1, \"hide_guests\":false}"
+      labels: %{got: "1", interested: "1", liked: "1", wish: "1"},
+      filters: %{show_with_min_rating: "-1", hide_guests: "false"}
     }
   }
   @invalid_attrs %{
@@ -21,8 +22,8 @@ defmodule StoreHallWeb.UserControllerTest do
     name: nil,
     provider: nil,
     settings: %{
-      labels: "{\"got\":1,\"interested\":1,\"liked\":1,\"wish\":1}",
-      filters: "{\"show_with_min_rating\":-1, \"hide_guests\":false}"
+      labels: %{got: "1", interested: "1", liked: "1", wish: "1"},
+      filters: %{show_with_min_rating: "-1", hide_guests: "false"}
     }
   }
 
@@ -40,10 +41,13 @@ defmodule StoreHallWeb.UserControllerTest do
     setup [:create_user]
 
     test "exists", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = get(conn, Routes.user_path(conn, :show, user))
 
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200) =~ user.name
       assert %User{} = conn.assigns.user
 
       assert %Ecto.Association.NotLoaded{} != conn.assigns.user.comments
@@ -76,7 +80,10 @@ defmodule StoreHallWeb.UserControllerTest do
     end
 
     test "editing foreign user redirects to items list", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, Fixture.generate_user())
+      conn =
+        conn
+        |> init_test_session(logged_user_id: Fixture.generate_user())
+
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
       assert get_flash(conn, :error) == "You cannot do that"
@@ -84,7 +91,10 @@ defmodule StoreHallWeb.UserControllerTest do
     end
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
       assert get_flash(conn, :error) == nil
@@ -94,7 +104,10 @@ defmodule StoreHallWeb.UserControllerTest do
     end
 
     test "restrict editing other user", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = get(conn, Routes.user_path(conn, :edit, Fixture.generate_user()))
 
       assert get_flash(conn, :error) == "You cannot do that"
@@ -106,18 +119,24 @@ defmodule StoreHallWeb.UserControllerTest do
     setup [:create_user]
 
     test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = put(conn, Routes.user_path(conn, :update, user), user: @user_attrs)
 
       assert get_flash(conn, :error) == nil
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "some updated email"
+      assert html_response(conn, 200) =~ "some updated name"
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
 
       assert get_flash(conn, :error) == nil
@@ -129,11 +148,13 @@ defmodule StoreHallWeb.UserControllerTest do
     setup [:create_user]
 
     test "deletes chosen user", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = delete(conn, Routes.user_path(conn, :delete, user))
 
       assert get_flash(conn, :error) == nil
-      assert redirected_to(conn) == Routes.user_path(conn, :index)
       assert get_flash(conn, :info) == "User deleted successfully."
 
       assert_error_sent 404, fn ->
@@ -142,14 +163,17 @@ defmodule StoreHallWeb.UserControllerTest do
     end
 
     test "restrict deleting other user", %{conn: conn, user: user} do
-      conn = conn |> assign(:logged_user_id, user)
+      conn =
+        conn
+        |> init_test_session(logged_user_id: user.id)
+
       conn = delete(conn, Routes.user_path(conn, :delete, Fixture.generate_user()))
 
       assert get_flash(conn, :error) == "You cannot do that"
       assert redirected_to(conn) == Routes.user_path(conn, :index)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200) =~ user.name
     end
   end
 

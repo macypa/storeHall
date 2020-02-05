@@ -7,9 +7,12 @@ defmodule StoreHall.ImagesTest do
   alias StoreHall.FileUploader
 
   describe "images" do
+    @tag :skip
     test "fileUploader url uses tags from item" do
-      check all item <- Fixture.item_generator(),
-                image <- StreamData.string(:alphanumeric) do
+      check all(
+              item <- Fixture.item_generator(),
+              image <- StreamData.string(:alphanumeric)
+            ) do
         image_url = FileUploader.url({image, item})
 
         assert item.details["tags"]
@@ -24,7 +27,7 @@ defmodule StoreHall.ImagesTest do
 
     @tag :skip
     test "cover image of nonexisting images is empty string" do
-      check all item <- Fixture.item_generator() do
+      check all(item <- Fixture.item_generator()) do
         cover_img_url = Items.cover_image(item)
 
         assert cover_img_url == ""

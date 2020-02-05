@@ -227,7 +227,7 @@ defmodule StoreHallWeb.UsersChannel do
 
       logged_user_id ->
         unless logged_user_id == rating["user_id"] do
-          case Ratings.validate_scores(rating["details"]["scores"]) do
+          case Ratings.validate_scores(rating) do
             false ->
               push(socket, "error", %{
                 message:
@@ -238,7 +238,7 @@ defmodule StoreHallWeb.UsersChannel do
               })
 
             true ->
-              case Ratings.create_user_rating(rating |> Map.put("author_id", logged_user_id)) do
+              case Ratings.upsert_user_rating(rating |> Map.put("author_id", logged_user_id)) do
                 {:ok, rating} ->
                   broadcast!(
                     socket,
@@ -263,7 +263,7 @@ defmodule StoreHallWeb.UsersChannel do
 
                 {:error, _rating} ->
                   push(socket, "error", %{
-                    message: Gettext.gettext("you already did it :)")
+                    message: Gettext.gettext("Something unexpected happened")
                   })
               end
           end

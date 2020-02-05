@@ -4,16 +4,22 @@ defmodule StoreHall.Images do
 
   def validate_images(changeset, details_field, options \\ []) do
     Ecto.Changeset.validate_change(changeset, details_field, fn _, details ->
-      details["images"]
-      |> Enum.reduce(false, fn img, acc ->
-        case String.starts_with?(img, "http://") do
-          true -> true
-          false -> acc
-        end
-      end)
-      |> case do
-        true -> [{details_field, options[:message] || "https protocol only"}]
-        false -> []
+      case details["images"] do
+        nil ->
+          []
+
+        _ ->
+          details["images"]
+          |> Enum.reduce(false, fn img, acc ->
+            case String.starts_with?(img, "http://") do
+              true -> true
+              false -> acc
+            end
+          end)
+          |> case do
+            true -> [{details_field, options[:message] || "https protocol only"}]
+            false -> []
+          end
       end
     end)
   end

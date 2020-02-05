@@ -3,13 +3,14 @@ defmodule StoreHallWeb.SetUserTest do
   use ExUnitProperties
 
   alias StoreHall.Fixture
+  alias StoreHallWeb.AuthController
 
   test "assign nil as user, guest as token", %{conn: conn} do
     conn = get(conn, Routes.user_path(conn, :index))
 
     case conn.private.plug_session["logged_user_id"] do
       nil ->
-        assert conn.assigns.logged_user_id == nil
+        assert AuthController.get_logged_user_id(conn) == nil
         assert conn.assigns.user_token == "guest"
 
       _ ->
@@ -22,13 +23,13 @@ defmodule StoreHallWeb.SetUserTest do
 
     conn =
       conn
-      |> Plug.Test.init_test_session(%{logged_user_id: user})
+      |> Plug.Test.init_test_session(%{logged_user_id: user.id})
 
     conn =
       conn
       |> get(Routes.user_path(conn, :index))
 
-    assert conn.assigns.logged_user_id == user
+    assert AuthController.get_logged_user_id(conn) == user.id
 
     {:ok, user_id} =
       Phoenix.Token.verify(conn, "user token", conn.assigns.user_token, max_age: 60)
