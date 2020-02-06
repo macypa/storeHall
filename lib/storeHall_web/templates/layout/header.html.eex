@@ -76,6 +76,7 @@
           </li>
         <% end %>
 
+      <% if false do %>
         <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
           <li>
             <svg class="svg_icon">
@@ -84,6 +85,7 @@
             <span class="text"><%= Gettext.gettext("Messages") %></span>
           </li>
         <% end %>
+      <% end %>
 
         <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> logged_user_id do %>
           <li>
