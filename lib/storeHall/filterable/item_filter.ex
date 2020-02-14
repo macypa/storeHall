@@ -39,6 +39,8 @@ defmodule StoreHall.ItemFilter do
         [u],
         ilike(u.name, ^search_string) or
           ilike(u.user_id, ^search_string) or
+          fragment("?->>? ILIKE ?", u.details, "tags", ^search_string) or
+          fragment("?->>? ILIKE ?", u.details, "cities", ^search_string) or
           fragment("?->>? ILIKE ?", u.details, "description", ^search_string) or
           fragment("?->>? ILIKE ?", u.details, "conditions", ^search_string) or
           fragment("?->>? ILIKE ?", u.details, "features", ^search_string)
