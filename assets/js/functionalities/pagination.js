@@ -12,11 +12,16 @@ channel_push_filter = function (elem) {
 params_from_href = function (href) {
   var params = href.slice(href.indexOf('?') + 1);
 
-  if (contains_string(href, "/users/")) {
-    params = params + "&user_id=" + href.match(/\/users\/(.*?)\//)[1];
+  try {
+    if (contains_string(href, "/users/")) {
+      params = params + "&user_id=" + href.match(/\/users\/(.*?)\//)[1];
+    }
+    if (contains_string(href, "/items/")) {
+      params = params + "&id=" + href.match(/\/items\/(\w+)/)[1];
+    }
   }
-  if (contains_string(href, "/items/")) {
-    params = params + "&id=" + href.match(/\/items\/(\w+)/)[1];
+  catch (err) {
+
   }
 
   return params;
