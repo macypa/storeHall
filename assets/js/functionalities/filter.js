@@ -70,8 +70,8 @@ channel.on("filtered_items", payload => {
 channel.on("filtered_users", payload => {
   var users_template_source = "{{#each this}}<user>" +
     unescape(document.getElementById("user_template").innerHTML)
-      .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
-        "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}") +
+      .replace("<div data-img=\"{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}\"> </div>",
+        "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}<div data-img='{{image}}'> </div>{{/if}}") +
     "</user>{{/each}}";
   var users_template = Handlebars.compile(users_template_source);
 
