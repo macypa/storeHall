@@ -86,16 +86,16 @@ defmodule StoreHall.DefaultFilter do
       user ->
         min_rating = user.settings["filters"]["show_with_min_rating"]
 
-        case min_rating do
-          "" ->
+        case Integer.parse(min_rating) do
+          :error ->
             query
 
-          _ ->
+          {min_rating, ""} ->
             dynamic =
               dynamic(
                 [c, a: u],
                 fragment(
-                  " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::decimal >= ? ",
+                  " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::numeric >= ? ",
                   u,
                   u,
                   ^min_rating
