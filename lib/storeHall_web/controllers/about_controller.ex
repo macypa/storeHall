@@ -32,4 +32,8 @@ defmodule StoreHallWeb.AboutController do
   def sponsor(conn, _) do
     render(conn, "sponsor.html")
   end
+
+  def howto(conn, _) do
+    render(conn, "howto.html")
+  end
 end

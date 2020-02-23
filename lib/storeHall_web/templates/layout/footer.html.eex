@@ -68,6 +68,12 @@
         </li>
       <% end %>
 
+      <%= link to: Routes.about_path(@conn, :howto) do %>
+        <li>
+          <span class="text"><%= Gettext.gettext("How to") %></span>
+        </li>
+      <% end %>
+
     </ul>
   </div>
 </about>

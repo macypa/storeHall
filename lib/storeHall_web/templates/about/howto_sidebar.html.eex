@@ -1,0 +1,51 @@
+
+<sidebar-show>
+
+  <div class="tab">
+    <a href="#term" class="tab-label">
+      <label><%= Gettext.gettext("Term") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#login" class="tab-label">
+      <label><%= Gettext.gettext("Login") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#profile" class="tab-label">
+      <label><%= Gettext.gettext("Profile") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#search" class="tab-label">
+      <label><%= Gettext.gettext("Search") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#post" class="tab-label">
+      <label><%= Gettext.gettext("Post") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#rating" class="tab-label">
+      <label><%= Gettext.gettext("Rating system") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#sponsor" class="tab-label">
+      <label><%= Gettext.gettext("Sponsor") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="#marketing" class="tab-label">
+      <label><%= Gettext.gettext("Мarketing") %></label>
+    </a>
+  </div>
+</sidebar-show>
