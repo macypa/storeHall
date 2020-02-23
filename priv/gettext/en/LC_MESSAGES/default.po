@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:60
+#: lib/storeHall_web/controllers/item_controller.ex:57
 msgid "Item created successfully."
 msgstr ""
 
@@ -22,12 +22,12 @@ msgid "Error signing in"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:113
+#: lib/storeHall_web/controllers/item_controller.ex:109
 msgid "Item deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:99
+#: lib/storeHall_web/controllers/item_controller.ex:95
 msgid "Item updated successfully."
 msgstr ""
 
@@ -37,18 +37,18 @@ msgid "Thank you for signing in!"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:76
+#: lib/storeHall_web/controllers/user_controller.ex:78
 msgid "User deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:62
+#: lib/storeHall_web/controllers/user_controller.ex:64
 msgid "User updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:125
-#: lib/storeHall_web/controllers/user_controller.ex:93
+#: lib/storeHall_web/controllers/item_controller.ex:121
+#: lib/storeHall_web/controllers/user_controller.ex:95
 msgid "You cannot do that"
 msgstr ""
 
@@ -65,8 +65,6 @@ msgid "must be logged in"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:190
-#: lib/storeHall_web/channels/users_channel.ex:266
 #: lib/storeHall_web/channels/users_channel.ex:310
 msgid "you already did it :)"
 msgstr ""
@@ -97,8 +95,8 @@ msgid "Listing items"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:36
-#: lib/storeHall_web/views/page_title.ex:40
+#: lib/storeHall_web/views/page_title.ex:39
+#: lib/storeHall_web/views/page_title.ex:43
 #: lib/storeHall_web/views/user_view.ex:6
 msgid "Listing users"
 msgstr ""
@@ -124,7 +122,7 @@ msgid "Latest sponsor"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:102
+#: lib/storeHall_web/templates/layout/header.html.eex:104
 msgid "Add Item"
 msgstr ""
 
@@ -147,7 +145,7 @@ msgstr ""
 #: lib/storeHall_web/templates/item/index.html.eex:61
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12
-#: lib/storeHall_web/templates/user/index.html.eex:69
+#: lib/storeHall_web/templates/user/index.html.eex:70
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:12
 msgid "Comments"
 msgstr ""
@@ -181,12 +179,12 @@ msgid "Info"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:84
+#: lib/storeHall_web/templates/layout/header.html.eex:85
 msgid "Messages"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:93
+#: lib/storeHall_web/templates/layout/header.html.eex:95
 msgid "My Items"
 msgstr ""
 
@@ -197,12 +195,13 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:18
 #: lib/storeHall_web/templates/layout/header.html.eex:66
 msgid "Profile"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/index.html.eex:64
+#: lib/storeHall_web/templates/user/index.html.eex:65
 msgid "Rating"
 msgstr "Review"
 
@@ -243,17 +242,17 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:75
-#: lib/storeHall_web/templates/user/form.html.eex:76
+#: lib/storeHall_web/templates/user/form.html.eex:84
 msgid "Settings"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:122
+#: lib/storeHall_web/templates/layout/header.html.eex:124
 msgid "Sign in with Google"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:111
+#: lib/storeHall_web/templates/layout/header.html.eex:113
 msgid "Sign out"
 msgstr ""
 
@@ -293,8 +292,8 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:67
 #: lib/storeHall_web/templates/item/form.html.eex:105
-#: lib/storeHall_web/templates/user/form.html.eex:53
-#: lib/storeHall_web/templates/user/form.html.eex:144
+#: lib/storeHall_web/templates/user/form.html.eex:61
+#: lib/storeHall_web/templates/user/form.html.eex:152
 msgid "Images"
 msgstr ""
 
@@ -374,12 +373,12 @@ msgid "Chats"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:106
+#: lib/storeHall_web/templates/user/form.html.eex:114
 msgid "Filters"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:138
+#: lib/storeHall_web/templates/user/form.html.eex:146
 msgid "Labels"
 msgstr ""
 
@@ -400,7 +399,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:37
-#: lib/storeHall_web/views/page_title.ex:29
+#: lib/storeHall_web/views/page_title.ex:32
 msgid "About Us"
 msgstr ""
 
@@ -408,6 +407,7 @@ msgstr ""
 #: lib/storeHall_web/templates/about/contacts.html.eex:1
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
 #: lib/storeHall_web/templates/layout/footer.html.eex:43
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:50
 #: lib/storeHall_web/views/page_title.ex:15
 msgid "Contacts"
 msgstr ""
@@ -466,7 +466,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:85
 #: lib/storeHall_web/templates/item/show.html.eex:25
-#: lib/storeHall_web/templates/user/form.html.eex:71
+#: lib/storeHall_web/templates/user/form.html.eex:79
 #: lib/storeHall_web/templates/user/show.html.eex:43
 msgid "Description"
 msgstr ""
@@ -497,9 +497,9 @@ msgid "Features"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:50
-#: lib/storeHall_web/templates/user/form.html.eex:45
-#: lib/storeHall_web/templates/user/form.html.eex:46
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:66
+#: lib/storeHall_web/templates/user/form.html.eex:53
+#: lib/storeHall_web/templates/user/form.html.eex:54
 msgid "Open hours"
 msgstr ""
 
@@ -509,7 +509,7 @@ msgid "Pros"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:81
+#: lib/storeHall_web/controllers/user_controller.ex:83
 msgid "User not deleted."
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:68
-#: lib/storeHall_web/templates/user/form.html.eex:54
+#: lib/storeHall_web/templates/user/form.html.eex:62
 msgid "Add images"
 msgstr ""
 
@@ -579,7 +579,7 @@ msgstr "Add Review"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:77
-#: lib/storeHall_web/templates/user/form.html.eex:63
+#: lib/storeHall_web/templates/user/form.html.eex:71
 msgid "Add videos"
 msgstr ""
 
@@ -601,12 +601,12 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:76
-#: lib/storeHall_web/templates/user/form.html.eex:62
+#: lib/storeHall_web/templates/user/form.html.eex:70
 msgid "Videos"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:113
+#: lib/storeHall_web/templates/user/form.html.eex:121
 msgid "show_with_min_rating"
 msgstr "Show results only from users with minimal rating"
 
@@ -651,16 +651,17 @@ msgid "rating desc"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:83
+#: lib/storeHall_web/templates/user/form.html.eex:91
 msgid "locale"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:131
+#: lib/storeHall_web/templates/layout/header.html.eex:133
 msgid "Sign in with Facebook"
 msgstr ""
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
 #: lib/storeHall_web/templates/about/sponsor.html.eex:1
 #: lib/storeHall_web/templates/layout/footer.html.eex:67
 #: lib/storeHall_web/views/page_title.ex:27
@@ -668,12 +669,12 @@ msgid "Sponsor"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:97
+#: lib/storeHall_web/templates/user/form.html.eex:105
 msgid "agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:96
+#: lib/storeHall_web/templates/user/form.html.eex:104
 msgid "cookie_consent"
 msgstr ""
 
@@ -684,22 +685,70 @@ msgid "no email"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:97
+#: lib/storeHall_web/templates/user/form.html.eex:105
 msgid "not agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:32
-#: lib/storeHall_web/views/page_title.ex:37
+#: lib/storeHall_web/views/page_title.ex:35
+#: lib/storeHall_web/views/page_title.ex:40
 msgid " Page "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/router.ex:82
+#: lib/storeHall_web/router.ex:85
 msgid "Page not found"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/templates/user/form.html.eex:125
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:133
 msgid "show_with_max_alerts"
 msgstr "Show results only from users with maximum alerts count"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:73
+#: lib/storeHall_web/views/page_title.ex:30
+msgid "How to"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12
+msgid "Login"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:30
+msgid "Post"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
+msgid "Rating system"
+msgstr "Reviews"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:24
+msgid "Search"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/channels/items_channel.ex:190
+#: lib/storeHall_web/channels/users_channel.ex:266
+msgid "Something unexpected happened"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:6
+msgid "Term"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/user/form.html.eex:45
+#: lib/storeHall_web/templates/user/form.html.eex:46
+msgid "contacts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
+msgid "Мarketing"
+msgstr ""

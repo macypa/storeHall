@@ -194,6 +194,7 @@ defmodule StoreHall.Users do
       |> decode_param_in("images")
       |> decode_param_in("videos")
       |> decode_param_in("address")
+      |> decode_param_in("contacts")
       |> decode_param_in("mail")
       |> decode_param_in("web")
       |> decode_param_in("open")

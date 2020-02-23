@@ -41,7 +41,7 @@
     <user_details>
       <span>
         <span class="info_title"><%= Gettext.gettext("Description") %> </span>
-        <span class="info_content description"><%= sanitize @user.details["description"] %></span>
+        <span class="info_content description"><%= sanitize to_string(@user.details["description"]) %></span>
       </span>
     </user_details>
 

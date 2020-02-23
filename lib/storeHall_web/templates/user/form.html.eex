@@ -26,7 +26,7 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :address, Gettext.gettext("E-mail") %>
+    <%= label f, :mail, Gettext.gettext("E-mail") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("E-mail") %>' allow_duplicate="true">
       <%= text_input f, :details_mail, name: input_name(f, :details) <>"[mail]", value: Jason.encode!(input_value(f, :details)["mail"]) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :address, Gettext.gettext("Website") %>
+    <%= label f, :website, Gettext.gettext("Website") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Website") %>' allow_duplicate="true">
       <%= text_input f, :details_web, name: input_name(f, :details) <>"[web]", value: Jason.encode!(input_value(f, :details)["web"]) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
@@ -42,7 +42,15 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :address, Gettext.gettext("Open hours") %>
+    <%= label f, :contacts, Gettext.gettext("contacts") %>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("contacts") %>' allow_duplicate="true">
+      <%= text_input f, :details_contacts, name: input_name(f, :details) <>"[contacts]", value: Jason.encode!(input_value(f, :details)["contacts"]) %>
+      <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :open, Gettext.gettext("Open hours") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Open hours") %>' allow_duplicate="true">
       <%= text_input f, :details_open, name: input_name(f, :details) <>"[open]", value: Jason.encode!(input_value(f, :details)["open"]) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>

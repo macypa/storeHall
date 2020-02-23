@@ -45,6 +45,22 @@
     </span>
   <% end %>
 
+  <%= if Map.has_key?(@user.details, "contacts") and @user.details["contacts"] != [] do %>
+    <span>
+      <span class="info_title"><%= Gettext.gettext("Contacts") %>: </span>
+      <div>
+        <%= for contacts_map <- @user.details["contacts"] do %>
+          <%= for {contacts_name, contacts} <- contacts_map do %>
+            <div>
+              <span><%= sanitize to_string(contacts_name) %>:</span>
+              <span><%= sanitize to_string(contacts) %></span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </span>
+  <% end %>
+
   <%= if Map.has_key?(@user.details, "open") and @user.details["open"] != [] do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
@@ -52,8 +68,8 @@
         <%= for open_map <- @user.details["open"] do %>
           <%= for {open_name, open} <- open_map do %>
             <div>
-              <span><%= sanitize open_name %>:</span>
-              <span><%= sanitize open %></span>
+              <span><%= sanitize to_string(open_name) %>:</span>
+              <span><%= sanitize to_string(open) %></span>
             </div>
           <% end %>
         <% end %>

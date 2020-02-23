@@ -23,12 +23,12 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Description") %> </span>
-          <span class="info_content description"><%= sanitize @item.details["description"] %></span>
+          <span class="info_content description"><%= sanitize to_string(@item.details["description"]) %></span>
         </span>
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Expiration") %> </span>
-          <span class="info_content expiration"><%= sanitize @item.details["expiration"] %></span>
+          <span class="info_content expiration"><%= sanitize to_string(@item.details["expiration"]) %></span>
         </span>
 
         <span>
@@ -60,7 +60,7 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Conditions") %> </span>
-          <span class="info_content conditions"><%= sanitize @item.details["conditions"] %></span>
+          <span class="info_content conditions"><%= sanitize to_string(@item.details["conditions"]) %></span>
         </span>
 
     </item_details>

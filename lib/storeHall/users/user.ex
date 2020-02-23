@@ -26,6 +26,7 @@ defmodule StoreHall.Users.User do
         "images" => [],
         "videos" => [],
         "address" => %{},
+        "contacts" => %{},
         "mail" => %{},
         "web" => %{},
         "open" => %{},
