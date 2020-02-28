@@ -19,7 +19,7 @@
   "dependencies": {
     "date-fns": "^2.9.0",
     "fotorama": "^4.6.4",
-    "handlebars": "^4.7.2",
+    "handlebars": "^4.7.3",
     "handlebars-loader": "^1.7.1",
     "jquery": "^3.4.1",
     "jquery-lazy": "^1.7.10",
