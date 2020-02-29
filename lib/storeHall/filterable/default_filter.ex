@@ -86,7 +86,7 @@ defmodule StoreHall.DefaultFilter do
       user ->
         min_rating = user.settings["filters"]["show_with_min_rating"]
 
-        case Integer.parse(min_rating) do
+        case Integer.parse(to_string(min_rating)) do
           :error ->
             query
 
