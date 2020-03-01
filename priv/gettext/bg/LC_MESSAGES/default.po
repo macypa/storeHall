@@ -247,7 +247,7 @@ msgid "Settings"
 msgstr "Настройки"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:124
+#: lib/storeHall_web/templates/layout/header.html.eex:126
 msgid "Sign in with Google"
 msgstr "Логни се с Google"
 
@@ -293,7 +293,7 @@ msgstr "Редактирай обява"
 #: lib/storeHall_web/templates/item/form.html.eex:67
 #: lib/storeHall_web/templates/item/form.html.eex:105
 #: lib/storeHall_web/templates/user/form.html.eex:61
-#: lib/storeHall_web/templates/user/form.html.eex:152
+#: lib/storeHall_web/templates/user/form.html.eex:166
 msgid "Images"
 msgstr "Снимки"
 
@@ -373,12 +373,12 @@ msgid "Chats"
 msgstr "Разговори"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:114
+#: lib/storeHall_web/templates/user/form.html.eex:128
 msgid "Filters"
 msgstr "Филтри"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:146
+#: lib/storeHall_web/templates/user/form.html.eex:160
 msgid "Labels"
 msgstr "Лейбъли"
 
@@ -429,6 +429,7 @@ msgstr "Поверителност"
 #, elixir-format
 #: lib/storeHall_web/templates/about/terms.html.eex:1
 #: lib/storeHall_web/templates/layout/footer.html.eex:49
+#: lib/storeHall_web/templates/layout/header.html.eex:154
 #: lib/storeHall_web/views/page_title.ex:24
 msgid "Terms"
 msgstr "Условия"
@@ -606,7 +607,7 @@ msgid "Videos"
 msgstr "Видеа"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:121
+#: lib/storeHall_web/templates/user/form.html.eex:135
 msgid "show_with_min_rating"
 msgstr "Показвай резултати с минимум рейтинг"
 
@@ -656,7 +657,7 @@ msgid "locale"
 msgstr "Език"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:133
+#: lib/storeHall_web/templates/layout/header.html.eex:132
 msgid "Sign in with Facebook"
 msgstr "Логни се с Facebook"
 
@@ -670,22 +671,24 @@ msgstr "Спонсор"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:105
+#: lib/storeHall_web/templates/user/form.html.eex:118
 msgid "agreed"
 msgstr "приемам"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:104
 msgid "cookie_consent"
-msgstr "Бисквитки съгласие"
+msgstr "Съгласие за бисквитки"
 
 #, elixir-format
 #: lib/storeHall_web/controllers/auth_controller.ex:48
-#: lib/storeHall_web/controllers/auth_controller.ex:69
+#: lib/storeHall_web/controllers/auth_controller.ex:75
 msgid "no email"
 msgstr "липсва е-мейл"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:105
+#: lib/storeHall_web/templates/user/form.html.eex:118
 msgid "not agreed"
 msgstr "не приемам"
 
@@ -696,12 +699,12 @@ msgid " Page "
 msgstr " Страница "
 
 #, elixir-format
-#: lib/storeHall_web/router.ex:85
+#: lib/storeHall_web/router.ex:86
 msgid "Page not found"
 msgstr "Не намирам такава страница"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:133
+#: lib/storeHall_web/templates/user/form.html.eex:147
 msgid "show_with_max_alerts"
 msgstr "Показвай резултати с максимум брой алерти"
 
@@ -716,12 +719,12 @@ msgstr "Ръководство"
 msgid "Login"
 msgstr "Вход"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/about/howto_sidebar.html.eex:30
 msgid "Post"
 msgstr "Постове"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
 msgid "Rating system"
 msgstr "Ревюта"
@@ -737,12 +740,12 @@ msgstr "Търсене"
 msgid "Something unexpected happened"
 msgstr "Неочаквана грешка"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/about/howto_sidebar.html.eex:6
 msgid "Term"
 msgstr "Условия"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:45
 #: lib/storeHall_web/templates/user/form.html.eex:46
 msgid "contacts"
@@ -752,3 +755,35 @@ msgstr "Контакти"
 #: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
 msgid "Мarketing"
 msgstr "Маркетинг"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/header.html.eex:153
+msgid " and "
+msgstr " и "
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/header.html.eex:138
+#: lib/storeHall_web/templates/layout/header.html.eex:144
+msgid "I accept the "
+msgstr "Запознат/а съм и приемам "
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/header.html.eex:151
+msgid "I want to participate in the marketing compains by giving my consent for my information to be used acording to the "
+msgstr "Искам да участвам в маркетинг кампании, съгласявайки се да предоставя данните ми за използване както е описано в "
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/layout/header.html.eex:144
+#: lib/storeHall_web/templates/layout/header.html.eex:152
+msgid "Privacy policy"
+msgstr "Политиката за поверителност"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/header.html.eex:138
+msgid "Terms and Conditions"
+msgstr "Общите условия"
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:117
+msgid "marketing_consent"
+msgstr "Съгласие за участие в маркетинг кампании"

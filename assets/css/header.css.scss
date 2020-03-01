@@ -78,7 +78,7 @@ header {
   .dropdown {
     position: absolute;
     right: 1px;
-    width: 11em;
+    width: $width-sidebar;
     height: auto;
     z-index: 10;
     background-color: #fff;
@@ -103,6 +103,47 @@ header {
         background-color: rgba(0,0,0, .1);
       }
     }
+
+    .login_form {
+      margin-bottom: 1em;
+      font-size: x-small;
+      cursor: default; 
+    }
+
+    .link-button { 
+      background: none;
+      border: none;
+      cursor: pointer; 
+
+      color: white;
+      height: 3em;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-top: 1em;
+    }
+
+    .checkbox_terms {
+      margin-left: 5%;
+      margin-top: 1em;
+    }
+
+    // input[type="checkbox"]:required:invalid + label {
+    input[type="checkbox"]:not(:checked) + label {
+      color: red; 
+    }
+    input[type="checkbox"]:checked + label {
+      color: green;
+    }
+
+    .google_bg {
+      background-color: #db4437;
+    }
+
+    .facebook_bg {
+      background-color: #3B5998;
+    }
+
   }
 
 }

@@ -54,10 +54,10 @@
     </svg>
   <% end %>
   <div class="dropdown">
-    <ul>
+    
+    <%= if logged_user_id do %>
 
-      <%= if logged_user_id do %>
-
+      <ul>
         <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
           <li>
             <svg class="svg_icon">
@@ -113,28 +113,50 @@
             <span class="text"><%= Gettext.gettext("Sign out") %></span>
           </li>
         <% end %>
+      </ul>
 
-      <% else %>
-        <%= link to: Routes.auth_path(@conn, :request, "google") do %>
-          <li>
-            <svg class="svg_icon">
-              <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
-            </svg>
-            <!-- https://console.developers.google.com/projectselector/apis/dashboard configure service in  google dev console -->
-            <span class="text"><%= Gettext.gettext("Sign in with Google") %></span>
-          </li>
-        <% end %>
+    <% else %>
 
-        <%= link to: Routes.auth_path(@conn, :request, "facebook") do %>
-          <li>
-            <svg class="svg_icon">
-              <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
-            </svg>
-            <span class="text"><%= Gettext.gettext("Sign in with Facebook") %></span>
-          </li>
-        <% end %>
-      <% end %>
+      <form class="login_form" action="<%= Routes.auth_path(@conn, :request, "") %>">
 
-    </ul>
+        <button type="submit" class="link-button google_bg" formaction='<%= Routes.auth_path(@conn, :request, "google") %>'>
+          <svg class="svg_icon google_bg">
+            <use xlink:href="/images/sprite.svg#kysi-awesome-google-title"></use>
+          </svg>
+          <span class="text"><%= Gettext.gettext("Sign in with Google") %></span>
+        </button>
+        <button type="submit" class="link-button facebook_bg" formaction='<%= Routes.auth_path(@conn, :request, "facebook") %>'>
+          <svg class="svg_icon facebook_bg">
+            <use xlink:href="/images/sprite.svg#si-awesome-facebook"></use>
+          </svg>
+          <span class="text"><%= Gettext.gettext("Sign in with Facebook") %></span>
+        </button>
+
+        <div class="checkbox_terms">
+          <input id="field_terms" type="checkbox" required name="terms">
+          <label for="field_terms">
+            <%= Gettext.gettext("I accept the ") %><%= link to: Routes.about_path(@conn, :terms) do %><u><%= Gettext.gettext("Terms and Conditions") %></u><% end %>
+          </label>
+        </div>
+        <div class="checkbox_terms">
+          <input id="field_privacy" type="checkbox" required name="terms">
+          <label for="field_privacy">
+            <%= Gettext.gettext("I accept the ") %><u><%= link to: Routes.about_path(@conn, :privacy) do %><%= Gettext.gettext("Privacy policy") %><% end %></u>
+          </label>
+        </div>
+        
+        <div class="checkbox_terms">
+          <input id="field_marketing" marketing_consent="agree" type="checkbox" name="terms">
+          <label for="field_marketing">
+            <%= Gettext.gettext("I want to participate in the marketing compains by giving my consent for my information to be used acording to the ") %>
+            <%= link to: Routes.about_path(@conn, :privacy) do %><u><%= Gettext.gettext("Privacy policy") %></u><% end %>
+            <%= Gettext.gettext(" and ") %>
+            <%= link to: Routes.about_path(@conn, :terms) do %><u><%= Gettext.gettext("Terms and Conditions") %></u><% end %>
+          </label>
+        </div>
+      </form>
+    
+    <% end %>
+
   </div>
 </avatar>

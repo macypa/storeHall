@@ -84,7 +84,7 @@
     <%= label f, :locale, Gettext.gettext("Settings") %>
   </div>
 
-  <div class="form-group">
+  <!--div class="form-group">
     <%= label f, :locale, "" %>
     <div>
       <div class="settings_field">
@@ -95,7 +95,7 @@
                 value: input_value(f, :settings)["locale"] %>
       </div>
     </div>
-  </div>
+  </div-->
 
   <div class="form-group">
     <%= label f, :cookie_consent, "" %>
@@ -109,6 +109,20 @@
       </div>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= label f, :marketing_consent, "" %>
+    <div>
+      <div class="settings_field">
+        <span><%= Gettext.gettext("marketing_consent") %>:</span>
+        <%= select f, :settings_locale, %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
+                class: "settings_field_value",
+                name: input_name(f, :settings) <>"[marketing_consent]",
+                value: input_value(f, :settings)["marketing_consent"] %>
+      </div>
+    </div>
+  </div>
+
 
   <div class="form-group">
     <%= label f, :filters, Gettext.gettext("Filters") %>

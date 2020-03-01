@@ -112,4 +112,19 @@ window.add_cookie_consent_event = function () {
 };
 add_cookie_consent_event();
 
+window.add_marketing_consent_event = function () {
+  add_events("[marketing_consent]", "click", function () {
+    if (this.checked) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "/put_session?key=marketing_consent&value=agreed", true);
+      xhttp.send();
+    } else {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "/put_session?key=marketing_consent&value=not_agreed", true);
+      xhttp.send();
+    }
+  });
+};
+add_marketing_consent_event();
+
 export default socket

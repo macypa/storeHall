@@ -9,6 +9,7 @@ defmodule StoreHall.Users.Settings do
       default: %{
         "locale" => "bg",
         "cookie_consent" => "not_agreed",
+        "marketing_consent" => "not_agreed",
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0},
         "filters" => %{

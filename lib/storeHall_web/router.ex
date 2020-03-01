@@ -32,6 +32,7 @@ defmodule StoreHallWeb.Router do
     get "/robots.txt", SitemapController, :robots
     get "/sitemap.xml.gz", SitemapController, :sitemap
     get "/accept_cookies", CookieConsentController, :agree
+    get "/put_session", SessionController, :put_session
 
     resources "/", ItemController, only: [:index]
 

@@ -25,7 +25,7 @@ defmodule StoreHallWeb.AuthController do
   end
 
   def create(conn, user_params) do
-    case insert_or_update_user(user_params) do
+    case insert_or_update_user(conn, user_params) do
       {:ok, user} ->
         conn
         |> configure_session(renew: true)
@@ -41,7 +41,7 @@ defmodule StoreHallWeb.AuthController do
     end
   end
 
-  defp insert_or_update_user(user_params = %{email: email})
+  defp insert_or_update_user(conn, user_params = %{email: email})
        when is_binary(email) and email != "" do
     case String.trim(email) do
       "" ->
@@ -60,12 +60,18 @@ defmodule StoreHallWeb.AuthController do
             end
 
           user ->
-            {:ok, user}
+            case get_session(conn, "marketing_consent") == "agreed" do
+              true ->
+                user |> Users.update_user(%{"settings" => %{"marketing_consent" => "agreed"}})
+
+              false ->
+                {:ok, user}
+            end
         end
     end
   end
 
-  defp insert_or_update_user(_user_params) do
+  defp insert_or_update_user(_conn, _user_params) do
     {:error, Gettext.gettext("no email")}
   end
 
@@ -123,7 +129,7 @@ defmodule StoreHallWeb.AuthController do
     |> put_session(:logged_user_image, user.image)
     |> put_session(
       :logged_user_settings,
-      user.settings |> Map.take(["locale", "cookie_consent", "filters"])
+      user.settings |> Map.take(["locale", "cookie_consent", "marketing_consent", "filters"])
     )
   end
 end
