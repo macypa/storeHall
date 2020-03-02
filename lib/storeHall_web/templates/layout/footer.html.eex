@@ -56,12 +56,6 @@
         </li>
       <% end %>
 
-      <%= link to: Routes.about_path(@conn, :cookies) do %>
-        <li>
-          <span class="text"><%= Gettext.gettext("Cookies") %></span>
-        </li>
-      <% end %>
-
       <%= link to: Routes.about_path(@conn, :sponsor) do %>
         <li>
           <span class="text"><%= Gettext.gettext("Sponsor") %></span>

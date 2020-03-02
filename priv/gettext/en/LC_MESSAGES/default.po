@@ -195,7 +195,7 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:18
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:18
 #: lib/storeHall_web/templates/layout/header.html.eex:66
 msgid "Profile"
 msgstr ""
@@ -404,7 +404,7 @@ msgid "About Us"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/contacts.html.eex:1
+#: lib/storeHall_web/templates/about/contacts.html.eex:2
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
 #: lib/storeHall_web/templates/layout/footer.html.eex:43
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:50
@@ -420,16 +420,13 @@ msgid "Cookies"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/privacy.html.eex:1
 #: lib/storeHall_web/templates/layout/footer.html.eex:55
 #: lib/storeHall_web/views/page_title.ex:21
 msgid "Privacy"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/terms.html.eex:1
 #: lib/storeHall_web/templates/layout/footer.html.eex:49
-#: lib/storeHall_web/templates/layout/header.html.eex:154
 #: lib/storeHall_web/views/page_title.ex:24
 msgid "Terms"
 msgstr ""
@@ -662,8 +659,7 @@ msgid "Sign in with Facebook"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
-#: lib/storeHall_web/templates/about/sponsor.html.eex:1
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:42
 #: lib/storeHall_web/templates/layout/footer.html.eex:67
 #: lib/storeHall_web/views/page_title.ex:27
 msgid "Sponsor"
@@ -715,22 +711,22 @@ msgid "How to"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:12
 msgid "Login"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:30
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:30
 msgid "Post"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:36
 msgid "Rating system"
 msgstr "Reviews"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:24
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:24
 msgid "Search"
 msgstr ""
 
@@ -741,7 +737,7 @@ msgid "Something unexpected happened"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:6
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:6
 msgid "Term"
 msgstr ""
 
@@ -752,7 +748,7 @@ msgid "contacts"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
+#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:48
 msgid "Мarketing"
 msgstr ""
 
@@ -772,7 +768,7 @@ msgstr ""
 msgid "I want to participate in the marketing compains by giving my consent for my information to be used acording to the "
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:144
 #: lib/storeHall_web/templates/layout/header.html.eex:152
 msgid "Privacy policy"
@@ -780,10 +776,161 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:138
+#: lib/storeHall_web/templates/layout/header.html.eex:154
 msgid "Terms and Conditions"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:117
 msgid "marketing_consent"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:36
+msgid "privacy categories"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:42
+msgid "privacy cookies"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:12
+msgid "privacy goal"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:6
+msgid "privacy info"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:54
+msgid "privacy periods"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:18
+msgid "privacy principals"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:24
+msgid "privacy private_info"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:30
+msgid "privacy processing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:60
+msgid "privacy rights"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:48
+msgid "privacy security"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/privacy_sidebar.html.eex:66
+msgid "privacy update"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:24
+msgid "terms access"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:84
+msgid "terms additional"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:54
+msgid "terms alerts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:90
+msgid "terms complaints"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:78
+msgid "terms confidentiality"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:96
+msgid "terms contacts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:12
+msgid "terms definitions"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:48
+msgid "terms items"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:6
+msgid "terms main"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:102
+msgid "terms marketing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:72
+msgid "terms messages"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:108
+msgid "terms prohibited"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:60
+msgid "terms property_rights"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:66
+msgid "terms responsibility"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:30
+msgid "terms rights"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:36
+msgid "terms rights_admin"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:18
+msgid "terms services"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:114
+msgid "terms tariff"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:42
+msgid "terms taxes"
 msgstr ""

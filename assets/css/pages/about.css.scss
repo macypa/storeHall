@@ -1,10 +1,15 @@
 main {
+  
   about {
+    .visible {
+      display: block;
+    }
 
     div {
       display: none;
       height: auto;
       @include pre-wrap;
+
     }
 
     :target {
