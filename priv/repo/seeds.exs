@@ -13,8 +13,13 @@
 alias StoreHall.Users.User
 alias StoreHall.Repo
 
-User.changeset(
-  %User{id: Application.get_env(:storeHall, :about)[:user_id]},
-  Application.get_env(:storeHall, :about)[:user]
-)
-|> Repo.insert!()
+id = Application.get_env(:storeHall, :about)[:user_id]
+
+case Repo.get(User, id) do
+  # User not found, we build one
+  nil -> %User{id: id} |> IO.inspect(label: 'id')
+  # User exists, let's use it
+  user -> user
+end
+|> User.changeset(Application.get_env(:storeHall, :about)[:user])
+|> Repo.insert_or_update!()

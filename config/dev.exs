@@ -91,7 +91,10 @@ config :storeHall, :about,
     name: "StoreHall",
     email: "storeHall@gmail.com",
     image: "/images/logo.png",
-    provider: "storeHall"
+    provider: "storeHall",
+    details: %{
+      "mail" => [%{"storeHall@gmail.com" => "storeHall@gmail.com"}]
+    }
   }
 
 import_config "dev.secret.exs"
