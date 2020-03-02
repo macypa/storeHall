@@ -1,5 +1,5 @@
 
-  <%= if Map.has_key?(@user.details, "address") and @user.details["address"] != [] do %>
+  <%= if Map.has_key?(@user.details, "address") and !Enum.empty?(@user.details["address"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Address") %>: </span>
       <div>
@@ -15,7 +15,7 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "mail") and @user.details["mail"] != [] do %>
+  <%= if Map.has_key?(@user.details, "mail") and !Enum.empty?(@user.details["mail"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("E-mail") %>: </span>
       <div>
@@ -30,7 +30,7 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "web") and @user.details["web"] != [] do %>
+  <%= if Map.has_key?(@user.details, "web") and !Enum.empty?(@user.details["web"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Website") %>: </span>
       <div>
@@ -45,7 +45,7 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "contacts") and @user.details["contacts"] != [] do %>
+  <%= if Map.has_key?(@user.details, "contacts") and !Enum.empty?(@user.details["contacts"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Contacts") %>: </span>
       <div>
@@ -61,7 +61,7 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "open") and @user.details["open"] != [] do %>
+  <%= if Map.has_key?(@user.details, "open") and !Enum.empty?(@user.details["open"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
       <div>
