@@ -17,7 +17,7 @@ id = Application.get_env(:storeHall, :about)[:user_id]
 
 case Repo.get(User, id) do
   # User not found, we build one
-  nil -> %User{id: id} |> IO.inspect(label: 'id')
+  nil -> %User{id: id}
   # User exists, let's use it
   user -> user
 end
