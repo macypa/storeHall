@@ -2,8 +2,8 @@
 <terms-show>
 
   <div class="tab">
-    <a href="#main" class="tab-label">
-      <label><%= Gettext.gettext("terms main") %></label>
+    <a href="#general" class="tab-label">
+      <label><%= Gettext.gettext("terms general") %></label>
     </a>
   </div>
 

@@ -2,7 +2,7 @@
 <% logged_user_id = get_logged_user_id(@conn) %>
 
 <title>
-  <%= page_title(@assigns) %>
+  <%= page_title(@assigns) |> IO.inspect |> to_string |> sanitize(:basic_html) |> IO.inspect(label: "title") %>
 </title>
 
 <notifications>

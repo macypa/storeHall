@@ -6,7 +6,14 @@ defmodule StoreHallWeb.PageTitle do
   def page_title(assigns), do: assigns |> get
 
   def page_title_with_suffix(assigns),
-    do: page_title(assigns) |> String.slice(0..29) |> put_suffix
+    do: page_title(assigns) |> slice |> put_suffix
+
+  defp slice(title) do
+    case String.length(title) > 33 do
+      true -> "#{String.slice(title, 0..33)}..."
+      false -> title
+    end
+  end
 
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: "#{title} - #{@suffix}"
@@ -18,10 +25,10 @@ defmodule StoreHallWeb.PageTitle do
     do: StoreHallWeb.Gettext.gettext("Cookies")
 
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "privacy.html"}),
-    do: StoreHallWeb.Gettext.gettext("Privacy")
+    do: StoreHallWeb.Gettext.gettext("Privacy Title")
 
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "terms.html"}),
-    do: StoreHallWeb.Gettext.gettext("Terms")
+    do: StoreHallWeb.Gettext.gettext("Terms Title")
 
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "sponsor.html"}),
     do: StoreHallWeb.Gettext.gettext("Sponsor")

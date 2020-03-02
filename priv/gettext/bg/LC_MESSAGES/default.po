@@ -195,7 +195,7 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Нещо се обърка, моля провери грешките"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:18
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:18
 #: lib/storeHall_web/templates/layout/header.html.eex:66
 msgid "Profile"
 msgstr "Профил"
@@ -406,7 +406,6 @@ msgstr "За нас"
 #, elixir-format
 #: lib/storeHall_web/templates/about/contacts.html.eex:2
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
-#: lib/storeHall_web/templates/layout/footer.html.eex:43
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:50
 #: lib/storeHall_web/views/page_title.ex:15
 msgid "Contacts"
@@ -414,20 +413,17 @@ msgstr "Контакти"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/cookies.html.eex:1
-#: lib/storeHall_web/templates/layout/footer.html.eex:61
 #: lib/storeHall_web/views/page_title.ex:18
 msgid "Cookies"
 msgstr "Бисквитки"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:55
-#: lib/storeHall_web/views/page_title.ex:21
+#: lib/storeHall_web/templates/layout/footer.html.eex:49
 msgid "Privacy"
 msgstr "Поверителност"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:49
-#: lib/storeHall_web/views/page_title.ex:24
+#: lib/storeHall_web/templates/layout/footer.html.eex:43
 msgid "Terms"
 msgstr "Условия"
 
@@ -659,8 +655,8 @@ msgid "Sign in with Facebook"
 msgstr "Логни се с Facebook"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:42
-#: lib/storeHall_web/templates/layout/footer.html.eex:67
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
+#: lib/storeHall_web/templates/layout/footer.html.eex:55
 #: lib/storeHall_web/views/page_title.ex:27
 msgid "Sponsor"
 msgstr "Спонсор"
@@ -705,28 +701,28 @@ msgid "show_with_max_alerts"
 msgstr "Показвай резултати с максимум брой алерти"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:73
+#: lib/storeHall_web/templates/layout/footer.html.eex:61
 #: lib/storeHall_web/views/page_title.ex:30
 msgid "How to"
 msgstr "Ръководство"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:12
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12
 msgid "Login"
 msgstr "Вход"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:30
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:30
 msgid "Post"
 msgstr "Постове"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:36
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
 msgid "Rating system"
 msgstr "Ревюта"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:24
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:24
 msgid "Search"
 msgstr "Търсене"
 
@@ -737,18 +733,13 @@ msgid "Something unexpected happened"
 msgstr "Неочаквана грешка"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:6
-msgid "Term"
-msgstr "Условия"
-
-#, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:45
 #: lib/storeHall_web/templates/user/form.html.eex:46
 msgid "contacts"
 msgstr "Контакти"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html copy.eex:48
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
 msgid "Мarketing"
 msgstr "Маркетинг"
 
@@ -881,11 +872,6 @@ msgid "terms items"
 msgstr "Публикуване на Обяви"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:6
-msgid "terms main"
-msgstr "Общи разпоредби"
-
-#, elixir-format
 #: lib/storeHall_web/templates/about/terms_sidebar.html.eex:102
 msgid "terms marketing"
 msgstr "Приложение №1 - Маркетинг кампании"
@@ -934,3 +920,23 @@ msgstr "Приложение №3 - Тарифа"
 #: lib/storeHall_web/templates/about/terms_sidebar.html.eex:42
 msgid "terms taxes"
 msgstr "Такси и Възнаграждения за участие"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:6
+msgid "Definitions"
+msgstr "Дефиниции"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/terms_sidebar.html.eex:6
+msgid "terms general"
+msgstr "Общи разпоредби"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/views/page_title.ex:21
+msgid "Privacy Title"
+msgstr "Политика за поверителност и използване на бисквитки (cookies)"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/views/page_title.ex:24
+msgid "Terms Title"
+msgstr "Общи условия на КУПО ЕООД за използване на сайта quupo.com и платформата на сайта"
