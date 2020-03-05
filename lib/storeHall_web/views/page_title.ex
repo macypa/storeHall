@@ -9,8 +9,8 @@ defmodule StoreHallWeb.PageTitle do
     do: page_title(assigns) |> slice |> put_suffix
 
   defp slice(title) do
-    case String.length(title) > 33 do
-      true -> "#{String.slice(title, 0..33)}..."
+    case String.length(to_string(title)) > 33 do
+      true -> "#{String.slice(to_string(title), 0..33)}..."
       false -> title
     end
   end
