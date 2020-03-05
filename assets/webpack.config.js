@@ -15,7 +15,7 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-      'app': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
+    'app': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
   },
   output: {
     filename: '[name].js',
@@ -38,15 +38,17 @@ module.exports = (env, options) => ({
           {
             loader: 'postcss-loader',
             options: {
-                plugins: () => [require('autoprefixer')({
-                  // 'grid': "autoplace"
-                })],
+              plugins: () => [require('autoprefixer')({
+                // 'grid': "autoplace"
+              })],
             }
           },
           {
             loader: "sass-loader",
             options: {
-              importer: globImporter()
+              sassOptions: {
+                importer: globImporter()
+              }
             }
           }
         ]
@@ -54,28 +56,30 @@ module.exports = (env, options) => ({
       {
         test: /\.(png|eot|svg|ttf|woff|woff2)$/,
         exclude: /node_modules/,
-        use     : [{
-            loader: 'file-loader',
-            options: {
-                outputPath: '../css/'
-            }
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: '../css/'
+          }
         }],
       },
-      { test: /\.hbs$/,
+      {
+        test: /\.hbs$/,
         exclude: /node_modules/,
-        loader: "handlebars-loader" }
+        loader: "handlebars-loader"
+      }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
     new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        jquery: "jquery",
-        "window.jQuery": "jquery",
-        "window.jquery": "jquery",
-        "window.$": "jquery"
+      $: "jquery",
+      jQuery: "jquery",
+      jquery: "jquery",
+      "window.jQuery": "jquery",
+      "window.jquery": "jquery",
+      "window.$": "jquery"
     })
   ]
 });
