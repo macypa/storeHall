@@ -43,7 +43,6 @@
     </a>
   </div>
 
-<%= if false do %> 
   <div class="tab">
     <a href="#marketing" class="tab-label">
       <label><%= Gettext.gettext("Мarketing") %></label>
@@ -57,5 +56,5 @@
       <label><%= Gettext.gettext("Messages") %></label>
     </a>
   </div>
-<% end %> 
+
 </sidebar-show>
