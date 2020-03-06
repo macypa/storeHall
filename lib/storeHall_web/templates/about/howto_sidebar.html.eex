@@ -2,8 +2,8 @@
 <sidebar-show>
 
   <div class="tab">
-    <a href="#term" class="tab-label">
-      <label><%= Gettext.gettext("Term") %></label>
+    <a href="#definitions" class="tab-label">
+      <label><%= Gettext.gettext("Definitions") %></label>
     </a>
   </div>
 
@@ -38,14 +38,24 @@
   </div>
 
   <div class="tab">
-    <a href="#sponsor" class="tab-label">
-      <label><%= Gettext.gettext("Sponsor") %></label>
+    <a href="#alert" class="tab-label">
+      <label><%= Gettext.gettext("terms alerts") %></label>
     </a>
   </div>
 
+<%= if false do %> 
   <div class="tab">
     <a href="#marketing" class="tab-label">
       <label><%= Gettext.gettext("Мarketing") %></label>
     </a>
+    <a href="#credits" class="tab-label">
+      <span class="space"></span>
+      <label><%= Gettext.gettext("Credits") %></label>
+    </a>
+    <a href="#messages" class="tab-label">
+      <span class="space"></span>
+      <label><%= Gettext.gettext("Messages") %></label>
+    </a>
   </div>
+<% end %> 
 </sidebar-show>
