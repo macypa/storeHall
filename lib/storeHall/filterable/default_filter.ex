@@ -185,44 +185,45 @@ defmodule StoreHall.DefaultFilter do
   defmacro order_by_details_field_fragment(query, field_frag) do
     quote do
       unquote(query)
-      |> order_by(fragment(unquote(field_frag)))
+      |> order_by([c], fragment(unquote(field_frag), c))
     end
   end
 
   defmacro order_by_details_field_fragment(query, field_frag, feature) do
     quote do
       unquote(query)
-      |> order_by(fragment(unquote(field_frag), ^unquote(feature)))
+      |> order_by([c], fragment(unquote(field_frag), c, ^unquote(feature)))
     end
   end
 
   defp order_by_details_field(query, "price", :desc),
-    do: order_by_details_field_fragment(query, "details->>'price' DESC NULLS LAST")
+    do: order_by_details_field_fragment(query, "?.details->>'price' DESC NULLS LAST")
 
   defp order_by_details_field(query, "rating", :desc),
     do:
       order_by_details_field_fragment(
         query,
-        "(details->'rating'->>'score')::numeric DESC NULLS LAST"
+        "(?.details->'rating'->>'score')::numeric DESC NULLS LAST"
       )
 
   defp order_by_details_field(query, "expiration", :desc),
-    do: order_by_details_field_fragment(query, "details->>'expiration' DESC NULLS LAST")
+    do: order_by_details_field_fragment(query, "?.details->>'expiration' DESC NULLS LAST")
 
   defp order_by_details_field(query, "feature_" <> feature, :desc),
-    do: order_by_details_field_fragment(query, "details->'features'->>? DESC NULLS LAST", feature)
+    do:
+      order_by_details_field_fragment(query, "?.details->'features'->>? DESC NULLS LAST", feature)
 
   defp order_by_details_field(query, "price", _),
-    do: order_by_details_field_fragment(query, "details->>'price'")
+    do: order_by_details_field_fragment(query, "?.details->>'price'")
 
   defp order_by_details_field(query, "rating", _),
-    do: order_by_details_field_fragment(query, "(details->'rating'->>'score')::numeric")
+    do: order_by_details_field_fragment(query, "(?.details->'rating'->>'score')::numeric")
 
   defp order_by_details_field(query, "expiration", _),
-    do: order_by_details_field_fragment(query, "details->>'expiration'")
+    do: order_by_details_field_fragment(query, "?.details->>'expiration'")
 
   defp order_by_details_field(query, "feature_" <> feature, _),
-    do: order_by_details_field_fragment(query, "details->'features'->>?", feature)
+    do: order_by_details_field_fragment(query, "?.details->'features'->>?", feature)
 
   # defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
   # defp to_accepted_fields(string), do: string

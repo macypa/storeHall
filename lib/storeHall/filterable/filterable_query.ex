@@ -78,72 +78,97 @@ defmodule StoreHall.FilterableQuery do
   end
 
   defp apply_command(:lt, %{field: fields, value: value}) do
-    fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal < ? )",
-      ^fields,
-      ^fields,
-      ^as_decimal(value)
+    dynamic(
+      [c],
+      fragment(
+        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal < ? )",
+        c,
+        ^fields,
+        c,
+        ^fields,
+        ^as_decimal(value)
+      )
     )
-    |> dynamic
   end
 
   defp apply_command(:lte, %{field: fields, value: value}) do
-    fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal <= ? )",
-      ^fields,
-      ^fields,
-      ^as_decimal(value)
+    dynamic(
+      [c],
+      fragment(
+        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal <= ? )",
+        c,
+        ^fields,
+        c,
+        ^fields,
+        ^as_decimal(value)
+      )
     )
-    |> dynamic
   end
 
   defp apply_command(:gt, %{field: fields, value: value}) do
-    fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal > ? )",
-      ^fields,
-      ^fields,
-      ^as_decimal(value)
+    dynamic(
+      [c],
+      fragment(
+        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal > ? )",
+        c,
+        ^fields,
+        c,
+        ^fields,
+        ^as_decimal(value)
+      )
     )
-    |> dynamic
   end
 
   # {"gte": {"field": "rating, core", "value": 4}}
   defp apply_command(:gte, %{field: fields, value: value}) do
-    fragment(
-      "( (details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (details#>>?)::decimal >= ? )",
-      ^fields,
-      ^fields,
-      ^as_decimal(value)
+    dynamic(
+      [c],
+      fragment(
+        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal >= ? )",
+        c,
+        ^fields,
+        c,
+        ^fields,
+        ^as_decimal(value)
+      )
     )
-    |> dynamic
   end
 
   defp apply_command(:in, %{field: fields, value: value}) do
-    fragment(
-      "(details#>?) \\?| ?",
-      ^fields,
-      ^value
+    dynamic(
+      [c],
+      fragment(
+        "(?.details#>?) \\?| ?",
+        c,
+        ^fields,
+        ^value
+      )
     )
-    |> dynamic
   end
 
   # {"eq": {"field": "price", "value": "20.4"}}
   defp apply_command(:eq, %{field: fields, value: value}) do
-    fragment(
-      "(details#>>?)::varchar = ? ",
-      ^fields,
-      ^to_string(value)
+    dynamic(
+      [c],
+      fragment(
+        "(?.details#>>?)::varchar = ? ",
+        c,
+        ^fields,
+        ^to_string(value)
+      )
     )
-    |> dynamic
   end
 
   defp apply_command(:has, %{field: fields, value: value}) do
-    fragment(
-      "(details#>>?) LIKE '%' || ? || '%' ",
-      ^fields,
-      ^to_string(value)
+    dynamic(
+      [c],
+      fragment(
+        "(?.details#>>?) LIKE '%' || ? || '%' ",
+        c,
+        ^fields,
+        ^to_string(value)
+      )
     )
-    |> dynamic
   end
 
   # {
@@ -152,11 +177,14 @@ defmodule StoreHall.FilterableQuery do
   #        }
   #    }
   defp apply_command(:has, %{field: fields}) do
-    fragment(
-      "(details#>>?) is not null ",
-      ^fields
+    dynamic(
+      [c],
+      fragment(
+        "(?.details#>>?) is not null ",
+        c,
+        ^fields
+      )
     )
-    |> dynamic
   end
 
   # needs to preload user in ItemFilter.search_filter
@@ -173,12 +201,15 @@ defmodule StoreHall.FilterableQuery do
   # end
 
   defp apply_command(:length_at_least, %{field: fields, value: value}) do
-    fragment(
-      "jsonb_array_length(details#>?) >= ?",
-      ^fields,
-      ^as_decimal(value)
+    dynamic(
+      [c],
+      fragment(
+        "jsonb_array_length(?.details#>?) >= ?",
+        c,
+        ^fields,
+        ^as_decimal(value)
+      )
     )
-    |> dynamic
   end
 
   defp as_decimal(value) do
