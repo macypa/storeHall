@@ -95,9 +95,12 @@ defmodule StoreHall.DefaultFilter do
               dynamic(
                 [c, a: u],
                 fragment(
-                  " (?.details->'rating'->>'score') IS NULL or  (?.details->'rating'->>'score')::numeric >= ? ",
+                  " ((?.details->'rating'->>'score') IS NULL or (?.details->'rating'->>'score')::numeric >= ?) and ((?.details->'rating'->>'score') IS NULL or (?.details->'rating'->>'score')::numeric >= ?) ",
                   u,
                   u,
+                  ^min_rating,
+                  c,
+                  c,
                   ^min_rating
                 )
               )
