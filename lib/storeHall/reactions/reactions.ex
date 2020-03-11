@@ -17,7 +17,7 @@ defmodule StoreHall.Reactions do
       as: :rm
     )
     |> join(:left, [c], ra in Reaction,
-      on: ra.reacted_to == c.id and ra.reaction == "alert" and ra.type == ^type,
+      on: ra.reacted_to == c.id and ilike(ra.reaction, "alert%") and ra.type == ^type,
       as: :ra
     )
     |> group_by([c], c.id)

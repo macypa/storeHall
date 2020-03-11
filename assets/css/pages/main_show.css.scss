@@ -27,8 +27,16 @@ show {
     display: none;
   }
 
+  .alertz_spam.alert_spam,
+  .alertz_hate.alert_hate,
+  .alertz_fraud.alert_fraud,
+  .alertz_illegal.alert_illegal {
+    color: red;
+  }
+
   .alertz_icon {
-    &.alert {
+    background-color: $reactionIconBackgroundColor;
+    &[class^='alert_'], &[class*=' alert_'], &.alert {  
       @include activate_icon;
     }
     fill: darkred;
@@ -37,6 +45,7 @@ show {
     &.meh {
       @include activate_icon;
     }
+    fill: orange;
   }
   .wowz_icon {
     &.wow {
@@ -49,6 +58,34 @@ show {
       @include activate_icon;
     }
     fill: orangered;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    width: $width-sidebar;
+    height: auto;
+    z-index: 10;
+    background-color: #fff;
+    border-radius: 4px;
+    transform: translateY(-5px);
+    transition: all .3s;
+    @include box-shadow;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    li {
+      display: flex;
+      //color: $color-abbey;
+
+      &:hover {
+        background-color: rgba(0,0,0, .1);
+      }
+    }
   }
 
   height: 100%;

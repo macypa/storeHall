@@ -4,12 +4,20 @@
     @reaction.reaction
   end %>
 
-  <span>
-    <svg class="svg_icon alertz_icon <%= reaction %>" reaction-topic="reaction:alert" data="<%= Jason.encode! @react_to %>">
+  <span class="alerts_panel">
+    <svg class="svg_icon alertz_icon <%= reaction %>" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle-o"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-exclamation-circle"></use>
     </svg>
     <count class="reaction_count"><%= @model.alertz_count %></count>
+    <div class="dropdown">
+      <ul>
+        <li class="alertz_type alertz_spam <%= reaction %>" reaction-topic="reaction:alert_spam" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Spam") %></li>
+        <li class="alertz_type alertz_hate <%= reaction %>" reaction-topic="reaction:alert_hate" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Hate speech") %></li>
+        <li class="alertz_type alertz_fraud <%= reaction %>" reaction-topic="reaction:alert_fraud" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Fraud") %></li>
+        <li class="alertz_type alertz_illegal <%= reaction %>" reaction-topic="reaction:alert_illegal" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Illegal") %></li>
+      </ul>
+    </div>
   </span>
 
   <span>
