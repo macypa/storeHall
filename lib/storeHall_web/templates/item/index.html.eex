@@ -8,6 +8,10 @@
 
 <!-- Page content -->
 
+<div id="empty_filter_result" class='<%= if length(@items) <= 1, do: "active", else: "inactive" %>'>
+  <%= Gettext.gettext("empty filter results") %>
+</div>
+
 <div class="listing" id="items-listing">
 
   <%= for item <- @items do %>

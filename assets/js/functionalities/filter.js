@@ -64,6 +64,13 @@ channel.on("filtered_items", payload => {
     document.querySelector("#items-listing").insertAdjacentHTML('beforeend', filtered_items);
   }
   $('.fotorama').fotorama();
+  if (json_payload.length <= 1) {
+    $('#empty_filter_result').removeClass("inactive");
+    $('#empty_filter_result').addClass("active")
+  } else {
+    $('#empty_filter_result').removeClass("active");
+    $('#empty_filter_result').addClass("inactive")
+  }
   update_next_page_link(payload);
 })
 

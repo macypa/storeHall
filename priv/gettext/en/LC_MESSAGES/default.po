@@ -95,8 +95,8 @@ msgid "Listing items"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:39
-#: lib/storeHall_web/views/page_title.ex:43
+#: lib/storeHall_web/views/page_title.ex:46
+#: lib/storeHall_web/views/page_title.ex:50
 #: lib/storeHall_web/views/user_view.ex:6
 msgid "Listing users"
 msgstr ""
@@ -142,7 +142,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:18
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:12
-#: lib/storeHall_web/templates/item/index.html.eex:61
+#: lib/storeHall_web/templates/item/index.html.eex:65
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/index.html.eex:70
@@ -179,6 +179,7 @@ msgid "Info"
 msgstr ""
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:56
 #: lib/storeHall_web/templates/layout/header.html.eex:85
 msgid "Messages"
 msgstr ""
@@ -362,7 +363,7 @@ msgid "Choose"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/index.html.eex:58
+#: lib/storeHall_web/templates/item/index.html.eex:62
 #: lib/storeHall_web/templates/item/show.html.eex:21
 msgid "lv"
 msgstr ""
@@ -399,7 +400,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:37
-#: lib/storeHall_web/views/page_title.ex:32
+#: lib/storeHall_web/views/page_title.ex:39
 msgid "About Us"
 msgstr ""
 
@@ -407,13 +408,13 @@ msgstr ""
 #: lib/storeHall_web/templates/about/contacts.html.eex:2
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:50
-#: lib/storeHall_web/views/page_title.ex:15
+#: lib/storeHall_web/views/page_title.ex:22
 msgid "Contacts"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/cookies.html.eex:1
-#: lib/storeHall_web/views/page_title.ex:18
+#: lib/storeHall_web/views/page_title.ex:25
 msgid "Cookies"
 msgstr ""
 
@@ -655,9 +656,8 @@ msgid "Sign in with Facebook"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
 #: lib/storeHall_web/templates/layout/footer.html.eex:55
-#: lib/storeHall_web/views/page_title.ex:27
+#: lib/storeHall_web/views/page_title.ex:34
 msgid "Sponsor"
 msgstr ""
 
@@ -685,8 +685,8 @@ msgid "not agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:35
-#: lib/storeHall_web/views/page_title.ex:40
+#: lib/storeHall_web/views/page_title.ex:42
+#: lib/storeHall_web/views/page_title.ex:47
 msgid " Page "
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr "Show results only from users with maximum alerts count"
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:61
-#: lib/storeHall_web/views/page_title.ex:30
+#: lib/storeHall_web/views/page_title.ex:37
 msgid "How to"
 msgstr ""
 
@@ -842,6 +842,7 @@ msgid "terms additional"
 msgstr ""
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
 #: lib/storeHall_web/templates/about/terms_sidebar.html.eex:54
 msgid "terms alerts"
 msgstr ""
@@ -931,12 +932,42 @@ msgstr ""
 msgid "terms general"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/views/page_title.ex:21
+#, elixir-format
+#: lib/storeHall_web/views/page_title.ex:28
 msgid "Privacy Title"
 msgstr "Privacy"
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/views/page_title.ex:24
+#, elixir-format
+#: lib/storeHall_web/views/page_title.ex:31
 msgid "Terms Title"
 msgstr "Terms"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:52
+msgid "Credits"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:17
+msgid "Fraud"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:16
+msgid "Hate speech"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:18
+msgid "Illegal"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:15
+msgid "Spam"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/index.html.eex:12
+msgid "empty filter results"
+msgstr ""

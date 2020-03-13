@@ -5,6 +5,14 @@
   display: none;
 }
 
+#empty_filter_result.active {
+  padding: 1em;
+}
+
+#empty_filter_result.inactive {
+  display: none;
+}
+
 .panel_title {
   background: white;
   position: sticky;
