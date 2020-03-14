@@ -15,6 +15,8 @@ defmodule StoreHall.DefaultFilter do
   @accepted_sorting %{
     "price desc" => "price:desc",
     "price asc" => "price:asc",
+    "discount desc" => "discount:desc",
+    "discount asc" => "discount:asc",
     "rating desc" => "rating:desc",
     "rating asc" => "rating:asc",
     "expiration desc" => "expiration:desc",
@@ -199,6 +201,9 @@ defmodule StoreHall.DefaultFilter do
   defp order_by_details_field(query, "price", :desc),
     do: order_by_details_field_fragment(query, "?.details->>'price' DESC NULLS LAST")
 
+  defp order_by_details_field(query, "discount", :desc),
+    do: order_by_details_field_fragment(query, "?.details->>'discount' DESC NULLS LAST")
+
   defp order_by_details_field(query, "rating", :desc),
     do:
       order_by_details_field_fragment(
@@ -215,6 +220,9 @@ defmodule StoreHall.DefaultFilter do
 
   defp order_by_details_field(query, "price", _),
     do: order_by_details_field_fragment(query, "?.details->>'price'")
+
+  defp order_by_details_field(query, "discount", _),
+    do: order_by_details_field_fragment(query, "?.details->>'discount'")
 
   defp order_by_details_field(query, "rating", _),
     do: order_by_details_field_fragment(query, "(?.details->'rating'->>'score')::numeric")

@@ -127,18 +127,23 @@ defmodule StoreHall.Items do
   end
 
   defp prepare_for_insert(item) do
-    item |> Images.prepare_images() |> prepare_price()
+    item
+    |> Images.prepare_images()
+    |> prepare_number(["details", "price"])
+    |> prepare_number(["details", "price_orig"])
+    |> prepare_number(["details", "discount"])
   end
 
-  defp prepare_price(item) do
-    price =
-      item["details"]["price"]
+  defp prepare_number(item, map_key) do
+    number =
+      item
+      |> get_in(map_key)
       |> case do
         nil ->
           0
 
-        price ->
-          price
+        number ->
+          number
           |> Float.parse()
           |> case do
             :error -> 0
@@ -146,7 +151,7 @@ defmodule StoreHall.Items do
           end
       end
 
-    item |> put_in(["details", "price"], price)
+    item |> put_in(map_key, number)
   end
 
   defp init_rating(item) do

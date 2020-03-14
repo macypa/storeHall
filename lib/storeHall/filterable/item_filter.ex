@@ -107,6 +107,24 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:price, dynamic, _), do: dynamic
 
+  defp filter(:discount, dynamic, %{"min" => min_discount, "max" => max_discount}) do
+    dynamic
+    |> filter_min_max(:gte, "discount", min_discount)
+    |> filter_min_max(:lte, "discount", max_discount)
+  end
+
+  defp filter(:discount, dynamic, %{"min" => min_discount}) do
+    dynamic
+    |> filter_min_max(:gte, "discount", min_discount)
+  end
+
+  defp filter(:discount, dynamic, %{"max" => max_discount}) do
+    dynamic
+    |> filter_min_max(:lte, "discount", max_discount)
+  end
+
+  defp filter(:discount, dynamic, _), do: dynamic
+
   defp filter(:rating, dynamic, %{"min" => min_rating, "max" => max_rating}) do
     dynamic
     |> filter_min_max(:gte, ["rating", "score"], min_rating, -1)

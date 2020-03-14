@@ -71,6 +71,40 @@
     </div>
 
     <div class="tab">
+      <input type="checkbox" id="discount-min" class="collapsible">
+      <label class="tab-label" for="discount-min"><%= Gettext.gettext("Discount") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :discount_min,
+              class: "min",
+              min: 0, step: 0.01, max: 100,
+              name: "filter[discount][min]",
+              value: f.params["discount"]["min"] %>
+            <%= number_input f, :discount_max,
+              class: "max",
+              min: 0, step: 0.01, max: 100,
+              name: "filter[discount][max]",
+              value: f.params["discount"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :discount_min_slider,
+              min: 0, max: 100, step: 1,
+              class: "min-slider auto-submit-item",
+              value: f.params["discount"]["min"] || 0 %>
+
+            <%= range_input f, :discount_max_slider,
+              min: 0, max: 100, step: 1,
+              class: "max-slider auto-submit-item",
+              value: f.params["discount"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
       <input type="checkbox" id="location" class="collapsible">
       <label class="tab-label" for="location"><%= Gettext.gettext("City") %></label>
       <div class="tab-content">

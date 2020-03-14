@@ -51,10 +51,11 @@
   display: grid;
   grid-template-rows: $width-header/1.5 1fr;
   grid-template-areas:
-    'cover cover'
-    'title title'
-    'comments merchant'
-    'price price';
+    'cover cover cover cover'
+    'title title title title'
+    'comments comments merchant merchant'
+    '. price price discount'
+    '. price_orig price_orig discount';
 }
 
 .listing > user {
@@ -109,11 +110,45 @@
   grid-area: price;
 
   margin: auto;
-  margin-bottom: 0.5em;
+  margin-bottom: 0; 
   color: red;
   font-size: 1em;
   font-weight: 700;
 }
+
+.listing .price_0,
+.listing .price_ {
+  display: none;
+}
+
+.listing .price_orig_0,
+.listing .price_orig_ {
+  display: none;  
+}
+
+.listing .price_orig {
+  grid-area: price_orig;
+
+  font-size: 0.6em;
+  min-height: 0.1em;
+  margin: auto; 
+  margin-top: 0; 
+  text-decoration: line-through;
+}
+
+.listing .discount {
+  grid-area: discount;
+
+  border-radius: 10px;
+  text-align: center;
+  background: green;
+  color: white;
+  font-family: 'Open Sans';
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.2em;
+}
+
 
 .listing .merchant {
   grid-area: merchant;

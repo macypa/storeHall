@@ -19,6 +19,7 @@ import helpers from "./helpers"
 import theme from "./theme"
 import socket from "./socket"
 
+import edit_page from "./edit_page"
 import pagination from "./functionalities/pagination"
 import filter from "./functionalities/filter"
 import comments from "./functionalities/comments"

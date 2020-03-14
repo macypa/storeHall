@@ -14,6 +14,8 @@ defmodule StoreHall.Items.Item do
     field :details, :map,
       default: %{
         "price" => 0,
+        "price_orig" => 0,
+        "discount" => 0,
         "description" => "",
         "conditions" => "",
         "expiration" => "",

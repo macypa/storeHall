@@ -59,7 +59,11 @@
           <%= item.user_id %>
         <% end %>
       </div>
-      <div class="price"><%= item.details["price"] %> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
+
+      <div class='price price_<%= item.details["price"] %>'><%= item.details["price"] %> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
+      
+      <div class='price_orig price_orig_<%= item.details["price_orig"] %>'><strike><%= item.details["price_orig"] %></strike></div>
+      <div class='discount price_orig_<%= item.details["price_orig"] %>'>-<%= item.details["discount"] %><%= Gettext.gettext("%") %></div>
       <div class="comments">
         <%= link to: Routes.user_item_path(@conn, :show, item.user_id, item) <> "#comments" do %>
           <%= Gettext.gettext("Comments") %>: <%= item.details["comments_count"] %>

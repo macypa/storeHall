@@ -24,6 +24,16 @@
             min: 0, step: 0.01,
             name: input_name(f, :details) <> "[price]",
             value: input_value(f, :details)["price"] || 0 %>
+    <%= label f, :price, Gettext.gettext("Original Price") %>
+    <%= number_input f, :details_price_orig,
+            min: 0, step: 0.01,
+            name: input_name(f, :details) <> "[price_orig]",
+            value: input_value(f, :details)["price_orig"] || 0 %>
+    <%= label f, :discount, Gettext.gettext("Discount") %>
+    <%= number_input f, :details_discount,
+            min: 0, step: 1, max: 99,
+            name: input_name(f, :details) <> "[discount]",
+            value: input_value(f, :details)["discount"] || 0 %>
   </div>
 
   <div class="form-group">
