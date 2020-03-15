@@ -175,6 +175,28 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
+  defp filter(:merchant_type, dynamic, value) when value == "", do: dynamic
+
+  defp filter(:merchant_type, dynamic, value) do
+    value
+    |> String.split(",")
+    |> Enum.reduce(dynamic, fn merch_type, dyn ->
+      FilterableQuery.clean_dynamic(
+        :or,
+        dyn,
+        dynamic(
+          [c, a: u],
+          fragment(
+            "(?.details->>?)::varchar = ? ",
+            u,
+            "merchant_type",
+            ^to_string(merch_type)
+          )
+        )
+      )
+    end)
+  end
+
   defp filter(:merchant, dynamic, value) when value == "", do: dynamic
 
   defp filter(:merchant, dynamic, value) do

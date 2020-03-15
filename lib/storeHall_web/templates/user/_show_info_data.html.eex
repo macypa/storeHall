@@ -1,4 +1,13 @@
 
+  <span>
+    <span class="info_title"><%= Gettext.gettext("Merchant type") %>: </span>
+    <div>
+      <%= StoreHall.DefaultFilter.accepted_merchant_type() 
+          |> Enum.find(fn {_key, val} -> val == @user.details["type"] end)
+          |> elem(0) %>
+    </div>
+  </span>
+  
   <%= if Map.has_key?(@user.details, "address") and !Enum.empty?(@user.details["address"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Address") %>: </span>

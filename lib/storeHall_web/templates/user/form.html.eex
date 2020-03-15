@@ -18,6 +18,14 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :type, Gettext.gettext("Merchant type") %>
+      <%= select f, :type_select,
+              StoreHall.DefaultFilter.accepted_merchant_type(),
+              name: input_name(f, :details) <> "[type]" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= label f, :address, Gettext.gettext("Address") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Address") %>' allow_duplicate="true">
       <%= text_input f, :details_address, name: input_name(f, :details) <>"[address]", value: Jason.encode!(input_value(f, :details)["address"]) %>

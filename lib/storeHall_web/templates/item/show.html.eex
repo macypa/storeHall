@@ -31,7 +31,7 @@
             <span class="info_title"><%= Gettext.gettext("Discount") %></span>
             <span class="info_content discount"><%= @item.details["discount"] %><%= Gettext.gettext("% discount") %></span>
           </span>
-        <%= end %>
+        <% end %>
         
         <span>
           <span class="info_title"><%= Gettext.gettext("Description") %> </span>

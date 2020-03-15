@@ -26,6 +26,12 @@ defmodule StoreHall.DefaultFilter do
     "name desc" => "name:desc",
     "name asc" => "name:аsc"
   }
+  @accepted_merchant_type %{
+    "Private seller" => "merch_private",
+    "Producer" => "merch_producer",
+    "Retailer" => "merch_retailer"
+  }
+
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
 
@@ -237,6 +243,13 @@ defmodule StoreHall.DefaultFilter do
   # defp to_accepted_fields(string), do: string
   def accepted_sorting() do
     @accepted_sorting
+    |> Enum.reduce(%{}, fn {key, value}, acc ->
+      acc |> Map.put(Gettext.gettext(StoreHallWeb.Gettext, key), value)
+    end)
+  end
+
+  def accepted_merchant_type() do
+    @accepted_merchant_type
     |> Enum.reduce(%{}, fn {key, value}, acc ->
       acc |> Map.put(Gettext.gettext(StoreHallWeb.Gettext, key), value)
     end)

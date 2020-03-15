@@ -22,6 +22,7 @@ defmodule StoreHallWeb.UserController do
         updated_at: "{{updated_at}}",
         details: %{
           "user_template_tag_id" => "user_template",
+          "merchant_type" => "{{json details.merchant_type}}",
           "images" => [
             "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}"
           ],

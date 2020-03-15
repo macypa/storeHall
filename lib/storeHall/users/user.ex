@@ -23,6 +23,7 @@ defmodule StoreHall.Users.User do
 
     field :details, :map,
       default: %{
+        "merchant_type" => "merch_private",
         "images" => [],
         "videos" => [],
         "address" => %{},

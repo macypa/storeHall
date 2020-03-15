@@ -118,6 +118,25 @@
       </div>
     </div>
 
+
+
+
+    <div class="tab">
+      <input type="checkbox" id="merchant_type" class="collapsible">
+      <label class="tab-label" for="merchant_type"><%= Gettext.gettext("Merchant type") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :merchant_type, class: "auto-submit-item" %>
+          <%= select f, :merchant_type_select,
+                    StoreHall.DefaultFilter.accepted_merchant_type(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <div class="tab">
       <input type="checkbox" id="merchants" class="collapsible">
       <label class="tab-label" for="merchants"><%= Gettext.gettext("Merchants") %></label>
