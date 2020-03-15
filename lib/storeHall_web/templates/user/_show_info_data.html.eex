@@ -4,7 +4,10 @@
     <div>
       <%= StoreHall.DefaultFilter.accepted_merchant_type() 
           |> Enum.find(fn {_key, val} -> val == @user.details["type"] end)
-          |> elem(0) %>
+          |> case do
+            nil -> ""
+            type -> type |> elem(0)
+          end %>
     </div>
   </span>
   
