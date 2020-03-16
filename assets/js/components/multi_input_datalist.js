@@ -20,7 +20,7 @@ function init() {
       cloned_input_field.setAttribute("placeholder", container.getAttribute("placeholder"));
       if (!cloned_input_field.classList.contains("datalist_editable_input")) {
         cloned_input_field.classList.add("datalist_input");
-        container.insertAdjacentHTML('beforeend', cloned_input_field.outerHTML);
+        input_field.insertAdjacentHTML('afterend', cloned_input_field.outerHTML);
       } else {
         input_field.insertAdjacentHTML('beforebegin', cloned_input_field.outerHTML);
       }
