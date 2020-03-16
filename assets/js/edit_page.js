@@ -1,11 +1,24 @@
 
 add_events("#item_details_price", "change", function () {
-  $("#item_details_discount").val(discount($("#item_details_price").val(), $("#item_details_price_orig").val()));
+  price_event();
 });
 
 add_events("#item_details_price_orig", "change", function () {
-  $("#item_details_discount").val(discount($("#item_details_price").val(), $("#item_details_price_orig").val()));
+  price_event();
 });
+
+function price_event() {
+  var price_orig = $("#item_details_price_orig").val();
+  var price = $("#item_details_price").val();
+
+  if (price_orig == "0" || parseFloat(price) >= parseFloat(price_orig)) {
+    $("#item_details_discount").prop("disabled", true);
+    $("#item_details_discount").val(0);
+  } else {
+    $("#item_details_discount").prop("disabled", false);
+    $("#item_details_discount").val(discount(price, price_orig));
+  }
+}
 
 add_events("#item_details_discount", "change", function () {
   $("#item_details_price").val(price_from_discount($("#item_details_price_orig").val(), $("#item_details_discount").val()));
