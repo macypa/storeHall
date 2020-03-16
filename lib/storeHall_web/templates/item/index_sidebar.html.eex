@@ -159,7 +159,7 @@
           <%= text_input f, :tags, class: "auto-submit-item" %>
           <%= select f, :tags_select,
             @conn.assigns.filters["tags"]
-            |> Enum.map(fn {k, _v} -> {k|> String.replace(~r/.*\//, "_  "), k} end),
+            |> Enum.map(fn {k, _v} -> {k |> String.replace(~r/[^\/]*\//, "_  "), k} end),
             name: nil %>
         </div>
       </div>
