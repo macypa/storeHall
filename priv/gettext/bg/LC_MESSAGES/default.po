@@ -346,7 +346,7 @@ msgstr "Изпращане"
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:156
 #: lib/storeHall_web/templates/item/show.html.eex:47
 msgid "Tags"
-msgstr "Категории"
+msgstr "Тагове"
 
 #, elixir-format
 #: lib/storeHall_web/templates/comment/form.html.eex:5
@@ -571,7 +571,7 @@ msgstr "Добави снимка"
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:41
 msgid "Add tags"
-msgstr "Добави категория"
+msgstr "Добави таг"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:87
