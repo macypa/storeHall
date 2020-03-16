@@ -8,6 +8,17 @@
     display: grid;
     padding: 1em;
 
+    .hint {
+      display: none;
+    }
+    
+    .hint:hover ,
+    textarea:focus ~ .hint,
+    input:focus ~ .hint {
+      display: block;
+      font-size: small;
+    }
+
     textarea {
       max-width: 99%;
       resize: vertical;
@@ -71,6 +82,11 @@
         padding-right: 1em;
         grid-column: 1 / 2;
       }
+
+      .hint {
+        grid-column: 2 / 6;
+      }
+
 
       .help-block,
       input,

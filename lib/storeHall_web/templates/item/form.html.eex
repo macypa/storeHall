@@ -43,7 +43,6 @@
             value: input_value(f, :details)["discount"] || 0 %>
       <%= Gettext.gettext("%") %>
     </span>
-    
   </div>
 
   <div class="form-group">
@@ -57,6 +56,9 @@
               @conn.assigns.filters["tags"]
               |> Enum.map(fn {k, _v} -> {k, k} end),
               name: nil %>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for tags")) %>
+      </div>
     </div>
   </div>
 
@@ -71,6 +73,9 @@
               @conn.assigns.filters["cities"]
               |> Enum.map(fn {k, _v} -> {k, k} end),
               name: nil %>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for cities")) %>
+      </div>
     </div>
   </div>
 
@@ -80,6 +85,9 @@
       <%= text_input f, :details_features, name: input_name(f, :details) <> "[features]",
               value: Jason.encode!(input_value(f, :details)["features"]) %>
       <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for features")) %>
+      </div>
     </div>
   </div>
 
@@ -89,6 +97,9 @@
       <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
               value: Jason.encode!(input_value(f, :details)["images"]) %>
       <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for images")) %>
+      </div>
     </div>
   </div>
 
@@ -98,17 +109,26 @@
       <%= text_input f, :details_videos, name: input_name(f, :details) <> "[videos]",
               value: Jason.encode!(input_value(f, :details)["videos"]) %>
       <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for videos")) %>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <%= label f, :description, Gettext.gettext("Description") %>
     <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: input_value(f, :details)["description"] %>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("HTML tags can be used.")) %>
+      </div>
   </div>
 
   <div class="form-group">
     <%= label f, :conditions, Gettext.gettext("Conditions") %>
     <%= textarea f, :details_conditions, name: input_name(f, :details) <> "[conditions]", value: input_value(f, :details)["conditions"] %>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("HTML tags can be used.")) %>
+      </div>
   </div>
 
   <div class="form-group">
@@ -135,8 +155,6 @@
       <%= textarea  f, :details, name: input_name(f, :details),
         value: Jason.encode!(input_value(f, :details)) |> String.replace(",\"", ",\n\"") %>
     </div>
-
-
   <% end %>
 
 

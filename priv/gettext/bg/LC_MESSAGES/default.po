@@ -160,7 +160,7 @@ msgid "Delete"
 msgstr "Изтрий"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:122
+#: lib/storeHall_web/templates/item/form.html.eex:152
 msgid "Details"
 msgstr "Детайли"
 
@@ -291,8 +291,8 @@ msgid "Edit Item"
 msgstr "Редактирай обява"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:77
-#: lib/storeHall_web/templates/item/form.html.eex:115
+#: lib/storeHall_web/templates/item/form.html.eex:95
+#: lib/storeHall_web/templates/item/form.html.eex:145
 #: lib/storeHall_web/templates/user/form.html.eex:69
 #: lib/storeHall_web/templates/user/form.html.eex:174
 msgid "Images"
@@ -342,7 +342,7 @@ msgid "Submit"
 msgstr "Изпращане"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:40
+#: lib/storeHall_web/templates/item/form.html.eex:49
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:156
 #: lib/storeHall_web/templates/item/show.html.eex:47
 msgid "Tags"
@@ -364,6 +364,8 @@ msgid "Choose"
 msgstr "Избери"
 
 #, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:28
+#: lib/storeHall_web/templates/item/form.html.eex:36
 #: lib/storeHall_web/templates/item/index.html.eex:63
 #: lib/storeHall_web/templates/item/show.html.eex:21
 msgid "lv"
@@ -408,7 +410,7 @@ msgstr "За нас"
 #, elixir-format
 #: lib/storeHall_web/templates/about/contacts.html.eex:2
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:59
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:66
 #: lib/storeHall_web/views/page_title.ex:22
 msgid "Contacts"
 msgstr "Контакти"
@@ -435,7 +437,7 @@ msgid "Add Scores"
 msgstr "Рейтинг"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:13
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:20
 #: lib/storeHall_web/templates/user/form.html.eex:29
 #: lib/storeHall_web/templates/user/form.html.eex:30
 msgid "Address"
@@ -449,7 +451,7 @@ msgid "All Scores absolute values should add up to max %{max_score} !"
 msgstr "Сборът от абсолютните стойности на всички точки трябва да е до %{max_score} !"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:100
+#: lib/storeHall_web/templates/item/form.html.eex:127
 #: lib/storeHall_web/templates/item/show.html.eex:74
 msgid "Conditions"
 msgstr "Условия"
@@ -460,7 +462,7 @@ msgid "Cons"
 msgstr "Недостатъци"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:95
+#: lib/storeHall_web/templates/item/form.html.eex:119
 #: lib/storeHall_web/templates/item/show.html.eex:37
 #: lib/storeHall_web/templates/user/form.html.eex:87
 #: lib/storeHall_web/templates/user/show.html.eex:43
@@ -468,7 +470,7 @@ msgid "Description"
 msgstr "Описание"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:29
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:36
 #: lib/storeHall_web/templates/user/form.html.eex:37
 #: lib/storeHall_web/templates/user/form.html.eex:38
 msgid "E-mail"
@@ -480,20 +482,20 @@ msgid "Edit Rating"
 msgstr "Промени ревю"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:105
+#: lib/storeHall_web/templates/item/form.html.eex:135
 #: lib/storeHall_web/templates/item/show.html.eex:42
 msgid "Expiration"
 msgstr "Краен срок"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:68
+#: lib/storeHall_web/templates/item/form.html.eex:83
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:170
 #: lib/storeHall_web/templates/item/show.html.eex:65
 msgid "Features"
 msgstr "Характеристики"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:75
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:82
 #: lib/storeHall_web/templates/user/form.html.eex:61
 #: lib/storeHall_web/templates/user/form.html.eex:62
 msgid "Open hours"
@@ -510,7 +512,7 @@ msgid "User not deleted."
 msgstr "Профилът не е изтрит."
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:44
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:51
 #: lib/storeHall_web/templates/user/form.html.eex:45
 #: lib/storeHall_web/templates/user/form.html.eex:46
 msgid "Website"
@@ -553,34 +555,34 @@ msgid "and remember, be nice!"
 msgstr "и помни, бъди мил!"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:55
+#: lib/storeHall_web/templates/item/form.html.eex:67
 msgid "Add cities"
 msgstr "Добави град"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:69
+#: lib/storeHall_web/templates/item/form.html.eex:84
 msgid "Add feature"
 msgstr "Добави характеристика"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:78
+#: lib/storeHall_web/templates/item/form.html.eex:96
 #: lib/storeHall_web/templates/user/form.html.eex:70
 msgid "Add images"
 msgstr "Добави снимка"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:41
+#: lib/storeHall_web/templates/item/form.html.eex:50
 msgid "Add tags"
 msgstr "Добави таг"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:87
+#: lib/storeHall_web/templates/item/form.html.eex:108
 #: lib/storeHall_web/templates/user/form.html.eex:79
 msgid "Add videos"
 msgstr "Добави видео"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:54
+#: lib/storeHall_web/templates/item/form.html.eex:66
 #: lib/storeHall_web/templates/item/show.html.eex:56
 msgid "Cities"
 msgstr "Градове"
@@ -596,7 +598,7 @@ msgid "Sorting"
 msgstr "Подреди"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:86
+#: lib/storeHall_web/templates/item/form.html.eex:107
 #: lib/storeHall_web/templates/user/form.html.eex:78
 msgid "Videos"
 msgstr "Видеа"
@@ -986,6 +988,7 @@ msgid "empty filter results"
 msgstr "Няма намерени резултати."
 
 #, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:44
 #: lib/storeHall_web/templates/item/index.html.eex:66
 msgid "%"
 msgstr "%"
@@ -996,7 +999,7 @@ msgid "% discount"
 msgstr "% намаление"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:32
+#: lib/storeHall_web/templates/item/form.html.eex:38
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:75
 #: lib/storeHall_web/templates/item/show.html.eex:31
 msgid "Discount"
@@ -1004,13 +1007,44 @@ msgstr "Намаление"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:126
-#: lib/storeHall_web/templates/user/_show_info_data.html.eex:3
+#: lib/storeHall_web/templates/user/_show_info_data.html.eex:11
 #: lib/storeHall_web/templates/user/form.html.eex:21
 msgid "Merchant type"
 msgstr "Тип търговец"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:27
+#: lib/storeHall_web/templates/item/form.html.eex:30
 #: lib/storeHall_web/templates/item/show.html.eex:26
 msgid "Original Price"
 msgstr "Оригинална цена"
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:122
+#: lib/storeHall_web/templates/item/form.html.eex:130
+msgid "HTML tags can be used."
+msgstr "HTML тагове могат да се използват."
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:77
+msgid "form edit hint for cities"
+msgstr "Ако желаният град не се вижда в падащия списък, моля, въведете името и натиснете клавиша Enter."
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:89
+msgid "form edit hint for features"
+msgstr "Добавете характеристики, като въведете първо името на характеристиката и натиснете клавиша Enter. След това можете да редактирате стойността."
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:101
+msgid "form edit hint for images"
+msgstr "Въведете URL адреса на изображение, което искате да добавите и натиснете клавиша Enter. Можете да използвате услуга като <a href='https://photos.google.com'>Google Photos</a>"
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:60
+msgid "form edit hint for tags"
+msgstr "Таговете са като категории. Можете да зададете под-тагове с '/' (Пример: 'литература/книги/художествена литература')"
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:113
+msgid "form edit hint for videos"
+msgstr "Въведете URL адреса на видеоклип, който искате да добавите и натиснете клавиша Enter. Можете да използвате услуга като <a href='https://www.youtube.com'>YouTube</a>"
