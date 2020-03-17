@@ -1,0 +1,39 @@
+
+<sidebar-show>
+
+  <% logged_user_id = get_logged_user_id(@conn)%>
+
+  <div class="tab">
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
+      <label class="tab-label"><%= Gettext.gettext("Info") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#comments" do %>
+      <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#ratings" do %>
+      <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
+    <%= link to: Routes.user_item_path(@conn, :new, logged_user_id) do %>
+      <label class="tab-label"><%= Gettext.gettext("Add Item") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
+    <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.user_path(@conn, :edit, logged_user_id) %>
+  </div>
+
+  <div class="tab">
+    <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_path(@conn, :delete, logged_user_id), method: :delete, data: [confirm: Gettext.gettext("Are you sure?")] %>
+  </div>
+
+
+</sidebar-show>

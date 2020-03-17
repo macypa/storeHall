@@ -22,6 +22,12 @@
   <%= if is_logged_user?(@conn, @conn.assigns.user.id) do %>
 
     <div class="tab">
+      <%= link to: Routes.user_item_path(@conn, :new, @conn.assigns.user) do %>
+        <label class="tab-label"><%= Gettext.gettext("Add Item") %></label>
+      <% end %>
+    </div>
+
+    <div class="tab">
       <%= link Gettext.gettext("Edit"), class: "tab-label", to: Routes.user_path(@conn, :edit, @conn.assigns.user) %>
     </div>
 

@@ -67,7 +67,7 @@
           </li>
         <% end %>
 
-        <%= link to: Routes.user_path(@conn, :edit, logged_user_id)do %>
+        <%= link to: Routes.user_path(@conn, :edit, logged_user_id) <> "#settings" do %>
           <li>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-cog"></use>
