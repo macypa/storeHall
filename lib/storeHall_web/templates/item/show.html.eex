@@ -18,13 +18,12 @@
 
         <span>
           <span class="info_title"><%= Gettext.gettext("Price") %></span>
-          <span class="info_content price"><%= @item.details["price"] %> <%= @item.details["currency"] || Gettext.gettext("lv") %></span>
+          <span class="info_content price"><span class="money_value"><%= @item.details["price"] %></span> <%= @item.details["currency"] || Gettext.gettext("lv") %></span>
         </span>
-
-        <%= if @item.details["price_orig"] != 0 do %>
+        <%= if @item.details["price_orig"] > 0 do %>
           <span>
             <span class="info_title"><%= Gettext.gettext("Original Price") %></span>
-            <span class="info_content price_orig"><%= @item.details["price_orig"] %></span>
+            <span class="info_content price_orig"><span class="money_value"><%= @item.details["price_orig"] %></span> <%= @item.details["currency"] || Gettext.gettext("lv") %></span>
           </span>
 
           <span>

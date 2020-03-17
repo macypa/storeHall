@@ -72,8 +72,20 @@ $('textarea').on('input', function () {
   this.style.height = this.scrollHeight + "px"
 });
 
+window.format_money = function () {
+  $(".money_value").each(function () {
+    var money_value = this.innerHTML;
+    const parsed = parseInt(money_value);
+    if (isNaN(parsed)) {
+      this.innerHTML = "0";
+    } else {
+      this.innerHTML = parsed.toFixed(2);
+    }
+  });
+};
 
 $(document).ready(function () {
   timeago();
+  format_money();
   load_lazy_imgs();
 });

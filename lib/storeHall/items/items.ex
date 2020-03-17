@@ -131,7 +131,6 @@ defmodule StoreHall.Items do
     |> Images.prepare_images()
     |> prepare_number(["details", "price"])
     |> prepare_number(["details", "price_orig"])
-    |> prepare_number(["details", "discount"])
   end
 
   defp prepare_number(item, map_key) do

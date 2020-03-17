@@ -71,6 +71,7 @@ channel.on("filtered_items", payload => {
     $('#empty_filter_result').removeClass("active");
     $('#empty_filter_result').addClass("inactive")
   }
+  format_money();
   update_next_page_link(payload);
 })
 
