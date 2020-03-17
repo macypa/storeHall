@@ -117,7 +117,7 @@ defmodule StoreHall.Users.Action do
     {:ok, repo.update_all(query, [])}
   end
 
-  def reaction_to_rating(reaction) when reaction in ["alert"], do: -10
+  def reaction_to_rating("alert" <> _), do: -10
   def reaction_to_rating(reaction) when reaction in ["meh"], do: 1
   def reaction_to_rating(reaction) when reaction in ["wow"], do: 3
   def reaction_to_rating(reaction) when reaction in ["lol"], do: -3
