@@ -58,6 +58,10 @@ defmodule StoreHallWeb.AuthController do
                 changeset(&genNextId/1, user_params)
                 |> Repo.insert()
             end
+            |> elem(1)
+            |> Users.update_user(%{
+              "settings" => %{"marketing_consent" => get_session(conn, "marketing_consent")}
+            })
 
           user ->
             case get_session(conn, "marketing_consent") == "agreed" do

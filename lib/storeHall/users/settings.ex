@@ -8,7 +8,7 @@ defmodule StoreHall.Users.Settings do
     field :settings, :map,
       default: %{
         "locale" => "bg",
-        "cookie_consent" => "not_agreed",
+        "cookie_consent" => "agreed",
         "marketing_consent" => "not_agreed",
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0},
