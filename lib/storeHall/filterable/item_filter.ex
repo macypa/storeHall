@@ -146,17 +146,19 @@ defmodule StoreHall.ItemFilter do
   defp filter(:tags, dynamic, value) when value == "", do: dynamic
 
   defp filter(:tags, dynamic, value) do
-    FilterableQuery.construct_where_fragment(
-      dynamic,
-      %{
-        in: %{
-          field: ["tags"],
-          value:
-            value
-            |> String.split(";")
+    value
+    |> String.split(",")
+    |> Enum.reduce(dynamic, fn tag, dyn ->
+      FilterableQuery.construct_where_fragment(
+        dyn,
+        %{
+          has: %{
+            field: ["tags"],
+            value: tag
+          }
         }
-      }
-    )
+      )
+    end)
   end
 
   defp filter(:cities, dynamic, value) when value == "", do: dynamic
@@ -169,7 +171,7 @@ defmodule StoreHall.ItemFilter do
           field: ["cities"],
           value:
             value
-            |> String.split(";")
+            |> String.split(",")
         }
       }
     )
@@ -201,9 +203,9 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:merchant, dynamic, value) do
     value
-    |> String.split(";")
+    |> String.split(",")
     |> Enum.reduce(dynamic, fn merch, dyn ->
-      FilterableQuery.clean_dynamic(:and, dyn, dynamic([u], u.user_id == ^merch))
+      FilterableQuery.clean_dynamic(:or, dyn, dynamic([u], u.user_id == ^merch))
     end)
   end
 
