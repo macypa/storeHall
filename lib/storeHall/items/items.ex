@@ -360,7 +360,7 @@ defmodule StoreHall.Items do
     end
   end
 
-  def item_filters(min_count \\ 10) do
+  def item_filters(min_count \\ 0) do
     Filters |> Repo.all() |> Filters.to_map(min_count)
   end
 
