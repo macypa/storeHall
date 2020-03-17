@@ -8,7 +8,9 @@ add_reaction_events();
 
 $('.alerts_panel').click(function () {
   var pos = $(this).position();
-  $(this).find('.dropdown').toggle();
+  var dropdown = $(this).find('.dropdown');
+  dropdown.css("top", $(this).position().top + $(this).height());
+  dropdown.toggle();
 }).mouseleave(function () {
   $(this).find('.dropdown').hide();
 });
