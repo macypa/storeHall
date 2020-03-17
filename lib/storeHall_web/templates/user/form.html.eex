@@ -21,7 +21,8 @@
     <%= label f, :type, Gettext.gettext("Merchant type") %>
       <%= select f, :type_select,
               StoreHall.DefaultFilter.accepted_merchant_type(),
-              name: input_name(f, :details) <> "[type]" %>
+              name: input_name(f, :details) <> "[merchant_type]",
+              selected: input_value(f, :details)["merchant_type"] || "merch_private" %>
     </div>
   </div>
 

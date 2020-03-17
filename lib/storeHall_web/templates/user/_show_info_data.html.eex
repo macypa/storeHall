@@ -1,6 +1,6 @@
 
 <% type = StoreHall.DefaultFilter.accepted_merchant_type() 
-          |> Enum.find(fn {_key, val} -> val == @user.details["type"] end)
+          |> Enum.find(fn {_key, val} -> val == @user.details["merchant_type"] end)
           |> case do
             nil -> nil
             type -> type |> elem(0)

@@ -1010,7 +1010,7 @@ msgstr ""
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:11
 #: lib/storeHall_web/templates/user/form.html.eex:21
 msgid "Merchant type"
-msgstr ""
+msgstr "Profile type"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:30
