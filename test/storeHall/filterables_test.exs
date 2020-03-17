@@ -87,7 +87,12 @@ defmodule StoreHall.FilterablesTest do
         |> Enum.each(fn i ->
           assert String.contains?(
                    String.downcase(Map.get(i, :name)) <>
-                     String.downcase(Map.get(i, :user_id)),
+                     String.downcase(Map.get(i, :user_id)) <>
+                     String.downcase(to_string(Map.get(i.details, "tags"))) <>
+                     String.downcase(to_string(Map.get(i.details, "cities"))) <>
+                     String.downcase(to_string(Map.get(i.details, "description"))) <>
+                     String.downcase(to_string(Map.get(i.details, "conditions"))) <>
+                     String.downcase(to_string(Map.get(i.details, "features"))),
                    String.downcase(Map.get(item, field))
                  )
         end)
