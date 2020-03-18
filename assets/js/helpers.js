@@ -4,7 +4,7 @@ import jqueryLazy from 'jquery-lazy';
 
 window.sanitize = function (str) {
   let temp = document.createElement('div');
-  temp.textContent = str;
+  temp.textContent = (str + "").trim();
   return temp.innerHTML;
 }
 
