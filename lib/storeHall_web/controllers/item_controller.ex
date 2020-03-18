@@ -15,6 +15,7 @@ defmodule StoreHallWeb.ItemController do
       %Item{
         id: "{{id}}",
         name: "{{name}}",
+        user: %{:name => "{{user.name}}"},
         user_id: "{{user_id}}",
         inserted_at: "{{inserted_at}}",
         updated_at: "{{updated_at}}",

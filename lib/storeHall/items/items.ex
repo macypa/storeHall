@@ -24,6 +24,7 @@ defmodule StoreHall.Items do
   def list_items(params, current_user_id \\ nil) do
     apply_filters(params, current_user_id)
     |> Repo.all()
+    |> Repo.preload(:user)
     |> Images.append_images()
   end
 

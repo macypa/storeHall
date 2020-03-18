@@ -56,7 +56,7 @@
       <div class="merchant">
         От
         <%= link to: Routes.user_path(@conn, :show, item.user_id) do %>
-          <%= item.user_id %>
+          <%= item.user.name %>
         <% end %>
       </div>
 

@@ -5,7 +5,7 @@ defmodule StoreHall.Items.Item do
 
   @derive {Jason.Encoder,
            only:
-             [:id, :name, :details, :user_id, :inserted_at, :updated_at] ++
+             [:id, :name, :details, :user, :user_id, :inserted_at, :updated_at] ++
                reaction_jason_fields()}
   schema "items" do
     field :name, :string
