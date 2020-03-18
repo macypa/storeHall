@@ -51,7 +51,7 @@ function init() {
 
 function disable_enter_key_press(node, fun) {
   node.onkeypress = function (e) {
-    var key = e.charCode || e.keyCode || 0;
+    let key = e.charCode || e.keyCode || 0;
     if (key == 13) {
       e.stopPropagation();
       e.preventDefault();
@@ -174,6 +174,12 @@ function add_item(e) {
 
   if (custom_tag_value == null) {
     custom_tag_value = "";
+  }
+
+  if (input_field_data.is_json && human_readable_key.includes(":")) {
+    let first_key_part = human_readable_key.split(":")[0];
+    custom_tag_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
+    human_readable_key = first_key_part;
   }
 
   let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
