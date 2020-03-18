@@ -75,7 +75,7 @@ $('textarea').on('input', function () {
 window.format_money = function () {
   $(".money_value").each(function () {
     let money_value = this.innerHTML;
-    const parsed = parseInt(money_value);
+    const parsed = parseFloat(money_value);
     if (isNaN(parsed)) {
       this.innerHTML = "0";
     } else {
