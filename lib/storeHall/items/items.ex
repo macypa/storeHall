@@ -129,11 +129,32 @@ defmodule StoreHall.Items do
   defp prepare_for_insert(item) do
     item
     |> Images.prepare_images()
-    |> prepare_number(["details", "price"])
-    |> prepare_number(["details", "price_orig"])
+    |> prepare_number_float(["details", "price"])
+    |> prepare_number_float(["details", "price_orig"])
+    |> prepare_number_int(["details", "discount"])
   end
 
-  defp prepare_number(item, map_key) do
+  defp prepare_number_int(item, map_key) do
+    number =
+      item
+      |> get_in(map_key)
+      |> case do
+        nil ->
+          0
+
+        number ->
+          number
+          |> Integer.parse()
+          |> case do
+            :error -> 0
+            {number, _} -> number
+          end
+      end
+
+    item |> put_in(map_key, number)
+  end
+
+  defp prepare_number_float(item, map_key) do
     number =
       item
       |> get_in(map_key)
