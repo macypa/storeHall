@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
 window.sanitize = function (str) {
-  var temp = document.createElement('div');
+  let temp = document.createElement('div');
   temp.textContent = str;
   return temp.innerHTML;
 }
@@ -27,7 +27,7 @@ window.isEmpty = function (obj) {
   if (obj == null) return true;
   if (typeof obj === "string" && (obj == "" || obj.trim() == "")) return true;
 
-  for (var prop in obj) {
+  for (let prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       return false;
     }
@@ -61,7 +61,7 @@ window.add_events = function (selector, on_event, fun) {
 };
 
 window.show_hide = function (element_id) {
-  var x = document.getElementById(element_id);
+  let x = document.getElementById(element_id);
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
@@ -115,8 +115,8 @@ $("input").not($(":button")).keypress(function (evt) {
   if (evt.keyCode == 13) {
     let iname = $(this).val();
     if (iname !== 'Submit') {
-      var fields = $(this).parents('form:eq(0),body').find('button, input, textarea, select');
-      var index = fields.index(this);
+      let fields = $(this).parents('form:eq(0),body').find('button, input, textarea, select');
+      let index = fields.index(this);
       if (index > -1 && (index + 1) < fields.length) {
         fields.eq(index + 1).focus();
       }

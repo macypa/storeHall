@@ -8,8 +8,8 @@ add_events("#item_details_price_orig", "change", function () {
 });
 
 function price_event() {
-  var price_orig = $("#item_details_price_orig").val();
-  var price = $("#item_details_price").val();
+  let price_orig = $("#item_details_price_orig").val();
+  let price = $("#item_details_price").val();
 
   if (price_orig == "0" || parseFloat(price) >= parseFloat(price_orig)) {
     $("#item_details_discount").prop("disabled", true);

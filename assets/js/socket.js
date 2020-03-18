@@ -60,7 +60,7 @@ channel_user.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 window.channel_topic_from_url = function () {
-  var url = window.location.pathname;
+  let url = window.location.pathname;
   if (url == "/") {
     return "/items";
   }
@@ -102,11 +102,11 @@ window.check_if_logged = function () {
 
 window.add_cookie_consent_event = function () {
   add_events("[cookie_consent]", "click", function () {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.open("GET", "/accept_cookies", true);
     xhttp.send();
 
-    var element = document.getElementById("cookie_consent");
+    let element = document.getElementById("cookie_consent");
     element.parentNode.removeChild(element);
   });
 };
@@ -114,12 +114,11 @@ add_cookie_consent_event();
 
 window.add_marketing_consent_event = function () {
   add_events("[marketing_consent]", "click", function () {
+    let xhttp = new XMLHttpRequest();
     if (this.checked) {
-      var xhttp = new XMLHttpRequest();
       xhttp.open("GET", "/put_session?key=marketing_consent&value=agreed", true);
       xhttp.send();
     } else {
-      var xhttp = new XMLHttpRequest();
       xhttp.open("GET", "/put_session?key=marketing_consent&value=not_agreed", true);
       xhttp.send();
     }

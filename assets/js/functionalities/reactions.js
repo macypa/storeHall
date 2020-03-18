@@ -7,8 +7,8 @@ window.add_reaction_events = function () {
 add_reaction_events();
 
 $('.alerts_panel').click(function () {
-  var pos = $(this).position();
-  var dropdown = $(this).find('.dropdown');
+  let pos = $(this).position();
+  let dropdown = $(this).find('.dropdown');
   dropdown.css("top", $(this).position().top + $(this).height());
   dropdown.toggle();
 }).mouseleave(function () {
@@ -16,19 +16,19 @@ $('.alerts_panel').click(function () {
 });
 
 window.reaction_persisted_event = function (payload) {
-  var reaction_class = payload.reaction;
+  let reaction_class = payload.reaction;
   if (reaction_class.startsWith("alert")) {
     reaction_class = "alert";
   }
 
   $("[data='" + payload.data + "']").each(function () {
-    var klass = $(this).attr("class");
+    let klass = $(this).attr("class");
     if (klass.includes(reaction_class + "z_icon")) {
       return;
     }
 
-    var myRegexp = /svg_icon (.*?)z_icon/g;
-    var match = myRegexp.exec(klass);
+    let myRegexp = /svg_icon (.*?)z_icon/g;
+    let match = myRegexp.exec(klass);
     if (!!match) {
       $(this).removeClass(match[1]);
     }

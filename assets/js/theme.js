@@ -3,7 +3,7 @@ function requireAll(r) { r.keys().forEach(r); }
 requireAll(require.context('./components/', true, /\.js$/));
 
 window.update_notifications_counter_alert = function () {
-  var counter = document.querySelector("#alert_new_notification")
+  let counter = document.querySelector("#alert_new_notification")
   counter.classList.add('counter')
   counter.innerHTML = $("#new_notifications").children().length;
 }
@@ -20,10 +20,10 @@ window.load_lazy_imgs = function () {
 };
 
 $(document).ready(function () {
-  var form = $('#form-filter');
-  var urlParams = new URLSearchParams(window.location.search);
+  let form = $('#form-filter');
+  let urlParams = new URLSearchParams(window.location.search);
   for (const [key, value] of urlParams) {
-    var input = form.find('[name="' + key + '"]');
+    let input = form.find('[name="' + key + '"]');
     if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
       input.closest(".tab")[0].getElementsByClassName("collapsible")[0].checked = true;
     }
@@ -35,8 +35,8 @@ import format from 'date-fns/format';
 import bg from 'date-fns/locale/bg'
 
 window.timeago = function () {
-  var time = $(".timeago").each(function () {
-    var datetime = $(this).first().text().trim();
+  let time = $(".timeago").each(function () {
+    let datetime = $(this).first().text().trim();
 
     try {
       $(this).attr("title",
@@ -74,7 +74,7 @@ $('textarea').on('input', function () {
 
 window.format_money = function () {
   $(".money_value").each(function () {
-    var money_value = this.innerHTML;
+    let money_value = this.innerHTML;
     const parsed = parseInt(money_value);
     if (isNaN(parsed)) {
       this.innerHTML = "0";

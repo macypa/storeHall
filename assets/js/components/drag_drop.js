@@ -1,6 +1,6 @@
 
 
-var dragSrcEl = null;
+let dragSrcEl = null;
 
 function handleDragStart(e) {
   this.style.opacity = '0.4';  // this / e.target is the source node.
@@ -58,7 +58,7 @@ function handleDragEnd(e) {
 }
 
 window.add_drag_events = function (draggable_container, fun_on_drop) {
-  var draggables = draggable_container.querySelectorAll('[draggable]');
+  let draggables = draggable_container.querySelectorAll('[draggable]');
   [].forEach.call(draggables, function (draggable) {
     draggable.addEventListener('dragstart', handleDragStart, false);
     // draggable.addEventListener('dragenter', handleDragEnter, false);

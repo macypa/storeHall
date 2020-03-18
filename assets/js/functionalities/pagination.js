@@ -1,6 +1,6 @@
 channel_push_filter = function (elem) {
-  var next_page = params_from_href(elem.href);
-  var page_for = "";
+  let next_page = params_from_href(elem.href);
+  let page_for = "";
   if (elem.href.indexOf('&more_') != -1) {
     page_for = elem.href.slice(elem.href.indexOf('&more_') + 6);
   } else if (elem.href.indexOf('?more_') != -1) {
@@ -10,7 +10,7 @@ channel_push_filter = function (elem) {
 }
 
 params_from_href = function (href) {
-  var params = href.slice(href.indexOf('?') + 1);
+  let params = href.slice(href.indexOf('?') + 1);
 
   try {
     if (contains_string(href, "/users/")) {
@@ -33,7 +33,7 @@ $('.page-link').on('click', e => {
 });
 
 load_next_items = function () {
-  var next_page_link = $('.next-page-link');
+  let next_page_link = $('.next-page-link');
   if (next_page_link.is(":visible")) {
     channel_push_filter(next_page_link[0]);
     rating_badge_color();
@@ -59,9 +59,9 @@ jQuery(function ($) {
 
 window.add_load_more_events = function () {
   add_events("[load-more-topic]", "click", function () {
-    var params_attr = this.getAttribute("params")
-    var params = params_from_href(params_attr);
-    var show_for = "";
+    let params_attr = this.getAttribute("params")
+    let params = params_from_href(params_attr);
+    let show_for = "";
     if (params_attr.indexOf('&show_for_') != -1) {
       show_for = params_attr.slice(params_attr.indexOf('&show_for_') + 10);
     } else if (params_attr.indexOf('?show_for_') != -1) {

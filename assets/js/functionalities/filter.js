@@ -3,9 +3,9 @@ window.onpopstate = function (event) {
   if (event.state) {
     render(event.state);
 
-    var form = $('#form-filter');
+    let form = $('#form-filter');
     $.each(event.state.filter_params_array, function (field, value) {
-      var input = form.find('[name="' + value.name + '"]');
+      let input = form.find('[name="' + value.name + '"]');
       input.val(value.value);
 
       if (input.closest(".tab")[0] && input.closest(".tab")[0].getElementsByClassName("collapsible")[0]) {
@@ -29,13 +29,13 @@ $("#form-filter").submit(function (event) {
 
 add_events(".auto-submit-item", "change", function () {
 
-  var form = $("#form-filter :input").filter(function () {
+  let form = $("#form-filter :input").filter(function () {
     if (!this.value || this.value == "{}" || this.value == "[]") {
       return false;
     }
     return true;
   })
-  var filter_params = form.serialize();
+  let filter_params = form.serialize();
   channel.push("filter", { data: filter_params })
 
   window.history.pushState({ filter_params_array: form.serializeArray(), filter_params: filter_params },
@@ -44,18 +44,18 @@ add_events(".auto-submit-item", "change", function () {
 });
 
 channel.on("filtered_items", payload => {
-  var items_template_source = "{{#each this}}<item>" +
+  let items_template_source = "{{#each this}}<item>" +
     unescape(document.getElementById("item_template").innerHTML)
       .replace("<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
         "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}")
       .replace(/{{id}}-name/g, "{{id}}")
     + "</item>{{/each}}";
-  var items_template = Handlebars.compile(items_template_source);
+  let items_template = Handlebars.compile(items_template_source);
 
-  var json_payload = JSON.parse(payload.filtered)
+  let json_payload = JSON.parse(payload.filtered)
   json_payload.csrf_token = $("meta[name='csrf-token']").attr("content")
 
-  var filtered_items = items_template(json_payload)
+  let filtered_items = items_template(json_payload)
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#items-listing").innerHTML =
       document.getElementById("item_template").outerHTML
@@ -76,14 +76,14 @@ channel.on("filtered_items", payload => {
 })
 
 channel.on("filtered_users", payload => {
-  var users_template_source = "{{#each this}}<user>" +
+  let users_template_source = "{{#each this}}<user>" +
     unescape(document.getElementById("user_template").innerHTML)
       .replace("<div data-img=\"{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}\"> </div>",
         "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}<div data-img='{{image}}'> </div>{{/if}}") +
     "</user>{{/each}}";
-  var users_template = Handlebars.compile(users_template_source);
+  let users_template = Handlebars.compile(users_template_source);
 
-  var filtered_users = users_template(JSON.parse(payload.filtered))
+  let filtered_users = users_template(JSON.parse(payload.filtered))
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("#users-listing").innerHTML =
       document.getElementById("user_template").outerHTML
