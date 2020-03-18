@@ -26,7 +26,9 @@
 
     .datalist_item_html {
       width: calc(100% - 1em);
-      @include pre-wrap;
+
+      white-space: pre-wrap;
+      word-break: break-word;
       
       & > span {
         display: inline-block;

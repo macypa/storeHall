@@ -63,8 +63,9 @@
         <span>
           <span class="info_title"><%= Gettext.gettext("Features") %> </span>
           <div class="info_content features">
-            <div class="datalist_container">
+            <div class="datalist_container" allow_duplicate="true">
               <input value="<%= Jason.encode!(@item.details["features"]) %>">
+              <template><span>_hkey_:</span><span>_value_</span></template>
             </div>
           </div>
         </span>
