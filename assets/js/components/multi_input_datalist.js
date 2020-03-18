@@ -180,6 +180,7 @@ function add_item(e) {
     let first_key_part = human_readable_key.split(":")[0];
     custom_tag_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
     human_readable_key = first_key_part;
+    key = first_key_part;
   }
 
   let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
