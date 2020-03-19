@@ -80,10 +80,13 @@ channel.on("filtered_items", payload => {
 
 function update_features_select_options(payload) {
   let feature_select = document.querySelector("#features").parentElement.querySelector("select");
+  let options_values = $('#features ~ .tab-content select > option').map(function () { return this.value; }).get();
 
   for (let key in payload.feature_filters) {
-    feature_select.insertAdjacentHTML('beforeend', "<option value="
-      + key + "> " + payload.feature_filters[key] + "</option>");
+    if (!options_values.includes(key)) {
+      feature_select.insertAdjacentHTML('beforeend', "<option value="
+        + key + "> " + payload.feature_filters[key] + "</option>");
+    }
   }
 }
 
