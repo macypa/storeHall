@@ -101,7 +101,13 @@ defmodule StoreHallWeb.ItemsChannel do
     filtered =
       Items.list_items(filter |> Plug.Conn.Query.decode(), socket.assigns.current_user_id)
 
-    push(socket, "filtered_items", %{filter: filter, filtered: Jason.encode!(filtered)})
+    feature_filters = StoreHall.Items.get_feature_filters(filtered)
+
+    push(socket, "filtered_items", %{
+      filter: filter,
+      filtered: Jason.encode!(filtered),
+      feature_filters: feature_filters
+    })
 
     {:reply, :ok, socket}
   end

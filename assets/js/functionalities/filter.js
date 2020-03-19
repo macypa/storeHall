@@ -72,9 +72,20 @@ channel.on("filtered_items", payload => {
     $('#empty_filter_result').removeClass("inactive");
     $('#empty_filter_result').addClass("active")
   }
+
   format_money();
+  update_features_select_options(payload);
   update_next_page_link(payload);
 })
+
+function update_features_select_options(payload) {
+  let feature_select = document.querySelector("#features").parentElement.querySelector("select");
+
+  for (let key in payload.feature_filters) {
+    feature_select.insertAdjacentHTML('beforeend', "<option value="
+      + key + "> " + payload.feature_filters[key] + "</option>");
+  }
+}
 
 channel.on("filtered_users", payload => {
   let users_template_source = "{{#each this}}<user>" +
