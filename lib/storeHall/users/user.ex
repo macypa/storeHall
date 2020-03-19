@@ -32,7 +32,7 @@ defmodule StoreHall.Users.User do
         "web" => %{},
         "open" => %{},
         "description" => "",
-        "rating" => %{"count" => 0, "score" => -1},
+        "rating" => %{"count" => 0, "score" => 0},
         "comments_count" => 0
       }
 

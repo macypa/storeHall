@@ -24,7 +24,7 @@ defmodule StoreHall.Items.Item do
         "videos" => [],
         "tags" => [],
         "cities" => [],
-        "rating" => %{"count" => 0, "score" => -1},
+        "rating" => %{"count" => 0, "score" => 0},
         "comments_count" => 0
       }
 
