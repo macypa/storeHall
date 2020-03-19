@@ -84,8 +84,17 @@ window.format_money = function () {
   });
 };
 
+window.hide_empty_tags = function () {
+  $(".info_content").each(function () {
+    if (this.innerText.trim() == "") {
+      $(this).parent().hide();
+    }
+  });
+};
+
 $(document).ready(function () {
   timeago();
   format_money();
+  hide_empty_tags();
   load_lazy_imgs();
 });
