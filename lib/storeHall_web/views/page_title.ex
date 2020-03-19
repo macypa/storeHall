@@ -2,11 +2,15 @@ defmodule StoreHallWeb.PageTitle do
   require StoreHallWeb.Gettext
 
   @suffix Application.get_env(:storeHall, :about)[:title]
+  @suffix_description StoreHallWeb.Gettext.gettext(" is a site for free product listings")
 
   def page_title(assigns), do: assigns |> get
 
   def page_title_with_suffix(assigns),
     do: page_title(assigns) |> slice |> put_suffix
+
+  def page_description(assigns),
+    do: page_title(assigns) |> slice |> put_suffix |> put_description_suffix
 
   defp slice(title) do
     case String.length(to_string(title)) > 33 do
@@ -14,6 +18,9 @@ defmodule StoreHallWeb.PageTitle do
       false -> title
     end
   end
+
+  defp put_description_suffix(nil), do: @suffix_description
+  defp put_description_suffix(title), do: "#{title} #{@suffix_description}"
 
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: "#{title} - #{@suffix}"
