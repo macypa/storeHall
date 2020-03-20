@@ -16,7 +16,7 @@
           data-nav="thumbs"
           data-loop="true"
           data-width="100%"
-          data-maxheight="80%">
+          data-maxheight="40%">
 
         <%= case @user.details["images"] do %>
           <% [] -> %>

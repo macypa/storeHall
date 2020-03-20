@@ -15,7 +15,7 @@
           data-nav="thumbs"
           data-loop="true"
           data-width="100%"
-          data-maxheight="80%">
+          data-maxheight="40%">
 
         <img src="<%= @user.image %>" alt="<%= @user.name %>">
 
