@@ -93,6 +93,7 @@ config :storeHall, :about,
     image: "/images/logo.png",
     provider: "storeHall",
     details: %{
+      "merchant_type" => "",
       "mail" => [%{"storeHall@gmail.com" => "storeHall@gmail.com"}]
     }
   }
