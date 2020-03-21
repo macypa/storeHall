@@ -36,7 +36,10 @@
 
     <user_details>
       <span>
-        <span class="info_content"><%= sanitize to_string(@user.details["description"]) %></span>
+        <span class="info_content">
+          <%= sanitize to_string(@user.details["description"]) %>
+          Платформа за търсене на продукти и услуги, които се контролират изцяло и само от потребителите в зависимост от <%= link to: Routes.about_path(@conn, :howto) <> "#rating" do %>рейтинг система<% end %> с помощта на ревюта и оценки. Това значи, че тази платформа няма да взима отношение за това дали дадена обява ще се показва пред друга или дали ще изглежда по-различно (с други думи - платфорамата не взима пари за такъв тип услуги, които променят резултатите от филтрите при търсене). С това вярваме, че никоя обява няма да има предимство пред друга обява. Единственото предимство ще остане само качеството на продукта или услуга, което ще се отразява от мнението на потребителите.
+        </span>
       </span>
     </user_details>
 
@@ -52,6 +55,10 @@
 
   <div id="contacts">
     <%= render "contacts.html", conn: @conn, user: @user %>
+  </div>
+
+  <div id="sponsor">
+    <%= render "sponsor.html", conn: @conn, user: @user %>
   </div>
 
   <div id="comments">

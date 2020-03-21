@@ -48,7 +48,7 @@ defmodule StoreHallWeb.Router do
     get "/terms", AboutController, :terms
     get "/privacy", AboutController, :privacy
     # get "/cookies", AboutController, :cookies
-    get "/sponsor", AboutController, :sponsor
+    # get "/sponsor", AboutController, :sponsor
     get "/howto", AboutController, :howto
 
     get "/*path", Redirector, to: "/about"

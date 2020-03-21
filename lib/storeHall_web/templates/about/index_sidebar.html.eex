@@ -14,6 +14,30 @@
   </div>
 
   <div class="tab">
+    <%= link to: Routes.about_path(@conn, :privacy) do %>
+      <label class="tab-label"><%= Gettext.gettext("Privacy") %></label>
+    <% end %>
+  </div>
+  
+  <div class="tab">
+    <%= link to: Routes.about_path(@conn, :terms) do %>
+      <label class="tab-label"><%= Gettext.gettext("Terms") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
+    <a href="#sponsor">
+      <label class="tab-label"><%= Gettext.gettext("Sponsor") %></label>
+    </a>
+  </div>
+
+  <div class="tab">
+    <%= link to: Routes.about_path(@conn, :howto) <> "#post" do %>
+      <label class="tab-label"><%= Gettext.gettext("How to") %></label>
+    <% end %>
+  </div>
+
+  <div class="tab">
     <a href="#comments">
       <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
     </a>
