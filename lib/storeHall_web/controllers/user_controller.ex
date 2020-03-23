@@ -36,6 +36,12 @@ defmodule StoreHallWeb.UserController do
     render(conn, :index, users: users)
   end
 
+  @storehall_id Application.get_env(:storeHall, :about)[:user_id]
+  def show(conn, %{"id" => @storehall_id}) do
+    conn
+    |> redirect(to: Routes.about_path(conn, :index))
+  end
+
   def show(conn, params = %{"id" => id}) do
     user =
       get_user!(conn, id)
