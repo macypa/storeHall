@@ -1,6 +1,6 @@
 <about>
   <%= Gettext.gettext("Contacts") %>
-  <div id="term" class="visible">
+  <div class="visible">
     Може да се свържите с нас с
 
       - <a href="#ratings"><b>Ревю</b></a>
