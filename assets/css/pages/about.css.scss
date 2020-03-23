@@ -5,7 +5,7 @@ main {
       display: block;
     }
 
-    div {
+    & > div {
       display: none;
       height: auto;
       @include pre-wrap;

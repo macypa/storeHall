@@ -1,7 +1,8 @@
 
-<%= render "form.html", comment: @comment_template %>
 
 <div class="panel_title"><%= Gettext.gettext("Listing Comments") %></div>
+
+<%= render "form.html", comment: @comment_template %>
 
 <comments>
   <%= for comment <- @comments do %>
