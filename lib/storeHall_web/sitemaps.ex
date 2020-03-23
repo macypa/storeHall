@@ -24,7 +24,6 @@ defmodule StoreHallWeb.Sitemaps do
       add_url(Helpers.about_path(Endpoint, :index), priority: 0.7, changefreq: "weekly")
       add_url(Helpers.about_path(Endpoint, :terms), priority: 0.7, changefreq: "monthly")
       add_url(Helpers.about_path(Endpoint, :privacy), priority: 0.7, changefreq: "monthly")
-      add_url(Helpers.about_path(Endpoint, :sponsor), priority: 0.7, changefreq: "weekly")
       add_url(Helpers.about_path(Endpoint, :howto), priority: 0.7, changefreq: "monthly")
 
       for item <- Items.list_items_for_sitemap() do
