@@ -37,18 +37,18 @@ msgid "Thank you for signing in!"
 msgstr "Благодаря, че се логна."
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:79
+#: lib/storeHall_web/controllers/user_controller.ex:85
 msgid "User deleted successfully."
 msgstr "Профилът изтрит успешно."
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:65
+#: lib/storeHall_web/controllers/user_controller.ex:71
 msgid "User updated successfully."
 msgstr "Профилът подновен успешно."
 
 #, elixir-format
 #: lib/storeHall_web/controllers/item_controller.ex:124
-#: lib/storeHall_web/controllers/user_controller.ex:96
+#: lib/storeHall_web/controllers/user_controller.ex:102
 msgid "You cannot do that"
 msgstr "Не може така :)"
 
@@ -144,7 +144,7 @@ msgid "Are you sure?"
 msgstr "Сигурен ли си?"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/index_sidebar.html.eex:18
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:42
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:12
 #: lib/storeHall_web/templates/item/index.html.eex:69
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:14
@@ -186,7 +186,8 @@ msgid "Info"
 msgstr "Инфо"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:56
+#: lib/storeHall_web/templates/about/howto.html.eex:191
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:62
 #: lib/storeHall_web/templates/layout/header.html.eex:85
 msgid "Messages"
 msgstr "Съобщения"
@@ -203,7 +204,8 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Нещо се обърка, моля провери грешките"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:18
+#: lib/storeHall_web/templates/about/howto.html.eex:29
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12
 #: lib/storeHall_web/templates/layout/header.html.eex:66
 msgid "Profile"
 msgstr "Профил"
@@ -214,7 +216,7 @@ msgid "Rating"
 msgstr "Ревю"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/index_sidebar.html.eex:24
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:48
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:18
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:20
 #: lib/storeHall_web/templates/item/show_sidebar.html.eex:18
@@ -231,6 +233,7 @@ msgid "Save"
 msgstr "Запиши"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:67
 #: lib/storeHall_web/templates/comment/show.html.eex:19
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:185
 #: lib/storeHall_web/templates/rating/show.html.eex:19
@@ -308,11 +311,12 @@ msgid "Images"
 msgstr "Снимки"
 
 #, elixir-format
-#: lib/storeHall_web/templates/comment/index.html.eex:4
+#: lib/storeHall_web/templates/comment/index.html.eex:3
 msgid "Listing Comments"
 msgstr "Коментари"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:58
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:142
 msgid "Merchants"
 msgstr "Търговци"
@@ -329,6 +333,7 @@ msgid "New Item"
 msgstr "Нова обява"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:46
 #: lib/storeHall_web/templates/item/form.html.eex:22
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:41
 #: lib/storeHall_web/templates/item/show.html.eex:20
@@ -336,6 +341,7 @@ msgid "Price"
 msgstr "Цена"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:40
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:7
 msgid "Search by title, content..."
 msgstr "Търси по заглавие, съдържание и т.н."
@@ -351,6 +357,7 @@ msgid "Submit"
 msgstr "Изпращане"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:61
 #: lib/storeHall_web/templates/item/form.html.eex:49
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:156
 #: lib/storeHall_web/templates/item/show.html.eex:45
@@ -419,7 +426,7 @@ msgid "About Us"
 msgstr "За нас"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/contacts.html.eex:2
+#: lib/storeHall_web/templates/about/contacts.html.eex:3
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:66
 #: lib/storeHall_web/views/page_title.ex:29
@@ -433,11 +440,13 @@ msgid "Cookies"
 msgstr "Бисквитки"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:18
 #: lib/storeHall_web/templates/layout/footer.html.eex:49
 msgid "Privacy"
 msgstr "Поверителност"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:24
 #: lib/storeHall_web/templates/layout/footer.html.eex:43
 msgid "Terms"
 msgstr "Условия"
@@ -499,6 +508,7 @@ msgid "Expiration"
 msgstr "Краен срок"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:64
 #: lib/storeHall_web/templates/item/form.html.eex:83
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:170
 #: lib/storeHall_web/templates/item/show.html.eex:54
@@ -518,7 +528,7 @@ msgid "Pros"
 msgstr "Предимства"
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:84
+#: lib/storeHall_web/controllers/user_controller.ex:90
 msgid "User not deleted."
 msgstr "Профилът не е изтрит."
 
@@ -599,11 +609,13 @@ msgid "Cities"
 msgstr "Градове"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:52
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:109
 msgid "City"
 msgstr "Град"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:43
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:30
 msgid "Sorting"
 msgstr "Подреди"
@@ -682,6 +694,8 @@ msgid "Sign in with Facebook"
 msgstr "Логни се с Facebook"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:30
+#: lib/storeHall_web/templates/about/sponsor.html.eex:3
 #: lib/storeHall_web/templates/layout/footer.html.eex:55
 #: lib/storeHall_web/views/page_title.ex:41
 msgid "Sponsor"
@@ -727,28 +741,33 @@ msgid "show_with_max_alerts"
 msgstr "Показвай резултати с максимум брой алерти"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/index_sidebar.html.eex:36
 #: lib/storeHall_web/templates/layout/footer.html.eex:61
 #: lib/storeHall_web/views/page_title.ex:44
 msgid "How to"
 msgstr "Ръководство"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12
+#: lib/storeHall_web/templates/about/howto.html.eex:24
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:20
 msgid "Login"
 msgstr "Вход"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:30
+#: lib/storeHall_web/templates/about/howto.html.eex:71
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:32
 msgid "Post"
 msgstr "Постове"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
+#: lib/storeHall_web/templates/about/howto.html.eex:110
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
 msgid "Rating system"
 msgstr "Ревюта"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:24
+#: lib/storeHall_web/templates/about/howto.html.eex:37
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:26
 msgid "Search"
 msgstr "Търсене"
 
@@ -765,7 +784,8 @@ msgid "contacts"
 msgstr "Контакти"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
+#: lib/storeHall_web/templates/about/howto.html.eex:129
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:54
 msgid "Мarketing"
 msgstr "Маркетинг"
 
@@ -868,7 +888,8 @@ msgid "terms additional"
 msgstr "Допълнителни и общи разпоредби"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:42
+#: lib/storeHall_web/templates/about/howto.html.eex:121
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:48
 #: lib/storeHall_web/templates/about/terms_sidebar.html.eex:54
 msgid "terms alerts"
 msgstr "Сигнали"
@@ -969,12 +990,13 @@ msgid "Terms Title"
 msgstr "Общи условия на КУПО ЕООД за използване на сайта quupo.com и платформата на сайта"
 
 #, elixir-format
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:52
+#: lib/storeHall_web/templates/about/howto.html.eex:185
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:58
 msgid "Credits"
 msgstr "Кредити"
 
 #, elixir-format
-#: lib/storeHall_web/templates/shared/reactions.html.eex:17
+#: lib/storeHall_web/templates/shared/reactions.html.eex:19
 msgid "Fraud"
 msgstr "Измамно"
 
@@ -984,7 +1006,7 @@ msgid "Hate speech"
 msgstr "Обидно"
 
 #, elixir-format
-#: lib/storeHall_web/templates/shared/reactions.html.eex:18
+#: lib/storeHall_web/templates/shared/reactions.html.eex:20
 msgid "Illegal"
 msgstr "Нелегално"
 
@@ -1010,6 +1032,7 @@ msgid "% discount"
 msgstr "% намаление"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:49
 #: lib/storeHall_web/templates/item/form.html.eex:38
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:75
 #: lib/storeHall_web/templates/item/show.html.eex:30
@@ -1017,6 +1040,7 @@ msgid "Discount"
 msgstr "Намаление"
 
 #, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:55
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:126
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:11
 #: lib/storeHall_web/templates/user/form.html.eex:21
@@ -1096,3 +1120,25 @@ msgstr "Добавете сайт, като въведете първо имет
 #: lib/storeHall_web/views/page_title.ex:5
 msgid " is a site for free product listings"
 msgstr " e сайт за безплатни и неограничени обяви за промоции, намаления и отстъпки на продукти или услуги."
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:18
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:16
+msgid "Create"
+msgstr "Създаване"
+
+#, elixir-format
+#: lib/storeHall_web/templates/about/howto.html.eex:84
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:36
+msgid "Post suggestion"
+msgstr "Съвети"
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:17
+msgid "Wrong tag"
+msgstr "Грешен таг"
+
+#, elixir-format
+#: lib/storeHall_web/templates/shared/reactions.html.eex:18
+msgid "outdated or misleading"
+msgstr "Неактуално"

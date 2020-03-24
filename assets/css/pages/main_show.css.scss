@@ -30,6 +30,8 @@ show {
   .alertz_spam.alert_spam,
   .alertz_hate.alert_hate,
   .alertz_fraud.alert_fraud,
+  .alertz_outdated.alert_outdated,
+  .alertz_tag.alert_tag,
   .alertz_illegal.alert_illegal {
     color: red;
   }

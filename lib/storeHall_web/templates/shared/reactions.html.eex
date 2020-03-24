@@ -14,6 +14,8 @@
       <ul>
         <li class="alertz_type alertz_spam <%= reaction %>" reaction-topic="reaction:alert_spam" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Spam") %></li>
         <li class="alertz_type alertz_hate <%= reaction %>" reaction-topic="reaction:alert_hate" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Hate speech") %></li>
+        <li class="alertz_type alertz_tag <%= reaction %>" reaction-topic="reaction:alert_tag" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Wrong tag") %></li>
+        <li class="alertz_type alertz_outdated <%= reaction %>" reaction-topic="reaction:alert_outdated" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("outdated or misleading") %></li>
         <li class="alertz_type alertz_fraud <%= reaction %>" reaction-topic="reaction:alert_fraud" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Fraud") %></li>
         <li class="alertz_type alertz_illegal <%= reaction %>" reaction-topic="reaction:alert_illegal" data="<%= Jason.encode! @react_to %>"><%= Gettext.gettext("Illegal") %></li>
       </ul>
