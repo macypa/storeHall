@@ -150,6 +150,7 @@ defmodule StoreHall.ItemFilter do
     |> String.split(",")
     |> Enum.reduce(dynamic, fn tag, dyn ->
       FilterableQuery.construct_where_fragment(
+        :or,
         dyn,
         %{
           has: %{
@@ -230,6 +231,7 @@ defmodule StoreHall.ItemFilter do
         feat
         |> Enum.reduce(dyn, fn {feature, value}, dyn ->
           FilterableQuery.construct_where_fragment(
+            :or,
             dyn,
             %{
               has: %{

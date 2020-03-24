@@ -31,7 +31,16 @@ defmodule StoreHall.FilterableQuery do
     |> where(^construct_where_fragment(true, params))
   end
 
-  def construct_where_fragment(dynamic, fragment_commands) do
+  def construct_where_fragment(and_or \\ :and, dynamic, fragment_commands)
+
+  def construct_where_fragment(:or, dynamic, fragment_commands) do
+    fragment_commands
+    |> Enum.reduce(dynamic, fn {key, value}, acc ->
+      clean_dynamic(:or, acc, apply_command(key, value))
+    end)
+  end
+
+  def construct_where_fragment(_, dynamic, fragment_commands) do
     fragment_commands
     |> Enum.reduce(dynamic, fn {key, value}, acc ->
       clean_dynamic(:and, acc, apply_command(key, value))
