@@ -83,7 +83,7 @@ defmodule StoreHall.ItemFilter do
 
   defp filter(:q, dynamic, string) when is_binary(string) do
     string
-    |> String.split(" ")
+    |> String.split(" ", trim: true)
     |> filter_q(dynamic)
   end
 
@@ -146,20 +146,24 @@ defmodule StoreHall.ItemFilter do
   defp filter(:tags, dynamic, value) when value == "", do: dynamic
 
   defp filter(:tags, dynamic, value) do
-    value
-    |> String.split(",")
-    |> Enum.reduce(dynamic, fn tag, dyn ->
-      FilterableQuery.construct_where_fragment(
-        :or,
-        dyn,
-        %{
-          has: %{
-            field: ["tags"],
-            value: tag
+    FilterableQuery.clean_dynamic(
+      :and,
+      dynamic,
+      value
+      |> String.split(",", trim: true)
+      |> Enum.reduce(false, fn tag, dyn ->
+        FilterableQuery.construct_where_fragment(
+          :or,
+          dyn,
+          %{
+            has: %{
+              field: ["tags"],
+              value: tag
+            }
           }
-        }
-      )
-    end)
+        )
+      end)
+    )
   end
 
   defp filter(:cities, dynamic, value) when value == "", do: dynamic
@@ -172,7 +176,7 @@ defmodule StoreHall.ItemFilter do
           field: ["cities"],
           value:
             value
-            |> String.split(",")
+            |> String.split(",", trim: true)
         }
       }
     )
@@ -181,30 +185,34 @@ defmodule StoreHall.ItemFilter do
   defp filter(:merchant_type, dynamic, value) when value == "", do: dynamic
 
   defp filter(:merchant_type, dynamic, value) do
-    value
-    |> String.split(",")
-    |> Enum.reduce(dynamic, fn merch_type, dyn ->
-      FilterableQuery.clean_dynamic(
-        :or,
-        dyn,
-        dynamic(
-          [c, a: u],
-          fragment(
-            "(?.details->>?)::varchar = ? ",
-            u,
-            "merchant_type",
-            ^to_string(merch_type)
+    FilterableQuery.clean_dynamic(
+      :and,
+      dynamic,
+      value
+      |> String.split(",", trim: true)
+      |> Enum.reduce(dynamic, fn merch_type, dyn ->
+        FilterableQuery.clean_dynamic(
+          :or,
+          dyn,
+          dynamic(
+            [c, a: u],
+            fragment(
+              "(?.details->>?)::varchar = ? ",
+              u,
+              "merchant_type",
+              ^to_string(merch_type)
+            )
           )
         )
-      )
-    end)
+      end)
+    )
   end
 
   defp filter(:merchant, dynamic, value) when value == "", do: dynamic
 
   defp filter(:merchant, dynamic, value) do
     value
-    |> String.split(",")
+    |> String.split(",", trim: true)
     |> Enum.reduce(dynamic, fn merch, dyn ->
       FilterableQuery.clean_dynamic(:or, dyn, dynamic([u], u.user_id == ^merch))
     end)
@@ -224,27 +232,33 @@ defmodule StoreHall.ItemFilter do
 
   # example ?filter[features]=[{"harakteristika"%3A"rrr"}%2C{"friendly"%3A"www"}]
   defp filter(:features, dynamic, value) do
-    try do
-      value
-      |> Jason.decode!()
-      |> Enum.reduce(dynamic, fn feat, dyn ->
-        feat
-        |> Enum.reduce(dyn, fn {feature, value}, dyn ->
+    FilterableQuery.clean_dynamic(
+      :and,
+      dynamic,
+      try do
+        value
+        |> Jason.decode!()
+        |> Enum.reduce(dynamic, fn feat, dyn ->
+          split_feat = String.split(feat, ":", trim: true)
+
+          key = split_feat |> hd
+          value = feat |> String.replace_prefix(key <> ":", "")
+
           FilterableQuery.construct_where_fragment(
             :or,
             dyn,
             %{
               has: %{
-                field: ["features", feature],
-                value: value
+                field: ["features"],
+                value: "#{key}:%#{value}%"
               }
             }
           )
         end)
-      end)
-    rescue
-      _ -> dynamic
-    end
+      rescue
+        _ -> dynamic
+      end
+    )
   end
 
   # example value: {"gte": {"field": "rating, core", "value": 4}}

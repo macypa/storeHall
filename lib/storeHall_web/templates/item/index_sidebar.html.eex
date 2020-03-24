@@ -169,7 +169,7 @@
       <input type="checkbox" id="features" class="collapsible">
       <label class="tab-label" for="features"><%= Gettext.gettext("Features") %></label>
       <div class="tab-content">
-        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>' allow_duplicate="true">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>' key_value_separator=":">
           <%= text_input f, :features, class: "auto-submit-item", value: f.params["features"] || %{} %>
           <%= select f, :features_select, StoreHall.Items.get_feature_filters(@conn.assigns.items), name: nil %>
           <template data-key="_key_" data-value="_value_">

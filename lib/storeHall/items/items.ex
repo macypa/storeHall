@@ -395,21 +395,19 @@ defmodule StoreHall.Items do
         item_features ->
           item_features
           |> Enum.reduce(acc, fn entry, acc ->
-            case entry do
-              map when is_map(map) ->
-                map
-                |> Enum.reduce(acc, fn {k, _v}, acc ->
-                  acc
-                  |> Map.put(k, k)
-                end)
-
-              {k, _v} ->
-                acc
-                |> Map.put(k, k)
-            end
+            acc |> put_feature_filter(entry)
           end)
       end
     end)
+  end
+
+  defp put_feature_filter(acc, entry) do
+    split_entry = String.split(entry, ":", trim: true)
+
+    key = split_entry |> hd
+
+    acc
+    |> Map.put(key, key)
   end
 
   def list_items_for_sitemap() do

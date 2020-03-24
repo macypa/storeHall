@@ -81,7 +81,7 @@
 
   <div class="form-group">
     <%= label f, :features, Gettext.gettext("Features") %>
-    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add feature") %>' allow_duplicate="true">
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add feature") %>' key_value_separator=":">
       <%= text_input f, :details_features, name: input_name(f, :details) <> "[features]",
               value: Jason.encode!(input_value(f, :details)["features"]) %>
       <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>

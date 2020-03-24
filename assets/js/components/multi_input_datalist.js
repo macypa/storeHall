@@ -95,17 +95,14 @@ function is_editable(container) {
   return false;
 }
 
-function allow_duplicate(container) {
-  if (container.getAttribute("allow_duplicate")) {
-    return true;
-  }
-  return false;
+function key_value_separator(container) {
+  return container.getAttribute("key_value_separator");
 }
 
 function get_input_data(container) {
   let data = {};
   let input = container.querySelector("input[name]");
-  data.allow_duplicate = allow_duplicate(container);
+  data.key_value_separator = key_value_separator(container);
 
   if (!input) {
     data.str = get_input(container).value;
@@ -132,11 +129,9 @@ function get_input_data(container) {
     data.is_string = true;
     data.obj = [];
   } else if (Array.isArray(data.obj)) {
-    data.obj = data.obj.map(value => item_data(data, value, value));
+    data.obj = data.obj.map(value => item_data(data, value));
   } else {
-    data.is_array = false;
-    data.is_json = true;
-    data.obj = Object.entries(data.obj).map(([key, value]) => item_data(data, key, value));
+    data.obj = [];
   }
 
   return data;
@@ -176,8 +171,8 @@ function add_item(e) {
     custom_tag_value = "";
   }
 
-  if (input_field_data.is_json && human_readable_key.includes(":")) {
-    let first_key_part = human_readable_key.split(":")[0];
+  if (input_field_data.key_value_separator != null) {
+    let first_key_part = human_readable_key.split(input_field_data.key_value_separator)[0];
     custom_tag_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
     human_readable_key = first_key_part;
     key = first_key_part;
@@ -260,9 +255,9 @@ function get_html_template(container, data) {
   let template_data_key = "_key_";
   let template_data_hkey = "_hkey_";
   let template_data_value = "_value_";
-  let template = "<span>" + template_data_hkey + ":</span><span>" + template_data_value + "</span>";
-  if (!data.is_json) {
-    template = "<span>" + template_data_hkey + "</span>";
+  let template = "<span>" + template_data_hkey + "</span>";
+  if (data.key_value_separator != null) {
+    template = "<span>" + template_data_hkey + ":</span><span>" + template_data_value + "</span>";
   }
 
   let datalist_item_template = container.getElementsByTagName("template");
@@ -301,23 +296,19 @@ function parse_item_data(container, data, item) {
 
   if (data.is_string) return data_key;
 
-  if (data.is_array && !data.allow_duplicate) return data_key;
+  if (data.key_value_separator == null) return data_key;
 
-  let json_data = {};
-  json_data[data_key] = data_value;
-  return json_data;
+  return data_key + data.key_value_separator + data_value;
 }
 
-function item_data(data, key, value) {
-  if (data.allow_duplicate && !isString(value)) {
-    let json = value;
-    for (key_value in json) {
-      key = key_value;
-      value = json[key_value];
-    }
-  }
-
+function item_data(data, value) {
   if (isNumeric(value)) value = parseInt(value);
+
+  let key = value;
+  if (data.key_value_separator != null) {
+    key = value.split(data.key_value_separator)[0];
+    value = value.slice(value.indexOf(key) + key.length + 1);
+  }
 
   let json_data = {};
   json_data.key = key;
@@ -333,19 +324,11 @@ function update_input_field(container) {
   let data = get_input_data(container);
 
   let input_data = new Array();
-  if (data.is_json && !data.allow_duplicate) {
-    input_data = {};
-  }
 
   const children = [...items.getElementsByClassName('datalist_item')];
   children.forEach(function (item) {
     let item_data = parse_item_data(container, data, item);
-
-    if (data.is_json && !data.allow_duplicate) {
-      Object.assign(input_data, item_data);
-    } else {
-      input_data.push(item_data);
-    }
+    input_data.push(item_data);
   });
 
   if (data.is_string) {
