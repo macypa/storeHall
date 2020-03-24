@@ -37,9 +37,9 @@ defmodule StoreHall.DefaultFilter do
 
   def sort_filter(query, %{"filter" => %{"sort" => value}}) do
     value
-    |> String.split(",")
+    |> String.split(",", trim: true)
     |> Enum.reduce(query, fn field, q ->
-      split_field = field |> String.split(":")
+      split_field = field |> String.split(":", trim: true)
       field_atom = split_field |> hd
 
       order_atom =
