@@ -1,5 +1,5 @@
 <about>
-  <% logged_user_id = get_logged_user_id(@conn) %>
+  <% logged_user_id = get_logged_user_id(@conn) || "guest" %>
   
   <div id="definitions">
     <b>Гост</b> - ползвател на сайта, който няма профил.
