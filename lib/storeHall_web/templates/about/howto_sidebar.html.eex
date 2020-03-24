@@ -31,6 +31,10 @@
     <a href="#post" class="tab-label">
       <label><%= Gettext.gettext("Post") %></label>
     </a>
+    <a href="#post_suggestion" class="tab-label">
+      <span class="space"></span>
+      <label><%= Gettext.gettext("Post suggestion") %></label>
+    </a>
   </div>
 
   <div class="tab">
