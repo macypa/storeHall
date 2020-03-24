@@ -8,14 +8,16 @@
   </div>
 
   <div class="tab">
-    <a href="#login" class="tab-label">
-      <label><%= Gettext.gettext("Login") %></label>
-    </a>
-  </div>
-
-  <div class="tab">
     <a href="#profile" class="tab-label">
       <label><%= Gettext.gettext("Profile") %></label>
+    </a>
+    <a href="#create" class="tab-label">
+      <span class="space"></span>
+      <label><%= Gettext.gettext("Create") %></label>
+    </a>
+    <a href="#login" class="tab-label">
+      <span class="space"></span>
+      <label><%= Gettext.gettext("Login") %></label>
     </a>
   </div>
 
