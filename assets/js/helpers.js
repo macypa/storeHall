@@ -124,3 +124,19 @@ $("input").not($(":button")).keypress(function (evt) {
     }
   }
 });
+
+window.deobfuscated = function (string) {
+  return string
+    .replace(/\|dot\|/g, ".")
+    .replace(/\|at\|/g, "@");
+}
+
+$(".obfuscated").each(function (evt) {
+  this.innerHTML = deobfuscated(this.innerHTML);
+});
+
+$("a.obfuscated").each(function (evt) {
+  this.href = this.href
+    .replace(/\|dot\|/g, ".")
+    .replace(/\|at\|/g, "@");
+});

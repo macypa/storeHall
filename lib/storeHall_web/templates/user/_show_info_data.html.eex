@@ -22,8 +22,8 @@
         <%= for address_map <- @user.details["address"] do %>
           <%= for {address_name, address} <- address_map do %>
             <div>
-              <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> address,
-                      target: "_blank", do: address_name %>
+              <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> obfuscate_data(address, address_name),
+                      target: "_blank", class: "obfuscated", do: obfuscate(address_name) %>
             </div>
           <% end %>
         <% end %>
@@ -38,7 +38,7 @@
         <%= for mail_map <- @user.details["mail"] do %>
           <%= for {mail_name, mail} <- mail_map do %>
             <div>
-              <%= link to: "mailto:" <> mail, target: "_blank", do: mail_name %>
+              <%= link to: "mailto:" <> obfuscate_data(mail, mail_name), target: "_blank", class: "obfuscated", do: obfuscate(mail_name) %>
             </div>
           <% end %>
         <% end %>
@@ -53,7 +53,7 @@
         <%= for web_map <- @user.details["web"] do %>
           <%= for {web_name, web} <- web_map do %>
             <div>
-              <%= link to: web, target: "_blank", do: web_name %>
+              <%= link to: obfuscate_data(web, web_name), target: "_blank", class: "obfuscated", do: obfuscate(web_name) %>
             </div>
           <% end %>
         <% end %>
@@ -68,8 +68,8 @@
         <%= for contacts_map <- @user.details["contacts"] do %>
           <%= for {contacts_name, contacts} <- contacts_map do %>
             <div>
-              <span><%= sanitize to_string(contacts_name) %>:</span>
-              <span><%= sanitize to_string(contacts) %></span>
+              <span class="obfuscated"><%= sanitize to_string(obfuscate(contacts_name)) %>:</span>
+              <span class="obfuscated"><%= sanitize to_string(obfuscate_data(contacts, contacts_name)) %></span>
             </div>
           <% end %>
         <% end %>

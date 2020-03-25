@@ -19,4 +19,14 @@ defmodule StoreHallWeb.ViewHelpers do
   def get_logged_user_image(conn) do
     AuthController.get_logged_user_image(conn)
   end
+
+  def obfuscate(data) do
+    data
+    |> String.replace(~r"\.", "|dot|")
+    |> String.replace(~r"@", "|at|")
+  end
+
+  def obfuscate_data(nil, data_name), do: obfuscate(data_name)
+  def obfuscate_data("", data_name), do: obfuscate(data_name)
+  def obfuscate_data(data, _data_name), do: obfuscate(data)
 end
