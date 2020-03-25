@@ -137,6 +137,6 @@ $(".obfuscated").each(function (evt) {
 
 $("a.obfuscated").each(function (evt) {
   this.href = this.href
-    .replace(/\|dot\|/g, ".")
-    .replace(/\|at\|/g, "@");
+    .replace(/(%7C|\|){1}at(%7C|\|){1}/g, "@")
+    .replace(/(%7C|\|){1}dot(%7C|\|){1}/g, ".");
 });
