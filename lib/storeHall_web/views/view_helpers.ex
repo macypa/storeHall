@@ -20,11 +20,13 @@ defmodule StoreHallWeb.ViewHelpers do
     AuthController.get_logged_user_image(conn)
   end
 
-  def obfuscate(data) do
+  def obfuscate(data) when is_binary(data) do
     data
     |> String.replace(~r"\.", "|dot|")
     |> String.replace(~r"@", "|at|")
   end
+
+  def obfuscate(data), do: data
 
   def obfuscate_data(nil, data_name), do: obfuscate(data_name)
   def obfuscate_data("", data_name), do: obfuscate(data_name)
