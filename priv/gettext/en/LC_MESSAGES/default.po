@@ -95,8 +95,8 @@ msgid "Listing items"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:53
-#: lib/storeHall_web/views/page_title.ex:57
+#: lib/storeHall_web/views/page_title.ex:59
+#: lib/storeHall_web/views/page_title.ex:63
 #: lib/storeHall_web/views/user_view.ex:6
 msgid "Listing users"
 msgstr ""
@@ -421,7 +421,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/footer.html.eex:37
-#: lib/storeHall_web/views/page_title.ex:46
+#: lib/storeHall_web/views/page_title.ex:52
 msgid "About Us"
 msgstr ""
 
@@ -429,13 +429,13 @@ msgstr ""
 #: lib/storeHall_web/templates/about/contacts.html.eex:3
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:66
-#: lib/storeHall_web/views/page_title.ex:29
+#: lib/storeHall_web/views/page_title.ex:35
 msgid "Contacts"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/cookies.html.eex:1
-#: lib/storeHall_web/views/page_title.ex:32
+#: lib/storeHall_web/views/page_title.ex:38
 msgid "Cookies"
 msgstr ""
 
@@ -697,7 +697,7 @@ msgstr ""
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:30
 #: lib/storeHall_web/templates/about/sponsor.html.eex:3
 #: lib/storeHall_web/templates/layout/footer.html.eex:55
-#: lib/storeHall_web/views/page_title.ex:41
+#: lib/storeHall_web/views/page_title.ex:47
 msgid "Sponsor"
 msgstr ""
 
@@ -725,8 +725,8 @@ msgid "not agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:49
-#: lib/storeHall_web/views/page_title.ex:54
+#: lib/storeHall_web/views/page_title.ex:55
+#: lib/storeHall_web/views/page_title.ex:60
 msgid " Page "
 msgstr ""
 
@@ -743,7 +743,7 @@ msgstr "Show results only from users with maximum alerts count"
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:36
 #: lib/storeHall_web/templates/layout/footer.html.eex:61
-#: lib/storeHall_web/views/page_title.ex:44
+#: lib/storeHall_web/views/page_title.ex:50
 msgid "How to"
 msgstr ""
 
@@ -980,12 +980,12 @@ msgid "terms general"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:35
+#: lib/storeHall_web/views/page_title.ex:41
 msgid "Privacy Title"
 msgstr "Privacy"
 
 #, elixir-format
-#: lib/storeHall_web/views/page_title.ex:38
+#: lib/storeHall_web/views/page_title.ex:44
 msgid "Terms Title"
 msgstr "Terms"
 
@@ -1141,4 +1141,14 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/shared/reactions.html.eex:18
 msgid "outdated or misleading"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/views/page_title.ex:32
+msgid "Internal Server Error"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/views/page_title.ex:29
+msgid "Not Found"
 msgstr ""

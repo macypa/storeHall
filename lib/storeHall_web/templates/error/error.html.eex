@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= csrf_meta_tag() %>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    
+    <meta name="description" content="<%= page_description(assigns) %>">
+    <title><%= page_title_with_suffix(assigns) %></title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/logo.svg">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
+
+  </head>
+
+  <body>
+    <header>
+      <logo>
+        <svg class="svg_icon menu_svg_icon" id="logo_icon">
+          <use xlink:href="/images/sprite.svg#si-ant-aliwangwang"></use>
+        </svg>
+
+        <%= link to: Routes.item_path(@conn, :index), class: "brand-link" do
+          Application.get_env(:storeHall, :about)[:title]
+        end %>
+      </logo>
+
+      <%= page_title(assigns) %>
+    </header>
+
+    <main>
+      <p class="flash info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="flash error" role="alert"><%= get_flash(@conn, :error) %></p>
+      
+    </main>
+
+    <sidebar>
+      
+    </sidebar>
+
+    <footer>
+    </footer>
+
+    <% logged_user_id = get_logged_user_id(@conn) %>
+    <script>window.userToken = "<%= assigns[:user_token] %>";</script>
+    <script>window.loggedUserId = "<%= logged_user_id %>";</script>
+    <script>window.loggedUserChannel = "<%= StoreHallWeb.UsersChannel.topic_prefix() <> if logged_user_id != nil do "/" <> logged_user_id else "/guest_channel" end %>";</script>
+
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+  </body>
+</html>

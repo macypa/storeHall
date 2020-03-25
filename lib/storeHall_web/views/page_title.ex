@@ -25,6 +25,12 @@ defmodule StoreHallWeb.PageTitle do
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: "#{title} - #{@suffix}"
 
+  defp get(%{view_module: StoreHallWeb.ErrorView, view_template: "404.html"}),
+    do: StoreHallWeb.Gettext.gettext("Not Found")
+
+  defp get(%{view_module: StoreHallWeb.ErrorView, view_template: "500.html"}),
+    do: StoreHallWeb.Gettext.gettext("Internal Server Error")
+
   defp get(%{view_module: StoreHallWeb.AboutView, view_template: "contacts.html"}),
     do: StoreHallWeb.Gettext.gettext("Contacts")
 
