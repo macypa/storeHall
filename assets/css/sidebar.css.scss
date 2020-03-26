@@ -152,7 +152,13 @@ sidebar-filters {
     }
 
     #filter_q {
-      width: 98%;
+      width: 85%;
+    }
+
+    .search_icon {
+      float: right;
+      fill: $themeColor;
+      background-color: $reactionIconBackgroundColor;
     }
 
     .resizable-content {

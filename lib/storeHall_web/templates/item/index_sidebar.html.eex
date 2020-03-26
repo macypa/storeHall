@@ -4,8 +4,9 @@
 
     <div class="tab">
       <!-- TODO:maybe use some spellchecker or suggestions -->
-      <%= text_input f, :q, placeholder: Gettext.gettext("Search by title, content..."),
+      <%= text_input f, :q, placeholder: Gettext.gettext("Search by text"),
         class: "auto-submit-item" %>
+      <svg class="svg_icon search_icon"><use xlink:href="/images/sprite.svg#si-ant-search"></use></svg>
 
       <%= submit Gettext.gettext("Submit") %>
     </div>
