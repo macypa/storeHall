@@ -39,7 +39,7 @@
 
     <div class="tab">
       <input type="checkbox" id="price-min" class="collapsible">
-      <label class="tab-label" for="price-min"><%= Gettext.gettext("Price") %></label>
+      <label class="tab-label" for="price-min"><%= Gettext.gettext("Price") %> <%= Gettext.gettext("lv") %></label>
       <div class="tab-content">
 
         <div class="range-slider">
@@ -73,7 +73,7 @@
 
     <div class="tab">
       <input type="checkbox" id="discount-min" class="collapsible">
-      <label class="tab-label" for="discount-min"><%= Gettext.gettext("Discount") %></label>
+      <label class="tab-label" for="discount-min"><%= Gettext.gettext("Discount") %> <%= Gettext.gettext("%") %></label>
       <div class="tab-content">
 
         <div class="range-slider">
