@@ -8,11 +8,27 @@ show {
     height: auto;
   }
 
+  height: 100%;
+
+  & > div {
+    display: none;
+    height: auto;
+  }
+
+  :target {
+    display: block;
+  }
+}
+
+reactions {
   .reaction_count {
     padding-right: 5px;
     font-size: 0.7em;
   }
 
+  .svg_icon {
+    background-color: $reactionIconBackgroundColor;
+  }
 
   @mixin activate_icon {
     .inactive_icon {
@@ -88,17 +104,6 @@ show {
         background-color: rgba(0,0,0, .1);
       }
     }
-  }
-
-  height: 100%;
-
-  & > div {
-    display: none;
-    height: auto;
-  }
-
-  :target {
-    display: block;
   }
 }
 

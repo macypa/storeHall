@@ -101,9 +101,6 @@ a {
   background-color: $baseBackgroundColor;
   border-radius: 5em;
 
-  &[reaction-topic] {
-    background-color: $reactionIconBackgroundColor;
-  }
 }
 
 #logo_icon {
