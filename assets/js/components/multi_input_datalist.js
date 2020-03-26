@@ -32,8 +32,18 @@ function init() {
       let select = container.getElementsByTagName("select");
       if (select[0]) {
         select[0].classList.add("datalist_select");
-        select[0].onchange = add_item;
         select[0].selectedIndex = -1;
+
+        if (cloned_input_field.classList.contains("datalist_editable_input")) {
+          select[0].onchange = select_add_item;
+          select[0].insertAdjacentHTML('afterbegin', "<option value='" + container.getAttribute("placeholder") + "'>" + container.getAttribute("placeholder") + "</option>");
+          select[0].value = "";
+          $(input_field).hide();
+          input_field.onfocusout = hide_input;
+        } else {
+          select[0].onchange = add_item;
+        }
+
       }
 
       let datalist = container.getElementsByTagName("datalist");
@@ -47,6 +57,30 @@ function init() {
 
     update_placeholder(container);
   }
+}
+
+function select_add_item(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  let select = e.target;
+  let container = get_parent_container(select);
+  let input_field = get_input(container);
+
+  if (select.value == container.getAttribute("placeholder")) {
+    $(input_field).show();
+    input_field.focus();
+    select.value = "";
+  } else {
+    add_item(e);
+    $(input_field).hide();
+  }
+}
+function hide_input(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  $(e.target).hide();
 }
 
 function disable_enter_key_press(node, fun) {
@@ -87,6 +121,13 @@ function get_item_html(item) {
 function has_select_tag(container) {
   return container.querySelector("select");
 }
+function is_select_editable(container) {
+  if (container.querySelector(".datalist_editable_input")) {
+    return true;
+  }
+  return false;
+}
+
 
 function is_editable(container) {
   if (container.querySelector("input[name]")) {
@@ -164,6 +205,10 @@ function add_item(e) {
     if (option) {
       custom_tag_value = option.getAttribute("data-template-value");
       human_readable_key = option.innerText;
+    }
+
+    if (is_select_editable(container)) {
+      $(get_input(container)).hide();
     }
   }
 

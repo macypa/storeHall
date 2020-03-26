@@ -19,13 +19,12 @@
 }
 
 .datalist_editable_input {
-  width: auto;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   box-sizing: border-box;
   height: 1.5em;
-  border: none;
   z-index: 2;
 
   + .datalist_items {
@@ -44,6 +43,12 @@
     // -webkit-appearance: none;
     // -moz-appearance: none;
     padding-left: 5px;
+}
+
+.datalist_editable_input ~ .datalist_select { 
+    border-style: solid;
+    border-width: thin;
+    opacity: 1;
 }
 
 .datalist_select > option {
