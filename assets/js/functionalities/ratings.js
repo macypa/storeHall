@@ -137,50 +137,53 @@ channel.on("filtered_ratings", payload => {
 })
 
 window.rating_pros_cons_format = function () {
-  scode_names = JSON.parse(document.querySelector("ratings").getAttribute("scode_names"));
+  ratings = document.querySelector("ratings");
+  if (ratings) {
+    scode_names = JSON.parse(ratings.getAttribute("scode_names"));
 
-  $("pro_scores").each(function () {
-    if (this.innerText == "") {
-      $(this).parent().remove()
-    }
+    $("pro_scores").each(function () {
+      if (this.innerText == "") {
+        $(this).parent().remove()
+      }
 
-    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
-      let json_data = JSON.parse(this.innerText);
-      let html = "";
-      for (let score in json_data) {
-        if (json_data[score] > 0) {
-          html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+      if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
+        let json_data = JSON.parse(this.innerText);
+        let html = "";
+        for (let score in json_data) {
+          if (json_data[score] > 0) {
+            html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+          }
+        }
+
+        if (html == "") {
+          $(this).parent().remove()
+        } else {
+          this.innerHTML = html;
         }
       }
+    });
 
-      if (html == "") {
+    $("con_scores").each(function () {
+      if (this.innerText == "") {
         $(this).parent().remove()
-      } else {
-        this.innerHTML = html;
       }
-    }
-  });
+      if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
+        let json_data = JSON.parse(this.innerText);
+        let html = "";
+        for (let score in json_data) {
+          if (json_data[score] < 0) {
+            html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+          }
+        }
 
-  $("con_scores").each(function () {
-    if (this.innerText == "") {
-      $(this).parent().remove()
-    }
-    if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
-      let json_data = JSON.parse(this.innerText);
-      let html = "";
-      for (let score in json_data) {
-        if (json_data[score] < 0) {
-          html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+        if (html == "") {
+          $(this).parent().remove()
+        } else {
+          this.innerHTML = html;
         }
       }
-
-      if (html == "") {
-        $(this).parent().remove()
-      } else {
-        this.innerHTML = html;
-      }
-    }
-  });
+    });
+  }
 };
 
 window.rating_badge_color = function () {
