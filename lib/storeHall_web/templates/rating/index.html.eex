@@ -1,7 +1,12 @@
 
 <div class="panel_title"><%= Gettext.gettext("Ratings") %></div>
 
-<ratings>
+<ratings scode_names='<%= StoreHall.Ratings.scode_names
+      |> Enum.reduce(%{}, fn {k, v}, acc ->
+        acc |> Map.put(k, v)
+      end)
+      |> Jason.encode!  %>'>
+
   <%= for rating <- @ratings do %>
     <%= render  "show.html", rating: rating, conn: @conn %>
   <% end %>

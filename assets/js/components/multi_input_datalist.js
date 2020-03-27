@@ -199,11 +199,11 @@ function add_item(e) {
   if (isEmpty(key)) return;
 
   let human_readable_key = select.value;
-  let custom_tag_value = "";
+  let custom_value = "";
   if (has_select_tag(container)) {
     let option = select.querySelector("option[value='" + select.value + "']");
     if (option) {
-      custom_tag_value = option.getAttribute("data-template-value");
+      custom_value = option.getAttribute("data-template-value");
       human_readable_key = option.innerText;
     }
 
@@ -212,18 +212,18 @@ function add_item(e) {
     }
   }
 
-  if (custom_tag_value == null) {
-    custom_tag_value = "";
+  if (custom_value == null) {
+    custom_value = "";
   }
 
   if (input_field_data.key_value_separator != null) {
     let first_key_part = human_readable_key.split(input_field_data.key_value_separator)[0];
-    custom_tag_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
+    custom_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
     human_readable_key = first_key_part;
-    key = first_key_part;
+    key = key.split(input_field_data.key_value_separator)[0];;
   }
 
-  let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_tag_value);
+  let item = placeholder_item_html(container, input_field_data, key, human_readable_key, custom_value);
   get_items(container).insertAdjacentHTML('beforeend', item);
 
   e.target.value = '';

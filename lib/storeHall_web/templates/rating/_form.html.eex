@@ -12,10 +12,10 @@
                   value='<%= Gettext.gettext("All Scores absolute values should add up to max %{max_score} !",
                                               max_score: Ratings.max_scores_sum_points ) %>' />
 
-    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add Scores") %>'>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add Scores") %>' key_value_separator=":">
       <input class="scores" name="scores"
              value='<%= @rating.details["scores"] || "{}" %>' />
-      <template data-key="_key_" data-value="_value_"><span>_key_</span>:<input class='datalist_item_oninput_event datalist_item_spinner' min='-10' max='10' step='1' type='number' value='_value_'></template>
+      <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_</span>:<input class='datalist_item_oninput_event datalist_item_spinner' min='-10' max='10' step='1' type='number' value='_value_'></template>
       <select>
         <%= for {score_name, score_text}  <- StoreHall.Ratings.scode_names do %>
           <option value="<%= score_name %>" ><%= score_text %></option>

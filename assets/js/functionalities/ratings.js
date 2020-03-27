@@ -137,6 +137,8 @@ channel.on("filtered_ratings", payload => {
 })
 
 window.rating_pros_cons_format = function () {
+  scode_names = JSON.parse(document.querySelector("ratings").getAttribute("scode_names"));
+
   $("pro_scores").each(function () {
     if (this.innerText == "") {
       $(this).parent().remove()
@@ -147,7 +149,7 @@ window.rating_pros_cons_format = function () {
       let html = "";
       for (let score in json_data) {
         if (json_data[score] > 0) {
-          html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
+          html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
         }
       }
 
@@ -168,7 +170,7 @@ window.rating_pros_cons_format = function () {
       let html = "";
       for (let score in json_data) {
         if (json_data[score] < 0) {
-          html += "<score_text>" + score + ": " + json_data[score] + "</score_text>"
+          html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
         }
       }
 

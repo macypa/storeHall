@@ -47,6 +47,35 @@ defmodule StoreHall.Ratings do
     end
   end
 
+  def reformat_scores(rating) do
+    rating
+    |> put_in(
+      ["details", "scores"],
+      scores_to_map(rating["details"]["scores"])
+    )
+  end
+
+  defp scores_to_map(scores) do
+    scores
+    |> Enum.reduce(%{}, fn score, acc ->
+      key = String.split(score, ":", trim: true) |> hd
+      value = score |> String.replace_prefix(key <> ":", "") |> parse_score_value_int()
+
+      Map.put(acc, key, value)
+    end)
+  end
+
+  defp parse_score_value_int(score_value) when is_binary(score_value) do
+    score_value
+    |> Integer.parse()
+    |> case do
+      {int, ""} -> int
+      :error -> 0
+    end
+  end
+
+  defp parse_score_value_int(_), do: 0
+
   defp validate_individual_scores(rating) do
     max_score = max_score_points()
 
