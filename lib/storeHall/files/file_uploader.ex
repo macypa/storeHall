@@ -9,7 +9,7 @@ defmodule StoreHall.FileUploader do
   @versions [:image, :thumb]
   @acl :public_read
 
-  @extension_whitelist ~w(.jpg .jpeg .png .gif)
+  @extension_whitelist ~w(.jpg .jpeg .png .gif .webp)
   def extension_whitelist, do: @extension_whitelist
 
   def validate({file, _}) do
