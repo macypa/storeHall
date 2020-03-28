@@ -33,6 +33,9 @@ to start psql:
 '\c storehall_dev' - connect to storehall_dev database
 "SET CLIENT_ENCODING TO 'utf-8';" - change client encoding
 
+Install imagemagick on unix
+https://linuxconfig.org/how-to-install-imagemagick-7-on-ubuntu-18-04-linux
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
