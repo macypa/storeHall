@@ -43,7 +43,7 @@ defmodule StoreHall.FileUploader do
       false ->
         {
           :magick,
-          "-strip -resize x700^> -background none -depth 8 -quality 75 -density 72 -units pixelsperinch -format jpg"
+          "-strip -resize x700\> -background none -depth 8 -quality 75 -density 72 -units pixelsperinch -format jpg"
           # , :jpg
         }
 
