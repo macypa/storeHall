@@ -83,14 +83,28 @@
 
   <div class="form-group">
     <%= label f, :Images, Gettext.gettext("Images") %>
-    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add images") %>'>
+    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add image URLs") %>'>
       <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
               value: Jason.encode!(input_value(f, :details)["images"]) %>
-      <template><a href="_hkey_" target="_blank">_hkey_</a></template>
+      <template>_hkey_</template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for images")) %>
       </div>
     </div>
+    <%= label f, :Images, "" %>
+    <span>
+      <%= file_input f, :add_images,
+        name: input_name(f, :images), 
+        multiple: "multiple", 
+        class: "upload_file", 
+        "data-multiple-caption": "{count} files selected",
+        accept: StoreHall.FileUploader.extension_whitelist |> Enum.join(",") %>
+      <label for="<%= input_id(f, :add_images) %>">
+        <svg class="svg_icon_upload_file"><use xlink:href="/images/sprite.svg#si-upload-file"></use></svg>
+        <span><%= Gettext.gettext("Upload Images") %></span>
+      </label>
+      <%= error_tag f, :images %>
+    </span>
   </div>
 
   <div class="form-group">

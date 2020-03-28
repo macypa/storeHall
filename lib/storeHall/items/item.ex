@@ -19,7 +19,7 @@ defmodule StoreHall.Items.Item do
         "description" => "",
         "conditions" => "",
         "expiration" => "",
-        "features" => %{},
+        "features" => [],
         "images" => [],
         "videos" => [],
         "tags" => [],

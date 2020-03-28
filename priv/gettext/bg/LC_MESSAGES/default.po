@@ -166,7 +166,7 @@ msgid "Delete"
 msgstr "Изтрий"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:152
+#: lib/storeHall_web/templates/item/form.html.eex:161
 msgid "Details"
 msgstr "Детайли"
 
@@ -254,7 +254,7 @@ msgstr "Прати"
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:75
-#: lib/storeHall_web/templates/user/form.html.eex:117
+#: lib/storeHall_web/templates/user/form.html.eex:131
 msgid "Settings"
 msgstr "Настройки"
 
@@ -304,9 +304,8 @@ msgstr "Редактирай обява"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:95
-#: lib/storeHall_web/templates/item/form.html.eex:145
 #: lib/storeHall_web/templates/user/form.html.eex:85
-#: lib/storeHall_web/templates/user/form.html.eex:199
+#: lib/storeHall_web/templates/user/form.html.eex:213
 msgid "Images"
 msgstr "Снимки"
 
@@ -383,6 +382,7 @@ msgstr "Избери"
 #: lib/storeHall_web/templates/item/form.html.eex:36
 #: lib/storeHall_web/templates/item/index.html.eex:63
 #: lib/storeHall_web/templates/item/index.html.eex:65
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:42
 #: lib/storeHall_web/templates/item/show.html.eex:21
 #: lib/storeHall_web/templates/item/show.html.eex:26
 msgid "lv"
@@ -394,12 +394,12 @@ msgid "Chats"
 msgstr "Разговори"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:161
+#: lib/storeHall_web/templates/user/form.html.eex:175
 msgid "Filters"
 msgstr "Филтри"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:193
+#: lib/storeHall_web/templates/user/form.html.eex:207
 msgid "Labels"
 msgstr "Лейбъли"
 
@@ -463,14 +463,14 @@ msgid "Address"
 msgstr "Адрес"
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:156
+#: lib/storeHall_web/channels/items_channel.ex:158
 #: lib/storeHall_web/channels/users_channel.ex:234
 #: lib/storeHall_web/templates/rating/_form.html.eex:12
 msgid "All Scores absolute values should add up to max %{max_score} !"
 msgstr "Сборът от абсолютните стойности на всички точки трябва да е до %{max_score} !"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:127
+#: lib/storeHall_web/templates/item/form.html.eex:141
 #: lib/storeHall_web/templates/item/show.html.eex:74
 msgid "Conditions"
 msgstr "Условия"
@@ -481,9 +481,9 @@ msgid "Cons"
 msgstr "Недостатъци"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:119
+#: lib/storeHall_web/templates/item/form.html.eex:133
 #: lib/storeHall_web/templates/item/show.html.eex:64
-#: lib/storeHall_web/templates/user/form.html.eex:109
+#: lib/storeHall_web/templates/user/form.html.eex:123
 #: lib/storeHall_web/templates/user/show.html.eex:43
 msgid "Description"
 msgstr "Описание"
@@ -501,7 +501,7 @@ msgid "Edit Rating"
 msgstr "Промени ревю"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:135
+#: lib/storeHall_web/templates/item/form.html.eex:149
 #: lib/storeHall_web/templates/item/show.html.eex:69
 msgid "Expiration"
 msgstr "Краен срок"
@@ -585,19 +585,13 @@ msgid "Add feature"
 msgstr "Добави характеристика"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:96
-#: lib/storeHall_web/templates/user/form.html.eex:86
-msgid "Add images"
-msgstr "Добави снимка"
-
-#, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:50
 msgid "Add tags"
 msgstr "Добави таг"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:108
-#: lib/storeHall_web/templates/user/form.html.eex:98
+#: lib/storeHall_web/templates/item/form.html.eex:122
+#: lib/storeHall_web/templates/user/form.html.eex:112
 msgid "Add videos"
 msgstr "Добави видео"
 
@@ -620,13 +614,13 @@ msgid "Sorting"
 msgstr "Подреди"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:107
-#: lib/storeHall_web/templates/user/form.html.eex:97
+#: lib/storeHall_web/templates/item/form.html.eex:121
+#: lib/storeHall_web/templates/user/form.html.eex:111
 msgid "Videos"
 msgstr "Видеа"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:168
+#: lib/storeHall_web/templates/user/form.html.eex:182
 msgid "show_with_min_rating"
 msgstr "Показвай резултати с минимум рейтинг"
 
@@ -683,7 +677,7 @@ msgid "Retailer"
 msgstr "Търговец"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:124
+#: lib/storeHall_web/templates/user/form.html.eex:138
 msgid "locale"
 msgstr "Език"
 
@@ -701,13 +695,13 @@ msgid "Sponsor"
 msgstr "Спонсор"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:138
-#: lib/storeHall_web/templates/user/form.html.eex:151
+#: lib/storeHall_web/templates/user/form.html.eex:152
+#: lib/storeHall_web/templates/user/form.html.eex:165
 msgid "agreed"
 msgstr "приемам"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:137
+#: lib/storeHall_web/templates/user/form.html.eex:151
 msgid "cookie_consent"
 msgstr "Съгласие за бисквитки"
 
@@ -718,8 +712,8 @@ msgid "no email"
 msgstr "липсва е-мейл"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:138
-#: lib/storeHall_web/templates/user/form.html.eex:151
+#: lib/storeHall_web/templates/user/form.html.eex:152
+#: lib/storeHall_web/templates/user/form.html.eex:165
 msgid "not agreed"
 msgstr "не приемам"
 
@@ -735,7 +729,7 @@ msgid "Page not found"
 msgstr "Не намирам такава страница"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:180
+#: lib/storeHall_web/templates/user/form.html.eex:194
 msgid "show_with_max_alerts"
 msgstr "Показвай резултати с максимум брой алерти"
 
@@ -771,7 +765,7 @@ msgid "Search"
 msgstr "Търсене"
 
 #, elixir-format
-#: lib/storeHall_web/channels/items_channel.ex:196
+#: lib/storeHall_web/channels/items_channel.ex:198
 #: lib/storeHall_web/channels/users_channel.ex:266
 msgid "Something unexpected happened"
 msgstr "Неочаквана грешка"
@@ -817,7 +811,7 @@ msgid "Terms and Conditions"
 msgstr "Общите условия"
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:150
+#: lib/storeHall_web/templates/user/form.html.eex:164
 msgid "marketing_consent"
 msgstr "Съгласие за участие в маркетинг кампании"
 
@@ -1022,6 +1016,7 @@ msgstr "Няма намерени резултати."
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:44
 #: lib/storeHall_web/templates/item/index.html.eex:66
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:76
 msgid "%"
 msgstr "%"
 
@@ -1053,8 +1048,8 @@ msgid "Original Price"
 msgstr "Оригинална цена"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:122
-#: lib/storeHall_web/templates/item/form.html.eex:130
+#: lib/storeHall_web/templates/item/form.html.eex:136
+#: lib/storeHall_web/templates/item/form.html.eex:144
 msgid "HTML tags can be used."
 msgstr "HTML тагове могат да се използват."
 
@@ -1080,8 +1075,8 @@ msgid "form edit hint for tags"
 msgstr "Таговете са като категории. Можете да зададете под-тагове с '/' (Пример: 'литература/книги/художествена литература')"
 
 #, elixir-format
-#: lib/storeHall_web/templates/item/form.html.eex:113
-#: lib/storeHall_web/templates/user/form.html.eex:103
+#: lib/storeHall_web/templates/item/form.html.eex:127
+#: lib/storeHall_web/templates/user/form.html.eex:117
 msgid "form edit hint for videos"
 msgstr "Въведете URL адреса на видеоклип, който искате да добавите и натиснете клавиша Enter. Можете да използвате услуга като <a href='https://www.youtube.com'>YouTube</a>"
 
@@ -1096,7 +1091,7 @@ msgid "form edit hint for contacts"
 msgstr "Добавете контакт, като въведете първо името (телефон, скайп, фейсбук и т.н.) и натиснете клавиша Enter. След това в полето попълнете съответната информация. HTML тагове могат да се използват."
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:112
+#: lib/storeHall_web/templates/user/form.html.eex:126
 msgid "form edit hint for description"
 msgstr "HTML тагове могат да се използват."
 
@@ -1152,7 +1147,19 @@ msgstr "Сървърна Грешка "
 msgid "Not Found"
 msgstr "Не беше намерено"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:7
 msgid "Search by text"
 msgstr "Търси по текст"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/item/form.html.eex:96
+#: lib/storeHall_web/templates/user/form.html.eex:86
+msgid "Add image URLs"
+msgstr "Добави линк към снимка"
+
+#, elixir-format
+#: lib/storeHall_web/templates/item/form.html.eex:114
+#: lib/storeHall_web/templates/user/form.html.eex:104
+msgid "Upload Images"
+msgstr "Качи снимка"
