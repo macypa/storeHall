@@ -35,10 +35,21 @@ defmodule StoreHallWeb.ErrorHelpers do
     # Note we use the "errors" domain, which means translations
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
-    if count = opts[:count] do
-      Gettext.dngettext(StoreHallWeb.Gettext, "errors", msg, msg, count, opts)
-    else
-      Gettext.dgettext(StoreHallWeb.Gettext, "errors", msg, opts)
+
+    try do
+      msg
+      |> Jason.decode!()
+      |> Enum.map(fn err ->
+        Gettext.dgettext(StoreHallWeb.Gettext, "default", err, [])
+      end)
+      |> Enum.join("\n")
+    rescue
+      _ ->
+        if count = opts[:count] do
+          Gettext.dngettext(StoreHallWeb.Gettext, "errors", msg, msg, count, opts)
+        else
+          Gettext.dgettext(StoreHallWeb.Gettext, "errors", msg, opts)
+        end
     end
   end
 end

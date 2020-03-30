@@ -73,12 +73,13 @@ html {
   // padding: 5px;
 // }
 
-// .alert-danger {
-// 
-// }
+.alert-danger {
+  color: red;
+}
 
 .help-block {
   color: red;
+  white-space: pre-wrap;
 }
 
 .space {

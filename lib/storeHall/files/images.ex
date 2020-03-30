@@ -140,12 +140,30 @@ defmodule StoreHall.Images do
         |> Multi.run(:upsert_images, fn _repo, %{^multi_name => model_with_user_id} ->
           images
           |> rename_duplicated(model_with_user_id)
-          |> Enum.reduce({:ok, "no error"}, fn image, acc ->
+          |> Enum.reduce([], fn image, acc ->
             case FileUploader.store({rename_duplicated(image, model), model_with_user_id}) do
-              {:ok, _value} -> acc
-              {:error, value} -> {:error, value}
+              {:ok, _} -> acc
+              {:error, _value} -> acc ++ ["can't upload image: " <> image.filename]
             end
           end)
+          |> case do
+            [] ->
+              {:ok, "no error"}
+
+            error ->
+              changeset =
+                multi.operations
+                |> Enum.find(fn element ->
+                  match?({^multi_name, _}, element)
+                end)
+                |> elem(1)
+                |> elem(1)
+                |> Ecto.Changeset.validate_change(:details, fn :details, _details ->
+                  [{:details, Jason.encode!(error)}]
+                end)
+
+              {:error, changeset}
+          end
         end)
     end
   end
