@@ -45,6 +45,8 @@
   </div>
 </notifications>
 
+<%= render "help.html", conn: @conn %>
+
 <avatar>
   <%= if get_logged_user_image(@conn) != nil do %>
     <img src="<%= get_logged_user_image(@conn) %>" alt="<%= logged_user_id %>">

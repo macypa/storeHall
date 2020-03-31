@@ -1,0 +1,24 @@
+help {
+  // margin-left: auto;
+  margin-right: 3px;
+  background-color: $baseBackgroundColor;
+  border-radius: 50%;
+  // display: flex;
+  align-items: center;
+
+  &:hover .dropdown {
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+
+}

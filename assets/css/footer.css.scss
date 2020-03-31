@@ -1,53 +1,5 @@
 
 footer {
-  about {
-    margin-left: auto;
-    margin-right: 3px;
-    background-color: $baseBackgroundColor;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-
-  }
-
-  about:hover .dropdown {
-      visibility: visible;
-      transform: translateY(0);
-  }
-
-  .dropdown {
-    position: absolute;
-    bottom: $height-footer;
-    right: 1px;
-    padding-right: 3px;
-    width: auto;
-    height: auto;
-    z-index: 10;
-    background-color: #fff;
-    border-radius: 4px;
-    visibility: hidden;
-    transform: translateY(-5px);
-    transition: all .3s;
-    @include box-shadow;
-
-    text-decoration: none;
-
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-
-    li {
-      display: flex;
-      //color: $color-abbey;
-      text-transform: capitalize;
-
-      &:hover {
-        background-color: rgba(0,0,0, .1);
-      }
-    }
-  }
 
   #cookie_consent {
     position: absolute;

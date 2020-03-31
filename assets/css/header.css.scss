@@ -2,8 +2,8 @@
 header {
 
   .menu_svg_icon {
-    width: calc(#{$height-header} - #{$height-header}/3);
-    height: calc(#{$height-header} - #{$height-header}/3);
+    width: calc(#{$height-header} - #{$height-header}/2);
+    height: calc(#{$height-header} - #{$height-header}/2);
   }
   .svg_icon {
     padding-right: 5px;
