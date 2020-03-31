@@ -18,7 +18,7 @@
     <%= if Map.has_key?(item.details, "item_template_tag_id") do %>
       <template id='item_template' class='template'>
     <% else %>
-      <item>
+      <item <%= if (Enum.fetch!(@items, -1) == item) do "id=last_listing_item" end %>>
     <% end %>
 
       <div class="cover">

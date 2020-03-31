@@ -49,12 +49,31 @@ reload_next_items = function () {
 }
 
 jQuery(function ($) {
-  reload_next_items();
   $('main').scroll(function () {
     if ($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight) {
       load_next_items();
     }
   })
+
+  let callback = function (entries, observer) {
+    entries.forEach(entry => {
+      let next_page_link = $('.next-page-link');
+      if (next_page_link.is(":visible")) {
+        load_next_items();
+      }
+    });
+  };
+
+  let observer = new IntersectionObserver(callback);
+  let target = document.querySelector("#last_listing_item");
+  if (target) {
+    observer.observe(target);
+  }
+
+  let next_page_link = $('.next-page-link')[0];
+  if (next_page_link) {
+    observer.observe(next_page_link);
+  }
 });
 
 window.add_load_more_events = function () {
@@ -91,3 +110,9 @@ window.update_next_page_link = function (payload) {
     reload_next_items();
   }
 }
+
+
+
+
+
+

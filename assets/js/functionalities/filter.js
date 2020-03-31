@@ -64,6 +64,16 @@ channel.on("filtered_items", payload => {
     document.querySelector("#items-listing").insertAdjacentHTML('beforeend', filtered_items);
   }
   $('.fotorama').fotorama();
+
+  update_empty_filter_result();
+  update_last_listing_item_id();
+
+  format_money();
+  update_features_select_options(payload);
+  update_next_page_link(payload);
+})
+
+function update_empty_filter_result() {
   let rating_form_tag = document.querySelector("item")
   if (rating_form_tag) {
     $('#empty_filter_result').removeClass("active");
@@ -72,11 +82,19 @@ channel.on("filtered_items", payload => {
     $('#empty_filter_result').removeClass("inactive");
     $('#empty_filter_result').addClass("active")
   }
+}
 
-  format_money();
-  update_features_select_options(payload);
-  update_next_page_link(payload);
-})
+function update_last_listing_item_id() {
+  let last_listing_item = document.querySelector("#last_listing_item");
+  if (last_listing_item) {
+    last_listing_item.removeAttribute("id");
+  }
+
+  last_listing_item = $("item").last()[0];
+  if (last_listing_item) {
+    last_listing_item.setAttribute("id", "last_listing_item");
+  }
+}
 
 function update_features_select_options(payload) {
   let feature_select = document.querySelector("#features").parentElement.querySelector("select");
