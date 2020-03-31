@@ -112,19 +112,18 @@
   @include spinner_number_input;
 }
 
-.datalist_del {
+.datalist_actions {
     position: absolute;
     // top: 4px;
     bottom: 18px;
     right: 12px;
 }
 
-.datalist_del:hover {
+.datalist_actions:hover {
     cursor: pointer;
 }
 
 .datalist_item:hover {
-
     background-color: rgba(255, 255, 255, 0.603);
 }
 
@@ -132,12 +131,9 @@
     display:none;
 }
 
-.datalist_x {
-    width: 4px;
-    height: 12px;
-    background-color: $themeColor;
-    position: absolute;
-    top: 0;
+.datalist_icon {
+    fill: $themeColor;
+    background-color: $baseColor;
 }
 
 .datalist_x:first-child {

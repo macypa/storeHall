@@ -182,7 +182,7 @@ function remove_item(e) {
   e.stopPropagation();
 
   let container = get_parent_container(this);
-  this.parentElement.parentElement.removeChild(this.parentElement);
+  this.parentElement.parentElement.parentElement.removeChild(this.parentElement.parentElement);
 
   update_input_field(container);
 };
@@ -232,13 +232,20 @@ function add_item(e) {
 };
 
 function placeholder_item_html(container, data, key, human_readable_key, value) {
-  return "<div class='datalist_item'" +
+  return "<div class='datalist_item'>" +
     (is_editable(container) ?
-      " draggable='true'>\
-        <div class='datalist_del'>\
-          <div class='datalist_x'></div>\
-          <div class='datalist_x'></div>\
-        </div>"
+      "<div class='datalist_actions'>\
+        <span class='datalist_drag' draggable='true'>\
+          <svg class='svg_icon datalist_icon' >\
+            <use xlink: href='/images/sprite.svg#si-drag-drop'></use>\
+          </svg >\
+        </span>\
+        <span class='datalist_del'>\
+          <svg class='svg_icon datalist_icon' >\
+            <use xlink: href='/images/sprite.svg#si-ant-cross'></use>\
+          </svg >\
+        </span>\
+      </div>"
       : ">")
     + "<div class='datalist_item_html' key='" + sanitize(key) + "' value='" + sanitize(value) + "'>" + html_from_template(container, data, key, human_readable_key, value) + "</div>\
       </div> ";

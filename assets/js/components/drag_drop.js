@@ -38,11 +38,12 @@ function handleDrop(e) {
   }
 
   // Don't do anything if dropping the same column we're dragging.
-  if (dragSrcEl != this && dragSrcEl.parentElement == this.parentElement) {
+  if (dragSrcEl != null && dragSrcEl != this && dragSrcEl.parentElement == this.parentElement) {
     // Set the source column's HTML to the HTML of the column we dropped on.
     dragSrcEl.innerHTML = this.innerHTML;
     this.innerHTML = e.dataTransfer.getData('text/html');
 
+    dragSrcEl.style.opacity = '1';
     // update_after_drag_drop(this.parentElement);
   }
 
@@ -60,6 +61,7 @@ function handleDragEnd(e) {
 window.add_drag_events = function (draggable_container, fun_on_drop) {
   let draggables = draggable_container.querySelectorAll('[draggable]');
   [].forEach.call(draggables, function (draggable) {
+    draggable = draggable.parentElement.parentElement;
     draggable.addEventListener('dragstart', handleDragStart, false);
     // draggable.addEventListener('dragenter', handleDragEnter, false);
     draggable.addEventListener('dragover', handleDragOver, false);
@@ -68,6 +70,10 @@ window.add_drag_events = function (draggable_container, fun_on_drop) {
     draggable.addEventListener('drop', handleDrop, false);
     draggable.addEventListener('dragend', handleDragEnd, false);
 
-    draggable.ondrop = function () { fun_on_drop(this.parentElement) };
+    draggable.ondrop = function () {
+      if (dragSrcEl != null && dragSrcEl != this && dragSrcEl.parentElement == this.parentElement) {
+        fun_on_drop(this.parentElement);
+      }
+    };
   });
 }
