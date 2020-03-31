@@ -58,7 +58,7 @@ header {
     margin-right: 3px;
 
     img {
-      margin-top: calc(#{$height-header}/10);
+      // margin-top: calc(#{$height-header}/10);
       height: calc(#{$height-header} - #{$height-header}/3);
       // max-height: $height-header;
       @include dropdown_icon_border;
