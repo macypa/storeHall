@@ -40,7 +40,6 @@ defmodule StoreHallWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
       alias Calendar.DateTime.Format
-      use PhoenixHtmlSanitizer, :full_html
 
       import StoreHallWeb.ErrorHelpers
       import StoreHallWeb.ViewHelpers

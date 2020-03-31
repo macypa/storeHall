@@ -31,4 +31,29 @@ defmodule StoreHallWeb.ViewHelpers do
   def obfuscate_data(nil, data_name), do: obfuscate(data_name)
   def obfuscate_data("", data_name), do: obfuscate(data_name)
   def obfuscate_data(data, _data_name), do: obfuscate(data)
+
+  def sanitize(text), do: sanitize(text, :basic_html)
+
+  def sanitize(nil, _), do: ""
+
+  def sanitize(text, :basic_html) do
+    text
+    |> HtmlSanitizeEx.basic_html()
+    |> String.replace("http://", "https://")
+    |> Phoenix.HTML.raw()
+  end
+
+  def sanitize(text, :full_html) do
+    text
+    |> HtmlSanitizeEx.html5()
+    |> String.replace("http://", "https://")
+    |> Phoenix.HTML.raw()
+  end
+
+  def sanitize(text, :strip_tags) do
+    text
+    |> HtmlSanitizeEx.strip_tags()
+    |> String.replace("http://", "https://")
+    |> Phoenix.HTML.raw()
+  end
 end
