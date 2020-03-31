@@ -8,6 +8,23 @@ window.sanitize = function (str) {
   return temp.innerHTML;
 }
 
+window.objToString = function (obj) {
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+
+  return JSON.stringify(obj, getCircularReplacer(), ' ');
+}
+
 window.regExp_escape = function (s) {
   return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
