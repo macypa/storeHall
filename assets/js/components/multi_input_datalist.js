@@ -246,7 +246,7 @@ function placeholder_item_html(container, data, key, human_readable_key, value) 
           </svg >\
         </span>\
       </div>"
-      : ">")
+      : "")
     + "<div class='datalist_item_html' key='" + sanitize(key) + "' value='" + sanitize(value) + "'>" + html_from_template(container, data, key, human_readable_key, value) + "</div>\
       </div> ";
 }
@@ -358,8 +358,9 @@ function item_data(data, value) {
 
   let key = value + "";
   if (data.key_value_separator != null) {
+    let original_key_value = key;
     key = key.split(data.key_value_separator)[0];
-    value = key.slice(key.indexOf(key) + key.length + 1);
+    value = value.slice(original_key_value.indexOf(key) + key.length + 1);
   }
 
   let json_data = {};
