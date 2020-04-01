@@ -1,9 +1,9 @@
 
 <% logged_user_id = get_logged_user_id(@conn) %>
 
-<title>
+<h1>
   <%= page_title(@assigns) %>
-</title>
+</h1>
 
 <notifications>
   <svg class="svg_icon menu_svg_icon">

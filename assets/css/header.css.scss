@@ -24,10 +24,12 @@ header {
     }
   }
 
-  title {
+  h1 {
     // visibility: hidden;
     // display: none;
     padding: 1em;
+    font-size: 1.5em;
+    font-weight: normal;
   }
 
   notifications {
