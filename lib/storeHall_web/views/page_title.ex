@@ -9,12 +9,20 @@ defmodule StoreHallWeb.PageTitle do
   def page_title_with_suffix(assigns),
     do: page_title(assigns) |> slice |> put_suffix
 
+  def page_description(%{user: user}) do
+    user.details["description"] |> slice(255)
+  end
+
+  def page_description(%{item: item}) do
+    item.details["description"] |> slice(255)
+  end
+
   def page_description(assigns),
     do: page_title(assigns) |> slice |> put_suffix |> put_description_suffix
 
-  defp slice(title) do
-    case String.length(to_string(title)) > 33 do
-      true -> "#{String.slice(to_string(title), 0..33)}..."
+  defp slice(title, length \\ 33) do
+    case String.length(to_string(title)) > length do
+      true -> "#{String.slice(to_string(title), 0..length)}..."
       false -> title
     end
   end
