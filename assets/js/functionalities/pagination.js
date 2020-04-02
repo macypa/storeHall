@@ -57,9 +57,11 @@ jQuery(function ($) {
 
   let callback = function (entries, observer) {
     entries.forEach(entry => {
-      let next_page_link = $('.next-page-link');
-      if (next_page_link.is(":visible")) {
-        load_next_items();
+      if (entry.intersectionRatio > 0) {
+        let next_page_link = $('.next-page-link');
+        if (next_page_link.is(":visible")) {
+          load_next_items();
+        }
       }
     });
   };
