@@ -17,6 +17,9 @@
     }
     
     .datalist_item_html {
+      white-space: pre-wrap;
+      word-break: break-word;
+      
       & > span {
         margin-right: 1em;
       }

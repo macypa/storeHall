@@ -67,19 +67,18 @@
     }
 
     .datalist_item_html {
-      width: calc(100% - 1em);
-
+      display: grid;
+      width: calc(100% - 3em);
+      
       white-space: pre-wrap;
       word-break: break-word;
       
       & > span {
         display: inline-block;
-        width: 7em;
       }
 
       .datalist_item_oninput_event {
-        margin: auto;
-        width:  calc(100% - 8em);
+        margin-bottom: auto;
       }
     }
 
