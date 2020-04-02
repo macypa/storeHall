@@ -41,7 +41,7 @@
               <% [] -> %>
               <% images -> %>
                 <%= for image <- images do %>
-                  <div data-img='<%= image %>'> </div>
+                  <div data-img='<%= get_thumb_image(image) %>'> </div>
                 <% end %>
             <% end %>
 

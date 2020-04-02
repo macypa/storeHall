@@ -32,6 +32,16 @@ defmodule StoreHallWeb.ViewHelpers do
   def obfuscate_data("", data_name), do: obfuscate(data_name)
   def obfuscate_data(data, _data_name), do: obfuscate(data)
 
+  def get_thumb_image("//" <> image), do: image_service_link(image)
+  def get_thumb_image("http://" <> image), do: image_service_link(image)
+  def get_thumb_image("https://" <> image), do: image_service_link(image)
+
+  def get_thumb_image(image), do: image
+
+  defp image_service_link(image) do
+    "//images.weserv.nl/?url=ssl:#{image}&w=450&fit=cover"
+  end
+
   def sanitize(text), do: sanitize(text, :basic_html)
 
   def sanitize(nil, _), do: ""
