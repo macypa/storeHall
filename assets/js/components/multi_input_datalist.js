@@ -160,7 +160,7 @@ function get_input_data(container) {
     data.is_array = true;
   } catch (error) {
     data.is_string = true;
-    data.obj = data.str.split(",");
+    data.obj = (data.str + "").split(",");
     if (data.obj[0] == '') {
       data.obj = [];
     }
@@ -218,7 +218,7 @@ function add_item(e) {
 
   if (input_field_data.key_value_separator != null) {
     let first_key_part = (human_readable_key + "").split(input_field_data.key_value_separator)[0];
-    custom_value = human_readable_key.slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
+    custom_value = (human_readable_key + "").slice(human_readable_key.indexOf(first_key_part) + first_key_part.length + 1);
     human_readable_key = first_key_part;
     key = (key + "").split(input_field_data.key_value_separator)[0];;
   }
@@ -359,8 +359,8 @@ function item_data(data, value) {
   let key = value + "";
   if (data.key_value_separator != null) {
     let original_key_value = key;
-    key = key.split(data.key_value_separator)[0];
-    value = value.slice(original_key_value.indexOf(key) + key.length + 1);
+    key = (key + "").split(data.key_value_separator)[0];
+    value = (value + "").slice(original_key_value.indexOf(key) + key.length + 1);
   }
 
   let json_data = {};

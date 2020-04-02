@@ -4,35 +4,35 @@
   </svg>
   <div class="dropdown">
     <ul>
-      <%= link to: Routes.about_path(@conn, :index) do %>
-        <li>
+      <li>
+        <%= link to: Routes.about_path(@conn, :index) do %>
           <span class="text"><%= Gettext.gettext("About Us") %></span>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
 
-      <%= link to: Routes.about_path(@conn, :terms) do %>
-        <li>
+      <li>
+        <%= link to: Routes.about_path(@conn, :terms) do %>
           <span class="text"><%= Gettext.gettext("Terms") %></span>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
 
-      <%= link to: Routes.about_path(@conn, :privacy) do %>
-        <li>
+      <li>
+        <%= link to: Routes.about_path(@conn, :privacy) do %>
           <span class="text"><%= Gettext.gettext("Privacy") %></span>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
 
-      <%= link to: Routes.about_path(@conn, :index) <> "#sponsor" do %>
-        <li>
+      <li>
+        <%= link to: Routes.about_path(@conn, :index) <> "#sponsor" do %>
           <span class="text"><%= Gettext.gettext("Sponsor") %></span>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
 
-      <%= link to: Routes.about_path(@conn, :howto) <> "#post" do %>
-        <li>
+      <li>
+        <%= link to: Routes.about_path(@conn, :howto) <> "#post" do %>
           <span class="text"><%= Gettext.gettext("How to") %></span>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
 
     </ul>
   </div>

@@ -32,14 +32,14 @@
       </li>
 
       <%= if logged_user_id do %>
-        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
-          <li>
+        <li>
+          <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("View all Messages") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -60,61 +60,61 @@
     <%= if logged_user_id do %>
 
       <ul>
-        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
-          <li>
+        <li>
+          <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Profile") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
 
-        <%= link to: Routes.user_path(@conn, :edit, logged_user_id) <> "#settings" do %>
-          <li>
+        <li>
+          <%= link to: Routes.user_path(@conn, :edit, logged_user_id) <> "#settings" do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-cog"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Settings") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
 
       <% if false do %>
-        <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
-          <li>
+        <li>
+          <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Messages") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
       <% end %>
 
-        <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> logged_user_id do %>
-          <li>
+        <li>
+          <%= link to: Routes.item_path(@conn, :index) <> "?filter[merchant]=" <> logged_user_id do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-list-ul"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("My Items") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
 
-        <%= link to: Routes.user_item_path(@conn, :new, logged_user_id) do %>
-          <li>
+        <li>
+          <%= link to: Routes.user_item_path(@conn, :new, logged_user_id) do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-plus"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Add Item") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
 
-        <%= link to: Routes.auth_path(@conn, :delete) do %>
-          <li>
+        <li>
+          <%= link to: Routes.auth_path(@conn, :delete) do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-power-off"></use>
             </svg>
             <span class="text"><%= Gettext.gettext("Sign out") %></span>
-          </li>
-        <% end %>
+          <% end %>
+        </li>
       </ul>
 
     <% else %>

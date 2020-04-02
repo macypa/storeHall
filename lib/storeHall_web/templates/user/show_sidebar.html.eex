@@ -3,27 +3,27 @@
 
   <div class="tab">
     <a href="#info" class="tab-label">
-      <label><%= Gettext.gettext("Info") %></label>
+      <%= Gettext.gettext("Info") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#comments" class="tab-label">
-      <label><%= Gettext.gettext("Comments") %></label>
+      <%= Gettext.gettext("Comments") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#ratings" class="tab-label">
-      <label><%= Gettext.gettext("Ratings") %></label>
+      <%= Gettext.gettext("Ratings") %>
     </a>
   </div>
 
   <%= if is_logged_user?(@conn, @conn.assigns.user.id) do %>
 
     <div class="tab">
-      <%= link to: Routes.user_item_path(@conn, :new, @conn.assigns.user) do %>
-        <label class="tab-label"><%= Gettext.gettext("Add Item") %></label>
+      <%= link to: Routes.user_item_path(@conn, :new, @conn.assigns.user), class: "tab-label" do %>
+        <%= Gettext.gettext("Add Item") %>
       <% end %>
     </div>
 

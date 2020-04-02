@@ -4,26 +4,26 @@
   <% logged_user_id = get_logged_user_id(@conn)%>
 
   <div class="tab">
-    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
-      <label class="tab-label"><%= Gettext.gettext("Info") %></label>
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info", class: "tab-label" do %>
+      <%= Gettext.gettext("Info") %>
     <% end %>
   </div>
 
   <div class="tab">
-    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#comments" do %>
-      <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#comments", class: "tab-label" do %>
+      <%= Gettext.gettext("Comments") %>
     <% end %>
   </div>
 
   <div class="tab">
-    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#ratings" do %>
-      <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
+    <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#ratings", class: "tab-label" do %>
+      <%= Gettext.gettext("Ratings") %>
     <% end %>
   </div>
 
   <div class="tab">
-    <%= link to: Routes.user_item_path(@conn, :new, logged_user_id) do %>
-      <label class="tab-label"><%= Gettext.gettext("Add Item") %></label>
+    <%= link to: Routes.user_item_path(@conn, :new, logged_user_id), class: "tab-label" do %>
+      <%= Gettext.gettext("Add Item") %>
     <% end %>
   </div>
 

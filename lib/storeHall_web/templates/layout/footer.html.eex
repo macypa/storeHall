@@ -14,14 +14,12 @@
   		</span>
   	</div>
   	<div id="cookie_consent_agree">
-  		<button cookie_consent="agree" >
+  		<span class="button" cookie_consent="agree" >
   			<%= Gettext.gettext("Agree") %>
-  		</button>
-  	  <a href="/about/cookies" >
-  			<button id="cookie_consent_info_link">
-  				<%= Gettext.gettext("Learn more") %>
-  			</button>
-      </a>
+  		</span>
+			<a href="/about/privacy#cookies" id="cookie_consent_info_link">
+				<%= Gettext.gettext("Learn more") %>
+			</a>
   	</div>
   </div>
 <% end %>

@@ -3,63 +3,63 @@
 
   <div class="tab">
     <a href="#definitions" class="tab-label">
-      <label><%= Gettext.gettext("Definitions") %></label>
+      <%= Gettext.gettext("Definitions") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#profile" class="tab-label">
-      <label><%= Gettext.gettext("Profile") %></label>
+      <%= Gettext.gettext("Profile") %>
     </a>
     <a href="#create" class="tab-label">
       <span class="space"></span>
-      <label><%= Gettext.gettext("Create") %></label>
+      <%= Gettext.gettext("Create") %>
     </a>
     <a href="#login" class="tab-label">
       <span class="space"></span>
-      <label><%= Gettext.gettext("Login") %></label>
+      <%= Gettext.gettext("Login") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#search" class="tab-label">
-      <label><%= Gettext.gettext("Search") %></label>
+      <%= Gettext.gettext("Search") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#post" class="tab-label">
-      <label><%= Gettext.gettext("Post") %></label>
+      <%= Gettext.gettext("Post") %>
     </a>
     <a href="#post_suggestion" class="tab-label">
       <span class="space"></span>
-      <label><%= Gettext.gettext("Post suggestion") %></label>
+      <%= Gettext.gettext("Post suggestion") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#rating" class="tab-label">
-      <label><%= Gettext.gettext("Rating system") %></label>
+      <%= Gettext.gettext("Rating system") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#alert" class="tab-label">
-      <label><%= Gettext.gettext("terms alerts") %></label>
+      <%= Gettext.gettext("terms alerts") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#marketing" class="tab-label">
-      <label><%= Gettext.gettext("Мarketing") %></label>
+      <%= Gettext.gettext("Мarketing") %>
     </a>
     <a href="#credits" class="tab-label">
       <span class="space"></span>
-      <label><%= Gettext.gettext("Credits") %></label>
+      <%= Gettext.gettext("Credits") %>
     </a>
     <a href="#messages" class="tab-label">
       <span class="space"></span>
-      <label><%= Gettext.gettext("Messages") %></label>
+      <%= Gettext.gettext("Messages") %>
     </a>
   </div>
 

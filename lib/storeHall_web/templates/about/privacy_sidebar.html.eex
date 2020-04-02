@@ -3,67 +3,67 @@
 
   <div class="tab">
     <a href="#info" class="tab-label">
-      <label><%= Gettext.gettext("privacy info") %></label>
-    </a>
+      <%= Gettext.gettext("privacy info") %>
+    </a>    
   </div>
 
   <div class="tab">
     <a href="#goal" class="tab-label">
-      <label><%= Gettext.gettext("privacy goal") %></label>
+      <%= Gettext.gettext("privacy goal") %>
     </a>
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#principals" class="tab-label">
-      <label><%= Gettext.gettext("privacy principals") %></label>
-    </a>
+      <%= Gettext.gettext("privacy principals") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#private_info" class="tab-label">
-      <label><%= Gettext.gettext("privacy private_info") %></label>
-    </a>
+      <%= Gettext.gettext("privacy private_info") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#processing" class="tab-label">
-      <label><%= Gettext.gettext("privacy processing") %></label>
-    </a>
+      <%= Gettext.gettext("privacy processing") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#categories" class="tab-label">
-      <label><%= Gettext.gettext("privacy categories") %></label>
-    </a>
+      <%= Gettext.gettext("privacy categories") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#cookies" class="tab-label">
-      <label><%= Gettext.gettext("privacy cookies") %></label>
-    </a>
+      <%= Gettext.gettext("privacy cookies") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#security" class="tab-label">
-      <label><%= Gettext.gettext("privacy security") %></label>
-    </a>
+      <%= Gettext.gettext("privacy security") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#periods" class="tab-label">
-      <label><%= Gettext.gettext("privacy periods") %></label>
-    </a>
+      <%= Gettext.gettext("privacy periods") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#rights" class="tab-label">
-      <label><%= Gettext.gettext("privacy rights") %></label>
-    </a>
+      <%= Gettext.gettext("privacy rights") %>
+    </a>    
   </div>
 
-  <div class="tab">
+  <div class="tab">    
     <a href="#update" class="tab-label">
-      <label><%= Gettext.gettext("privacy update") %></label>
-    </a>
+      <%= Gettext.gettext("privacy update") %>
+    </a>    
   </div>
 </privacy-show>

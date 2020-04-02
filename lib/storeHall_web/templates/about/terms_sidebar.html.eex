@@ -3,115 +3,115 @@
 
   <div class="tab">
     <a href="#general" class="tab-label">
-      <label><%= Gettext.gettext("terms general") %></label>
+      <%= Gettext.gettext("terms general") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#definitions" class="tab-label">
-      <label><%= Gettext.gettext("terms definitions") %></label>
+      <%= Gettext.gettext("terms definitions") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#services" class="tab-label">
-      <label><%= Gettext.gettext("terms services") %></label>
+      <%= Gettext.gettext("terms services") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#access" class="tab-label">
-      <label><%= Gettext.gettext("terms access") %></label>
+      <%= Gettext.gettext("terms access") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#rights" class="tab-label">
-      <label><%= Gettext.gettext("terms rights") %></label>
+      <%= Gettext.gettext("terms rights") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#rights_admin" class="tab-label">
-      <label><%= Gettext.gettext("terms rights_admin") %></label>
+      <%= Gettext.gettext("terms rights_admin") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#taxes" class="tab-label">
-      <label><%= Gettext.gettext("terms taxes") %></label>
+      <%= Gettext.gettext("terms taxes") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#items" class="tab-label">
-      <label><%= Gettext.gettext("terms items") %></label>
+      <%= Gettext.gettext("terms items") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#alerts" class="tab-label">
-      <label><%= Gettext.gettext("terms alerts") %></label>
+      <%= Gettext.gettext("terms alerts") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#property_rights" class="tab-label">
-      <label><%= Gettext.gettext("terms property_rights") %></label>
+      <%= Gettext.gettext("terms property_rights") %>
     </a>
   </div>
 
   <div class="tab">
     <a href="#responsibility" class="tab-label">
-      <label><%= Gettext.gettext("terms responsibility") %></label>
+      <%= Gettext.gettext("terms responsibility") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#messages" class="tab-label">
-      <label><%= Gettext.gettext("terms messages") %></label>
+      <%= Gettext.gettext("terms messages") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#confidentiality" class="tab-label">
-      <label><%= Gettext.gettext("terms confidentiality") %></label>
+      <%= Gettext.gettext("terms confidentiality") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#additional" class="tab-label">
-      <label><%= Gettext.gettext("terms additional") %></label>
+      <%= Gettext.gettext("terms additional") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#complaints" class="tab-label">
-      <label><%= Gettext.gettext("terms complaints") %></label>
+      <%= Gettext.gettext("terms complaints") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#contacts" class="tab-label">
-      <label><%= Gettext.gettext("terms contacts") %></label>
+      <%= Gettext.gettext("terms contacts") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#marketing" class="tab-label">
-      <label><%= Gettext.gettext("terms marketing") %></label>
+      <%= Gettext.gettext("terms marketing") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#prohibited" class="tab-label">
-      <label><%= Gettext.gettext("terms prohibited") %></label>
+      <%= Gettext.gettext("terms prohibited") %>
     </a>
   </div>
   
   <div class="tab">
     <a href="#tariff" class="tab-label">
-      <label><%= Gettext.gettext("terms tariff") %></label>
+      <%= Gettext.gettext("terms tariff") %>
     </a>
   </div>
   

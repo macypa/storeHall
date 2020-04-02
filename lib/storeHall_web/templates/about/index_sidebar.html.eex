@@ -2,50 +2,50 @@
 <sidebar-show>
 
   <div class="tab">
-    <a href="#info">
-      <label class="tab-label"><%= Gettext.gettext("Info") %></label>
+    <a href="#info" class="tab-label">
+      <%= Gettext.gettext("Info") %>
     </a>
   </div>
 
   <div class="tab">
-    <a href="#contacts">
-      <label class="tab-label"><%= Gettext.gettext("Contacts") %></label>
+    <a href="#contacts" class="tab-label">
+      <%= Gettext.gettext("Contacts") %>
     </a>
   </div>
 
   <div class="tab">
-    <%= link to: Routes.about_path(@conn, :privacy) do %>
-      <label class="tab-label"><%= Gettext.gettext("Privacy") %></label>
+    <%= link to: Routes.about_path(@conn, :privacy),  class: "tab-label" do %>
+      <%= Gettext.gettext("Privacy") %>
     <% end %>
   </div>
   
   <div class="tab">
-    <%= link to: Routes.about_path(@conn, :terms) do %>
-      <label class="tab-label"><%= Gettext.gettext("Terms") %></label>
+    <%= link to: Routes.about_path(@conn, :terms),  class: "tab-label" do %>
+      <%= Gettext.gettext("Terms") %>
     <% end %>
   </div>
 
   <div class="tab">
-    <a href="#sponsor">
-      <label class="tab-label"><%= Gettext.gettext("Sponsor") %></label>
+    <a href="#sponsor" class="tab-label">
+      <%= Gettext.gettext("Sponsor") %>
     </a>
   </div>
 
   <div class="tab">
-    <%= link to: Routes.about_path(@conn, :howto) <> "#post" do %>
-      <label class="tab-label"><%= Gettext.gettext("How to") %></label>
+    <%= link to: Routes.about_path(@conn, :howto) <> "#post",  class: "tab-label" do %>
+      <%= Gettext.gettext("How to") %>
     <% end %>
   </div>
 
   <div class="tab">
-    <a href="#comments">
-      <label class="tab-label"><%= Gettext.gettext("Comments") %></label>
+    <a href="#comments" class="tab-label">
+      <%= Gettext.gettext("Comments") %>
     </a>
   </div>
 
   <div class="tab">
-    <a href="#ratings">
-      <label class="tab-label"><%= Gettext.gettext("Ratings") %></label>
+    <a href="#ratings" class="tab-label">
+      <%= Gettext.gettext("Ratings") %>
     </a>
   </div>
 
