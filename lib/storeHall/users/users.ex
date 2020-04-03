@@ -191,63 +191,60 @@ defmodule StoreHall.Users do
     |> put_in(
       ["details"],
       details
-      |> decode_param_in("images")
-      |> decode_param_in("videos")
-      |> decode_param_in("address")
-      |> decode_param_in("contacts")
-      |> decode_param_in("mail")
-      |> decode_param_in("web")
-      |> decode_param_in("open")
+      |> decode_details_param("images")
+      |> decode_details_param("videos")
+      |> decode_details_param("address")
+      |> decode_details_param("contacts")
+      |> decode_details_param("mail")
+      |> decode_details_param("web")
+      |> decode_details_param("open")
     )
     |> decode_settings()
   end
 
   def decode_params(user_params), do: decode_settings(user_params)
 
-  defp decode_param_in(map, param) do
-    case Map.has_key?(map, param) do
-      true ->
-        map
-        |> put_in([param], Jason.decode!(map[param]))
-
-      false ->
-        map
-    end
-  end
-
   defp decode_settings(user_params = %{"settings" => settings}) do
     user_params
     |> put_in(
       ["settings"],
       settings
-      |> decode_filter_params("filters")
+      |> decode_details_param("filters")
+      |> decode_details_param("labels")
+      |> decode_details_param("relations")
+      |> decode_details_param("social_buttons")
     )
   end
 
   defp decode_settings(user_params), do: user_params
 
-  defp decode_filter_params(map, param) do
-    case Map.has_key?(map, param) do
+  def decode_details_param(details, param) do
+    case Map.has_key?(details, param) do
       true ->
-        map
-        |> put_in(
-          [param],
-          map[param]
-          |> Enum.reduce(%{}, fn {k, v}, acc ->
-            case v do
-              "" ->
-                acc
-                |> Map.put(k, v)
-
-              _ ->
-                acc
-                |> Map.put(k, Jason.decode!(v))
-            end
-          end)
-        )
+        details
+        |> put_in([param], decode_param_in(details[param]))
 
       false ->
-        map
+        details
     end
+  end
+
+  defp decode_param_in(nil), do: nil
+  defp decode_param_in(string) when is_binary(string), do: Jason.decode!(string)
+  defp decode_param_in(list) when is_list(list), do: Jason.decode!(list)
+
+  defp decode_param_in(map) when is_map(map) do
+    map
+    |> Enum.reduce(%{}, fn {k, v}, acc ->
+      case v do
+        "" ->
+          acc
+          |> Map.put(k, v)
+
+        _ ->
+          acc
+          |> Map.put(k, Jason.decode!(v))
+      end
+    end)
   end
 end
