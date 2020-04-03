@@ -149,7 +149,10 @@
 
   actions {
     grid-area: actions;
-
+    
+    .social_buttons {
+      display: inline-block;
+    }
   }
 
 

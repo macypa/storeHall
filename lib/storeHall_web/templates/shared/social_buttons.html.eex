@@ -1,14 +1,14 @@
 
 
-<% settings_social_buttons = Plug.Conn.get_session(@conn, :logged_user_settings)["social_buttons"] || [] %>
-
-<span class="social_buttons a2a_kit a2a_kit_size_16 a2a_default_style">
-  <%= for social_button_name <- settings_social_buttons do %>
-    <a class="a2a_button_<%= social_button_name %>"></a>
-  <% end %>
-  <a class="a2a_dd" href="https://www.addtoany.com/share"></a>  
+<% settings_social_buttons = Plug.Conn.get_session(@conn, :logged_user_settings)["social_buttons"] || ["facebook", "pinterest", "copy_link"] %>
+<span class="social_buttons">
+  <span class="a2a_kit a2a_kit_size_16 a2a_default_style">
+    <%= for social_button_name <- settings_social_buttons do %>
+      <a class="a2a_button_<%= social_button_name %>"></a>
+    <% end %>
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>  
+  </span>
 </span>
-
 <script>
 var a2a_config = a2a_config || {};
 a2a_config.onclick = 1;
