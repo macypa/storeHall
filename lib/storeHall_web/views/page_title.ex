@@ -1,64 +1,39 @@
 defmodule StoreHallWeb.PageTitle do
   require StoreHallWeb.Gettext
+  import PhoenixHtmlSanitizer.Helpers
+  import Phoenix.HTML
 
   @suffix Application.get_env(:storeHall, :about)[:title]
   @suffix_description StoreHallWeb.Gettext.gettext(" is a site for free product listings")
 
-  def page_title(assigns), do: assigns |> get
-
-  def page_title_with_suffix(assigns),
-    do: page_title(assigns) |> slice |> put_suffix
-
-  def page_description(%{user: user}) do
-    user.details["description"] |> slice(255)
-  end
-
-  def page_description(%{item: item}) do
-    item.details["description"] |> slice(255)
-  end
-
-  def page_description(assigns),
-    do: page_title(assigns) |> slice |> put_suffix |> put_description_suffix
-
-  def page_image(%{user: user}) do
-    StoreHall.Images.cover_image(user) |> full_image_url
-  end
-
-  def page_image(%{item: item}) do
-    case StoreHall.Images.cover_image(item) do
-      nil -> StoreHall.Images.cover_image(item.user)
-      image -> image
-    end
-    |> full_image_url
-  end
-
-  def page_image(_assigns) do
-    nil
-  end
-
-  defp full_image_url(img) do
-    case String.starts_with?(img, "/uploads") do
-      true ->
-        domain = Application.get_env(:storeHall, :about)[:host]
-        "#{domain}#{img}"
-
-      false ->
-        img
-    end
-  end
-
-  defp slice(title, length \\ 33) do
-    case String.length(to_string(title)) > length do
-      true -> "#{String.slice(to_string(title), 0..length)}..."
-      false -> title
-    end
-  end
-
-  defp put_description_suffix(nil), do: @suffix_description
-  defp put_description_suffix(title), do: "#{title} #{@suffix_description}"
+  defp put_description_suffix(nil), do: "#{@suffix}#{@suffix_description}"
+  defp put_description_suffix(title), do: "#{title} - #{@suffix}#{@suffix_description}"
 
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: "#{title} - #{@suffix}"
+
+  def page_title(assigns), do: assigns |> get
+  def page_title_with_suffix(assigns), do: page_title(assigns) |> slice(33) |> put_suffix
+
+  def page_description(%{user: user}), do: user.details["description"] |> slice(255)
+
+  def page_description(%{item: item}), do: item.details["description"] |> slice(255)
+
+  def page_description(assigns), do: page_title(assigns) |> put_description_suffix
+
+  defp slice(nil, _len), do: nil
+  defp slice({:safe, ""}, _len), do: nil
+  defp slice({:safe, title}, len), do: slice(title, len)
+
+  defp slice(title, len) do
+    case String.length(to_string(title)) > len do
+      true -> "#{String.slice(to_string(title), 0..len)}..."
+      false -> title
+    end
+    |> sanitize(:strip_tags)
+    |> html_escape()
+    |> elem(1)
+  end
 
   defp get(%{view_module: StoreHallWeb.ErrorView, view_template: "404.html"}),
     do: StoreHallWeb.Gettext.gettext("Not Found")
@@ -106,4 +81,33 @@ defmodule StoreHallWeb.PageTitle do
   end
 
   defp get(_), do: nil
+
+  def page_image(%{user: user}) do
+    StoreHall.Images.cover_image(user) |> full_image_url
+  end
+
+  def page_image(%{item: item}) do
+    case StoreHall.Images.cover_image(item) do
+      nil -> StoreHall.Images.cover_image(item.user)
+      image -> image
+    end
+    |> full_image_url
+  end
+
+  def page_image(_assigns) do
+    nil
+  end
+
+  defp full_image_url(nil), do: nil
+
+  defp full_image_url(img) do
+    case String.starts_with?(img, "/uploads") do
+      true ->
+        domain = Application.get_env(:storeHall, :about)[:host]
+        "#{domain}#{img}"
+
+      false ->
+        img
+    end
+  end
 end
