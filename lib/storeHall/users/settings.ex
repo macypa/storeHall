@@ -12,6 +12,7 @@ defmodule StoreHall.Users.Settings do
         "marketing_consent" => "not_agreed",
         "labels" => %{"liked" => 0, "interested" => 0, "got" => 0, "wish" => 0},
         "relations" => %{"friends" => 0, "favorite" => 0},
+        "social_buttons" => ["facebook", "pinterest", "copy_link"],
         "filters" => %{
           "show_with_min_rating" => "-10",
           "show_with_max_alerts" => "5",

@@ -149,7 +149,8 @@
     <div>
       <div class="settings_field">
         <span><%= Gettext.gettext("cookie_consent") %>:</span>
-        <%= select f, :settings_locale, %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
+        <%= select f, :settings_cookie_consent, 
+                %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
                 class: "settings_field_value",
                 name: input_name(f, :settings) <>"[cookie_consent]",
                 value: input_value(f, :settings)["cookie_consent"] %>
@@ -162,7 +163,8 @@
     <div>
       <div class="settings_field">
         <span><%= Gettext.gettext("marketing_consent") %>:</span>
-        <%= select f, :settings_locale, %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
+        <%= select f, :settings_marketing_consent,
+                %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
                 class: "settings_field_value",
                 name: input_name(f, :settings) <>"[marketing_consent]",
                 value: input_value(f, :settings)["marketing_consent"] %>
@@ -170,6 +172,28 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <%= label f, :social_buttons, "" %>
+    <div>
+      <div class="settings_field">
+        <span><%= Gettext.gettext("social_buttons") %>:</span>
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Add social buttons") %>'>
+          <%= text_input f, :details_social_buttons, class: "settings_field_value",
+                name: input_name(f, :settings) <>"[social_buttons]",
+                value: Jason.encode!(input_value(f, :settings)["social_buttons"]) %>
+          <%= select f, :social_buttons_select,
+              "facebook,twitter,email,pinterest,linkedin,reddit,whatsapp,google_gmail,telegram,pocket,mix,tumblr,amazon_wish_list,aol_mail,balatarin,bibsonomy,bitty_browser,blinklist,blogger,blogmarks,bookmarks_fr,box_net,buffer,care2_news,citeulike,copy_link,design_float,diary_ru,diaspora,digg,diigo,douban,draugiem,dzone,evernote,facebook_messenger,fark,flipboard,folkd,google_bookmarks,google_classroom,hacker_news,hatena,houzz,instapaper,kakao,kik,kindle_it,known,line,livejournal,mail_ru,mastodon,mendeley,meneame,mewe,mixi,myspace,netvouz,odnoklassniki,outlook_com,papaly,pinboard,plurk,print,printfriendly,protopage_bookmarks,pusha,qzone,rediff,refind,renren,sina_weibo,sitejot,skype,slashdot,sms,stocktwits,svejo,symbaloo_bookmarks,threema,trello,tuenti,twiddla,typepad_post,viadeo,viber,vk,wanelo,wechat,wordpress,wykop,xing,yahoo_mail,yoolink,yummly"
+                        |> String.split(",")
+                        |> Enum.map(fn k -> {k, k} end),
+              name: nil %>
+          
+          <div class="hint">
+            <%= sanitize to_string(Gettext.gettext("form edit hint for social buttons")) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="form-group">
     <%= label f, :filters, Gettext.gettext("Filters") %>

@@ -107,7 +107,7 @@
     </item_images>
 
     <actions>
-      <%= render_shared "social_buttons.html" %>
+      <%= render_shared "social_buttons.html", conn: @conn %>
 
       <% current_user_id = get_logged_user_id(@conn)
         am_author = Map.has_key?(@item, :user_id) and @item.user_id == current_user_id %>

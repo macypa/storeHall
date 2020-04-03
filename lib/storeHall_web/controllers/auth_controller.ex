@@ -131,9 +131,6 @@ defmodule StoreHallWeb.AuthController do
     conn
     |> put_session(:logged_user_id, user.id)
     |> put_session(:logged_user_image, user.image)
-    |> put_session(
-      :logged_user_settings,
-      user.settings |> Map.take(["locale", "cookie_consent", "marketing_consent", "filters"])
-    )
+    |> put_session(:logged_user_settings, user.settings)
   end
 end
