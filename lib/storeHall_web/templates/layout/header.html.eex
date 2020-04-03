@@ -137,13 +137,13 @@
         <div class="checkbox_terms">
           <input id="field_terms" type="checkbox" required name="terms">
           <label for="field_terms">
-            <%= Gettext.gettext("I accept the ") %><%= link to: Routes.about_path(@conn, :terms) do %><u><%= Gettext.gettext("Terms and Conditions") %></u><% end %>
+            <%= Gettext.gettext("I accept the ") %><%= link to: Routes.about_path(@conn, :terms) do %><span class="underline"><%= Gettext.gettext("Terms and Conditions") %></span><% end %>
           </label>
         </div>
         <div class="checkbox_terms">
           <input id="field_privacy" type="checkbox" required name="terms">
           <label for="field_privacy">
-            <%= Gettext.gettext("I accept the ") %><u><%= link to: Routes.about_path(@conn, :privacy) do %><%= Gettext.gettext("Privacy policy") %><% end %></u>
+            <%= Gettext.gettext("I accept the ") %><span class="underline"><%= link to: Routes.about_path(@conn, :privacy) do %><%= Gettext.gettext("Privacy policy") %><% end %></span>
           </label>
         </div>
         
@@ -151,9 +151,9 @@
           <input id="field_marketing" marketing_consent="agree" type="checkbox" name="terms">
           <label for="field_marketing">
             <%= Gettext.gettext("I want to participate in the marketing compains by giving my consent for my information to be used acording to the ") %>
-            <%= link to: Routes.about_path(@conn, :privacy) do %><u><%= Gettext.gettext("Privacy policy") %></u><% end %>
+            <%= link to: Routes.about_path(@conn, :privacy) do %><span class="underline"><%= Gettext.gettext("Privacy policy") %></span><% end %>
             <%= Gettext.gettext(" and ") %>
-            <%= link to: Routes.about_path(@conn, :terms) do %><u><%= Gettext.gettext("Terms and Conditions") %></u><% end %>
+            <%= link to: Routes.about_path(@conn, :terms) do %><span class="underline"><%= Gettext.gettext("Terms and Conditions") %></span><% end %>
           </label>
         </div>
       </form>
