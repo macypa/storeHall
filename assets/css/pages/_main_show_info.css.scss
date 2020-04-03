@@ -32,8 +32,8 @@
     grid-template-areas:
       'item_images'
       'actions'
-      'item_user_info'
-      'item_details';
+      'item_details'
+      'item_user_info';
 
     avatar {
       padding-bottom: 1em;
@@ -105,8 +105,8 @@
     grid-template-areas:
       'user_images'
       'actions'
-      'user_info'
-      'user_details';
+      'user_details'
+      'user_info';
 
     user_images {
       grid-area: user_images;
