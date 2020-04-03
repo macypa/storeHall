@@ -46,6 +46,8 @@
     </user_details>
 
     <actions>
+      <%= render_shared "social_buttons.html" %>
+
       <%= render StoreHallWeb.RatingView, "form.html", conn: @conn, ratings: @user.ratings, rating: %{
         id: nil,
         user_id: @user.id,

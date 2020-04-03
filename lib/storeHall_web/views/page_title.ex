@@ -20,6 +20,33 @@ defmodule StoreHallWeb.PageTitle do
   def page_description(assigns),
     do: page_title(assigns) |> slice |> put_suffix |> put_description_suffix
 
+  def page_image(%{user: user}) do
+    StoreHall.Images.cover_image(user) |> full_image_url
+  end
+
+  def page_image(%{item: item}) do
+    case StoreHall.Images.cover_image(item) do
+      nil -> StoreHall.Images.cover_image(item.user)
+      image -> image
+    end
+    |> full_image_url
+  end
+
+  def page_image(_assigns) do
+    nil
+  end
+
+  defp full_image_url(img) do
+    case String.starts_with?(img, "/uploads") do
+      true ->
+        domain = Application.get_env(:storeHall, :about)[:host]
+        "#{domain}#{img}"
+
+      false ->
+        img
+    end
+  end
+
   defp slice(title, length \\ 33) do
     case String.length(to_string(title)) > length do
       true -> "#{String.slice(to_string(title), 0..length)}..."

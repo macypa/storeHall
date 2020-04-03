@@ -86,6 +86,7 @@ config :storeHall, StoreHall.Repo,
 config :storeHall, :about,
   title: "StoreHall",
   user_id: "storeHall",
+  host: "https://shlqk.dlinkddns.com",
   user: %{
     token: "",
     name: "StoreHall",

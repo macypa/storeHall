@@ -4,7 +4,10 @@
     <%= csrf_meta_tag() %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     
+    <meta property="og:site_name" content="<%= Application.get_env(:storeHall, :about)[:title] %>">
     <meta name="description" content="<%= page_description(assigns) |> sanitize(:strip_tags) %>">
+    <meta property="og:image" content="<%= page_image(assigns) %>">
+
     <title><%= page_title_with_suffix(assigns) |> to_string |> sanitize(:strip_tags) %></title>
 
     <link rel="canonical" href="<%= Phoenix.Controller.current_url(@conn, %{}) %>">
