@@ -1,5 +1,13 @@
 
 #info {
+  #title {
+    grid-area: title;
+    
+    padding-top: 1em;
+    padding-right: 1em;
+    font-weight: bold;
+  }
+
   .info_title {
     vertical-align: top;
     padding-right: 0.5em;
@@ -32,6 +40,7 @@
     grid-template-areas:
       'item_images'
       'actions'
+      'title'
       'item_details'
       'item_user_info';
 
@@ -174,6 +183,7 @@
         grid-template-areas:
           'item_images item_user_info'
           'actions actions'
+          'title title'
           'item_details item_details';
       }
 
