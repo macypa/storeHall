@@ -164,18 +164,18 @@ header {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-
+  
 }
 
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
 
   header {
-    title {
-      // visibility: visible;
-      // display: block;
+    
+    logo {
+      min-width: $width-sidebar;
     }
-
+    
     avatar {
       img {
         max-height: $height-header_desktop;
