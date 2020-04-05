@@ -15,7 +15,8 @@ header {
     display: flex;
     align-items: center;
     min-height: $height-header;
-    min-width: $width-sidebar;
+    // min-width: $width-sidebar;
+    padding-right: 1em;
 
     .brand-link {
       font-weight: bold;
@@ -25,23 +26,26 @@ header {
   }
 
   h1 {
-    // visibility: hidden;
-    // display: none;
-    padding: 1em;
+    margin-right: auto;
+
     font-size:calc(10px + 1vw);
     font-weight: normal;
-    width: 100%; 
     white-space: nowrap; 
-    overflow: hidden;
+    overflow: scroll;
     text-overflow: ellipsis;
+ 
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar { 
+      display: none;  /* Safari and Chrome */
+    }
   }
 
   notifications {
     position: relative;
     cursor: pointer;
-    margin-left: auto;
-    display: inline-block;
-    visibility: hidden;
+    display: none;
+    // display: inline-block;
 
     .badge {
       font-size: 0.7em;
