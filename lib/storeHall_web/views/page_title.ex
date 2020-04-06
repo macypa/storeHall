@@ -6,8 +6,10 @@ defmodule StoreHallWeb.PageTitle do
   @suffix Application.get_env(:storeHall, :about)[:title]
   @suffix_description StoreHallWeb.Gettext.gettext(" is a site for free product listings")
 
-  defp put_description_suffix(nil), do: "#{@suffix}#{@suffix_description}"
-  defp put_description_suffix(title), do: "#{title} - #{@suffix}#{@suffix_description}"
+  defp description_suffix(), do: "#{@suffix}#{@suffix_description}"
+  defp put_description_suffix(nil), do: description_suffix()
+  defp put_description_suffix(""), do: description_suffix()
+  defp put_description_suffix(title), do: "#{title} - #{description_suffix()}"
 
   defp put_suffix(nil), do: @suffix
   defp put_suffix(title), do: "#{title} - #{@suffix}"
@@ -15,11 +17,21 @@ defmodule StoreHallWeb.PageTitle do
   def page_title(assigns), do: assigns |> get
   def page_title_with_suffix(assigns), do: page_title(assigns) |> slice(33) |> put_suffix
 
-  def page_description(%{user: user}), do: user.details["description"] |> slice(255)
+  def page_description(assigns = %{view_module: StoreHallWeb.AboutView}),
+    do: page_title(assigns) |> put_description_suffix
 
-  def page_description(%{item: item}), do: item.details["description"] |> slice(255)
+  def page_description(assigns = %{user: user}), do: page_description(assigns, user)
+
+  def page_description(assigns = %{item: item}), do: page_description(assigns, item)
 
   def page_description(assigns), do: page_title(assigns) |> put_description_suffix
+
+  def page_description(assigns, model) do
+    case model.details["description"] |> slice(255) do
+      "" -> page_title(assigns) |> put_description_suffix
+      desc -> desc
+    end
+  end
 
   defp slice(nil, _len), do: nil
   defp slice({:safe, ""}, _len), do: nil
