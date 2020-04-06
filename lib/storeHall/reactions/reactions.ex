@@ -1,6 +1,7 @@
 defmodule StoreHall.Reactions do
   import Ecto.Query, warn: false
   alias StoreHall.Reaction
+  alias StoreHall.Repo
 
   def preload_reactions_counts(query, type) do
     query
@@ -51,5 +52,16 @@ defmodule StoreHall.Reactions do
     )
 
     # |> preload_reactions_counts(type)
+  end
+
+  def list_alert_reactions(type \\ "item", days_back \\ 2, repo \\ Repo) do
+    Reaction
+    |> where(
+      [r],
+      ilike(r.reaction, "alert%") and r.type == ^type and
+        r.inserted_at > date_add(^DateTime.utc_now(), ^(-days_back), "day")
+    )
+    |> order_by(desc: :reacted_to)
+    |> repo.all()
   end
 end

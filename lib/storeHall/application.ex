@@ -11,9 +11,11 @@ defmodule StoreHall.Application do
       # Start the Ecto repository
       StoreHall.Repo,
       # Start the endpoint when the application starts
-      StoreHallWeb.Endpoint
+      StoreHallWeb.Endpoint,
       # Starts a worker by calling: StoreHall.Worker.start_link(arg)
       # {StoreHall.Worker, arg},
+      # AlertsWatcher worker to send alerts as mail to admin
+      {StoreHall.AlertsWatcher, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

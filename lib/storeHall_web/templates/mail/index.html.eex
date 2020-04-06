@@ -1,0 +1,18 @@
+<html>
+<body>
+
+	<div>
+		<span>items with alerts:</span>
+		<ul>
+			<%= for reaction <- @reactions do %>
+				<li>
+					<%= link to: Routes.user_item_url(StoreHallWeb.Endpoint, :show, reaction.user_id, reaction.reacted_to) do %>
+						<%= reaction.user_id %> item:<%= reaction.reacted_to %> <%= reaction.reaction %>
+					<% end %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+
+</body>
+</html>
