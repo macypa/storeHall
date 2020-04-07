@@ -83,7 +83,10 @@ defmodule StoreHallWeb.ItemController do
   end
 
   def edit(conn, %{"id" => id}) do
-    item = Items.get_item!(id)
+    item =
+      Items.get_item!(id)
+      |> Items.preload_user()
+
     changeset = Items.change_item(item)
     filters = Items.item_filters()
     render(conn, :edit, item: item, changeset: changeset, filters: filters)
