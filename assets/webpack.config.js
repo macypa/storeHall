@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const minifyJsPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
@@ -10,7 +10,7 @@ const globImporter = require('node-sass-glob-importer');
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+      new minifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
       new OptimizeCSSAssetsPlugin({})
     ]
   },
