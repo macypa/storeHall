@@ -74,8 +74,6 @@ defmodule StoreHall.Ratings do
     end
   end
 
-  defp parse_score_value_int(_), do: 0
-
   defp validate_individual_scores(rating) do
     max_score = max_score_points()
 
