@@ -39,7 +39,8 @@ defmodule StoreHallWeb.ViewHelpers do
   def get_thumb_image(image), do: image
 
   defp image_service_link(image) do
-    "//images.weserv.nl/?url=ssl:#{image}&w=450&fit=cover"
+    # "//images.weserv.nl/?url=ssl:#{image}&w=450&fit=cover"
+    "//#{image}"
   end
 
   def sanitize(text), do: sanitize(text, :basic_html)
