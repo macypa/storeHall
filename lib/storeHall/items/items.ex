@@ -347,40 +347,6 @@ defmodule StoreHall.Items do
     Item.changeset(item, %{})
   end
 
-  def decode_params(item_params = %{"details" => details}) when is_binary(details) do
-    item_params
-    |> put_in(
-      ["details"],
-      Jason.decode!(details)
-    )
-  end
-
-  def decode_params(item_params = %{"details" => details}) when is_map(details) do
-    item_params
-    |> put_in(
-      ["details"],
-      details
-      |> decode_details_param("images")
-      |> decode_details_param("videos")
-      |> decode_details_param("tags")
-      |> decode_details_param("cities")
-      |> decode_details_param("features")
-    )
-  end
-
-  def decode_params(item_params), do: item_params
-
-  def decode_details_param(details, param) do
-    case Map.has_key?(details, param) do
-      true ->
-        details
-        |> put_in([param], Jason.decode!(details[param]))
-
-      false ->
-        details
-    end
-  end
-
   def item_filters(min_count \\ 0) do
     Filters |> Repo.all() |> Filters.to_map(min_count)
   end

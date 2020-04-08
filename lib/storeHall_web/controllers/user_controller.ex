@@ -9,6 +9,7 @@ defmodule StoreHallWeb.UserController do
   alias StoreHall.Comments
   alias StoreHall.Images
   alias StoreHall.Plugs.SetUser
+  alias StoreHall.EncodeHelper
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -62,7 +63,7 @@ defmodule StoreHallWeb.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = get_user!(conn, id)
 
-    case Users.update_user(user, Users.decode_params(user_params)) do
+    case Users.update_user(user, EncodeHelper.decode(user_params)) do
       {:ok, user} ->
         SetUser.set_locale(user.settings)
 

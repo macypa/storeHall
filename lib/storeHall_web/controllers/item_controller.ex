@@ -7,6 +7,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Images
+  alias StoreHall.EncodeHelper
 
   plug :check_owner when action in [:edit, :delete]
 
@@ -52,7 +53,7 @@ defmodule StoreHallWeb.ItemController do
 
   def create(conn, %{"item" => item_params}) do
     case Items.create_item(
-           Items.decode_params(item_params)
+           EncodeHelper.decode(item_params)
            |> Map.put("user_id", AuthController.get_logged_user_id(conn))
          ) do
       {:ok, item} ->
@@ -95,7 +96,7 @@ defmodule StoreHallWeb.ItemController do
   def update(conn, %{"id" => id, "item" => item_params}) do
     item = Items.get_item!(id)
 
-    case Items.update_item(item, Items.decode_params(item_params)) do
+    case Items.update_item(item, EncodeHelper.decode(item_params)) do
       {:ok, item} ->
         conn
         |> put_flash(:info, Gettext.gettext("Item updated successfully."))
