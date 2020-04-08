@@ -82,17 +82,29 @@
       }
     }
 
-    .settings_field {
+    .form_field {
       & > span {
         display: inline-block;
         width: 10em;
       }
 
-      .settings_field_value {
-        width:  calc(100% - 13em);
+      .form_field_value {
+        width: 100%;
+      }
+
+      .form_inner_field_value {
+        width: calc(100% - 13em);
       }
     }
 
+  }
+
+  .form-title {
+    padding-top: 3em;
+    text-align: center;
+
+    font-size:calc(16px + 1vw);
+    font-weight: normal;
   }
 
   .submit_button {
@@ -119,6 +131,11 @@
 @media only screen and (min-width: $width-header_desktop) {
 
   .edit_form {
+    
+    .form-title {
+      font-size:calc(12px + 1vw);
+    }
+
     .form-group {
       grid-template-columns: 20vw 1fr;
 
