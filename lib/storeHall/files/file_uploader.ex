@@ -31,7 +31,6 @@ defmodule StoreHall.FileUploader do
   def transform(:image, {%Arc.File{file_name: file_name}, _}) do
     case file_name |> String.ends_with?(".gif") do
       true ->
-        file_name |> IO.inspect(label: 'skip gif')
         :noaction
 
       false ->
