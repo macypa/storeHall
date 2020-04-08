@@ -43,6 +43,22 @@ defmodule StoreHallWeb.ViewHelpers do
     "//#{image}"
   end
 
+  def multi_input_split_key_value(list, key_value_separator \\ ":") do
+    list
+    |> Enum.map(fn key_value ->
+      case key_value do
+        k_v when is_binary(k_v) ->
+          key_value_splitted = String.split(k_v, key_value_separator, trim: true)
+
+          {key_value_splitted |> hd,
+           key_value_splitted |> List.delete_at(0) |> Enum.join(key_value_separator)}
+
+        _ ->
+          key_value
+      end
+    end)
+  end
+
   def sanitize(text), do: sanitize(text, :basic_html)
 
   def sanitize(nil, _), do: ""
