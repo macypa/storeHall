@@ -61,6 +61,13 @@
 
       <ul>
         <li>
+          <%= link to: Routes.about_path(@conn, :howto) <> "#credits", id: "credits_banner" do %>
+            <span class="text">
+              <%= Plug.Conn.get_session(@conn, :logged_user_settings)["credits"] || 0 %><%= Gettext.gettext(" credits") %>
+            </span>
+          <% end %>
+        </li>
+        <li>
           <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#info" do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-user"></use>
