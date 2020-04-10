@@ -24,6 +24,8 @@ defmodule StoreHall.Users.User do
     field :details, :map,
       default: %{
         "merchant_type" => "merch_private",
+        "marketing_consent" => "not_agreed",
+        "mail_credits_ask" => 10,
         "images" => [],
         "videos" => [],
         "address" => [],

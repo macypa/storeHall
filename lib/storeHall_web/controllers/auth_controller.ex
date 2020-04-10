@@ -7,6 +7,7 @@ defmodule StoreHallWeb.AuthController do
   alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Repo
+  alias StoreHallWeb.CookieConsentController
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
@@ -29,6 +30,7 @@ defmodule StoreHallWeb.AuthController do
       {:ok, user} ->
         conn
         |> configure_session(renew: true)
+        |> CookieConsentController.update_cookie_consent_to_agreed(user.id)
         |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
         |> put_user_props_in_session(Users.load_settings(user))
         |> redirect(to: Routes.item_path(conn, :index))
@@ -60,13 +62,13 @@ defmodule StoreHallWeb.AuthController do
             end
             |> elem(1)
             |> Users.update_user(%{
-              "settings" => %{"marketing_consent" => get_session(conn, "marketing_consent")}
+              "details" => %{"marketing_consent" => get_session(conn, "marketing_consent")}
             })
 
           user ->
             case get_session(conn, "marketing_consent") == "agreed" do
               true ->
-                user |> Users.update_user(%{"settings" => %{"marketing_consent" => "agreed"}})
+                user |> Users.update_user(%{"details" => %{"marketing_consent" => "agreed"}})
 
               false ->
                 {:ok, user}

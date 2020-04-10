@@ -11,15 +11,19 @@ defmodule StoreHallWeb.CookieConsentController do
         conn
 
       user_id ->
-        {:ok, user} =
-          Users.update_user(Users.get_user_with_settings(user_id), %{
-            "settings" => %{"cookie_consent" => "agreed"}
-          })
-
-        conn |> AuthController.put_user_props_in_session(user)
+        update_cookie_consent_to_agreed(conn, user_id)
     end
     |> agree_to_cookie_consent()
     |> send_resp(:ok, "")
+  end
+
+  def update_cookie_consent_to_agreed(conn, user_id) do
+    {:ok, user} =
+      Users.update_user(Users.get_user_with_settings(user_id), %{
+        "settings" => %{"cookie_consent" => "agreed"}
+      })
+
+    conn |> AuthController.put_user_props_in_session(user)
   end
 
   def agree_to_cookie_consent(conn) do
@@ -37,7 +41,10 @@ defmodule StoreHallWeb.CookieConsentController do
         conn
 
       _ ->
-        set_cookie_consent_from_user_settings(conn, get_session(conn, :logged_user_settings))
+        set_cookie_consent_from_user_settings(
+          conn,
+          get_session(conn, :logged_user_settings)
+        )
     end
   end
 
@@ -48,8 +55,12 @@ defmodule StoreHallWeb.CookieConsentController do
 
       user_settings ->
         case user_settings["cookie_consent"] do
-          "agreed" -> agree_to_cookie_consent(conn)
-          _ -> Plug.Conn.delete_session(conn, :cookie_consent_agreed)
+          "agreed" ->
+            agree_to_cookie_consent(conn)
+
+          _ ->
+            conn |> configure_session(drop: true)
+            # Plug.Conn.delete_session(conn, :cookie_consent_agreed)
         end
     end
   end
