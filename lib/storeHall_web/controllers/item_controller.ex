@@ -89,7 +89,7 @@ defmodule StoreHallWeb.ItemController do
     case item.reaction do
       nil ->
         Action.init_item_reaction(
-          id,
+          Items.get_item_id(id),
           logged_user_id,
           item.user_id
         )
