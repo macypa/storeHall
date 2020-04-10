@@ -31,14 +31,6 @@
   </span>
 
   <span>
-    <svg class="svg_icon mehz_icon <%= reaction %>" reaction-topic="reaction:meh" data="<%= Jason.encode! @react_to %>">
-      <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-meh"></use>
-      <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-meh-circle"></use>
-    </svg>
-    <count class="reaction_count"><%= @model.mehz_count %></count>
-  </span>
-
-  <span>
     <svg class="svg_icon wowz_icon <%= reaction %>" reaction-topic="reaction:wow" data="<%= Jason.encode! @react_to %>">
       <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
       <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>

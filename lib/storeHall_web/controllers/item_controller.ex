@@ -4,6 +4,7 @@ defmodule StoreHallWeb.ItemController do
   alias StoreHallWeb.AuthController
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Users.Action
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Images
@@ -33,7 +34,10 @@ defmodule StoreHallWeb.ItemController do
           "price_orig" => "{{json details.price_orig}}",
           "discount" => "{{json details.discount}}",
           "images" => ["{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"],
-          "rating" => %{"score" => "{{json details.rating.score}}"},
+          "rating" => %{
+            "score" => "{{json details.rating.score}}",
+            "count" => "{{json details.rating.count}}"
+          },
           "comments_count" => "{{json details.comments_count}}"
         }
       }
@@ -68,17 +72,31 @@ defmodule StoreHallWeb.ItemController do
   end
 
   def show(conn, params = %{"id" => id}) do
+    logged_user_id = AuthController.get_logged_user_id(conn)
+
     item =
       Items.get_item_with_reactions!(
         id,
-        params |> Map.put("user_id", AuthController.get_logged_user_id(conn))
+        params |> Map.put("user_id", logged_user_id)
       )
       |> Items.preload_user()
       |> Images.append_images(:image)
-      |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
-      |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
+      |> Comments.preload_for(logged_user_id, params)
+      |> Ratings.preload_for(logged_user_id, params)
 
     # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
+
+    case item.reaction do
+      nil ->
+        Action.init_item_reaction(
+          id,
+          logged_user_id,
+          item.user_id
+        )
+
+      _ ->
+        nil
+    end
 
     render(conn, :show, item: item)
   end

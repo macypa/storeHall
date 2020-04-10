@@ -27,7 +27,10 @@ defmodule StoreHallWeb.UserController do
           "images" => [
             "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}"
           ],
-          "rating" => %{"score" => "{{json details.rating.score}}"},
+          "rating" => %{
+            "score" => "{{json details.rating.score}}",
+            "count" => "{{json details.rating.count}}"
+          },
           "comments_count" => "{{json details.comments_count}}"
         }
       }

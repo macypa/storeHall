@@ -24,7 +24,7 @@
       <div class="cover">
         <rating_scores>
           <%= link to: Routes.user_item_path(@conn, :show, item.user_id, item) <> "#ratings" do %>
-            <%= render StoreHallWeb.RatingView, "_rating_block.html", rating: item.details["rating"], for_id: item.id %>
+            <%= render StoreHallWeb.RatingView, "_rating_block.html", model: item %>
           <% end %>
         </rating_scores>
 

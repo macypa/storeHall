@@ -13,13 +13,13 @@ defmodule StoreHall.Reactions do
       on: rw.reacted_to == c.id and rw.reaction == "wow" and rw.type == ^type,
       as: :rw
     )
-    |> join(:left, [c], rm in Reaction,
-      on: rm.reacted_to == c.id and rm.reaction == "meh" and rm.type == ^type,
-      as: :rm
-    )
     |> join(:left, [c], ra in Reaction,
       on: ra.reacted_to == c.id and ilike(ra.reaction, "alert%") and ra.type == ^type,
       as: :ra
+    )
+    |> join(:left, [c], rm in Reaction,
+      on: rm.reacted_to == c.id and rm.type == ^type,
+      as: :rm
     )
     |> group_by([c], c.id)
     |> select_merge([c, rl: r], %{lolz_count: count(r.id)})

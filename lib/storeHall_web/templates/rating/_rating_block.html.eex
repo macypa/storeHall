@@ -1,14 +1,21 @@
 
+<% rating = @model.details["rating"] %>
+<% for_id = @model.id %>
+ 
 <rating_block>
-  <div class="review_score_badge" id="rating-score_<%= @for_id %>" data-content="<%= @rating["score"] %>">
-    <%= @rating["score"] %>
+  <div class="review_score_badge" id="rating-score_<%= for_id %>" data-content="<%= rating["score"] %>">
+    <%= rating["score"] %>
   </div>
   <div class="review_score_content">
     <div class="review_score_title">
     </div>
     <div class="review_score_count">
-      <span><%= @rating["count"] %></span>
+      <span><%= rating["count"] %></span>
       <span> <%= Gettext.gettext("ratings") %></span>
+    </div>
+    <div class="seen_count">
+      <span><%= @model.mehz_count %></span>
+      <span> <%= Gettext.gettext(" seen") %></span>
     </div>
   </div>
 </rating_block>

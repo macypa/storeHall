@@ -291,10 +291,9 @@ defmodule StoreHallWeb.UsersChannel do
           |> Action.toggle_or_change_reaction(
             reacted_to,
             logged_user_id,
+            author_id,
             type,
-            reaction,
-            &update_user_rating_fun/3,
-            author_id
+            reaction
           )
           # |> Ratings.update_user_rating(author_id, [Action.reaction_to_rating(reaction)])
           |> Repo.transaction()
@@ -314,20 +313,6 @@ defmodule StoreHallWeb.UsersChannel do
     end
 
     {:reply, :ok, socket}
-  end
-
-  def update_user_rating_fun(repo, author_id, reaction) do
-    case author_id do
-      item_id when is_integer(item_id) ->
-        Multi.new()
-        |> Ratings.update_item_rating(item_id, reaction)
-        |> repo.transaction()
-
-      user_id when is_binary(user_id) ->
-        Multi.new()
-        |> Ratings.update_user_rating(user_id, reaction)
-        |> repo.transaction()
-    end
   end
 
   defp broadcast_updated_rating_user(multi) do
