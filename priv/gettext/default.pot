@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:61
+#: lib/storeHall_web/controllers/item_controller.ex:65
 msgid "Item created successfully."
 msgstr ""
 
@@ -21,12 +21,12 @@ msgid "Error signing in"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:116
+#: lib/storeHall_web/controllers/item_controller.ex:130
 msgid "Item deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:102
+#: lib/storeHall_web/controllers/item_controller.ex:116
 msgid "Item updated successfully."
 msgstr ""
 
@@ -36,18 +36,18 @@ msgid "Thank you for signing in!"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:86
+#: lib/storeHall_web/controllers/user_controller.ex:89
 msgid "User deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:72
+#: lib/storeHall_web/controllers/user_controller.ex:75
 msgid "User updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/item_controller.ex:128
-#: lib/storeHall_web/controllers/user_controller.ex:103
+#: lib/storeHall_web/controllers/item_controller.ex:142
+#: lib/storeHall_web/controllers/user_controller.ex:106
 msgid "You cannot do that"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgid "must be logged in"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:310
+#: lib/storeHall_web/channels/users_channel.ex:309
 msgid "you already did it :)"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:26
-#: lib/storeHall_web/templates/layout/header.html.eex:106 lib/storeHall_web/templates/user/edit_sidebar.html.eex:26
+#: lib/storeHall_web/templates/layout/header.html.eex:113 lib/storeHall_web/templates/user/edit_sidebar.html.eex:26
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:26
 msgid "Add Item"
 msgstr ""
@@ -172,12 +172,12 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:201
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:62 lib/storeHall_web/templates/layout/header.html.eex:87
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:62 lib/storeHall_web/templates/layout/header.html.eex:94
 msgid "Messages"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:97
+#: lib/storeHall_web/templates/layout/header.html.eex:104
 msgid "My Items"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:29
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12 lib/storeHall_web/templates/layout/header.html.eex:68
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12 lib/storeHall_web/templates/layout/header.html.eex:75
 msgid "Profile"
 msgstr ""
 
@@ -231,18 +231,18 @@ msgid "Send"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:77
-#: lib/storeHall_web/templates/user/form.html.eex:436
+#: lib/storeHall_web/templates/layout/header.html.eex:84
+#: lib/storeHall_web/templates/user/form.html.eex:452
 msgid "Settings"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:128
+#: lib/storeHall_web/templates/layout/header.html.eex:135
 msgid "Sign in with Google"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:115
+#: lib/storeHall_web/templates/layout/header.html.eex:122
 msgid "Sign out"
 msgstr ""
 
@@ -280,7 +280,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:95
-#: lib/storeHall_web/templates/user/form.html.eex:85 lib/storeHall_web/templates/user/form.html.eex:531
+#: lib/storeHall_web/templates/user/form.html.eex:85 lib/storeHall_web/templates/user/form.html.eex:547
 msgid "Images"
 msgstr ""
 
@@ -362,12 +362,12 @@ msgid "Chats"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:493
+#: lib/storeHall_web/templates/user/form.html.eex:509
 msgid "Filters"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:525
+#: lib/storeHall_web/templates/user/form.html.eex:541
 msgid "Labels"
 msgstr ""
 
@@ -488,7 +488,7 @@ msgid "Pros"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/controllers/user_controller.ex:91
+#: lib/storeHall_web/controllers/user_controller.ex:94
 msgid "User not deleted."
 msgstr ""
 
@@ -519,7 +519,7 @@ msgid "quality"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/rating/_rating_block.html.eex:11
+#: lib/storeHall_web/templates/rating/_rating_block.html.eex:14
 msgid "ratings"
 msgstr ""
 
@@ -536,7 +536,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:67
-#: lib/storeHall_web/templates/user/form.html.eex:194
+#: lib/storeHall_web/templates/user/form.html.eex:210
 msgid "Add cities"
 msgstr ""
 
@@ -558,7 +558,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:66
-#: lib/storeHall_web/templates/item/show.html.eex:40 lib/storeHall_web/templates/user/form.html.eex:193
+#: lib/storeHall_web/templates/item/show.html.eex:40 lib/storeHall_web/templates/user/form.html.eex:209
 msgid "Cities"
 msgstr ""
 
@@ -581,7 +581,7 @@ msgid "Videos"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:500
+#: lib/storeHall_web/templates/user/form.html.eex:516
 msgid "show_with_min_rating"
 msgstr ""
 
@@ -638,12 +638,12 @@ msgid "Retailer"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:443
+#: lib/storeHall_web/templates/user/form.html.eex:459
 msgid "locale"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:134
+#: lib/storeHall_web/templates/layout/header.html.eex:141
 msgid "Sign in with Facebook"
 msgstr ""
 
@@ -655,13 +655,13 @@ msgid "Sponsor"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:456
-#: lib/storeHall_web/templates/user/form.html.eex:467
+#: lib/storeHall_web/templates/user/form.html.eex:472
+#: lib/storeHall_web/templates/user/form.html.eex:483
 msgid "agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:453
+#: lib/storeHall_web/templates/user/form.html.eex:469
 msgid "cookie_consent"
 msgstr ""
 
@@ -672,8 +672,8 @@ msgid "no email"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:456
-#: lib/storeHall_web/templates/user/form.html.eex:467
+#: lib/storeHall_web/templates/user/form.html.eex:472
+#: lib/storeHall_web/templates/user/form.html.eex:483
 msgid "not agreed"
 msgstr ""
 
@@ -689,7 +689,7 @@ msgid "Page not found"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:512
+#: lib/storeHall_web/templates/user/form.html.eex:528
 msgid "show_with_max_alerts"
 msgstr ""
 
@@ -742,35 +742,35 @@ msgid "Мarketing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:155
+#: lib/storeHall_web/templates/layout/header.html.eex:162
 msgid " and "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:140
-#: lib/storeHall_web/templates/layout/header.html.eex:146
+#: lib/storeHall_web/templates/layout/header.html.eex:147
+#: lib/storeHall_web/templates/layout/header.html.eex:153
 msgid "I accept the "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:153
+#: lib/storeHall_web/templates/layout/header.html.eex:160
 msgid "I want to participate in the marketing compains by giving my consent for my information to be used acording to the "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:146
-#: lib/storeHall_web/templates/layout/header.html.eex:154
+#: lib/storeHall_web/templates/layout/header.html.eex:153
+#: lib/storeHall_web/templates/layout/header.html.eex:161
 msgid "Privacy policy"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:140
-#: lib/storeHall_web/templates/layout/header.html.eex:156
+#: lib/storeHall_web/templates/layout/header.html.eex:147
+#: lib/storeHall_web/templates/layout/header.html.eex:163
 msgid "Terms and Conditions"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:464
+#: lib/storeHall_web/templates/user/form.html.eex:480
 msgid "marketing_consent"
 msgstr ""
 
@@ -1120,428 +1120,428 @@ msgid "Upload Images"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:273
+#: lib/storeHall_web/templates/user/form.html.eex:289
 msgid "Acting/Drama"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:476
+#: lib/storeHall_web/templates/user/form.html.eex:492
 msgid "Add social buttons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:230
+#: lib/storeHall_web/templates/user/form.html.eex:246
 msgid "Adult"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:149
+#: lib/storeHall_web/templates/user/form.html.eex:165
 msgid "Age"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:327
+#: lib/storeHall_web/templates/user/form.html.eex:343
 msgid "Amateur astronomy"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:321
+#: lib/storeHall_web/templates/user/form.html.eex:337
 msgid "Amateur radio"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:302
+#: lib/storeHall_web/templates/user/form.html.eex:318
 msgid "Animals and pets"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:288
+#: lib/storeHall_web/templates/user/form.html.eex:304
 msgid "Archery"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:289
+#: lib/storeHall_web/templates/user/form.html.eex:305
 msgid "Backgammon"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:290
+#: lib/storeHall_web/templates/user/form.html.eex:306
 msgid "Basketball"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:322
+#: lib/storeHall_web/templates/user/form.html.eex:338
 msgid "Blogging"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:261
+#: lib/storeHall_web/templates/user/form.html.eex:277
 msgid "Board games"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:262
+#: lib/storeHall_web/templates/user/form.html.eex:278
 msgid "Bodybuilding"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:323
+#: lib/storeHall_web/templates/user/form.html.eex:339
 msgid "Calligraphy"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:291
+#: lib/storeHall_web/templates/user/form.html.eex:307
 msgid "Car restoration"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:263
+#: lib/storeHall_web/templates/user/form.html.eex:279
 msgid "Chess"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:281
+#: lib/storeHall_web/templates/user/form.html.eex:297
 msgid "Childcare"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:308
+#: lib/storeHall_web/templates/user/form.html.eex:324
 msgid "Coding/Programming"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:328
+#: lib/storeHall_web/templates/user/form.html.eex:344
 msgid "Collecting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:292
+#: lib/storeHall_web/templates/user/form.html.eex:308
 msgid "Cooking"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:274
+#: lib/storeHall_web/templates/user/form.html.eex:290
 msgid "Crafts"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:297
+#: lib/storeHall_web/templates/user/form.html.eex:313
 msgid "Cricket"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:324
+#: lib/storeHall_web/templates/user/form.html.eex:340
 msgid "Crossword puzzles"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:315
+#: lib/storeHall_web/templates/user/form.html.eex:331
 msgid "Cycling"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:275
+#: lib/storeHall_web/templates/user/form.html.eex:291
 msgid "Dancing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:245
+#: lib/storeHall_web/templates/user/form.html.eex:261
 msgid "Divorced"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:309
+#: lib/storeHall_web/templates/user/form.html.eex:325
 msgid "Drawing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:310
+#: lib/storeHall_web/templates/user/form.html.eex:326
 msgid "Fishing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:303
+#: lib/storeHall_web/templates/user/form.html.eex:319
 msgid "Football"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:264
+#: lib/storeHall_web/templates/user/form.html.eex:280
 msgid "Gambling"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:329
+#: lib/storeHall_web/templates/user/form.html.eex:345
 msgid "Gardening"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:135
+#: lib/storeHall_web/templates/user/form.html.eex:151
 msgid "Gender"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:265
+#: lib/storeHall_web/templates/user/form.html.eex:281
 msgid "Golf"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:160
-#: lib/storeHall_web/templates/user/form.html.eex:171
+#: lib/storeHall_web/templates/user/form.html.eex:176
+#: lib/storeHall_web/templates/user/form.html.eex:187
 msgid "Height"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:227
+#: lib/storeHall_web/templates/user/form.html.eex:243
 msgid "High school"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:316
+#: lib/storeHall_web/templates/user/form.html.eex:332
 msgid "Hiking"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:311
+#: lib/storeHall_web/templates/user/form.html.eex:327
 msgid "Hunting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:222
+#: lib/storeHall_web/templates/user/form.html.eex:238
 msgid "Infant"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:253
+#: lib/storeHall_web/templates/user/form.html.eex:269
 msgid "Interests"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:266
+#: lib/storeHall_web/templates/user/form.html.eex:282
 msgid "Investing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:286
+#: lib/storeHall_web/templates/user/form.html.eex:302
 msgid "Jigsaw puzzles"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:350
+#: lib/storeHall_web/templates/user/form.html.eex:366
 msgid "Job sector"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:203
+#: lib/storeHall_web/templates/user/form.html.eex:219
 msgid "Kids"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:298
+#: lib/storeHall_web/templates/user/form.html.eex:314
 msgid "Knitting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:293
+#: lib/storeHall_web/templates/user/form.html.eex:309
 msgid "Landscaping"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:282
+#: lib/storeHall_web/templates/user/form.html.eex:298
 msgid "Languages"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:294
+#: lib/storeHall_web/templates/user/form.html.eex:310
 msgid "Lego building"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:330
+#: lib/storeHall_web/templates/user/form.html.eex:346
 msgid "Marathon running"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:236
+#: lib/storeHall_web/templates/user/form.html.eex:252
 msgid "Marital status"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:242
+#: lib/storeHall_web/templates/user/form.html.eex:258
 msgid "Married"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:267
+#: lib/storeHall_web/templates/user/form.html.eex:283
 msgid "Martial arts"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:268
+#: lib/storeHall_web/templates/user/form.html.eex:284
 msgid "Meditation"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:317
+#: lib/storeHall_web/templates/user/form.html.eex:333
 msgid "Model building"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:269
+#: lib/storeHall_web/templates/user/form.html.eex:285
 msgid "Mountain biking"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:304
+#: lib/storeHall_web/templates/user/form.html.eex:320
 msgid "Mountain climbing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:276
+#: lib/storeHall_web/templates/user/form.html.eex:292
 msgid "Musical instrument"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:283
+#: lib/storeHall_web/templates/user/form.html.eex:299
 msgid "Online classes"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:277
+#: lib/storeHall_web/templates/user/form.html.eex:293
 msgid "Origami"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:278
+#: lib/storeHall_web/templates/user/form.html.eex:294
 msgid "Painting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:318
+#: lib/storeHall_web/templates/user/form.html.eex:334
 msgid "Papermaking"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:270
+#: lib/storeHall_web/templates/user/form.html.eex:286
 msgid "Parachuting"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:305
+#: lib/storeHall_web/templates/user/form.html.eex:321
 msgid "Paragliding"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:279
+#: lib/storeHall_web/templates/user/form.html.eex:295
 msgid "Photography"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:280
+#: lib/storeHall_web/templates/user/form.html.eex:296
 msgid "Pottery"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:224
+#: lib/storeHall_web/templates/user/form.html.eex:240
 msgid "Preschooler"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:225
+#: lib/storeHall_web/templates/user/form.html.eex:241
 msgid "Primаry school"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:284
+#: lib/storeHall_web/templates/user/form.html.eex:300
 msgid "Reading"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:331
+#: lib/storeHall_web/templates/user/form.html.eex:347
 msgid "Recycling"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:295
+#: lib/storeHall_web/templates/user/form.html.eex:311
 msgid "Robotics"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:306
+#: lib/storeHall_web/templates/user/form.html.eex:322
 msgid "Rock climbing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:271
+#: lib/storeHall_web/templates/user/form.html.eex:287
 msgid "Running/Jogging"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:332
+#: lib/storeHall_web/templates/user/form.html.eex:348
 msgid "Sailing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:226
+#: lib/storeHall_web/templates/user/form.html.eex:242
 msgid "Secondary school"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:243
+#: lib/storeHall_web/templates/user/form.html.eex:259
 msgid "Separated"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:272
+#: lib/storeHall_web/templates/user/form.html.eex:288
 msgid "Singing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:240
+#: lib/storeHall_web/templates/user/form.html.eex:256
 msgid "Single"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:299
+#: lib/storeHall_web/templates/user/form.html.eex:315
 msgid "Skiing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:296
+#: lib/storeHall_web/templates/user/form.html.eex:312
 msgid "Skydiving"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:312
+#: lib/storeHall_web/templates/user/form.html.eex:328
 msgid "Snooker/Pool"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:475
+#: lib/storeHall_web/templates/user/form.html.eex:491
 msgid "Social buttons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:307
+#: lib/storeHall_web/templates/user/form.html.eex:323
 msgid "Socialising"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:319
+#: lib/storeHall_web/templates/user/form.html.eex:335
 msgid "Squash"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:228
+#: lib/storeHall_web/templates/user/form.html.eex:244
 msgid "Student"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:325
+#: lib/storeHall_web/templates/user/form.html.eex:341
 msgid "Surfing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:300
+#: lib/storeHall_web/templates/user/form.html.eex:316
 msgid "Swimming"
 msgstr ""
 
@@ -1551,456 +1551,486 @@ msgid "Target Мarketing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:229
+#: lib/storeHall_web/templates/user/form.html.eex:245
 msgid "Teen"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:287
+#: lib/storeHall_web/templates/user/form.html.eex:303
 msgid "Tennis"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:223
+#: lib/storeHall_web/templates/user/form.html.eex:239
 msgid "Toddler"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:326
+#: lib/storeHall_web/templates/user/form.html.eex:342
 msgid "Travelling"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:313
+#: lib/storeHall_web/templates/user/form.html.eex:329
 msgid "Video games"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:314
+#: lib/storeHall_web/templates/user/form.html.eex:330
 msgid "Video production"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:285
+#: lib/storeHall_web/templates/user/form.html.eex:301
 msgid "Volunteering"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:182
+#: lib/storeHall_web/templates/user/form.html.eex:198
 msgid "Weight"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:244
+#: lib/storeHall_web/templates/user/form.html.eex:260
 msgid "Widowed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:320
+#: lib/storeHall_web/templates/user/form.html.eex:336
 msgid "Woodworking"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:339
+#: lib/storeHall_web/templates/user/form.html.eex:355
 msgid "Work experience"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:301
+#: lib/storeHall_web/templates/user/form.html.eex:317
 msgid "Yoga"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:140
+#: lib/storeHall_web/templates/user/form.html.eex:156
 msgid "female"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:487
+#: lib/storeHall_web/templates/user/form.html.eex:503
 msgid "form edit hint for social buttons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:214
+#: lib/storeHall_web/templates/user/form.html.eex:230
 msgid "kids age"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:139
+#: lib/storeHall_web/templates/user/form.html.eex:155
 msgid "male"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:141
+#: lib/storeHall_web/templates/user/form.html.eex:157
 msgid "other"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:241
+#: lib/storeHall_web/templates/user/form.html.eex:257
 msgid "relation"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:358
+#: lib/storeHall_web/templates/user/form.html.eex:374
 msgid "Авиация"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:360
+#: lib/storeHall_web/templates/user/form.html.eex:376
 msgid "Автомобили"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:361
+#: lib/storeHall_web/templates/user/form.html.eex:377
 msgid "Автосервизи"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:363
+#: lib/storeHall_web/templates/user/form.html.eex:379
 msgid "Административни и офис дейности"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:364
+#: lib/storeHall_web/templates/user/form.html.eex:380
 msgid "Архитектура"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:367
+#: lib/storeHall_web/templates/user/form.html.eex:383
 msgid "Банки"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:362
+#: lib/storeHall_web/templates/user/form.html.eex:378
 msgid "Бензиностанции"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:389
+#: lib/storeHall_web/templates/user/form.html.eex:405
 msgid "Бизнес развитие"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:369
+#: lib/storeHall_web/templates/user/form.html.eex:385
 msgid "Бизнес/Консултантски услуги"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:372
+#: lib/storeHall_web/templates/user/form.html.eex:388
 msgid "Видео и Анимация"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:366
+#: lib/storeHall_web/templates/user/form.html.eex:382
 msgid "Градоустройство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:370
+#: lib/storeHall_web/templates/user/form.html.eex:386
 msgid "Дизайн"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:373
+#: lib/storeHall_web/templates/user/form.html.eex:389
 msgid "Енергетика и Ютилитис (Ток/Вода/Парно/Газ)"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:374
+#: lib/storeHall_web/templates/user/form.html.eex:390
 msgid "Застраховане"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:375
+#: lib/storeHall_web/templates/user/form.html.eex:391
 msgid "Здравеопазване и фармация"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:381
+#: lib/storeHall_web/templates/user/form.html.eex:397
 msgid "ИТ - Административни дейности и продажби"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:382
+#: lib/storeHall_web/templates/user/form.html.eex:398
 msgid "ИТ - Разработка/поддръжка на софтуер"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:383
+#: lib/storeHall_web/templates/user/form.html.eex:399
 msgid "ИТ - Разработка/поддръжка на хардуер"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:387
+#: lib/storeHall_web/templates/user/form.html.eex:403
 msgid "Издателство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:376
+#: lib/storeHall_web/templates/user/form.html.eex:392
 msgid "Изкуство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:378
+#: lib/storeHall_web/templates/user/form.html.eex:394
 msgid "Изследователска и Развойна дейност (R&D)"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:379
+#: lib/storeHall_web/templates/user/form.html.eex:395
 msgid "Инженери"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:380
+#: lib/storeHall_web/templates/user/form.html.eex:396
 msgid "Институции, Държавна администрация"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:415
+#: lib/storeHall_web/templates/user/form.html.eex:431
 msgid "Кинезитерапия"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:384
+#: lib/storeHall_web/templates/user/form.html.eex:400
 msgid "Контакт центрове (Call Centers)"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:368
+#: lib/storeHall_web/templates/user/form.html.eex:384
 msgid "Кредитиране"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:371
+#: lib/storeHall_web/templates/user/form.html.eex:387
 msgid "Криейтив"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:430
+#: lib/storeHall_web/templates/user/form.html.eex:446
 msgid "Куриери "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:393
+#: lib/storeHall_web/templates/user/form.html.eex:409
 msgid "Курсове"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:359
+#: lib/storeHall_web/templates/user/form.html.eex:375
 msgid "Летища и Авиолинии"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:422
+#: lib/storeHall_web/templates/user/form.html.eex:438
 msgid "Логистика"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:385
+#: lib/storeHall_web/templates/user/form.html.eex:401
 msgid "Маркетинг"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:386
+#: lib/storeHall_web/templates/user/form.html.eex:402
 msgid "Медии"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:388
+#: lib/storeHall_web/templates/user/form.html.eex:404
 msgid "Мениджмънт"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:390
+#: lib/storeHall_web/templates/user/form.html.eex:406
 msgid "Морски и Речен транспорт"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:391
+#: lib/storeHall_web/templates/user/form.html.eex:407
 msgid "Недвижими имоти"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:392
+#: lib/storeHall_web/templates/user/form.html.eex:408
 msgid "Образование"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:417
+#: lib/storeHall_web/templates/user/form.html.eex:433
 msgid "Одит"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:395
+#: lib/storeHall_web/templates/user/form.html.eex:411
 msgid "Организации с нестопанска цел"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:396
+#: lib/storeHall_web/templates/user/form.html.eex:412
 msgid "Почистване"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:398
+#: lib/storeHall_web/templates/user/form.html.eex:414
 msgid "Право, Юридически услуги"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:394
+#: lib/storeHall_web/templates/user/form.html.eex:410
 msgid "Преводи"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:406
+#: lib/storeHall_web/templates/user/form.html.eex:422
 msgid "Производство - Друго"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:399
+#: lib/storeHall_web/templates/user/form.html.eex:415
 msgid "Производство - Електроника, Електротехника, Машиностроене"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:400
+#: lib/storeHall_web/templates/user/form.html.eex:416
 msgid "Производство - Мебели и Дърводелство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:401
+#: lib/storeHall_web/templates/user/form.html.eex:417
 msgid "Производство - Металургия и Минно дело"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:402
+#: lib/storeHall_web/templates/user/form.html.eex:418
 msgid "Производство - Текстил и Облеклa"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:403
+#: lib/storeHall_web/templates/user/form.html.eex:419
 msgid "Производство - Фармация"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:404
+#: lib/storeHall_web/templates/user/form.html.eex:420
 msgid "Производство - Химия и Горива"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:405
+#: lib/storeHall_web/templates/user/form.html.eex:421
 msgid "Производство - Храни и Напитки"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:377
+#: lib/storeHall_web/templates/user/form.html.eex:393
 msgid "Развлечение"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:407
+#: lib/storeHall_web/templates/user/form.html.eex:423
 msgid "Резервации и Туризъм"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:408
+#: lib/storeHall_web/templates/user/form.html.eex:424
 msgid "Реклама, PR"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:409
+#: lib/storeHall_web/templates/user/form.html.eex:425
 msgid "Ремонтни и Монтажни дейности"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:410
+#: lib/storeHall_web/templates/user/form.html.eex:426
 msgid "Ресторанти, Кетъринг"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:426
+#: lib/storeHall_web/templates/user/form.html.eex:442
 msgid "Ръчен труд"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:411
+#: lib/storeHall_web/templates/user/form.html.eex:427
 msgid "Салони за красота"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:412
+#: lib/storeHall_web/templates/user/form.html.eex:428
 msgid "Селско и горско стопанство, Рибовъдство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:413
+#: lib/storeHall_web/templates/user/form.html.eex:429
 msgid "Сигурност и Охрана"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:423
+#: lib/storeHall_web/templates/user/form.html.eex:439
 msgid "Спедиция"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:414
+#: lib/storeHall_web/templates/user/form.html.eex:430
 msgid "Спорт"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:365
+#: lib/storeHall_web/templates/user/form.html.eex:381
 msgid "Строителство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:416
+#: lib/storeHall_web/templates/user/form.html.eex:432
 msgid "Счетоводство"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:419
+#: lib/storeHall_web/templates/user/form.html.eex:435
 msgid "Телекомуникации - административни дейности и продажби"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:420
+#: lib/storeHall_web/templates/user/form.html.eex:436
 msgid "Телекомуникации - инженери и техници"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:421
+#: lib/storeHall_web/templates/user/form.html.eex:437
 msgid "Транспорт"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:424
+#: lib/storeHall_web/templates/user/form.html.eex:440
 msgid "Търговия и продажби"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:397
+#: lib/storeHall_web/templates/user/form.html.eex:413
 msgid "Услуги за домакинството"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:425
+#: lib/storeHall_web/templates/user/form.html.eex:441
 msgid "Физически труд"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:418
+#: lib/storeHall_web/templates/user/form.html.eex:434
 msgid "Финанси"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:427
+#: lib/storeHall_web/templates/user/form.html.eex:443
 msgid "Хотели"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:428
+#: lib/storeHall_web/templates/user/form.html.eex:444
 msgid "Човешки ресурси"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:429
+#: lib/storeHall_web/templates/user/form.html.eex:445
 msgid "Шофьори"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/header.html.eex:66
+msgid " credits"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/rating/_rating_block.html.eex:18
+msgid " seen"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:135
+msgid "Minimal credits earnings per mail"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:143
+msgid "form edit hint for mail_credits"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:145
+msgid "For more info and hints, please see "
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall_web/templates/user/form.html.eex:145
+msgid "here"
 msgstr ""

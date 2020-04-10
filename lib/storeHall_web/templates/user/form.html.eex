@@ -132,6 +132,23 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :mail_credits, Gettext.gettext("Minimal credits earnings per mail") %>
+    <div class="form_field">
+      <%= number_input f, :marketing_mail_credits,
+              min: 0,
+              class: "form_field_value",
+              name: input_name(f, :settings) <> "[mail_credits]",
+              value: input_value(f, :settings)["mail_credits"] %>
+      <div class="hint">
+        <%= sanitize to_string(Gettext.gettext("form edit hint for mail_credits")) %>
+        <div>
+          <%= Gettext.gettext("For more info and hints, please see ") %><span class="underline"><%= link to: Routes.about_path(@conn, :howto) <> "#credits" do %><%= Gettext.gettext("here") %>.<% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= label f, :gender, Gettext.gettext("Gender") %>
     <div class="form_field">
         <%= select f, :marketing_gender, 

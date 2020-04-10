@@ -9,6 +9,7 @@ defmodule StoreHall.Users.Settings do
       default: %{
         "locale" => "bg",
         "credits" => 0,
+        "mail_credits" => 10,
         "cookie_consent" => "agreed",
         "marketing_consent" => "not_agreed",
         "social_buttons" => ["facebook", "pinterest", "copy_link"],
