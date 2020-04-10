@@ -86,16 +86,12 @@ defmodule StoreHallWeb.ItemController do
 
     # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
 
-    case item.reaction do
-      nil ->
-        Action.init_item_reaction(
-          Items.get_item_id(id),
-          logged_user_id,
-          item.user_id
-        )
-
-      _ ->
-        nil
+    if item.reaction == nil and logged_user_id != nil do
+      Action.init_item_reaction(
+        Items.get_item_id(id),
+        logged_user_id,
+        item.user_id
+      )
     end
 
     render(conn, :show, item: item)
