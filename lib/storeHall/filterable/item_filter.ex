@@ -87,7 +87,7 @@ defmodule StoreHall.ItemFilter do
       dynamic,
       value
       |> String.split(",", trim: true)
-      |> Enum.reduce(dynamic, fn merch_type, dyn ->
+      |> Enum.reduce(false, fn merch_type, dyn ->
         FilterableQuery.clean_dynamic(
           :or,
           dyn,
@@ -135,7 +135,7 @@ defmodule StoreHall.ItemFilter do
       try do
         value
         |> Jason.decode!()
-        |> Enum.reduce(dynamic, fn feat, dyn ->
+        |> Enum.reduce(false, fn feat, dyn ->
           split_feat = String.split(feat, ":", trim: true)
 
           key = split_feat |> hd

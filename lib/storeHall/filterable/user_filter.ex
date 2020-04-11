@@ -41,4 +41,30 @@ defmodule StoreHall.UserFilter do
   end
 
   defp filter(:mail_credits_ask, dynamic, _), do: dynamic
+
+  defp filter(:merchant_type, dynamic, value) when value == "", do: dynamic
+
+  defp filter(:merchant_type, dynamic, value) do
+    FilterableQuery.clean_dynamic(
+      :and,
+      dynamic,
+      value
+      |> String.split(",", trim: true)
+      |> Enum.reduce(false, fn merch_type, dyn ->
+        FilterableQuery.clean_dynamic(
+          :or,
+          dyn,
+          dynamic(
+            [u],
+            fragment(
+              "(?.details->>?)::varchar = ? ",
+              u,
+              "merchant_type",
+              ^to_string(merch_type)
+            )
+          )
+        )
+      end)
+    )
+  end
 end
