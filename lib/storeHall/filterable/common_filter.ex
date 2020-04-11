@@ -86,22 +86,6 @@ defmodule StoreHall.CommonFilter do
 
       defp filter(:rating, dynamic, _), do: dynamic
 
-      defp filter(:cities, dynamic, value) when value == "", do: dynamic
-
-      defp filter(:cities, dynamic, value) do
-        FilterableQuery.construct_where_fragment(
-          dynamic,
-          %{
-            in: %{
-              field: ["cities"],
-              value:
-                value
-                |> String.split(",", trim: true)
-            }
-          }
-        )
-      end
-
       # example value: {"gte": {"field": "rating, core", "value": 4}}
       # example url params mimicin with_image filter &filter[length_at_least][field][]=images&filter[length_at_least][value]=1
       defp filter(:"custom-filters", dynamic, value) do
@@ -113,6 +97,66 @@ defmodule StoreHall.CommonFilter do
         rescue
           _ -> dynamic
         end
+      end
+
+      defp filter_range(field_atom, dynamic, %{"min" => min_price, "max" => max_price}) do
+        dynamic
+        |> filter_min_max(:gte, Atom.to_string(field_atom), min_price)
+        |> filter_min_max(:lte, Atom.to_string(field_atom), max_price)
+      end
+
+      defp filter_range(field_atom, dynamic, %{"min" => min_price}) do
+        dynamic
+        |> filter_min_max(:gte, Atom.to_string(field_atom), min_price)
+      end
+
+      defp filter_range(field_atom, dynamic, %{"max" => max_price}) do
+        dynamic
+        |> filter_min_max(:lte, Atom.to_string(field_atom), max_price)
+      end
+
+      defp filter_range(field_atom, dynamic, _), do: dynamic
+
+      defp filter_select_options(field_atom, dynamic, value) when value == "", do: dynamic
+
+      defp filter_select_options(field_atom, dynamic, value) do
+        FilterableQuery.clean_dynamic(
+          :and,
+          dynamic,
+          value
+          |> String.split(",", trim: true)
+          |> Enum.reduce(false, fn option, dyn ->
+            FilterableQuery.clean_dynamic(
+              :or,
+              dyn,
+              dynamic(
+                [u],
+                fragment(
+                  "(?.details->>?)::varchar = ? ",
+                  u,
+                  ^Atom.to_string(field_atom),
+                  ^to_string(option)
+                )
+              )
+            )
+          end)
+        )
+      end
+
+      defp filter_select_multi_options(field_atom, dynamic, value) when value == "", do: dynamic
+
+      defp filter_select_multi_options(field_atom, dynamic, value) do
+        FilterableQuery.construct_where_fragment(
+          dynamic,
+          %{
+            in: %{
+              field: [Atom.to_string(field_atom)],
+              value:
+                value
+                |> String.split(",", trim: true)
+            }
+          }
+        )
       end
 
       defp keys_to_existing_atom(value) when is_map(value) do

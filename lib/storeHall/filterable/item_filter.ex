@@ -20,41 +20,10 @@ defmodule StoreHall.ItemFilter do
     )
   end
 
-  defp filter(:price, dynamic, %{"min" => min_price, "max" => max_price}) do
-    dynamic
-    |> filter_min_max(:gte, "price", min_price)
-    |> filter_min_max(:lte, "price", max_price)
-  end
+  defp filter(:cities, dynamic, value), do: filter_select_multi_options(:cities, dynamic, value)
 
-  defp filter(:price, dynamic, %{"min" => min_price}) do
-    dynamic
-    |> filter_min_max(:gte, "price", min_price)
-  end
-
-  defp filter(:price, dynamic, %{"max" => max_price}) do
-    dynamic
-    |> filter_min_max(:lte, "price", max_price)
-  end
-
-  defp filter(:price, dynamic, _), do: dynamic
-
-  defp filter(:discount, dynamic, %{"min" => min_discount, "max" => max_discount}) do
-    dynamic
-    |> filter_min_max(:gte, "discount", min_discount)
-    |> filter_min_max(:lte, "discount", max_discount)
-  end
-
-  defp filter(:discount, dynamic, %{"min" => min_discount}) do
-    dynamic
-    |> filter_min_max(:gte, "discount", min_discount)
-  end
-
-  defp filter(:discount, dynamic, %{"max" => max_discount}) do
-    dynamic
-    |> filter_min_max(:lte, "discount", max_discount)
-  end
-
-  defp filter(:discount, dynamic, _), do: dynamic
+  defp filter(:price, dynamic, params), do: filter_range(:price, dynamic, params)
+  defp filter(:discount, dynamic, params), do: filter_range(:discount, dynamic, params)
 
   defp filter(:tags, dynamic, value) when value == "", do: dynamic
 

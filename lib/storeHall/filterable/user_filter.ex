@@ -24,47 +24,32 @@ defmodule StoreHall.UserFilter do
     )
   end
 
-  defp filter(:mail_credits_ask, dynamic, %{"min" => min_price, "max" => max_price}) do
-    dynamic
-    |> filter_min_max(:gte, "mail_credits_ask", min_price)
-    |> filter_min_max(:lte, "mail_credits_ask", max_price)
-  end
+  defp filter(:mail_credits_ask, dynamic, params),
+    do: filter_range(:mail_credits_ask, dynamic, params)
 
-  defp filter(:mail_credits_ask, dynamic, %{"min" => min_price}) do
-    dynamic
-    |> filter_min_max(:gte, "mail_credits_ask", min_price)
-  end
+  defp filter(:work_experience, dynamic, params),
+    do: filter_range(:work_experience, dynamic, params)
 
-  defp filter(:mail_credits_ask, dynamic, %{"max" => max_price}) do
-    dynamic
-    |> filter_min_max(:lte, "mail_credits_ask", max_price)
-  end
+  defp filter(:height, dynamic, params), do: filter_range(:height, dynamic, params)
+  defp filter(:weight, dynamic, params), do: filter_range(:weight, dynamic, params)
+  defp filter(:kids, dynamic, params), do: filter_range(:kids, dynamic, params)
 
-  defp filter(:mail_credits_ask, dynamic, _), do: dynamic
+  defp filter(:merchant_type, dynamic, value),
+    do: filter_select_options(:merchant_type, dynamic, value)
 
-  defp filter(:merchant_type, dynamic, value) when value == "", do: dynamic
+  defp filter(:marital_status, dynamic, value),
+    do: filter_select_options(:marital_status, dynamic, value)
 
-  defp filter(:merchant_type, dynamic, value) do
-    FilterableQuery.clean_dynamic(
-      :and,
-      dynamic,
-      value
-      |> String.split(",", trim: true)
-      |> Enum.reduce(false, fn merch_type, dyn ->
-        FilterableQuery.clean_dynamic(
-          :or,
-          dyn,
-          dynamic(
-            [u],
-            fragment(
-              "(?.details->>?)::varchar = ? ",
-              u,
-              "merchant_type",
-              ^to_string(merch_type)
-            )
-          )
-        )
-      end)
-    )
-  end
+  defp filter(:gender, dynamic, value), do: filter_select_options(:gender, dynamic, value)
+
+  defp filter(:cities, dynamic, value), do: filter_select_multi_options(:cities, dynamic, value)
+
+  defp filter(:kids_age, dynamic, value),
+    do: filter_select_multi_options(:kids_age, dynamic, value)
+
+  defp filter(:interests, dynamic, value),
+    do: filter_select_multi_options(:interests, dynamic, value)
+
+  defp filter(:job_sector, dynamic, value),
+    do: filter_select_multi_options(:job_sector, dynamic, value)
 end

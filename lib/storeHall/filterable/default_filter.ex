@@ -1,36 +1,7 @@
 defmodule StoreHall.DefaultFilter do
+  use StoreHall.FilterAcceptedOptions
   import Ecto.Query, warn: false
   alias StoreHall.Users
-
-  @accepted_orders [
-    :asc,
-    :desc
-    # :asc_nulls_last,
-    # :asc_nulls_first,
-    # :desc_nulls_last,
-    # :desc_nulls_first
-  ]
-
-  @accepted_fields [:id, :inserted_at, :updated_at, :name]
-  @accepted_sorting %{
-    "price desc" => "price:desc",
-    "price asc" => "price:asc",
-    "discount desc" => "discount:desc",
-    "discount asc" => "discount:asc",
-    "rating desc" => "rating:desc",
-    "rating asc" => "rating:asc",
-    "expiration desc" => "expiration:desc",
-    "expiration asc" => "expiration:asc",
-    "inserted_at desc" => "inserted_at:desc",
-    "inserted_at asc" => "inserted_at:аsc",
-    "name desc" => "name:desc",
-    "name asc" => "name:аsc"
-  }
-  @accepted_merchant_type %{
-    "Private seller" => "merch_private",
-    "Producer" => "merch_producer",
-    "Retailer" => "merch_retailer"
-  }
 
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
@@ -238,24 +209,4 @@ defmodule StoreHall.DefaultFilter do
 
   defp order_by_details_field(query, "feature_" <> feature, _),
     do: order_by_details_field_fragment(query, "?.details->'features'->>?", feature)
-
-  # defp to_accepted_fields(atom) when atom in @accepted_fields, do: atom
-  # defp to_accepted_fields(string), do: string
-  def accepted_sorting() do
-    @accepted_sorting
-    |> Enum.reduce(%{}, fn {key, value}, acc ->
-      acc |> Map.put(Gettext.gettext(StoreHallWeb.Gettext, key), value)
-    end)
-  end
-
-  def accepted_merchant_type() do
-    @accepted_merchant_type
-    |> Enum.reduce(%{}, fn {key, value}, acc ->
-      acc |> Map.put(Gettext.gettext(StoreHallWeb.Gettext, key), value)
-    end)
-  end
-
-  defp to_accepted_orders(atom, _default) when atom in @accepted_orders, do: atom
-  defp to_accepted_orders(_string, default), do: default
-  def accepted_orders(), do: @accepted_orders
 end

@@ -31,7 +31,7 @@
 
     <div class="tab">
       <input type="checkbox" id="mail_credits_ask-min" class="collapsible">
-      <label class="tab-label" for="mail_credits_ask-min"><%= Gettext.gettext("mail_credits_ask") %> <%= Gettext.gettext("credits") %></label>
+      <label class="tab-label" for="mail_credits_ask-min"><%= Gettext.gettext("mail_credits_ask") %></label>
       <div class="tab-content">
 
         <div class="range-slider">
@@ -74,8 +74,6 @@
     </div>
 
 
-
-
     <div class="tab">
       <input type="checkbox" id="merchant_type" class="collapsible">
       <label class="tab-label" for="merchant_type"><%= Gettext.gettext("Merchant type") %></label>
@@ -89,36 +87,6 @@
       </div>
     </div>
 
-
-
-    <div class="tab">
-      <input type="checkbox" id="tags" class="collapsible">
-      <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
-      <div class="tab-content">
-        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
-          <%= text_input f, :tags, class: "auto-submit-item" %>
-        </div>
-      </div>
-    </div>
-
-
-<%= if false do %>    
-    <div class="tab">
-      <input type="checkbox" id="features" class="collapsible">
-      <label class="tab-label" for="features"><%= Gettext.gettext("Features") %></label>
-      <div class="tab-content">
-        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>' key_value_separator=":">
-          <%= text_input f, :features, class: "auto-submit-item", value: f.params["features"] || %{} %>
-          <%= select f, :features_select, StoreHall.Items.get_feature_filters(@conn.assigns.items), name: nil %>
-          <template data-key="_key_" data-value="_value_">
-            <span>_key_</span>
-            <input class='datalist_item_oninput_event' type='text' value='_value_'>
-          </template>
-        </div>
-      </div>
-    </div>
-<% end %>
-    
     <div class="tab">
       <input type="checkbox" id="rating-min" class="collapsible">
       <label class="tab-label" for="rating-min"><%= Gettext.gettext("Scores") %></label>
@@ -151,6 +119,204 @@
 
       </div>
     </div>
+
+    <div class="tab">
+      <input type="checkbox" id="gender" class="collapsible">
+      <label class="tab-label" for="gender"><%= Gettext.gettext("Gender") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :gender, class: "auto-submit-item" %>
+          <%= select f, :gender_select,
+                    StoreHall.DefaultFilter.accepted_gender(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="height-min" class="collapsible">
+      <label class="tab-label" for="height-min"><%= Gettext.gettext("Height") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :height_min,
+              class: "min",
+              step: 1,
+              name: "filter[height][min]",
+              value: f.params["height"]["min"] %>
+            <%= number_input f, :height_max,
+              class: "max",
+              step: 1,
+              name: "filter[height][max]",
+              value: f.params["height"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :height_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["height"]["min"] || 0 %>
+            <%= range_input f, :height_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["height"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="weight-min" class="collapsible">
+      <label class="tab-label" for="weight-min"><%= Gettext.gettext("Weight") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :weight_min,
+              class: "min",
+              step: 1,
+              name: "filter[weight][min]",
+              value: f.params["weight"]["min"] %>
+            <%= number_input f, :weight_max,
+              class: "max",
+              step: 1,
+              name: "filter[weight][max]",
+              value: f.params["weight"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :weight_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["weight"]["min"] || 0 %>
+            <%= range_input f, :weight_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["weight"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="kids-min" class="collapsible">
+      <label class="tab-label" for="kids-min"><%= Gettext.gettext("Kids") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :kids_min,
+              class: "min",
+              step: 1,
+              name: "filter[kids][min]",
+              value: f.params["kids"]["min"] %>
+            <%= number_input f, :kids_max,
+              class: "max",
+              step: 1,
+              name: "filter[kids][max]",
+              value: f.params["kids"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :kids_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["kids"]["min"] || 0 %>
+            <%= range_input f, :kids_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["kids"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="kids_age" class="collapsible">
+      <label class="tab-label" for="kids_age"><%= Gettext.gettext("Kids age") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :kids_age, class: "auto-submit-item" %>
+          <%= select f, :kids_age_select,
+                    StoreHall.DefaultFilter.accepted_kids_age(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="marital_status" class="collapsible">
+      <label class="tab-label" for="marital_status"><%= Gettext.gettext("Marital status") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :marital_status, class: "auto-submit-item" %>
+          <%= select f, :marital_status_select,
+                    StoreHall.DefaultFilter.accepted_marital_status(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="interests" class="collapsible">
+      <label class="tab-label" for="interests"><%= Gettext.gettext("Interests") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :interests, class: "auto-submit-item" %>
+          <%= select f, :interests_select,
+                    StoreHall.DefaultFilter.accepted_interests(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="work_experience-min" class="collapsible">
+      <label class="tab-label" for="work_experience-min"><%= Gettext.gettext("Work experience") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :work_experience_min,
+              class: "min",
+              step: 1,
+              name: "filter[work_experience][min]",
+              value: f.params["work_experience"]["min"] %>
+            <%= number_input f, :work_experience_max,
+              class: "max",
+              step: 1,
+              name: "filter[work_experience][max]",
+              value: f.params["work_experience"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :work_experience_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["work_experience"]["min"] || 0 %>
+            <%= range_input f, :work_experience_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["work_experience"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="tab">
+      <input type="checkbox" id="job_sector" class="collapsible">
+      <label class="tab-label" for="job_sector"><%= Gettext.gettext("Job sector") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :job_sector, class: "auto-submit-item" %>
+          <%= select f, :job_sector_select,
+                    StoreHall.DefaultFilter.accepted_job_sector(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
 
     <%= for param <- @conn.params
       |> Map.delete("_utf8")
