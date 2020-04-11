@@ -1,0 +1,163 @@
+
+<sidebar-filters>
+  <%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
+
+    <div class="tab">
+      <!-- TODO:maybe use some spellchecker or suggestions -->
+      <%= text_input f, :q, placeholder: Gettext.gettext("Search by text"),
+        class: "auto-submit-item" %>
+      <svg class="svg_icon search_icon"><use xlink:href="/images/sprite.svg#si-ant-search"></use></svg>
+
+      <%= submit Gettext.gettext("Submit") %>
+    </div>
+
+
+
+    <%= if false do %>
+      <label for="with-image">With image:
+        <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
+      </label>
+
+      <div class="tab">
+        <input type="checkbox" id="custom" class="collapsible">
+        <label class="tab-label" for="custom">Custom:</label>
+        <div class="tab-content">
+          <% textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
+          value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
+        </div>
+      </div>
+    <% end %>
+
+
+    <div class="tab">
+      <input type="checkbox" id="mail_credits_ask-min" class="collapsible">
+      <label class="tab-label" for="mail_credits_ask-min"><%= Gettext.gettext("mail_credits_ask") %> <%= Gettext.gettext("credits") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :mail_credits_ask_min,
+              class: "min",
+              min: 0, step: 0.01,
+              name: "filter[mail_credits_ask][min]",
+              value: f.params["mail_credits_ask"]["min"] %>
+            <%= number_input f, :mail_credits_ask_max,
+              class: "max",
+              min: 0, step: 0.01,
+              name: "filter[mail_credits_ask][max]",
+              value: f.params["mail_credits_ask"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :mail_credits_ask_min_slider,
+              min: 0, max: 1000, step: 1,
+              class: "min-slider auto-submit-item",
+              value: f.params["mail_credits_ask"]["min"] || 0 %>
+
+            <%= range_input f, :mail_credits_ask_max_slider,
+              min: 0, max: 1000, step: 1,
+              class: "max-slider auto-submit-item",
+              value: f.params["mail_credits_ask"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="location" class="collapsible">
+      <label class="tab-label" for="location"><%= Gettext.gettext("City") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :cities, class: "auto-submit-item" %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="tab">
+      <input type="checkbox" id="merchant_type" class="collapsible">
+      <label class="tab-label" for="merchant_type"><%= Gettext.gettext("Merchant type") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :merchant_type, class: "auto-submit-item" %>
+          <%= select f, :merchant_type_select,
+                    StoreHall.DefaultFilter.accepted_merchant_type(),
+                    name: nil %>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="tab">
+      <input type="checkbox" id="tags" class="collapsible">
+      <label class="tab-label" for="tags"><%= Gettext.gettext("Tags") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
+          <%= text_input f, :tags, class: "auto-submit-item" %>
+        </div>
+      </div>
+    </div>
+
+
+<%= if false do %>    
+    <div class="tab">
+      <input type="checkbox" id="features" class="collapsible">
+      <label class="tab-label" for="features"><%= Gettext.gettext("Features") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>' key_value_separator=":">
+          <%= text_input f, :features, class: "auto-submit-item", value: f.params["features"] || %{} %>
+          <%= select f, :features_select, StoreHall.Items.get_feature_filters(@conn.assigns.items), name: nil %>
+          <template data-key="_key_" data-value="_value_">
+            <span>_key_</span>
+            <input class='datalist_item_oninput_event' type='text' value='_value_'>
+          </template>
+        </div>
+      </div>
+    </div>
+<% end %>
+    
+    <div class="tab">
+      <input type="checkbox" id="rating-min" class="collapsible">
+      <label class="tab-label" for="rating-min"><%= Gettext.gettext("Scores") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :rating_min,
+              class: "min",
+              step: 1,
+              name: "filter[rating][min]",
+              value: f.params["rating"]["min"] %>
+            <%= number_input f, :rating_max,
+              class: "max",
+              step: 1,
+              name: "filter[rating][max]",
+              value: f.params["rating"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :rating_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["rating"]["min"] || 0 %>
+            <%= range_input f, :rating_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["rating"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <%= for param <- @conn.params
+      |> Map.delete("_utf8")
+      |> Map.delete("filter")
+      |> Map.delete("page")
+      |> Map.keys() do
+        hidden_input f, "p", name: param, value: @conn.params[param]
+    end %>
+  <% end %>
+</sidebar-filters>

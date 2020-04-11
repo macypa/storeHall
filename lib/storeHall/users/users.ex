@@ -10,18 +10,17 @@ defmodule StoreHall.Users do
   alias StoreHall.Users.Settings
 
   alias StoreHall.UserFilter
-  alias StoreHall.DefaultFilter
+  # alias StoreHall.DefaultFilter
 
   def list_users(params \\ nil) do
     apply_filters(params)
     |> Repo.all()
-    |> Images.append_images()
   end
 
   def apply_filters(params) do
     User
-    |> DefaultFilter.sort_filter(params)
-    |> DefaultFilter.paging_filter(params)
+    |> UserFilter.with_marketing_consent()
+    # |> join(:left, [u], s in Settings, on: s.id == u.id, as: :s)
     |> UserFilter.search_filter(params)
   end
 

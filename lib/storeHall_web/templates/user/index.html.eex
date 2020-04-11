@@ -1,16 +1,3 @@
-<%= form_for @conn, Routes.user_path(@conn, :index), [as: :filter, method: :get, enforce_utf8: false, id: "form-filter"], fn f -> %>
-  <%= text_input f, :q, placeholder: Gettext.gettext("Search by title, content, etc."),
-    class: "auto-submit-user" %>
-
-  <%= for param <- @conn.params
-    |> Map.delete("_utf8")
-    |> Map.delete("filter")
-    |> Map.delete("page")
-    |> Map.keys() do
-      hidden_input f, "p", name: param, value: @conn.params[param]
-  end %>
-
-<% end %>
 
 <!--input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
 <label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
@@ -79,5 +66,3 @@
   <% end %>
 
 </div>
-
-<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @users, add_params: "" %>
