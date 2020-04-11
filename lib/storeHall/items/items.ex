@@ -130,12 +130,12 @@ defmodule StoreHall.Items do
   defp prepare_for_insert(item) do
     item
     |> Images.prepare_images()
-    |> prepare_number_float(["details", "price"])
-    |> prepare_number_float(["details", "price_orig"])
-    |> prepare_number_int(["details", "discount"])
+    |> prepare_number(["details", "price"])
+    |> prepare_number(["details", "price_orig"])
+    |> prepare_number(["details", "discount"])
   end
 
-  defp prepare_number_int(item, map_key) do
+  defp prepare_number(item, map_key) do
     number =
       item
       |> get_in(map_key)
@@ -145,34 +145,30 @@ defmodule StoreHall.Items do
 
         number ->
           number
-          |> Integer.parse()
-          |> case do
-            :error -> 0
-            {number, _} -> number
-          end
+          |> parse_number()
       end
 
     item |> put_in(map_key, number)
   end
 
-  defp prepare_number_float(item, map_key) do
-    number =
-      item
-      |> get_in(map_key)
-      |> case do
-        nil ->
-          0
+  defp parse_number(int) when is_integer(int), do: int
+  defp parse_number(float) when is_float(float), do: float |> Float.round(2)
 
-        number ->
-          number
-          |> Float.parse()
-          |> case do
-            :error -> 0
-            {number, _} -> number |> Float.round(2)
-          end
-      end
+  defp parse_number(str) when is_binary(str) do
+    str
+    |> Float.parse()
+    |> case do
+      :error ->
+        str
+        |> Integer.parse()
+        |> case do
+          :error -> 0
+          {number, _} -> number
+        end
 
-    item |> put_in(map_key, number)
+      {number, _} ->
+        parse_number(number)
+    end
   end
 
   defp init_rating(item) do
