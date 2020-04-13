@@ -38,7 +38,7 @@ defmodule StoreHallWeb.UserChannelTest do
           user_id: new_user.id,
           author: user,
           reaction: nil,
-          details: %{scores: %{"all" => 3}}
+          details: %{scores: ["all:3"]}
         })
 
       push(socket, "rating:add", %{"data" => rating})
@@ -55,7 +55,7 @@ defmodule StoreHallWeb.UserChannelTest do
           user_id: new_user.id,
           author: user,
           reaction: nil,
-          details: %{scores: %{"all" => 3}}
+          details: %{scores: ["all:3"]}
         })
 
       push(socket, "rating:add", %{"data" => rating})

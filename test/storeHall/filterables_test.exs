@@ -7,10 +7,10 @@ defmodule StoreHall.FilterablesTest do
   alias StoreHall.Users
 
   describe "paging" do
-    property "filter for users returns lessOrEq than page-size" do
+    property "filter for users returns all users even with page-size" do
       check all(_ <- Fixture.user_generator(), page_size <- StreamData.positive_integer()) do
         params = %{"page-size" => "#{page_size}"}
-        assert length(Users.list_users(params)) <= page_size
+        assert length(Users.list_users(params)) <= length(Users.list_users())
       end
     end
 

@@ -8,6 +8,7 @@ defmodule StoreHallWeb.ItemControllerTest do
   alias StoreHall.Users
   alias StoreHall.Items
   alias StoreHall.Items.Item
+  alias StoreHall.Repo
 
   @item_attrs %{
     "details" => %{
@@ -244,7 +245,7 @@ defmodule StoreHallWeb.ItemControllerTest do
   end
 
   defp create_item(_) do
-    item = Items.get_item!(Fixture.generate_item().id)
+    item = Items.get_item!(Fixture.generate_item().id) |> Repo.preload(:user)
     {:ok, item: item}
   end
 end

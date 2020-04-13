@@ -3,6 +3,7 @@ defmodule StoreHall.Fixture do
 
   alias StoreHall.Repo
   alias StoreHall.Items
+  alias StoreHall.Users
   alias StoreHall.Users.User
   alias StoreHall.Comments.ItemComment
   alias StoreHall.Comments.UserComment
@@ -34,6 +35,7 @@ defmodule StoreHall.Fixture do
     ExUnitProperties.pick(ueberauth_generator())
   end
 
+  @spec user_generator(any) :: none
   def user_generator(fun \\ &Repo.insert/1) do
     ExUnitProperties.gen all(
                            seed <- StreamData.string(:alphanumeric),
@@ -51,6 +53,11 @@ defmodule StoreHall.Fixture do
         )
 
       user
+      |> Users.update_user(%{
+        details: user.details |> Map.put("marketing_consent", "agreed")
+      })
+      |> elem(1)
+      |> Map.drop([:settings])
 
       # |> Repo.insert()
     end
