@@ -21,7 +21,7 @@
     "fotorama": "^4.6.4",
     "handlebars": "^4.7.3",
     "handlebars-loader": "^1.7.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-lazy": "^1.7.10",
     "lodash": "^4.17.15",
     "node-sass-glob-importer": "^5.3.2",
