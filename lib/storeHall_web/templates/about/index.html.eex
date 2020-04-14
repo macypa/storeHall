@@ -23,7 +23,7 @@
           <a href="<%= image %>"></a>
         <% end %>
 
-        <%= for video <- @user.details["videos"] || [] do %>
+        <%= for video <- @user.info["videos"] || [] do %>
           <a href="<%= video %>"></a>
         <% end %>
       </div>
@@ -37,7 +37,7 @@
     <user_details>
       <span>
         <span class="info_content">
-          <%= sanitize to_string(@user.details["description"]) %>
+          <%= sanitize to_string(@user.info["description"]) %>
           Това е платформа за търсене на продукти и услуги, където акцентът е към обявата:
           <ul>
             <li>без изскачащи прозорци</li>

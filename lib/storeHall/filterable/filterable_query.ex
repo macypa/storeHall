@@ -26,11 +26,6 @@ defmodule StoreHall.FilterableQuery do
     dynamic(^acc or ^dynamic)
   end
 
-  def filter(query, params) do
-    query
-    |> where(^construct_where_fragment(true, params))
-  end
-
   def construct_where_fragment(and_or \\ :and, dynamic, fragment_commands)
 
   def construct_where_fragment(:or, dynamic, fragment_commands) do
@@ -86,42 +81,42 @@ defmodule StoreHall.FilterableQuery do
     end)
   end
 
-  defp apply_command(:lt, %{field: fields, value: value}) do
+  defp apply_command(:lt, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal < ? )",
-        c,
+        "( (?#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?#>>?)::decimal < ? )",
+        field(c, ^get_model_field(command_data)),
         ^fields,
-        c,
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^as_decimal(value)
       )
     )
   end
 
-  defp apply_command(:lte, %{field: fields, value: value}) do
+  defp apply_command(:lte, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal <= ? )",
-        c,
+        "( (?#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?#>>?)::decimal <= ? )",
+        field(c, ^get_model_field(command_data)),
         ^fields,
-        c,
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^as_decimal(value)
       )
     )
   end
 
-  defp apply_command(:gt, %{field: fields, value: value}) do
+  defp apply_command(:gt, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal > ? )",
-        c,
+        "( (?#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?#>>?)::decimal > ? )",
+        field(c, ^get_model_field(command_data)),
         ^fields,
-        c,
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^as_decimal(value)
       )
@@ -129,26 +124,26 @@ defmodule StoreHall.FilterableQuery do
   end
 
   # {"gte": {"field": "rating, core", "value": 4}}
-  defp apply_command(:gte, %{field: fields, value: value}) do
+  defp apply_command(:gte, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "( (?.details#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?.details#>>?)::decimal >= ? )",
-        c,
+        "( (?#>>?) ~ '^-\\?([0-9]+[.]\\?[0-9]*|[.][0-9]+)$' and (?#>>?)::decimal >= ? )",
+        field(c, ^get_model_field(command_data)),
         ^fields,
-        c,
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^as_decimal(value)
       )
     )
   end
 
-  defp apply_command(:in, %{field: fields, value: value}) do
+  defp apply_command(:in, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "(?.details#>?) \\?| ?",
-        c,
+        "(?#>?) \\?| ?",
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^value
       )
@@ -156,24 +151,24 @@ defmodule StoreHall.FilterableQuery do
   end
 
   # {"eq": {"field": "price", "value": "20.4"}}
-  defp apply_command(:eq, %{field: fields, value: value}) do
+  defp apply_command(:eq, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "(?.details#>>?)::varchar = ? ",
-        c,
+        "(?#>>?)::varchar = ? ",
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^to_string(value)
       )
     )
   end
 
-  defp apply_command(:has, %{field: fields, value: value}) do
+  defp apply_command(:has, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "(?.details#>>?) LIKE '%' || ? || '%' ",
-        c,
+        "(?#>>?) LIKE '%' || ? || '%' ",
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^to_string(value)
       )
@@ -185,12 +180,12 @@ defmodule StoreHall.FilterableQuery do
   #        "value":"price"
   #        }
   #    }
-  defp apply_command(:has, %{field: fields}) do
+  defp apply_command(:has, command_data = %{field: fields}) do
     dynamic(
       [c],
       fragment(
-        "(?.details#>>?) is not null ",
-        c,
+        "(?#>>?) is not null ",
+        field(c, ^get_model_field(command_data)),
         ^fields
       )
     )
@@ -201,7 +196,7 @@ defmodule StoreHall.FilterableQuery do
   # |> join(:left, [c], u in assoc(c, :author))
   # |> preload([:author])
   #
-  # defp apply_command(:min_author_rating_filter, %{field: fields, value: value}) do
+  # defp apply_command(:min_author_rating_filter, command_data = %{field: fields, value: value}) do
   #   fragment(
   #     " (user_details->'rating'->>'score')::decimal >= ? ",
   #     ^as_decimal(value)
@@ -209,17 +204,20 @@ defmodule StoreHall.FilterableQuery do
   #   |> dynamic
   # end
 
-  defp apply_command(:length_at_least, %{field: fields, value: value}) do
+  defp apply_command(:length_at_least, command_data = %{field: fields, value: value}) do
     dynamic(
       [c],
       fragment(
-        "jsonb_array_length(?.details#>?) >= ?",
-        c,
+        "jsonb_array_length(?#>?) >= ?",
+        field(c, ^get_model_field(command_data)),
         ^fields,
         ^as_decimal(value)
       )
     )
   end
+
+  defp get_model_field(%{model_field: model_field}), do: model_field
+  defp get_model_field(_), do: :details
 
   defp as_decimal(value) do
     try do

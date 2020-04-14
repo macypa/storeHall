@@ -62,13 +62,14 @@ defmodule StoreHallWeb.AuthController do
             end
             |> elem(1)
             |> Users.update_user(%{
-              "details" => %{"marketing_consent" => get_session(conn, "marketing_consent")}
+              "marketing_info" => %{"marketing_consent" => get_session(conn, "marketing_consent")}
             })
 
           user ->
             case get_session(conn, "marketing_consent") == "agreed" do
               true ->
-                user |> Users.update_user(%{"details" => %{"marketing_consent" => "agreed"}})
+                user
+                |> Users.update_user(%{"marketing_info" => %{"marketing_consent" => "agreed"}})
 
               false ->
                 {:ok, user}

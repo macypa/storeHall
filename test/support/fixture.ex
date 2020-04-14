@@ -54,7 +54,7 @@ defmodule StoreHall.Fixture do
 
       user
       |> Users.update_user(%{
-        details: user.details |> Map.put("marketing_consent", "agreed")
+        marketing_info: user.marketing_info |> Map.put("marketing_consent", "agreed")
       })
       |> elem(1)
       |> Map.drop([:settings])

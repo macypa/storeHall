@@ -24,7 +24,7 @@ defmodule StoreHall.CommonFilter do
 
       def search_filter(query, _), do: query
 
-      defp filter_min_max(dynamic, min_max, field_name, value, default_value \\ 0) do
+      defp filter_min_max(dynamic, min_max, model_field, field_name, value, default_value) do
         case Integer.parse(value) do
           {^default_value, _} ->
             dynamic
@@ -34,6 +34,7 @@ defmodule StoreHall.CommonFilter do
               dynamic,
               %{
                 min_max => %{
+                  model_field: model_field,
                   field: [field_name],
                   value: value
                 }
@@ -70,18 +71,18 @@ defmodule StoreHall.CommonFilter do
 
       defp filter(:rating, dynamic, %{"min" => min_rating, "max" => max_rating}) do
         dynamic
-        |> filter_min_max(:gte, ["rating", "score"], min_rating, -1)
-        |> filter_min_max(:lte, ["rating", "score"], max_rating, 500)
+        |> filter_min_max(:gte, :details, ["rating", "score"], min_rating, -1)
+        |> filter_min_max(:lte, :details, ["rating", "score"], max_rating, 500)
       end
 
       defp filter(:rating, dynamic, %{"min" => min_rating}) do
         dynamic
-        |> filter_min_max(:gte, ["rating", "score"], min_rating, -1)
+        |> filter_min_max(:gte, :details, ["rating", "score"], min_rating, -1)
       end
 
       defp filter(:rating, dynamic, %{"max" => max_rating}) do
         dynamic
-        |> filter_min_max(:lte, ["rating", "score"], max_rating, 500)
+        |> filter_min_max(:lte, :details, ["rating", "score"], max_rating, 500)
       end
 
       defp filter(:rating, dynamic, _), do: dynamic
@@ -99,27 +100,30 @@ defmodule StoreHall.CommonFilter do
         end
       end
 
-      defp filter_range(field_atom, dynamic, %{"min" => min_price, "max" => max_price}) do
+      defp filter_range(field_atom, dynamic, model_field, %{
+             "min" => min_price,
+             "max" => max_price
+           }) do
         dynamic
-        |> filter_min_max(:gte, Atom.to_string(field_atom), min_price)
-        |> filter_min_max(:lte, Atom.to_string(field_atom), max_price)
+        |> filter_min_max(:gte, model_field, Atom.to_string(field_atom), min_price, 0)
+        |> filter_min_max(:lte, model_field, Atom.to_string(field_atom), max_price, 0)
       end
 
-      defp filter_range(field_atom, dynamic, %{"min" => min_price}) do
+      defp filter_range(field_atom, dynamic, model_field, %{"min" => min_price}) do
         dynamic
-        |> filter_min_max(:gte, Atom.to_string(field_atom), min_price)
+        |> filter_min_max(:gte, model_field, Atom.to_string(field_atom), min_price, 0)
       end
 
-      defp filter_range(field_atom, dynamic, %{"max" => max_price}) do
+      defp filter_range(field_atom, dynamic, model_field, %{"max" => max_price}) do
         dynamic
-        |> filter_min_max(:lte, Atom.to_string(field_atom), max_price)
+        |> filter_min_max(:lte, model_field, Atom.to_string(field_atom), max_price, 0)
       end
 
-      defp filter_range(field_atom, dynamic, _), do: dynamic
+      defp filter_range(field_atom, dynamic, _, _), do: dynamic
 
-      defp filter_select_options(field_atom, dynamic, value) when value == "", do: dynamic
+      defp filter_select_options(_, dynamic, _, value) when value == "", do: dynamic
 
-      defp filter_select_options(field_atom, dynamic, value) do
+      defp filter_select_options(field_atom, dynamic, model_field, value) do
         FilterableQuery.clean_dynamic(
           :and,
           dynamic,
@@ -132,8 +136,8 @@ defmodule StoreHall.CommonFilter do
               dynamic(
                 [u],
                 fragment(
-                  "(?.details->>?)::varchar = ? ",
-                  u,
+                  "(?->>?)::varchar = ? ",
+                  field(u, ^model_field),
                   ^Atom.to_string(field_atom),
                   ^to_string(option)
                 )
@@ -143,13 +147,14 @@ defmodule StoreHall.CommonFilter do
         )
       end
 
-      defp filter_select_multi_options(field_atom, dynamic, value) when value == "", do: dynamic
+      defp filter_select_multi_options(_, dynamic, _, value) when value == "", do: dynamic
 
-      defp filter_select_multi_options(field_atom, dynamic, value) do
+      defp filter_select_multi_options(field_atom, dynamic, model_field, value) do
         FilterableQuery.construct_where_fragment(
           dynamic,
           %{
             in: %{
+              model_field: model_field,
               field: [Atom.to_string(field_atom)],
               value:
                 value

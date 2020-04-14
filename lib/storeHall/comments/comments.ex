@@ -167,8 +167,8 @@ defmodule StoreHall.Comments do
     multi
     |> Multi.run(:user, fn repo, changes ->
       case changes do
-        %{item: item} -> {:ok, Users.get_user!(item.user_id, repo)}
-        _ -> {:ok, Users.get_user!(user_id, repo)}
+        %{item: item} -> {:ok, Users.get_user!(item.user_id, [], repo)}
+        _ -> {:ok, Users.get_user!(user_id, [], repo)}
       end
     end)
     |> Multi.run(:calc_user_comment_count, fn repo, %{user: user} ->

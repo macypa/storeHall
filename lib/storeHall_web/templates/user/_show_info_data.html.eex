@@ -15,11 +15,11 @@
     </span>
   <% end %>
   
-  <%= if Map.has_key?(@user.details, "address") and !Enum.empty?(@user.details["address"]) do %>
+  <%= if Map.has_key?(@user.info, "address") and !Enum.empty?(@user.info["address"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Address") %>: </span>
       <div>
-        <%= for {address_name, address} <- multi_input_split_key_value(@user.details["address"]) do %>
+        <%= for {address_name, address} <- multi_input_split_key_value(@user.info["address"]) do %>
           <div>
             <%= link to: "https://www.google.com/maps/search/?api=1&query=" <> obfuscate_data(address, address_name),
                     target: "_blank", class: "obfuscated", do: obfuscate(address_name) %>
@@ -29,11 +29,11 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "mail") and !Enum.empty?(@user.details["mail"]) do %>
+  <%= if Map.has_key?(@user.info, "mail") and !Enum.empty?(@user.info["mail"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("E-mail") %>: </span>
       <div>
-        <%= for {mail_name, mail} <- multi_input_split_key_value(@user.details["mail"]) do %>
+        <%= for {mail_name, mail} <- multi_input_split_key_value(@user.info["mail"]) do %>
           <div>
             <%= link to: "mailto:" <> obfuscate_data(mail, mail_name), target: "_blank", class: "obfuscated", do: obfuscate(mail_name) %>
           </div>
@@ -42,11 +42,11 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "web") and !Enum.empty?(@user.details["web"]) do %>
+  <%= if Map.has_key?(@user.info, "web") and !Enum.empty?(@user.info["web"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Website") %>: </span>
       <div>
-        <%= for {web_name, web} <- multi_input_split_key_value(@user.details["web"]) do %>
+        <%= for {web_name, web} <- multi_input_split_key_value(@user.info["web"]) do %>
           <div>
             <%= link to: obfuscate_data(web, web_name), target: "_blank", class: "obfuscated", do: obfuscate(web_name) %>
           </div>
@@ -55,11 +55,11 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "contacts") and !Enum.empty?(@user.details["contacts"]) do %>
+  <%= if Map.has_key?(@user.info, "contacts") and !Enum.empty?(@user.info["contacts"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Contacts") %>: </span>
       <div>
-        <%= for {contacts_name, contacts} <- multi_input_split_key_value(@user.details["contacts"]) do %>
+        <%= for {contacts_name, contacts} <- multi_input_split_key_value(@user.info["contacts"]) do %>
           <div>
             <span class="obfuscated"><%= sanitize to_string(obfuscate(contacts_name)) %>:</span>
             <span class="obfuscated"><%= sanitize to_string(obfuscate_data(contacts, contacts_name)) %></span>
@@ -69,11 +69,11 @@
     </span>
   <% end %>
 
-  <%= if Map.has_key?(@user.details, "open") and !Enum.empty?(@user.details["open"]) do %>
+  <%= if Map.has_key?(@user.info, "open") and !Enum.empty?(@user.info["open"]) do %>
     <span>
       <span class="info_title"><%= Gettext.gettext("Open hours") %>: </span>
       <div>
-        <%= for {open_name, open} <- multi_input_split_key_value(@user.details["open"]) do %>
+        <%= for {open_name, open} <- multi_input_split_key_value(@user.info["open"]) do %>
           <div>
             <span><%= sanitize to_string(open_name) %>:</span>
             <span><%= sanitize to_string(open) %></span>

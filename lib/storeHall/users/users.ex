@@ -19,28 +19,43 @@ defmodule StoreHall.Users do
 
   def apply_filters(params) do
     User
+    |> add_select_fields([:marketing_info])
     |> UserFilter.with_marketing_consent()
     # |> join(:left, [u], s in Settings, on: s.id == u.id, as: :s)
     |> UserFilter.search_filter(params)
   end
 
-  def get!(id, repo \\ Repo) do
-    get_user!(id, repo)
+  def get!(id, select_fields \\ [], repo \\ Repo) do
+    get_user!(id, select_fields, repo)
   end
 
-  def get_user!(id, repo \\ Repo) do
+  def get_user!(id, select_fields \\ [], repo \\ Repo) do
     User
+    |> add_select_fields(select_fields)
     |> repo.get!(id)
     |> update_default_user_details(repo)
   end
 
-  def get_user(id, repo \\ Repo) do
+  def get_user(id, select_fields \\ [], repo \\ Repo) do
     User
+    |> add_select_fields(select_fields)
     |> repo.get(id)
     |> case do
       nil -> nil
       user -> update_default_user_details(user, repo)
     end
+  end
+
+  defp add_select_fields(query, []), do: query
+
+  defp add_select_fields(query, select_fields) do
+    query
+    |> select(
+      ^(User.fields()
+        |> List.delete(:marketing_info)
+        |> List.delete(:info)
+        |> Kernel.++(select_fields))
+    )
   end
 
   defp update_default_user_details(user, repo) do
@@ -57,13 +72,13 @@ defmodule StoreHall.Users do
     end
   end
 
-  def get_user_with_settings!(id) do
-    get_user!(id)
+  def get_user_with_settings!(id, select_fields \\ []) do
+    get_user!(id, select_fields)
     |> load_settings()
   end
 
-  def get_user_with_settings(id) do
-    get_user(id)
+  def get_user_with_settings(id, select_fields \\ []) do
+    get_user(id, select_fields)
     |> case do
       nil -> nil
       user -> load_settings(user)

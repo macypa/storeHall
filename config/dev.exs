@@ -93,10 +93,8 @@ config :storeHall, :about,
     email: "storeHall@gmail.com",
     image: "/images/logo.png",
     provider: "storeHall",
-    details: %{
-      "merchant_type" => "",
-      "mail" => [%{"storeHall@gmail.com" => "storeHall@gmail.com"}]
-    }
+    details: %{"merchant_type" => ""},
+    info: %{"mail" => ["storeHall@gmail.com:storeHall@gmail.com"]}
   }
 
 import_config "dev.secret.exs"

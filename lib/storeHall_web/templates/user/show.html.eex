@@ -27,7 +27,7 @@
             <% end %>
         <% end %>
 
-        <%= for video <- @user.details["videos"] || [] do %>
+        <%= for video <- @user.info["videos"] || [] do %>
           <a href="<%= video %>" data-video="true"></a>
         <% end %>
       </div>
@@ -41,7 +41,7 @@
     <user_details>
       <span>
         <span class="info_title"><%= Gettext.gettext("Description") %> </span>
-        <span class="info_content description"><%= sanitize to_string(@user.details["description"]) %></span>
+        <span class="info_content description"><%= sanitize to_string(@user.info["description"]) %></span>
       </span>
     </user_details>
 

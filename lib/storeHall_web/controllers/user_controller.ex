@@ -48,7 +48,7 @@ defmodule StoreHallWeb.UserController do
 
   def show(conn, params = %{"id" => id}) do
     user =
-      get_user!(conn, id)
+      get_user!(conn, id, [:info])
       |> Images.append_images(:image)
       |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
       |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
@@ -58,13 +58,13 @@ defmodule StoreHallWeb.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = get_user!(conn, id)
+    user = get_user!(conn, id, [:info, :marketing_info])
     changeset = Users.change_user(user)
     render(conn, :edit, user: user, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = get_user!(conn, id)
+    user = get_user!(conn, id, [:info, :marketing_info])
 
     case Users.update_user(user, EncodeHelper.decode(user_params)) do
       {:ok, user} ->
@@ -109,11 +109,11 @@ defmodule StoreHallWeb.UserController do
     end
   end
 
-  defp get_user!(conn, id) do
+  defp get_user!(conn, id, select_fields \\ []) do
     if AuthController.check_owner?(conn, id) do
-      Users.get_user_with_settings!(id)
+      Users.get_user_with_settings!(id, select_fields)
     else
-      Users.get_user!(id)
+      Users.get_user!(id, select_fields)
     end
   end
 end

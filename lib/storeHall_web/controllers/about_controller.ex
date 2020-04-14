@@ -9,7 +9,7 @@ defmodule StoreHallWeb.AboutController do
 
   def index(conn, params) do
     user =
-      Users.get_user!(Application.get_env(:storeHall, :about)[:user_id])
+      Users.get_user!(Application.get_env(:storeHall, :about)[:user_id], [:info])
       |> Images.append_images(:image)
       |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
       |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)

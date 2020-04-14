@@ -7,7 +7,10 @@
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= Gettext.gettext("Oops, something went wrong! Please check the errors below.") %></p>
+      <%= error_tag f, :settings %>
       <%= error_tag f, :details %>
+      <%= error_tag f, :info %>
+      <%= error_tag f, :marketing_info %>
     </div>
   <% end %>
 
@@ -29,7 +32,7 @@
   <div class="form-group">
     <%= label f, :address, Gettext.gettext("Address") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Address") %>' key_value_separator=":">
-      <%= text_input f, :details_address, name: input_name(f, :details) <>"[address]", value: Jason.encode!(input_value(f, :details)["address"]) %>
+      <%= text_input f, :info_address, name: input_name(f, :info) <>"[address]", value: Jason.encode!(input_value(f, :info)["address"] || []) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for Address")) %>
@@ -40,7 +43,7 @@
   <div class="form-group">
     <%= label f, :mail, Gettext.gettext("E-mail") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("E-mail") %>' key_value_separator=":">
-      <%= text_input f, :details_mail, name: input_name(f, :details) <>"[mail]", value: Jason.encode!(input_value(f, :details)["mail"]) %>
+      <%= text_input f, :info_mail, name: input_name(f, :info) <>"[mail]", value: Jason.encode!(input_value(f, :info)["mail"] || []) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for mail")) %>
@@ -51,7 +54,7 @@
   <div class="form-group">
     <%= label f, :website, Gettext.gettext("Website") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Website") %>' key_value_separator=":">
-      <%= text_input f, :details_web, name: input_name(f, :details) <>"[web]", value: Jason.encode!(input_value(f, :details)["web"]) %>
+      <%= text_input f, :info_web, name: input_name(f, :info) <>"[web]", value: Jason.encode!(input_value(f, :info)["web"] || []) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for website")) %>
@@ -62,7 +65,7 @@
   <div class="form-group">
     <%= label f, :contacts, Gettext.gettext("contacts") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("contacts") %>' key_value_separator=":">
-      <%= text_input f, :details_contacts, name: input_name(f, :details) <>"[contacts]", value: Jason.encode!(input_value(f, :details)["contacts"]) %>
+      <%= text_input f, :info_contacts, name: input_name(f, :info) <>"[contacts]", value: Jason.encode!(input_value(f, :info)["contacts"] || []) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for contacts")) %>
@@ -73,7 +76,7 @@
   <div class="form-group">
     <%= label f, :open, Gettext.gettext("Open hours") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Open hours") %>' key_value_separator=":">
-      <%= text_input f, :details_open, name: input_name(f, :details) <>"[open]", value: Jason.encode!(input_value(f, :details)["open"]) %>
+      <%= text_input f, :info_open, name: input_name(f, :info) <>"[open]", value: Jason.encode!(input_value(f, :info)["open"] || []) %>
       <template><span>_hkey_:</span><input class='datalist_item_oninput_event' type='text' value='_value_'></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for open hours")) %>
@@ -85,7 +88,7 @@
     <%= label f, :Images, Gettext.gettext("Images") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add image URLs") %>'>
       <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
-              value: Jason.encode!(input_value(f, :details)["images"]) %>
+              value: Jason.encode!(input_value(f, :details)["images"] || []) %>
       <template>_hkey_</template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for images")) %>
@@ -110,8 +113,8 @@
   <div class="form-group">
     <%= label f, :videos, Gettext.gettext("Videos") %>
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add videos") %>'>
-      <%= text_input f, :details_videos, name: input_name(f, :details) <> "[videos]",
-              value: Jason.encode!(input_value(f, :details)["videos"]) %>
+      <%= text_input f, :info_videos, name: input_name(f, :info) <> "[videos]",
+              value: Jason.encode!(input_value(f, :info)["videos"] || []) %>
       <template><a href="_hkey_" target="_blank">_hkey_</a></template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for videos")) %>
@@ -121,7 +124,7 @@
 
   <div class="form-group">
     <%= label f, :description, Gettext.gettext("Description") %>
-    <%= textarea f, :details_description, name: input_name(f, :details) <> "[description]", value: input_value(f, :details)["description"] %>
+    <%= textarea f, :info_description, name: input_name(f, :info) <> "[description]", value: input_value(f, :info)["description"] %>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for description")) %>
       </div>
@@ -134,11 +137,11 @@
   <div class="form-group">
     <%= label f, :marketing_consent, Gettext.gettext("marketing_consent") %>
     <div class="form_field">
-      <%= select f, :marketing_marketing_consent,
+      <%= select f, :marketing_consent_select,
               %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
               class: "form_field_value",
-              name: input_name(f, :details) <>"[marketing_consent]",
-              value: input_value(f, :details)["marketing_consent"] %>
+              name: input_name(f, :marketing_info) <>"[marketing_consent]",
+              value: input_value(f, :marketing_info)["marketing_consent"] %>
     </div>
   </div>
 
@@ -148,8 +151,8 @@
       <%= number_input f, :marketing_mail_credits_ask,
               min: 0,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[mail_credits_ask]",
-              value: input_value(f, :details)["mail_credits_ask"] %>
+              name: input_name(f, :marketing_info) <> "[mail_credits_ask]",
+              value: input_value(f, :marketing_info)["mail_credits_ask"] %>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for mail_credits")) %>
         <div>
@@ -164,8 +167,8 @@
     <div class="form_field">
         <%= select f, :marketing_gender_select, 
               StoreHall.DefaultFilter.accepted_gender(),
-                name: input_name(f, :details) <> "[gender]",
-                value: input_value(f, :details)["gender"] %>
+                name: input_name(f, :marketing_info) <> "[gender]",
+                value: input_value(f, :marketing_info)["gender"] %>
     </div>
   </div>
 
@@ -175,8 +178,8 @@
       <%= number_input f, :marketing_age,
               min: 18,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[age]",
-              value: input_value(f, :details)["age"] %>
+              name: input_name(f, :marketing_info) <> "[age]",
+              value: input_value(f, :marketing_info)["age"] %>
     </div>
   </div>
 
@@ -186,8 +189,8 @@
       <%= number_input f, :marketing_height,
               min: 0,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[height]",
-              value: input_value(f, :details)["height"] %>
+              name: input_name(f, :marketing_info) <> "[height]",
+              value: input_value(f, :marketing_info)["height"] %>
     </div>
   </div>
 
@@ -197,8 +200,8 @@
       <%= number_input f, :marketing_weight,
               min: 0,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[weight]",
-              value: input_value(f, :details)["weight"] %>
+              name: input_name(f, :marketing_info) <> "[weight]",
+              value: input_value(f, :marketing_info)["weight"] %>
     </div>
   </div>
 
@@ -207,8 +210,8 @@
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add cities") %>'>
       <%= text_input f, :marketing_cities,
               class: "datalist_editable_input",
-              name: input_name(f, :details) <> "[cities]",
-              value: Jason.encode!(input_value(f, :details)["cities"] || []) %>
+              name: input_name(f, :marketing_info) <> "[cities]",
+              value: Jason.encode!(input_value(f, :marketing_info)["cities"] || []) %>
     </div>
   </div>
 
@@ -218,8 +221,8 @@
       <%= number_input f, :marketing_kids,
               min: 0,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[kids]",
-              value: input_value(f, :details)["kids"] %>
+              name: input_name(f, :marketing_info) <> "[kids]",
+              value: input_value(f, :marketing_info)["kids"] %>
     </div>
   </div>
 
@@ -228,8 +231,8 @@
     <div class="datalist_container" placeholder="">
       <%= text_input f, :marketing_kids_age,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[kids_age]",
-              value: Jason.encode!(input_value(f, :details)["kids_age"]) %>
+              name: input_name(f, :marketing_info) <> "[kids_age]",
+              value: Jason.encode!(input_value(f, :marketing_info)["kids_age"] || []) %>
       <%= select f, :marketing_kids_age_select,
               StoreHall.DefaultFilter.accepted_kids_age(),
               name: nil %>
@@ -242,8 +245,8 @@
         <%= select f, :marketing_marital_status, 
               StoreHall.DefaultFilter.accepted_marital_status(),
                 class: "form_field_value",
-                name: input_name(f, :details) <>"[marital_status]",
-                value: input_value(f, :details)["marital_status"] %>
+                name: input_name(f, :marketing_info) <>"[marital_status]",
+                value: input_value(f, :marketing_info)["marital_status"] %>
     </div>
   </div>
 
@@ -252,8 +255,8 @@
     <div class="datalist_container" placeholder="">
       <%= text_input f, :marketing_interests,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[interests]",
-              value: Jason.encode!(input_value(f, :details)["interests"]) %>
+              name: input_name(f, :marketing_info) <> "[interests]",
+              value: Jason.encode!(input_value(f, :marketing_info)["interests"] || []) %>
       <%= select f, :marketing_interests_select,
               StoreHall.DefaultFilter.accepted_interests(),
               name: nil %>
@@ -266,8 +269,8 @@
       <%= number_input f, :marketing_work_experience,
               min: 0,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[work_experience]",
-              value: input_value(f, :details)["work_experience"] %>
+              name: input_name(f, :marketing_info) <> "[work_experience]",
+              value: input_value(f, :marketing_info)["work_experience"] %>
     </div>
   </div>
 
@@ -276,8 +279,8 @@
     <div class="datalist_container" placeholder="">
       <%= text_input f, :marketing_job_sector,
               class: "form_field_value",
-              name: input_name(f, :details) <> "[job_sector]",
-              value: Jason.encode!(input_value(f, :details)["job_sector"]) %>
+              name: input_name(f, :marketing_info) <> "[job_sector]",
+              value: Jason.encode!(input_value(f, :marketing_info)["job_sector"] || []) %>
       <%= select f, :marketing_job_sector_select,
               StoreHall.DefaultFilter.accepted_job_sector(),
               name: nil %>
@@ -315,7 +318,7 @@
   <div class="form-group">
     <%= label f, :social_buttons, Gettext.gettext("Social buttons") %> 
     <div class="form_field datalist_container" placeholder='<%= Gettext.gettext("Add social buttons") %>'>
-      <%= text_input f, :details_social_buttons, class: "form_field_value",
+      <%= text_input f, :settings_social_buttons, class: "form_field_value",
             name: input_name(f, :settings) <>"[social_buttons]",
             value: Jason.encode!(input_value(f, :settings)["social_buttons"]) %>
       <%= select f, :social_buttons_select,
