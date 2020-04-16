@@ -14,6 +14,7 @@ defmodule StoreHall.Items do
   alias StoreHall.Items.Filters
 
   alias StoreHall.Images
+  alias StoreHall.Users
   alias StoreHall.ItemFilter
   alias StoreHall.DefaultFilter
   alias StoreHall.Reactions
@@ -24,7 +25,7 @@ defmodule StoreHall.Items do
   def list_items(params, current_user_id \\ nil) do
     apply_filters(params, current_user_id)
     |> Repo.all()
-    |> Repo.preload(:user)
+    |> Users.preload_users(Repo)
     |> Images.append_images()
   end
 
@@ -79,7 +80,8 @@ defmodule StoreHall.Items do
 
   def preload_user(item) do
     item
-    |> Repo.preload(:user)
+
+    |> Users.preload_users(Repo)
   end
 
   defp update_default_item_details(item, repo) do
