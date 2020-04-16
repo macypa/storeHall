@@ -12,21 +12,16 @@
     </div>
 
 
-
-    <%= if false do %>
-      <label for="with-image">With image:
-        <% checkbox f, :"with-image", class: "auto-submit-item", hidden_input: false %>
-      </label>
-
-      <div class="tab">
-        <input type="checkbox" id="custom" class="collapsible">
-        <label class="tab-label" for="custom">Custom:</label>
-        <div class="tab-content">
-          <% textarea  f, :"custom-filters", class: "auto-submit-item resizable-content",
-          value: Jason.encode!(f.params["custom-filters"]) |> String.replace(",\"", ",\n\"") %>
+    <div class="tab">
+      <input type="checkbox" id="sort" class="collapsible">
+      <label class="tab-label" for="sort"><%= Gettext.gettext("Sorting") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Sort") %>'>
+          <%= text_input f, :sort, class: "auto-submit-item" %>
+          <%= select f, :sort_select, StoreHall.FilterAcceptedOptions.accepted_user_sorting(), name: nil %>
         </div>
       </div>
-    <% end %>
+    </div>
 
 
     <div class="tab">
@@ -81,7 +76,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :merchant_type, class: "auto-submit-item" %>
           <%= select f, :merchant_type_select,
-                    StoreHall.DefaultFilter.accepted_merchant_type(),
+                    StoreHall.FilterAcceptedOptions.accepted_merchant_type(),
                     name: nil %>
         </div>
       </div>
@@ -127,7 +122,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :gender, class: "auto-submit-item" %>
           <%= select f, :gender_select,
-                    StoreHall.DefaultFilter.accepted_gender(),
+                    StoreHall.FilterAcceptedOptions.accepted_gender(),
                     name: nil %>
         </div>
       </div>
@@ -239,7 +234,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :kids_age, class: "auto-submit-item" %>
           <%= select f, :kids_age_select,
-                    StoreHall.DefaultFilter.accepted_kids_age(),
+                    StoreHall.FilterAcceptedOptions.accepted_kids_age(),
                     name: nil %>
         </div>
       </div>
@@ -252,7 +247,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :marital_status, class: "auto-submit-item" %>
           <%= select f, :marital_status_select,
-                    StoreHall.DefaultFilter.accepted_marital_status(),
+                    StoreHall.FilterAcceptedOptions.accepted_marital_status(),
                     name: nil %>
         </div>
       </div>
@@ -265,7 +260,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :interests, class: "auto-submit-item" %>
           <%= select f, :interests_select,
-                    StoreHall.DefaultFilter.accepted_interests(),
+                    StoreHall.FilterAcceptedOptions.accepted_interests(),
                     name: nil %>
         </div>
       </div>
@@ -303,7 +298,7 @@
 
       </div>
     </div>
-    
+
     <div class="tab">
       <input type="checkbox" id="job_sector" class="collapsible">
       <label class="tab-label" for="job_sector"><%= Gettext.gettext("Job sector") %></label>
@@ -311,7 +306,7 @@
         <div class="datalist_container" placeholder='<%= Gettext.gettext("Choose") %>'>
           <%= text_input f, :job_sector, class: "auto-submit-item" %>
           <%= select f, :job_sector_select,
-                    StoreHall.DefaultFilter.accepted_job_sector(),
+                    StoreHall.FilterAcceptedOptions.accepted_job_sector(),
                     name: nil %>
         </div>
       </div>

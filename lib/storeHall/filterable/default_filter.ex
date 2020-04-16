@@ -1,8 +1,9 @@
 defmodule StoreHall.DefaultFilter do
-  use StoreHall.FilterAcceptedOptions
+  import StoreHall.FilterAcceptedOptions
   import Ecto.Query, warn: false
   alias StoreHall.Users
 
+  @accepted_fields [:id, :inserted_at, :updated_at, :name]
   def sort_filter(query, nil), do: query |> order_by([{:asc, :inserted_at}])
   def sort_filter(query, -1), do: query |> order_by([{:asc, :inserted_at}])
 
@@ -176,10 +177,11 @@ defmodule StoreHall.DefaultFilter do
   end
 
   defp order_by_details_field(query, "price", :desc),
-    do: order_by_details_field_fragment(query, "?.details->>'price' DESC NULLS LAST")
+    do: order_by_details_field_fragment(query, "(?.details->>'price')::numeric DESC NULLS LAST")
 
   defp order_by_details_field(query, "discount", :desc),
-    do: order_by_details_field_fragment(query, "?.details->>'discount' DESC NULLS LAST")
+    do:
+      order_by_details_field_fragment(query, "(?.details->>'discount')::numeric DESC NULLS LAST")
 
   defp order_by_details_field(query, "rating", :desc),
     do:
@@ -189,24 +191,48 @@ defmodule StoreHall.DefaultFilter do
       )
 
   defp order_by_details_field(query, "expiration", :desc),
-    do: order_by_details_field_fragment(query, "?.details->>'expiration' DESC NULLS LAST")
+    do:
+      order_by_details_field_fragment(
+        query,
+        "(?.details->>'expiration')::numeric DESC NULLS LAST"
+      )
 
   defp order_by_details_field(query, "feature_" <> feature, :desc),
     do:
       order_by_details_field_fragment(query, "?.details->'features'->>? DESC NULLS LAST", feature)
 
   defp order_by_details_field(query, "price", _),
-    do: order_by_details_field_fragment(query, "?.details->>'price'")
+    do: order_by_details_field_fragment(query, "(?.details->>'price')::numeric")
 
   defp order_by_details_field(query, "discount", _),
-    do: order_by_details_field_fragment(query, "?.details->>'discount'")
+    do: order_by_details_field_fragment(query, "(?.details->>'discount')::numeric")
 
   defp order_by_details_field(query, "rating", _),
     do: order_by_details_field_fragment(query, "(?.details->'rating'->>'score')::numeric")
 
   defp order_by_details_field(query, "expiration", _),
-    do: order_by_details_field_fragment(query, "?.details->>'expiration'")
+    do: order_by_details_field_fragment(query, "(?.details->>'expiration')::numeric")
 
   defp order_by_details_field(query, "feature_" <> feature, _),
     do: order_by_details_field_fragment(query, "?.details->'features'->>?", feature)
+
+  defp order_by_details_field(query, "mail_credits_ask", :desc),
+    do:
+      order_by_details_field_fragment(
+        query,
+        "(?.marketing_info->>'mail_credits_ask')::numeric DESC NULLS LAST"
+      )
+
+  defp order_by_details_field(query, "mail_credits_ask", _),
+    do: order_by_details_field_fragment(query, "(?.marketing_info->>'mail_credits_ask')::numeric")
+
+  defp order_by_details_field(query, "last_activity", :desc),
+    do:
+      order_by_details_field_fragment(
+        query,
+        "(?.marketing_info->>'last_activity')::numeric DESC NULLS LAST"
+      )
+
+  defp order_by_details_field(query, "last_activity", _),
+    do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::numeric")
 end

@@ -23,7 +23,7 @@
   <div class="form-group">
     <%= label f, :type, Gettext.gettext("Merchant type") %>
       <%= select f, :type_select,
-              StoreHall.DefaultFilter.accepted_merchant_type(),
+              StoreHall.FilterAcceptedOptions.accepted_merchant_type(),
               name: input_name(f, :details) <> "[merchant_type]",
               selected: input_value(f, :details)["merchant_type"] || "merch_private" %>
     </div>
@@ -97,9 +97,9 @@
     <%= label f, :Images, "" %>
     <span>
       <%= file_input f, :add_images,
-        name: input_name(f, :images), 
-        multiple: "multiple", 
-        class: "upload_file", 
+        name: input_name(f, :images),
+        multiple: "multiple",
+        class: "upload_file",
         "data-multiple-caption": "{count} files selected",
         accept: StoreHall.FileUploader.extension_whitelist |> Enum.join(",") %>
       <label for="<%= input_id(f, :add_images) %>">
@@ -129,7 +129,7 @@
         <%= sanitize to_string(Gettext.gettext("form edit hint for description")) %>
       </div>
   </div>
-  
+
   <div class="form-title" id="target_marketing">
     <%= label f, :locale, Gettext.gettext("Target Мarketing") %>
   </div>
@@ -165,8 +165,8 @@
   <div class="form-group">
     <%= label f, :gender, Gettext.gettext("Gender") %>
     <div class="form_field">
-        <%= select f, :marketing_gender_select, 
-              StoreHall.DefaultFilter.accepted_gender(),
+        <%= select f, :marketing_gender_select,
+              StoreHall.FilterAcceptedOptions.accepted_gender(),
                 name: input_name(f, :marketing_info) <> "[gender]",
                 value: input_value(f, :marketing_info)["gender"] %>
     </div>
@@ -234,7 +234,7 @@
               name: input_name(f, :marketing_info) <> "[kids_age]",
               value: Jason.encode!(input_value(f, :marketing_info)["kids_age"] || []) %>
       <%= select f, :marketing_kids_age_select,
-              StoreHall.DefaultFilter.accepted_kids_age(),
+              StoreHall.FilterAcceptedOptions.accepted_kids_age(),
               name: nil %>
     </div>
   </div>
@@ -242,8 +242,8 @@
   <div class="form-group">
     <%= label f, :marital_status, Gettext.gettext("Marital status") %>
     <div class="form_field">
-        <%= select f, :marketing_marital_status, 
-              StoreHall.DefaultFilter.accepted_marital_status(),
+        <%= select f, :marketing_marital_status,
+              StoreHall.FilterAcceptedOptions.accepted_marital_status(),
                 class: "form_field_value",
                 name: input_name(f, :marketing_info) <>"[marital_status]",
                 value: input_value(f, :marketing_info)["marital_status"] %>
@@ -258,7 +258,7 @@
               name: input_name(f, :marketing_info) <> "[interests]",
               value: Jason.encode!(input_value(f, :marketing_info)["interests"] || []) %>
       <%= select f, :marketing_interests_select,
-              StoreHall.DefaultFilter.accepted_interests(),
+              StoreHall.FilterAcceptedOptions.accepted_interests(),
               name: nil %>
     </div>
   </div>
@@ -282,7 +282,7 @@
               name: input_name(f, :marketing_info) <> "[job_sector]",
               value: Jason.encode!(input_value(f, :marketing_info)["job_sector"] || []) %>
       <%= select f, :marketing_job_sector_select,
-              StoreHall.DefaultFilter.accepted_job_sector(),
+              StoreHall.FilterAcceptedOptions.accepted_job_sector(),
               name: nil %>
     </div>
   </div>
@@ -307,7 +307,7 @@
   <div class="form-group">
     <%= label f, :cookie_consent, Gettext.gettext("cookie_consent") %>
     <div class="form_field">
-      <%= select f, :settings_cookie_consent, 
+      <%= select f, :settings_cookie_consent,
               %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
               class: "form_field_value",
               name: input_name(f, :settings) <>"[cookie_consent]",
@@ -316,7 +316,7 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :social_buttons, Gettext.gettext("Social buttons") %> 
+    <%= label f, :social_buttons, Gettext.gettext("Social buttons") %>
     <div class="form_field datalist_container" placeholder='<%= Gettext.gettext("Add social buttons") %>'>
       <%= text_input f, :settings_social_buttons, class: "form_field_value",
             name: input_name(f, :settings) <>"[social_buttons]",
@@ -326,7 +326,7 @@
                     |> String.split(",")
                     |> Enum.map(fn k -> {k, k} end),
           name: nil %>
-      
+
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for social buttons")) %>
       </div>

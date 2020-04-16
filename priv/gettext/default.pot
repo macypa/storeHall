@@ -139,7 +139,7 @@ msgstr ""
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:42
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:12 lib/storeHall_web/templates/item/index.html.eex:69
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:14 lib/storeHall_web/templates/item/show_sidebar.html.eex:12
-#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12 lib/storeHall_web/templates/user/index.html.eex:57
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12 lib/storeHall_web/templates/user/index.html.eex:37
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:12
 msgid "Comments"
 msgstr ""
@@ -194,7 +194,7 @@ msgid "Profile"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/index.html.eex:52
+#: lib/storeHall_web/templates/user/index.html.eex:32
 msgid "Rating"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:69
 #: lib/storeHall_web/templates/comment/show.html.eex:19 lib/storeHall_web/templates/item/index_sidebar.html.eex:186
-#: lib/storeHall_web/templates/rating/show.html.eex:19 lib/storeHall_web/templates/user/index_sidebar.html.eex:92
+#: lib/storeHall_web/templates/rating/show.html.eex:19 lib/storeHall_web/templates/user/index_sidebar.html.eex:87
 msgid "Scores"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/layout/header.html.eex:84
-#: lib/storeHall_web/templates/user/form.html.eex:288
+#: lib/storeHall_web/templates/user/form.html.eex:291
 msgid "Settings"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:95
-#: lib/storeHall_web/templates/user/form.html.eex:85 lib/storeHall_web/templates/user/form.html.eex:372
+#: lib/storeHall_web/templates/user/form.html.eex:88 lib/storeHall_web/templates/user/form.html.eex:375
 msgid "Images"
 msgstr ""
 
@@ -292,7 +292,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:15
-#: lib/storeHall_web/templates/user/form.html.eex:15
+#: lib/storeHall_web/templates/user/form.html.eex:18
 msgid "Name"
 msgstr ""
 
@@ -315,6 +315,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:33
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:19
 msgid "Sort"
 msgstr ""
 
@@ -341,10 +342,10 @@ msgstr ""
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:112
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:129 lib/storeHall_web/templates/item/index_sidebar.html.eex:145
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:159 lib/storeHall_web/templates/item/index_sidebar.html.eex:173
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:70 lib/storeHall_web/templates/user/index_sidebar.html.eex:81
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:127 lib/storeHall_web/templates/user/index_sidebar.html.eex:239
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:252 lib/storeHall_web/templates/user/index_sidebar.html.eex:265
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:311
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:65 lib/storeHall_web/templates/user/index_sidebar.html.eex:76
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:122 lib/storeHall_web/templates/user/index_sidebar.html.eex:234
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:247 lib/storeHall_web/templates/user/index_sidebar.html.eex:260
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:306
 msgid "Choose"
 msgstr ""
 
@@ -362,12 +363,12 @@ msgid "Chats"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:334
+#: lib/storeHall_web/templates/user/form.html.eex:337
 msgid "Filters"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:366
+#: lib/storeHall_web/templates/user/form.html.eex:369
 msgid "Labels"
 msgstr ""
 
@@ -424,7 +425,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:20
-#: lib/storeHall_web/templates/user/form.html.eex:30 lib/storeHall_web/templates/user/form.html.eex:31
+#: lib/storeHall_web/templates/user/form.html.eex:33 lib/storeHall_web/templates/user/form.html.eex:34
 msgid "Address"
 msgstr ""
 
@@ -447,14 +448,14 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:133
-#: lib/storeHall_web/templates/item/show.html.eex:68 lib/storeHall_web/templates/user/form.html.eex:123
+#: lib/storeHall_web/templates/item/show.html.eex:68 lib/storeHall_web/templates/user/form.html.eex:126
 #: lib/storeHall_web/templates/user/show.html.eex:43
 msgid "Description"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:34
-#: lib/storeHall_web/templates/user/form.html.eex:41 lib/storeHall_web/templates/user/form.html.eex:42
+#: lib/storeHall_web/templates/user/form.html.eex:44 lib/storeHall_web/templates/user/form.html.eex:45
 msgid "E-mail"
 msgstr ""
 
@@ -478,7 +479,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:74
-#: lib/storeHall_web/templates/user/form.html.eex:74 lib/storeHall_web/templates/user/form.html.eex:75
+#: lib/storeHall_web/templates/user/form.html.eex:77 lib/storeHall_web/templates/user/form.html.eex:78
 msgid "Open hours"
 msgstr ""
 
@@ -494,7 +495,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/_show_info_data.html.eex:47
-#: lib/storeHall_web/templates/user/form.html.eex:52 lib/storeHall_web/templates/user/form.html.eex:53
+#: lib/storeHall_web/templates/user/form.html.eex:55 lib/storeHall_web/templates/user/form.html.eex:56
 msgid "Website"
 msgstr ""
 
@@ -536,7 +537,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:67
-#: lib/storeHall_web/templates/user/form.html.eex:207
+#: lib/storeHall_web/templates/user/form.html.eex:210
 msgid "Add cities"
 msgstr ""
 
@@ -552,93 +553,97 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:122
-#: lib/storeHall_web/templates/user/form.html.eex:112
+#: lib/storeHall_web/templates/user/form.html.eex:115
 msgid "Add videos"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:66
-#: lib/storeHall_web/templates/item/show.html.eex:40 lib/storeHall_web/templates/user/form.html.eex:206
+#: lib/storeHall_web/templates/item/show.html.eex:40 lib/storeHall_web/templates/user/form.html.eex:209
 msgid "Cities"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:54
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:110 lib/storeHall_web/templates/user/index_sidebar.html.eex:68
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:110 lib/storeHall_web/templates/user/index_sidebar.html.eex:63
 msgid "City"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:45
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:31
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:31 lib/storeHall_web/templates/user/index_sidebar.html.eex:17
 msgid "Sorting"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:121
-#: lib/storeHall_web/templates/user/form.html.eex:111
+#: lib/storeHall_web/templates/user/form.html.eex:114
 msgid "Videos"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:341
+#: lib/storeHall_web/templates/user/form.html.eex:344
 msgid "show_with_min_rating"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:24
+#: lib/storeHall/filterable/filter_accepted_options.ex:24
 msgid "expiration asc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:23
+#: lib/storeHall/filterable/filter_accepted_options.ex:23
 msgid "expiration desc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:26
+#: lib/storeHall/filterable/filter_accepted_options.ex:26
+#: lib/storeHall/filterable/filter_accepted_options.ex:40
 msgid "inserted_at asc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:25
+#: lib/storeHall/filterable/filter_accepted_options.ex:25
+#: lib/storeHall/filterable/filter_accepted_options.ex:39
 msgid "inserted_at desc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:28
+#: lib/storeHall/filterable/filter_accepted_options.ex:28
 msgid "name asc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:27
+#: lib/storeHall/filterable/filter_accepted_options.ex:27
 msgid "name desc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:20
+#: lib/storeHall/filterable/filter_accepted_options.ex:18
 msgid "price asc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:19
+#: lib/storeHall/filterable/filter_accepted_options.ex:17
 msgid "price desc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:22
+#: lib/storeHall/filterable/filter_accepted_options.ex:22
+#: lib/storeHall/filterable/filter_accepted_options.ex:36
 msgid "rating asc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:21
+#: lib/storeHall/filterable/filter_accepted_options.ex:21
+#: lib/storeHall/filterable/filter_accepted_options.ex:35
 msgid "rating desc"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:30
+#: lib/storeHall/filterable/filter_accepted_options.ex:45
 msgid "Private seller"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:31
+#: lib/storeHall/filterable/filter_accepted_options.ex:46
 msgid "Producer"
 msgstr ""
 
-## lib/storeHall/filterable/default_filter.ex:32
+#: lib/storeHall/filterable/filter_accepted_options.ex:47
 msgid "Retailer"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:295
+#: lib/storeHall_web/templates/user/form.html.eex:298
 msgid "locale"
 msgstr ""
 
@@ -655,25 +660,25 @@ msgid "Sponsor"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:138
-#: lib/storeHall_web/templates/user/form.html.eex:308
+#: lib/storeHall_web/templates/user/form.html.eex:141
+#: lib/storeHall_web/templates/user/form.html.eex:311
 msgid "agreed"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:305
+#: lib/storeHall_web/templates/user/form.html.eex:308
 msgid "cookie_consent"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/controllers/auth_controller.ex:50
-#: lib/storeHall_web/controllers/auth_controller.ex:81
+#: lib/storeHall_web/controllers/auth_controller.ex:82
 msgid "no email"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:138
-#: lib/storeHall_web/templates/user/form.html.eex:308
+#: lib/storeHall_web/templates/user/form.html.eex:141
+#: lib/storeHall_web/templates/user/form.html.eex:311
 msgid "not agreed"
 msgstr ""
 
@@ -689,7 +694,7 @@ msgid "Page not found"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:353
+#: lib/storeHall_web/templates/user/form.html.eex:356
 msgid "show_with_max_alerts"
 msgstr ""
 
@@ -730,8 +735,8 @@ msgid "Something unexpected happened"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:63
-#: lib/storeHall_web/templates/user/form.html.eex:64
+#: lib/storeHall_web/templates/user/form.html.eex:66
+#: lib/storeHall_web/templates/user/form.html.eex:67
 msgid "contacts"
 msgstr ""
 
@@ -770,7 +775,7 @@ msgid "Terms and Conditions"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:135
+#: lib/storeHall_web/templates/user/form.html.eex:138
 msgid "marketing_consent"
 msgstr ""
 
@@ -992,7 +997,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:57
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:127 lib/storeHall_web/templates/user/_show_info_data.html.eex:11
-#: lib/storeHall_web/templates/user/form.html.eex:21 lib/storeHall_web/templates/user/index_sidebar.html.eex:79
+#: lib/storeHall_web/templates/user/form.html.eex:24 lib/storeHall_web/templates/user/index_sidebar.html.eex:74
 msgid "Merchant type"
 msgstr ""
 
@@ -1020,7 +1025,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:101
-#: lib/storeHall_web/templates/user/form.html.eex:91
+#: lib/storeHall_web/templates/user/form.html.eex:94
 msgid "form edit hint for images"
 msgstr ""
 
@@ -1031,37 +1036,37 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:127
-#: lib/storeHall_web/templates/user/form.html.eex:117
+#: lib/storeHall_web/templates/user/form.html.eex:120
 msgid "form edit hint for videos"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:35
+#: lib/storeHall_web/templates/user/form.html.eex:38
 msgid "form edit hint for Address"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:68
+#: lib/storeHall_web/templates/user/form.html.eex:71
 msgid "form edit hint for contacts"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:126
+#: lib/storeHall_web/templates/user/form.html.eex:129
 msgid "form edit hint for description"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:46
+#: lib/storeHall_web/templates/user/form.html.eex:49
 msgid "form edit hint for mail"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:79
+#: lib/storeHall_web/templates/user/form.html.eex:82
 msgid "form edit hint for open hours"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:57
+#: lib/storeHall_web/templates/user/form.html.eex:60
 msgid "form edit hint for website"
 msgstr ""
 
@@ -1110,86 +1115,86 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:96
-#: lib/storeHall_web/templates/user/form.html.eex:86
+#: lib/storeHall_web/templates/user/form.html.eex:89
 msgid "Add image URLs"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:114
-#: lib/storeHall_web/templates/user/form.html.eex:104
+#: lib/storeHall_web/templates/user/form.html.eex:107
 msgid "Upload Images"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:317
+#: lib/storeHall_web/templates/user/form.html.eex:320
 msgid "Add social buttons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:173
+#: lib/storeHall_web/templates/user/form.html.eex:176
 msgid "Age"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:163
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:125
+#: lib/storeHall_web/templates/user/form.html.eex:166
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:120
 msgid "Gender"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:184
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:138
+#: lib/storeHall_web/templates/user/form.html.eex:187
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:133
 msgid "Height"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:251
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:263
+#: lib/storeHall_web/templates/user/form.html.eex:254
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:258
 msgid "Interests"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:275
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:309
+#: lib/storeHall_web/templates/user/form.html.eex:278
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:304
 msgid "Job sector"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:216
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:204
+#: lib/storeHall_web/templates/user/form.html.eex:219
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:199
 msgid "Kids"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:240
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:250
+#: lib/storeHall_web/templates/user/form.html.eex:243
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:245
 msgid "Marital status"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:316
+#: lib/storeHall_web/templates/user/form.html.eex:319
 msgid "Social buttons"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:131
+#: lib/storeHall_web/templates/user/form.html.eex:134
 msgid "Target Мarketing"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:195
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:171
+#: lib/storeHall_web/templates/user/form.html.eex:198
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:166
 msgid "Weight"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:264
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:276
+#: lib/storeHall_web/templates/user/form.html.eex:267
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:271
 msgid "Work experience"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:328
+#: lib/storeHall_web/templates/user/form.html.eex:331
 msgid "form edit hint for social buttons"
 msgstr ""
 
@@ -1204,37 +1209,877 @@ msgid " seen"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:146
+#: lib/storeHall_web/templates/user/form.html.eex:149
 msgid "Minimal credits earnings per mail"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:154
+#: lib/storeHall_web/templates/user/form.html.eex:157
 msgid "form edit hint for mail_credits"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:156
+#: lib/storeHall_web/templates/user/form.html.eex:159
 msgid "For more info and hints, please see "
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:156
+#: lib/storeHall_web/templates/user/form.html.eex:159
 msgid "here"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:34
-msgid "credits"
-msgstr ""
-
-#, elixir-format
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:34
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:29
 msgid "mail_credits_ask"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/form.html.eex:227
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:237
+#: lib/storeHall_web/templates/user/form.html.eex:230
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:232
 msgid "Kids age"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:98
+msgid "Acting/Drama"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:69
+msgid "Adult"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:152
+msgid "Amateur astronomy"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:146
+msgid "Amateur radio"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:127
+msgid "Animals and pets"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:113
+msgid "Archery"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:114
+msgid "Backgammon"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:115
+msgid "Basketball"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:147
+msgid "Blogging"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:86
+msgid "Board games"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:87
+msgid "Bodybuilding"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:148
+msgid "Calligraphy"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:116
+msgid "Car restoration"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:88
+msgid "Chess"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:106
+msgid "Childcare"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:133
+msgid "Coding/Programming"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:153
+msgid "Collecting"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:117
+msgid "Cooking"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:99
+msgid "Crafts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:122
+msgid "Cricket"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:149
+msgid "Crossword puzzles"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:140
+msgid "Cycling"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:100
+msgid "Dancing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:80
+msgid "Divorced"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:134
+msgid "Drawing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:135
+msgid "Fishing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:128
+msgid "Football"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:89
+msgid "Gambling"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:154
+msgid "Gardening"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:90
+msgid "Golf"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:66
+msgid "High school"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:141
+msgid "Hiking"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:136
+msgid "Hunting"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:61
+msgid "Infant"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:91
+msgid "Investing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:111
+msgid "Jigsaw puzzles"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:123
+msgid "Knitting"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:118
+msgid "Landscaping"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:107
+msgid "Languages"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:119
+msgid "Lego building"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:155
+msgid "Marathon running"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:77
+msgid "Married"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:92
+msgid "Martial arts"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:93
+msgid "Meditation"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:142
+msgid "Model building"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:94
+msgid "Mountain biking"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:129
+msgid "Mountain climbing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:101
+msgid "Musical instrument"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:108
+msgid "Online classes"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:102
+msgid "Origami"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:103
+msgid "Painting"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:143
+msgid "Papermaking"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:95
+msgid "Parachuting"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:130
+msgid "Paragliding"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:104
+msgid "Photography"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:105
+msgid "Pottery"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:63
+msgid "Preschooler"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:64
+msgid "Primаry school"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:109
+msgid "Reading"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:156
+msgid "Recycling"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:120
+msgid "Robotics"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:131
+msgid "Rock climbing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:96
+msgid "Running/Jogging"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:157
+msgid "Sailing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:65
+msgid "Secondary school"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:78
+msgid "Separated"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:97
+msgid "Singing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:75
+msgid "Single"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:124
+msgid "Skiing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:121
+msgid "Skydiving"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:137
+msgid "Snooker/Pool"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:132
+msgid "Socialising"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:144
+msgid "Squash"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:67
+msgid "Student"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:150
+msgid "Surfing"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:125
+msgid "Swimming"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:68
+msgid "Teen"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:112
+msgid "Tennis"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:62
+msgid "Toddler"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:151
+msgid "Travelling"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:138
+msgid "Video games"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:139
+msgid "Video production"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:110
+msgid "Volunteering"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:79
+msgid "Widowed"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:145
+msgid "Woodworking"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:126
+msgid "Yoga"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:20
+msgid "discount asc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:19
+msgid "discount desc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:54
+msgid "female"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:38
+msgid "last_activity asc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:37
+msgid "last_activity desc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:34
+msgid "mail_credits_ask asc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:33
+msgid "mail_credits_askprice desc"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:53
+msgid "male"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:55
+msgid "other"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:76
+msgid "relation"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:163
+msgid "Авиация"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:165
+msgid "Автомобили"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:166
+msgid "Автосервизи"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:168
+msgid "Административни и офис дейности"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:169
+msgid "Архитектура"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:172
+msgid "Банки"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:167
+msgid "Бензиностанции"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:200
+msgid "Бизнес развитие"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:174
+msgid "Бизнес/Консултантски услуги"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:177
+msgid "Видео и Анимация"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:171
+msgid "Градоустройство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:175
+msgid "Дизайн"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:178
+msgid "Енергетика и Ютилитис (Ток/Вода/Парно/Газ)"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:180
+msgid "Застраховане"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:181
+msgid "Здравеопазване и фармация"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:189
+msgid "ИТ - Административни дейности и продажби"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:191
+msgid "ИТ - Разработка/поддръжка на софтуер"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:193
+msgid "ИТ - Разработка/поддръжка на хардуер"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:198
+msgid "Издателство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:182
+msgid "Изкуство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:184
+msgid "Изследователска и Развойна дейност (R&D)"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:186
+msgid "Инженери"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:187
+msgid "Институции, Държавна администрация"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:230
+msgid "Кинезитерапия"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:195
+msgid "Контакт центрове (Call Centers)"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:173
+msgid "Кредитиране"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:176
+msgid "Криейтив"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:247
+msgid "Куриери"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:204
+msgid "Курсове"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:164
+msgid "Летища и Авиолинии"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:239
+msgid "Логистика"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:196
+msgid "Маркетинг"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:197
+msgid "Медии"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:199
+msgid "Мениджмънт"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:201
+msgid "Морски и Речен транспорт"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:202
+msgid "Недвижими имоти"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:203
+msgid "Образование"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:232
+msgid "Одит"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:206
+msgid "Организации с нестопанска цел"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:207
+msgid "Почистване"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:209
+msgid "Право, Юридически услуги"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:205
+msgid "Преводи"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:220
+msgid "Производство - Друго"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:210
+msgid "Производство - Електроника, Електротехника, Машиностроене"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:212
+msgid "Производство - Мебели и Дърводелство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:214
+msgid "Производство - Металургия и Минно дело"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:216
+msgid "Производство - Текстил и Облеклa"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:217
+msgid "Производство - Фармация"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:218
+msgid "Производство - Химия и Горива"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:219
+msgid "Производство - Храни и Напитки"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:183
+msgid "Развлечение"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:221
+msgid "Резервации и Туризъм"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:222
+msgid "Реклама, PR"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:223
+msgid "Ремонтни и Монтажни дейности"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:224
+msgid "Ресторанти, Кетъринг"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:243
+msgid "Ръчен труд"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:225
+msgid "Салони за красота"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:226
+msgid "Селско и горско стопанство, Рибовъдство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:228
+msgid "Сигурност и Охрана"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:240
+msgid "Спедиция"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:229
+msgid "Спорт"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:170
+msgid "Строителство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:231
+msgid "Счетоводство"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:234
+msgid "Телекомуникации - административни дейности и продажби"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:236
+msgid "Телекомуникации - инженери и техници"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:238
+msgid "Транспорт"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:241
+msgid "Търговия и продажби"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:208
+msgid "Услуги за домакинството"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:242
+msgid "Физически труд"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:233
+msgid "Финанси"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:244
+msgid "Хотели"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:245
+msgid "Човешки ресурси"
+msgstr ""
+
+#, elixir-format
+#: lib/storeHall/filterable/filter_accepted_options.ex:246
+msgid "Шофьори"
 msgstr ""

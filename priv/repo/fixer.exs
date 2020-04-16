@@ -73,73 +73,73 @@ alias StoreHall.Repo
 #   end
 # end)
 
-User
-|> Repo.all()
-|> Enum.each(fn user ->
-  user
-  |> User.changeset(%{
-    info:
-      user.details
-      |> Map.take([
-        "videos",
-        "address",
-        "contacts",
-        "mail",
-        "web",
-        "open",
-        "description"
-      ]),
-    # })
-    # |> Repo.update!()
+# User
+# |> Repo.all()
+# |> Enum.each(fn user ->
+#   user
+#   |> User.changeset(%{
+#     info:
+#       user.details
+#       |> Map.take([
+#         "videos",
+#         "address",
+#         "contacts",
+#         "mail",
+#         "web",
+#         "open",
+#         "description"
+#       ]),
+#     # })
+#     # |> Repo.update!()
 
-    # user
-    # |> User.changeset(%{
-    marketing_info:
-      user.details
-      |> Map.take([
-        "marketing_consent",
-        "mail_credits_ask",
-        "age",
-        "cities",
-        "gender",
-        "height",
-        "interests",
-        "job_sector",
-        "kids",
-        "kids_age",
-        "marital_status",
-        "weight",
-        "work_experience"
-      ])
-  })
-  |> Repo.update!()
+#     # user
+#     # |> User.changeset(%{
+#     marketing_info:
+#       user.details
+#       |> Map.take([
+#         "marketing_consent",
+#         "mail_credits_ask",
+#         "age",
+#         "cities",
+#         "gender",
+#         "height",
+#         "interests",
+#         "job_sector",
+#         "kids",
+#         "kids_age",
+#         "marital_status",
+#         "weight",
+#         "work_experience"
+#       ])
+#   })
+#   |> Repo.update!()
 
-  user
-  |> User.changeset(%{
-    details:
-      user.details
-      |> Map.drop([
-        "videos",
-        "address",
-        "contacts",
-        "mail",
-        "web",
-        "open",
-        "description",
-        "marketing_consent",
-        "mail_credits_ask",
-        "age",
-        "cities",
-        "gender",
-        "height",
-        "interests",
-        "job_sector",
-        "kids",
-        "kids_age",
-        "marital_status",
-        "weight",
-        "work_experience"
-      ])
-  })
-  |> Repo.update!()
-end)
+#   user
+#   |> User.changeset(%{
+#     details:
+#       user.details
+#       |> Map.drop([
+#         "videos",
+#         "address",
+#         "contacts",
+#         "mail",
+#         "web",
+#         "open",
+#         "description",
+#         "marketing_consent",
+#         "mail_credits_ask",
+#         "age",
+#         "cities",
+#         "gender",
+#         "height",
+#         "interests",
+#         "job_sector",
+#         "kids",
+#         "kids_age",
+#         "marital_status",
+#         "weight",
+#         "work_experience"
+#       ])
+#   })
+#   |> Repo.update!()
+# end)

@@ -10,9 +10,9 @@ defmodule StoreHall.Users do
   alias StoreHall.Users.Settings
 
   alias StoreHall.UserFilter
-  # alias StoreHall.DefaultFilter
+  alias StoreHall.DefaultFilter
 
-  def list_users(params \\ nil) do
+  def list_users(params) do
     apply_filters(params)
     |> Repo.all()
   end
@@ -21,7 +21,7 @@ defmodule StoreHall.Users do
     User
     |> add_select_fields([:marketing_info])
     |> UserFilter.with_marketing_consent()
-    # |> join(:left, [u], s in Settings, on: s.id == u.id, as: :s)
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> UserFilter.search_filter(params)
   end
 
