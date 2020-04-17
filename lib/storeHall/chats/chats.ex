@@ -5,6 +5,7 @@ defmodule StoreHall.Chats do
 
   alias StoreHall.Chats.ChatMessage
   alias StoreHall.Items.Item
+  alias StoreHall.Users
   alias StoreHall.Users.User
 
   def for_chat_room_query(nil, owner_id, user_id) do
