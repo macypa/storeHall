@@ -30,6 +30,11 @@ defmodule StoreHall.Users do
     |> repo.preload(user: from(u in User) |> add_select_fields([]))
   end
 
+  def preload_author(query, repo) do
+    query
+    |> repo.preload(author: from(u in User) |> add_select_fields([]))
+  end
+
   def get!(id, select_fields \\ [], repo \\ Repo) do
     get_user!(id, select_fields, repo)
   end
@@ -51,7 +56,7 @@ defmodule StoreHall.Users do
     end
   end
 
-  defp add_select_fields(query, []) do
+  def add_select_fields(query, []) do
     query
     |> select(
       ^(User.fields()
@@ -60,7 +65,7 @@ defmodule StoreHall.Users do
     )
   end
 
-  defp add_select_fields(query, select_fields) do
+  def add_select_fields(query, select_fields) do
     query
     |> select(
       ^(User.fields()

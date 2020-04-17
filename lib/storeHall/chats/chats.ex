@@ -50,7 +50,7 @@ defmodule StoreHall.Chats do
 
   def preload_author(chat) do
     chat
-    |> Repo.preload(:author)
+    |> Users.preload_author(Repo)
   end
 
   def preload_for(item_user, user_id) do

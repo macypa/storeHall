@@ -80,7 +80,6 @@ defmodule StoreHall.Items do
 
   def preload_user(item) do
     item
-
     |> Users.preload_users(Repo)
   end
 

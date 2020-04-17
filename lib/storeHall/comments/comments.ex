@@ -98,8 +98,10 @@ defmodule StoreHall.Comments do
   end
 
   def apply_filters(comments, current_user_id, params) do
+    author_preload_query = from(u in User) |> Users.add_select_fields([])
+
     comments
-    |> preload([:author])
+    |> preload(author: ^author_preload_query)
     |> Reactions.preload_reaction(current_user_id, "comment")
     |> DefaultFilter.show_with_min_rating(:author, current_user_id)
     |> DefaultFilter.show_with_max_alerts(current_user_id)
@@ -127,7 +129,7 @@ defmodule StoreHall.Comments do
       {:ok, multi} ->
         {:ok,
          multi.insert
-         |> Repo.preload(:author)
+         |> Users.preload_author(Repo)
          |> Reactions.preload_reaction(Repo, comment["author_id"], "comment")}
 
       {:error, _op, value, _changes} ->
@@ -144,7 +146,7 @@ defmodule StoreHall.Comments do
       {:ok, multi} ->
         {:ok,
          multi.insert
-         |> Repo.preload(:author)
+         |> Users.preload_author(Repo)
          |> Reactions.preload_reaction(Repo, comment["author_id"], "comment")}
 
       {:error, _op, value, _changes} ->

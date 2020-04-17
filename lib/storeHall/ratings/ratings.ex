@@ -170,8 +170,10 @@ defmodule StoreHall.Ratings do
   end
 
   def apply_filters(item_user, current_user_id, params) do
+    author_preload_query = from(u in User) |> Users.add_select_fields([])
+
     item_user
-    |> preload([:author])
+    |> preload(author: ^author_preload_query)
     |> Reactions.preload_reaction(current_user_id, "rating")
     |> DefaultFilter.show_with_min_rating(:author, current_user_id)
     |> DefaultFilter.show_with_max_alerts(current_user_id)
@@ -200,14 +202,14 @@ defmodule StoreHall.Ratings do
           true ->
             {:ok,
              multi.insert
-             |> Repo.preload(:author)
+             |> Users.preload_author(Repo)
              |> Reactions.preload_reaction(Repo, rating["author_id"], "rating"),
              multi.calc_item_rating, multi.calc_user_rating}
 
           _ ->
             {:ok,
              multi.insert
-             |> Repo.preload(:author)
+             |> Users.preload_author(Repo)
              |> Reactions.preload_reaction(Repo, rating["author_id"], "rating")}
         end
 
@@ -226,14 +228,14 @@ defmodule StoreHall.Ratings do
           true ->
             {:ok,
              multi.insert
-             |> Repo.preload(:author)
+             |> Users.preload_author(Repo)
              |> Reactions.preload_reaction(Repo, rating["author_id"], "rating"),
              multi.calc_user_rating}
 
           _ ->
             {:ok,
              multi.insert
-             |> Repo.preload(:author)
+             |> Users.preload_author(Repo)
              |> Reactions.preload_reaction(Repo, rating["author_id"], "rating")}
         end
 
