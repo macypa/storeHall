@@ -1,5 +1,6 @@
 defmodule StoreHall.EncodeHelper do
   def decode(nil), do: nil
+  def decode(""), do: nil
 
   def decode(string) when is_binary(string) do
     case Jason.decode(string) do
@@ -15,7 +16,7 @@ defmodule StoreHall.EncodeHelper do
   end
 
   def decode(list) when is_list(list) do
-    Enum.map(list, fn x -> decode(x) end)
+    Enum.map(list, fn value -> decode(value) end)
   end
 
   def decode(map) when is_map(map) do

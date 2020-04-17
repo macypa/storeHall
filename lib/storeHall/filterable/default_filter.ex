@@ -194,7 +194,7 @@ defmodule StoreHall.DefaultFilter do
     do:
       order_by_details_field_fragment(
         query,
-        "(?.details->>'expiration')::numeric DESC NULLS LAST"
+        "(?.details->>'expiration')::date DESC NULLS FIRST"
       )
 
   defp order_by_details_field(query, "feature_" <> feature, :desc),
@@ -211,7 +211,7 @@ defmodule StoreHall.DefaultFilter do
     do: order_by_details_field_fragment(query, "(?.details->'rating'->>'score')::numeric")
 
   defp order_by_details_field(query, "expiration", _),
-    do: order_by_details_field_fragment(query, "(?.details->>'expiration')::numeric")
+    do: order_by_details_field_fragment(query, "(?.details->>'expiration')::date")
 
   defp order_by_details_field(query, "feature_" <> feature, _),
     do: order_by_details_field_fragment(query, "?.details->'features'->>?", feature)

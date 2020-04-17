@@ -589,11 +589,11 @@ msgstr "Показвай резултати с минимум рейтинг"
 
 #: lib/storeHall/filterable/filter_accepted_options.ex:24
 msgid "expiration asc"
-msgstr "Изтичащи късно"
+msgstr "Изтичащи скоро"
 
 #: lib/storeHall/filterable/filter_accepted_options.ex:23
 msgid "expiration desc"
-msgstr "Изтичащи скоро"
+msgstr "Изтичащи късно"
 
 #: lib/storeHall/filterable/filter_accepted_options.ex:26
 #: lib/storeHall/filterable/filter_accepted_options.ex:40

@@ -18,7 +18,7 @@ defmodule StoreHall.Items.Item do
         "discount" => 0,
         "description" => "",
         "conditions" => "",
-        "expiration" => "",
+        "expiration" => nil,
         "features" => [],
         "images" => [],
         "videos" => [],
