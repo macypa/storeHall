@@ -65,36 +65,18 @@ defmodule StoreHall.Items do
   def get_item!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 
-    item = Item |> repo.get!(id)
-
-    update_default_item_details(item, repo)
+    Item |> repo.get!(id)
   end
 
   def get_item_with_reactions!(id, params, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 
-    item = Item |> Reactions.preload_reaction(params["user_id"], "item") |> repo.get!(id)
-
-    update_default_item_details(item, repo)
+    Item |> Reactions.preload_reaction(params["user_id"], "item") |> repo.get!(id)
   end
 
   def preload_user(item) do
     item
     |> Users.preload_users(Repo)
-  end
-
-  defp update_default_item_details(item, repo) do
-    details =
-      %Item{}.details
-      |> DeepMerge.merge(item.details)
-
-    item
-    |> Item.changeset(%{details: details})
-    |> repo.update()
-    |> case do
-      {:ok, updated_item} -> updated_item
-      {:error, _error} -> item
-    end
   end
 
   @doc """

@@ -43,17 +43,12 @@ defmodule StoreHall.Users do
     User
     |> add_select_fields(select_fields)
     |> repo.get!(id)
-    |> update_default_user_details(repo)
   end
 
   def get_user(id, select_fields \\ [], repo \\ Repo) do
     User
     |> add_select_fields(select_fields)
     |> repo.get(id)
-    |> case do
-      nil -> nil
-      user -> update_default_user_details(user, repo)
-    end
   end
 
   def add_select_fields(query, []) do
@@ -73,20 +68,6 @@ defmodule StoreHall.Users do
         |> List.delete(:info)
         |> Kernel.++(select_fields))
     )
-  end
-
-  defp update_default_user_details(user, repo) do
-    details =
-      %User{}.details
-      |> DeepMerge.merge(user.details)
-
-    user
-    |> User.changeset(%{details: details})
-    |> repo.update()
-    |> case do
-      {:ok, updated_user} -> updated_user
-      {:error, _error} -> user
-    end
   end
 
   def get_user_with_settings!(id, select_fields \\ []) do
