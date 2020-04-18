@@ -7,7 +7,6 @@ defmodule StoreHall.Items do
   import PhoenixHtmlSanitizer.Helpers
 
   alias StoreHall.Repo
-  alias StoreHall.DeepMerge
   alias Ecto.Multi
 
   alias StoreHall.Items.Item
