@@ -230,9 +230,9 @@ defmodule StoreHall.DefaultFilter do
     do:
       order_by_details_field_fragment(
         query,
-        "(?.marketing_info->>'last_activity')::numeric DESC NULLS LAST"
+        "(?.marketing_info->>'last_activity')::date DESC NULLS LAST"
       )
 
   defp order_by_details_field(query, "last_activity", _),
-    do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::numeric")
+    do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::date")
 end

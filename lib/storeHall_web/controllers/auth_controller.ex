@@ -135,5 +135,9 @@ defmodule StoreHallWeb.AuthController do
     |> put_session(:logged_user_id, user.id)
     |> put_session(:logged_user_image, user.image)
     |> put_session(:logged_user_settings, user.settings)
+    |> put_session(
+      :logged_user_marketing_info,
+      user.marketing_info |> Map.take(["marketing_consent", "last_activity"])
+    )
   end
 end
