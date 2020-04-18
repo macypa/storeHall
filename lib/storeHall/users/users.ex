@@ -94,7 +94,28 @@ defmodule StoreHall.Users do
     Map.put(user, :settings, settings)
   end
 
+  defp deep_merge_map(attrs, user) do
+    attrs
+    |> deep_merge_map(user, "settings")
+    |> deep_merge_map(user, "details")
+    |> deep_merge_map(user, "info")
+    |> deep_merge_map(user, "marketing_info")
+  end
+
+  defp deep_merge_map(attrs, map, key) do
+    case Map.has_key?(attrs, key) and Map.has_key?(map, String.to_atom(key)) do
+      true ->
+        attrs
+        |> Map.put(key, Map.get(map, String.to_atom(key)) |> DeepMerge.merge(attrs[key]))
+
+      false ->
+        attrs
+    end
+  end
+
   def update_user(%User{} = user, attrs) do
+    attrs = deep_merge_map(attrs, user)
+
     Ecto.Multi.new()
     |> upsert_settings_on_multi(user, Map.get(attrs, "settings"))
     |> Multi.update(:update, User.changeset(user, Images.prepare_images(attrs)))
