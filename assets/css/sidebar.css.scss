@@ -95,6 +95,9 @@ sidebar {
         width: calc(100% - 3em);
         margin-left: 1em;
       }
+      .page_filter_container input {
+        width: 100%;
+      }
     }
 
     // :checked

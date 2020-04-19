@@ -216,7 +216,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:69
 #: lib/storeHall_web/templates/comment/show.html.eex:19 lib/storeHall_web/templates/item/index_sidebar.html.eex:186
-#: lib/storeHall_web/templates/rating/show.html.eex:19 lib/storeHall_web/templates/user/index_sidebar.html.eex:87
+#: lib/storeHall_web/templates/rating/show.html.eex:19 lib/storeHall_web/templates/user/index_sidebar.html.eex:100
 msgid "Scores"
 msgstr "Ratings"
 
@@ -343,10 +343,10 @@ msgstr ""
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:112
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:129 lib/storeHall_web/templates/item/index_sidebar.html.eex:145
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:159 lib/storeHall_web/templates/item/index_sidebar.html.eex:173
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:65 lib/storeHall_web/templates/user/index_sidebar.html.eex:76
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:122 lib/storeHall_web/templates/user/index_sidebar.html.eex:234
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:247 lib/storeHall_web/templates/user/index_sidebar.html.eex:260
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:306
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:78 lib/storeHall_web/templates/user/index_sidebar.html.eex:89
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:135 lib/storeHall_web/templates/user/index_sidebar.html.eex:247
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:260 lib/storeHall_web/templates/user/index_sidebar.html.eex:273
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:319
 msgid "Choose"
 msgstr ""
 
@@ -566,7 +566,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:54
-#: lib/storeHall_web/templates/item/index_sidebar.html.eex:110 lib/storeHall_web/templates/user/index_sidebar.html.eex:63
+#: lib/storeHall_web/templates/item/index_sidebar.html.eex:110 lib/storeHall_web/templates/user/index_sidebar.html.eex:76
 msgid "City"
 msgstr ""
 
@@ -998,7 +998,7 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:57
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:127 lib/storeHall_web/templates/user/_show_info_data.html.eex:11
-#: lib/storeHall_web/templates/user/form.html.eex:24 lib/storeHall_web/templates/user/index_sidebar.html.eex:74
+#: lib/storeHall_web/templates/user/form.html.eex:24 lib/storeHall_web/templates/user/index_sidebar.html.eex:87
 msgid "Merchant type"
 msgstr "Profile type"
 
@@ -1138,37 +1138,37 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:166
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:120
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:133
 msgid "Gender"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:187
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:133
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:146
 msgid "Height"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:254
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:258
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:271
 msgid "Interests"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:278
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:304
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:317
 msgid "Job sector"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:219
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:199
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:212
 msgid "Kids"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:243
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:245
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:258
 msgid "Marital status"
 msgstr ""
 
@@ -1184,13 +1184,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:198
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:166
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:179
 msgid "Weight"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:267
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:271
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:284
 msgid "Work experience"
 msgstr ""
 
@@ -1230,13 +1230,13 @@ msgid "here"
 msgstr ""
 
 #, elixir-format
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:29
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:42
 msgid "mail_credits_ask"
 msgstr ""
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:230
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:232
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:245
 msgid "Kids age"
 msgstr ""
 
@@ -2083,4 +2083,9 @@ msgstr ""
 #, elixir-format
 #: lib/storeHall/filterable/filter_accepted_options.ex:246
 msgid "Шофьори"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:28
+msgid "Page"
 msgstr ""

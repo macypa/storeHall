@@ -34,14 +34,22 @@ defmodule StoreHall.DefaultFilter do
 
   def sort_filter(query, _), do: query
 
-  def paging_filter(query, params) do
-    page = parse_int(params["page"], 1)
-    page_size = parse_int(params["page-size"], 5)
-    offset = page_size * (page - 1)
+  def paging_filter(query, params, default_page_size \\ 5)
 
-    query
-    |> limit([_], ^page_size)
-    |> offset([_], ^offset)
+  def paging_filter(query, params, default_page_size) do
+    parse_int(params["page-size"], default_page_size)
+    |> case do
+      -1 ->
+        query
+
+      page_size ->
+        page = parse_int(params["page"], 1)
+        offset = page_size * (page - 1)
+
+        query
+        |> limit([_], ^page_size)
+        |> offset([_], ^offset)
+    end
   end
 
   def order_first_for(query, nil), do: query

@@ -21,6 +21,7 @@ defmodule StoreHall.Users do
     User
     |> add_select_fields([:marketing_info])
     |> UserFilter.with_marketing_consent()
+    |> DefaultFilter.paging_filter(params, -1)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> UserFilter.search_filter(params)
   end
