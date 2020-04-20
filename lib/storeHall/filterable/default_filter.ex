@@ -202,7 +202,7 @@ defmodule StoreHall.DefaultFilter do
     do:
       order_by_details_field_fragment(
         query,
-        "(?.details->>'expiration')::date DESC NULLS FIRST"
+        "(?.details->>'expiration')::timestamp DESC NULLS FIRST"
       )
 
   defp order_by_details_field(query, "feature_" <> feature, :desc),
@@ -219,7 +219,7 @@ defmodule StoreHall.DefaultFilter do
     do: order_by_details_field_fragment(query, "(?.details->'rating'->>'score')::numeric")
 
   defp order_by_details_field(query, "expiration", _),
-    do: order_by_details_field_fragment(query, "(?.details->>'expiration')::date")
+    do: order_by_details_field_fragment(query, "(?.details->>'expiration')::timestamp")
 
   defp order_by_details_field(query, "feature_" <> feature, _),
     do: order_by_details_field_fragment(query, "?.details->'features'->>?", feature)
@@ -238,9 +238,9 @@ defmodule StoreHall.DefaultFilter do
     do:
       order_by_details_field_fragment(
         query,
-        "(?.marketing_info->>'last_activity')::date DESC NULLS LAST"
+        "(?.marketing_info->>'last_activity')::timestamp DESC NULLS LAST"
       )
 
   defp order_by_details_field(query, "last_activity", _),
-    do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::date")
+    do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::timestamp")
 end

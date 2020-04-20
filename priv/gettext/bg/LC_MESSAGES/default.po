@@ -1691,12 +1691,12 @@ msgstr "жена"
 #, elixir-format
 #: lib/storeHall/filterable/filter_accepted_options.ex:38
 msgid "last_activity asc"
-msgstr "Скоро активен"
+msgstr "Отдавна активен"
 
 #, elixir-format
 #: lib/storeHall/filterable/filter_accepted_options.ex:37
 msgid "last_activity desc"
-msgstr "Отдавна активен"
+msgstr "Скоро активен"
 
 #, elixir-format
 #: lib/storeHall/filterable/filter_accepted_options.ex:34
