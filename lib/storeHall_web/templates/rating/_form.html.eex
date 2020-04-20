@@ -1,6 +1,7 @@
 
 <rating-form class="hidable-form" id="rating-<%=@rating.id%>" style="display: none">
-  <textarea placeholder='<%= Gettext.gettext("and remember, be nice!") %>' class="rating-textarea" type="text" name="body"><%= @rating.details["body"] %></textarea>
+  <textarea placeholder='<%= Gettext.gettext("and remember, be nice!") %>'
+    class="rating-textarea" type="text" name="details[body]"><%= @rating.details["body"] %></textarea>
 
   <% current_user_id = get_logged_user_id(@conn)
      am_author = Map.has_key?(@rating, :author_id) and @rating.author_id == current_user_id
@@ -13,8 +14,8 @@
                                               max_score: Ratings.max_scores_sum_points ) %>' />
 
     <div class="datalist_container" placeholder='<%= Gettext.gettext("Add Scores") %>' key_value_separator=":">
-      <input class="scores" name="scores"
-             value='<%= @rating.details["scores"] || "{}" %>' />
+      <input class="scores" name="details[scores]"
+             value='<%= Jason.encode!(@rating.details["scores"] || []) %>' />
       <template data-hkey="_hkey_" data-value="_value_"><span>_hkey_</span>:<input class='datalist_item_oninput_event datalist_item_spinner' min='-10' max='10' step='1' type='number' value='_value_'></template>
       <select>
         <%= for {score_name, score_text}  <- StoreHall.Ratings.scode_names do %>

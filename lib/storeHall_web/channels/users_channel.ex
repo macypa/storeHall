@@ -227,8 +227,6 @@ defmodule StoreHallWeb.UsersChannel do
 
       logged_user_id ->
         unless logged_user_id == rating["user_id"] do
-          rating = Ratings.reformat_scores(rating)
-
           case Ratings.validate_scores(rating) do
             false ->
               push(socket, "error", %{

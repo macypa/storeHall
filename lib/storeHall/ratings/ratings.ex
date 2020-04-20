@@ -34,25 +34,19 @@ defmodule StoreHall.Ratings do
       nil ->
         max_score = max_scores_sum_points()
 
-        rating["details"]["scores"]
+        scores_map = rating["details"]["scores"] |> scores_to_map()
+
+        scores_map
         |> Map.values()
         |> Enum.reduce(0, fn score, acc -> acc + score end)
         |> case do
           x when x > max_score -> false
-          _ -> validate_individual_scores(rating)
+          _ -> validate_individual_scores(scores_map)
         end
 
       _ ->
         true
     end
-  end
-
-  def reformat_scores(rating) do
-    rating
-    |> put_in(
-      ["details", "scores"],
-      scores_to_map(rating["details"]["scores"])
-    )
   end
 
   defp scores_to_map(scores) do
@@ -74,10 +68,10 @@ defmodule StoreHall.Ratings do
     end
   end
 
-  defp validate_individual_scores(rating) do
+  defp validate_individual_scores(scores_map) do
     max_score = max_score_points()
 
-    rating["details"]["scores"]
+    scores_map
     |> Map.values()
     |> Enum.reduce(true, fn score, acc ->
       case score do
@@ -277,12 +271,14 @@ defmodule StoreHall.Ratings do
             rating_from_db ->
               negated_old_scores =
                 rating_from_db.details["scores"]
+                |> scores_to_map()
                 |> Map.values()
                 |> Enum.reduce(0, fn score, acc -> acc + score end)
                 |> Kernel.*(-1)
 
               new_scores =
                 rating["details"]["scores"]
+                |> scores_to_map()
                 |> Map.values()
                 |> Enum.reduce(0, fn score, acc -> acc + score end)
 
@@ -329,12 +325,14 @@ defmodule StoreHall.Ratings do
             rating_from_db ->
               negated_old_scores =
                 rating_from_db.details["scores"]
+                |> scores_to_map()
                 |> Map.values()
                 |> Enum.reduce(0, fn score, acc -> acc + score end)
                 |> Kernel.*(-1)
 
               new_scores =
                 rating["details"]["scores"]
+                |> scores_to_map()
                 |> Map.values()
                 |> Enum.reduce(0, fn score, acc -> acc + score end)
 
@@ -384,7 +382,7 @@ defmodule StoreHall.Ratings do
   defp calculate_rating_score(rating, repo, query, item_or_user, incr_count)
        when is_map(rating) do
     calculate_rating_score(
-      Map.values(rating["details"]["scores"]),
+      Map.values(rating["details"]["scores"] |> scores_to_map()),
       repo,
       query,
       item_or_user,

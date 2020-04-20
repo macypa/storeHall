@@ -146,12 +146,15 @@ window.rating_pros_cons_format = function () {
         $(this).parent().remove()
       }
 
-      if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
+      if (!this.innerText.startsWith("\"") && !this.innerText.startsWith("{{") && this.innerText.startsWith("[")) {
         let json_data = JSON.parse(this.innerText);
         let html = "";
         for (let score in json_data) {
-          if (json_data[score] > 0) {
-            html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+          let key = (json_data[score] + "").split(":")[0];
+          value = (json_data[score] + "").slice(json_data[score].indexOf(key) + key.length + 1);
+
+          if (value > 0) {
+            html += "<score_text>" + scode_names[key] + ": " + value + "</score_text>"
           }
         }
 
@@ -167,12 +170,15 @@ window.rating_pros_cons_format = function () {
       if (this.innerText == "") {
         $(this).parent().remove()
       }
-      if (!this.innerText.startsWith("{{") && this.innerText.startsWith("{")) {
+      if (!this.innerText.startsWith("\"") && !this.innerText.startsWith("{{") && this.innerText.startsWith("[")) {
         let json_data = JSON.parse(this.innerText);
         let html = "";
         for (let score in json_data) {
-          if (json_data[score] < 0) {
-            html += "<score_text>" + scode_names[score] + ": " + json_data[score] + "</score_text>"
+          let key = (json_data[score] + "").split(":")[0];
+          value = (json_data[score] + "").slice(json_data[score].indexOf(key) + key.length + 1);
+
+          if (value < 0) {
+            html += "<score_text>" + scode_names[key] + ": " + value + "</score_text>"
           }
         }
 
