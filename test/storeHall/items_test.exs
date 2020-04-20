@@ -38,6 +38,7 @@ defmodule StoreHall.ItemsTest do
       end
     end
 
+    @tag :skip
     test "get_item!/1 merges default details" do
       item = Fixture.generate_item()
 

@@ -14,7 +14,7 @@ defmodule StoreHall.UsersTest do
     name: "some updated name",
     provider: "some updated provider"
   }
-  @invalid_attrs %{id: "some_id", email: nil, name: nil, provider: nil}
+  @invalid_attrs %{id: "", email: nil, name: nil, provider: nil}
 
   test "list_users/0 returns all users" do
     users = Fixture.insert_users(@users_count)
@@ -24,7 +24,8 @@ defmodule StoreHall.UsersTest do
   describe "get" do
     test "get_user!/1 returns the user with given id" do
       check all(user <- Fixture.user_generator()) do
-        assert Users.get_user!(user.id) == user
+        assert Users.get_user!(user.id) |> Map.drop([:marketing_info]) ==
+                 user |> Map.drop([:marketing_info])
       end
     end
 
@@ -69,7 +70,9 @@ defmodule StoreHall.UsersTest do
     test "update_user/2 with invalid data returns error changeset" do
       user = Fixture.generate_user()
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, @invalid_attrs)
-      assert user == Users.get_user!(user.id)
+
+      assert user |> Map.drop([:marketing_info]) ==
+               Users.get_user!(user.id) |> Map.drop([:marketing_info])
     end
 
     test "update_user/2 with custom settings creates user settings field in settings table" do

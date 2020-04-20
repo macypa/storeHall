@@ -245,7 +245,7 @@ defmodule StoreHallWeb.ItemControllerTest do
   end
 
   defp create_item(_) do
-    item = Items.get_item!(Fixture.generate_item().id) |> Users.preload(Repo)
+    item = Items.get_item!(Fixture.generate_item().id) |> Users.preload_users(Repo)
     {:ok, item: item}
   end
 end

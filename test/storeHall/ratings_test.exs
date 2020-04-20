@@ -25,7 +25,7 @@ defmodule StoreHall.RatingsTest do
           "item_id" => item.id,
           "user_id" => item.user_id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => "3"}}
+          "details" => %{"scores" => ["clean:3"]}
         })
 
         assert length(
@@ -46,7 +46,7 @@ defmodule StoreHall.RatingsTest do
           "item_id" => item.id,
           "user_id" => item.user_id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => "3"}}
+          "details" => %{"scores" => ["clean:3"]}
         })
 
         assert Items.get_item!(item.id).details["rating"]["count"] == item_ratings_count + 1
@@ -66,7 +66,7 @@ defmodule StoreHall.RatingsTest do
           "item_id" => item.id,
           "user_id" => item.user_id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => "3"}}
+          "details" => %{"scores" => ["clean:3"]}
         })
 
         assert Items.get_item!(item.id).details["rating"]["count"] == item_ratings_count
@@ -87,7 +87,7 @@ defmodule StoreHall.RatingsTest do
           "item_id" => item.id,
           "user_id" => item.user_id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => score}}
+          "details" => %{"scores" => ["clean:#{score}"]}
         })
 
         assert Items.get_item!(item.id).details["rating"]["score"] >= 0
@@ -111,7 +111,7 @@ defmodule StoreHall.RatingsTest do
         Ratings.upsert_user_rating(%{
           "user_id" => user.id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => "3"}}
+          "details" => %{"scores" => ["clean:3"]}
         })
 
         assert length(
@@ -129,7 +129,7 @@ defmodule StoreHall.RatingsTest do
         Ratings.upsert_user_rating(%{
           "user_id" => user.id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => "3"}}
+          "details" => %{"scores" => ["clean:3"]}
         })
 
         assert Users.get_user!(user.id).details["rating"]["count"] == user_ratings_count + 1
@@ -147,7 +147,7 @@ defmodule StoreHall.RatingsTest do
         Ratings.upsert_user_rating(%{
           "user_id" => user.id,
           "author_id" => author.id,
-          "details" => %{"scores" => %{"clean" => score}}
+          "details" => %{"scores" => ["clean#{score}"]}
         })
 
         assert Users.get_user!(user.id).details["rating"]["score"] >= 0
