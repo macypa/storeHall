@@ -19,7 +19,7 @@ defmodule StoreHall.Users do
 
   def apply_filters(params) do
     User
-    |> add_select_fields([:marketing_info])
+    # |> add_select_fields([:marketing_info])
     |> UserFilter.with_marketing_consent()
     |> DefaultFilter.paging_filter(params, -1)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
@@ -107,15 +107,22 @@ defmodule StoreHall.Users do
     case Map.has_key?(attrs, key) and Map.has_key?(map, String.to_atom(key)) do
       true ->
         attrs
-        |> Map.put(key, Map.get(map, String.to_atom(key)) |> DeepMerge.merge(attrs[key]))
+        |> Map.put(key, Map.get(map, String.to_atom(key)) |> Map.merge(attrs[key]))
 
       false ->
         attrs
     end
   end
 
+  defp default_values_instead_of_nil(attrs) do
+    case attrs["marketing_info"]["mail_credits_ask"] do
+      nil -> attrs |> put_in(["marketing_info", "mail_credits_ask"], 0)
+      _ -> attrs
+    end
+  end
+
   def update_user(%User{} = user, attrs) do
-    attrs = deep_merge_map(attrs, user)
+    attrs = deep_merge_map(attrs, user) |> default_values_instead_of_nil
 
     Ecto.Multi.new()
     |> upsert_settings_on_multi(user, Map.get(attrs, "settings"))
