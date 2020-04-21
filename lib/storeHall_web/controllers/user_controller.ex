@@ -4,7 +4,6 @@ defmodule StoreHallWeb.UserController do
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
   alias StoreHall.Chats
-  alias StoreHall.Users.User
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Images
@@ -14,28 +13,7 @@ defmodule StoreHallWeb.UserController do
   plug :check_owner when action in [:edit, :delete]
 
   def index(conn, _params) do
-    users = [
-      %User{
-        id: "{{id}}",
-        image: "{{image}}",
-        name: "{{name}}",
-        inserted_at: "{{inserted_at}}",
-        updated_at: "{{updated_at}}",
-        details: %{
-          "user_template_tag_id" => "user_template",
-          "merchant_type" => "{{json details.merchant_type}}",
-          "images" => [
-            "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}"
-          ],
-          "rating" => %{
-            "score" => "{{json details.rating.score}}",
-            "count" => "{{json details.rating.count}}"
-          },
-          "comments_count" => "{{json details.comments_count}}"
-        }
-      }
-      | Users.list_users(conn.params)
-    ]
+    users = Users.list_users(conn.params)
 
     render(conn, :index, users: users)
   end

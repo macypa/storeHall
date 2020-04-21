@@ -14,7 +14,7 @@ defmodule StoreHall.Users do
 
   def list_users(params) do
     apply_filters(params)
-    |> Repo.all()
+    |> Repo.aggregate(:count, :id)
   end
 
   def apply_filters(params) do

@@ -1,48 +1,4 @@
 
-<!--input type="radio" name="view-filter" id="list-view" class="list-view-radio view-radio">
-<label for="list-view"><i class="fa fa-list-ul"></i> List View</label>
-
-<input type="radio" name="view-filter" id="grid-view" class="grid-view-radio view-radio" checked>
-<label for="grid-view"><i class="fa fa-th"></i> Grid View</label-->
-
 <div class="listing" id="users-listing">
-
-  <%= for user <- @users do %>
-    <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
-      <template id='user_template' class='template'>
-    <% else %>
-      <user>
-    <% end %>
-
-      <div class="cover">
-        <rating_scores>
-          <%= link to: Routes.user_path(@conn, :show, user) <> "#ratings" do %>
-            <%= render StoreHallWeb.RatingView, "_rating_block.html", model: user %>
-          <% end %>
-        </rating_scores>
-
-      </div>
-      <div class="title">
-        <%= link to: Routes.user_path(@conn, :show, user) do %>
-          <%= user.name %>
-        <% end %>
-      </div>
-      <div class="rating">
-        <%= link to: Routes.user_path(@conn, :show, user) <> "#ratings" do %>
-          <%= Gettext.gettext("Rating") %>: <%= user.details["rating"]["score"] %>
-        <% end %>
-      </div>
-      <div class="comments">
-        <%= link to: Routes.user_path(@conn, :show, user) <> "#comments" do %>
-          <%= Gettext.gettext("Comments") %>: <%= user.details["comments_count"] %>
-        <% end %>
-      </div>
-
-    <%= if Map.has_key?(user.details, "user_template_tag_id") do %>
-      </template>
-    <% else %>
-      </user>
-    <% end %>
-  <% end %>
-
+  <%= @users  %>
 </div>

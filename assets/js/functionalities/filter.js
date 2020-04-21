@@ -109,21 +109,6 @@ function update_features_select_options(payload) {
 }
 
 channel.on("filtered_users", payload => {
-  let users_template_source = "{{#each this}}<user>" +
-    unescape(document.getElementById("user_template").innerHTML)
-      .replace("<div data-img=\"{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}{{image}}{{/if}}\"> </div>",
-        "{{#if details.images}}{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}{{else}}<div data-img='{{image}}'> </div>{{/if}}") +
-    "</user>{{/each}}";
-  let users_template = Handlebars.compile(users_template_source);
-
-  let filtered_users = users_template(JSON.parse(payload.filtered))
-  if (payload.filter.indexOf("page=") == -1) {
-    document.querySelector("#users-listing").innerHTML =
-      document.getElementById("user_template").outerHTML
-      + filtered_users;
-  } else {
-    document.querySelector("#users-listing").insertAdjacentHTML('beforeend', filtered_users);
-  }
-  $('.fotorama').fotorama();
-  update_next_page_link(payload);
+  let filtered_users = JSON.parse(payload.filtered);
+  document.querySelector("#users-listing").innerHTML = filtered_users;
 })
