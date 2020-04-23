@@ -72,6 +72,11 @@ $('textarea').on('input', function () {
   this.style.height = this.scrollHeight + "px"
 });
 
+$("sidebar").focusout(function () {
+  $("#sidebar_hider")[0].checked = false;
+});
+
+
 window.format_money = function () {
   $(".money_value").each(function () {
     let money_value = this.innerHTML;
