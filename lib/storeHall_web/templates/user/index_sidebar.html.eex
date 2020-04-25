@@ -11,32 +11,6 @@
       <%= submit Gettext.gettext("Submit") %>
     </div>
 
-
-    <div class="tab">
-      <input type="checkbox" id="sort" class="collapsible">
-      <label class="tab-label" for="sort"><%= Gettext.gettext("Sorting") %></label>
-      <div class="tab-content">
-        <div class="datalist_container" placeholder='<%= Gettext.gettext("Sort") %>'>
-          <%= text_input f, :sort, class: "auto-submit-item" %>
-          <%= select f, :sort_select, StoreHall.FilterAcceptedOptions.accepted_user_sorting(), name: nil %>
-        </div>
-      </div>
-    </div>
-
-    <div class="tab">
-      <input type="checkbox" id="page_limit_offset" class="collapsible">
-      <label class="tab-label" for="page_limit_offset"><%= Gettext.gettext("Page") %></label>
-      <div class="tab-content">
-        <div class="page_filter_container">
-          <%= number_input f, :"page-size",class: "auto-submit-item",
-            min: 1, name: "page-size", value: f.params["page-size"] %>
-          <% number_input f, :page, class: "auto-submit-item",
-            min: 1, name: "page", value: f.params["page"] %>
-        </div>
-      </div>
-    </div>
-
-
     <div class="tab">
       <input type="checkbox" id="mail_credits_ask-min" class="collapsible">
       <label class="tab-label" for="mail_credits_ask-min"><%= Gettext.gettext("mail_credits_ask") %></label>
@@ -68,6 +42,30 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="sort" class="collapsible">
+      <label class="tab-label" for="sort"><%= Gettext.gettext("Sorting") %></label>
+      <div class="tab-content">
+        <div class="datalist_container" placeholder='<%= Gettext.gettext("Sort") %>'>
+          <%= text_input f, :sort, class: "auto-submit-item" %>
+          <%= select f, :sort_select, StoreHall.FilterAcceptedOptions.accepted_user_sorting(), name: nil %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab">
+      <input type="checkbox" id="page_limit_offset" class="collapsible">
+      <label class="tab-label" for="page_limit_offset"><%= Gettext.gettext("Page") %></label>
+      <div class="tab-content">
+        <div class="page_filter_container">
+          <%= number_input f, :"page-size",class: "auto-submit-item",
+            min: 1, name: "page-size", value: f.params["page-size"] %>
+          <% number_input f, :page, class: "auto-submit-item",
+            min: 1, name: "page", value: f.params["page"] %>
+        </div>
       </div>
     </div>
 
@@ -332,7 +330,7 @@
       |> Map.delete("page")
       |> Map.delete("page-size")
       |> Map.keys() do
-        hidden_input f, "p", name: param, value: @conn.params[param]
+        hidden_input f, param, name: param, value: @conn.params[param], id: nil
     end %>
   <% end %>
 </sidebar-filters>

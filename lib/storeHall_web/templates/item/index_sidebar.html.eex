@@ -219,7 +219,7 @@
       |> Map.delete("filter")
       |> Map.delete("page")
       |> Map.keys() do
-        hidden_input f, "p", name: param, value: @conn.params[param]
+        hidden_input f, param, name: param, value: @conn.params[param], id: nil
     end %>
   <% end %>
 </sidebar-filters>
