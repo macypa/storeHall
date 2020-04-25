@@ -1029,7 +1029,7 @@ msgstr "Добавете характеристики, като въведете
 #: lib/storeHall_web/templates/user/form.html.eex:94
 msgid "form edit hint for images"
 msgstr "Въведете URL адреса на изображение, което искате да добавите и натиснете клавиша Enter. <br />"
-"Най-добре да е линк от личен/бизнес сайт, но може и да използвате услуга като <a href='https://oshi.at'>Oshi.at</a>. <br />"
+"Най-добре да е линк от личен/бизнес сайт, но може и да използвате услуга като <a href='https://postimages.org'>postimages.org</a>. <br />"
 "Трябва да започва с https://"
 
 #, elixir-format
