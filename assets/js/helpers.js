@@ -2,12 +2,6 @@
 import * as $ from 'jquery';
 import jqueryLazy from 'jquery-lazy';
 
-window.sanitize = function (str) {
-  let temp = document.createElement('div');
-  temp.textContent = (str + "").trim();
-  return temp.innerHTML;
-}
-
 window.objToString = function (obj) {
   const getCircularReplacer = () => {
     const seen = new WeakSet();
