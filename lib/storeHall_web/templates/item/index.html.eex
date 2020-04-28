@@ -18,7 +18,7 @@
     <%= if Map.has_key?(item.details, "item_template_tag_id") do %>
       <template id='item_template' class='template'>
     <% else %>
-      <item <%= if (Enum.fetch!(@items, -1) == item) do "id=last_listing_item" end %>>
+      <item>
     <% end %>
 
       <div class="cover">
@@ -61,7 +61,7 @@
       </div>
 
       <div class='price value_<%= item.details["price"] %>'><span class="money_value"><%= item.details["price"] %></span> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
-      
+
       <div class='price_orig value_<%= item.details["price_orig"] %> strike'><span class="money_value"><%= item.details["price_orig"] %></span> <%= item.details["currency"] || Gettext.gettext("lv") %></div>
       <div class='discount value_<%= item.details["discount"] %>'>-<%= item.details["discount"] %><%= Gettext.gettext("%") %></div>
       <div class="comments">
@@ -76,6 +76,7 @@
     <% end %>
   <% end %>
 
+  <div id="last_listing_item"></div>
 </div>
 
 <%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @items, add_params: "" %>

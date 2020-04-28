@@ -16,6 +16,7 @@ import "phoenix_html"
 // Local files can be imported directly using relative paths, for example:
 
 import helpers from "./helpers"
+import sanitizer from "./sanitizer"
 import theme from "./theme"
 import socket from "./socket"
 
