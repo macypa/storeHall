@@ -86,9 +86,8 @@
 
   <div class="form-group">
     <%= label f, :Images, Gettext.gettext("Images") %>
-    <div class="datalist_container" placeholder='<%= Gettext.gettext("Add image URLs") %>'>
-      <%= text_input f, :details_images, name: input_name(f, :details) <> "[images]",
-              value: Jason.encode!(input_value(f, :details)["images"] || []) %>
+    <div class="datalist_container">
+      <input value="<%= Jason.encode!(input_value(f, :details)["images"] || []) %>">
       <template>_hkey_</template>
       <div class="hint">
         <%= sanitize to_string(Gettext.gettext("form edit hint for images")) %>
