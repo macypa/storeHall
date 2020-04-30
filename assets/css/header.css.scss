@@ -1,16 +1,14 @@
-
 #credits_banner {
   text-align: center;
   * {
-    color: green !important;  
+    color: green !important;
   }
 }
 
 header {
-
   .menu_svg_icon {
-    width: calc(#{$height-header} - #{$height-header}/2);
-    height: calc(#{$height-header} - #{$height-header}/2);
+    width: calc(#{$height-header} - #{$height-header}/ 2);
+    height: calc(#{$height-header} - #{$height-header}/ 2);
   }
   .svg_icon {
     padding-right: 5px;
@@ -35,24 +33,24 @@ header {
   h1 {
     margin-right: auto;
 
-    font-size:calc(10px + 1vw);
+    font-size: calc(10px + 1vw);
     font-weight: normal;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: scroll;
     text-overflow: ellipsis;
- 
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-    &::-webkit-scrollbar { 
-      display: none;  /* Safari and Chrome */
+
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
     }
   }
 
   notifications {
     position: relative;
     cursor: pointer;
-    display: none;
-    // display: inline-block;
+    // display: none;
+    display: inline-block;
 
     .badge {
       font-size: 0.7em;
@@ -76,20 +74,20 @@ header {
 
     img {
       // margin-top: calc(#{$height-header}/10);
-      height: calc(#{$height-header} - #{$height-header}/3);
+      height: calc(#{$height-header} - #{$height-header}/ 3);
       // max-height: $height-header;
       @include dropdown_icon_border;
     }
   }
 
   notifications:hover .dropdown {
-      visibility: visible;
-      transform: translateY(0);
+    visibility: visible;
+    transform: translateY(0);
   }
 
   avatar:hover .dropdown {
-      visibility: visible;
-      transform: translateY(0);
+    visibility: visible;
+    transform: translateY(0);
   }
 
   .dropdown {
@@ -102,7 +100,7 @@ header {
     border-radius: 4px;
     visibility: hidden;
     transform: translateY(-5px);
-    transition: all .3s;
+    transition: all 0.3s;
     @include box-shadow;
     z-index: 200;
 
@@ -117,7 +115,7 @@ header {
       //color: $color-abbey;
 
       &:hover {
-        background-color: rgba(0,0,0, .1);
+        background-color: rgba(0, 0, 0, 0.1);
       }
 
       a {
@@ -128,13 +126,13 @@ header {
     .login_form {
       margin-bottom: 1em;
       font-size: x-small;
-      cursor: default; 
+      cursor: default;
     }
 
-    .link-button { 
+    .link-button {
       background: none;
       border: none;
-      cursor: pointer; 
+      cursor: pointer;
 
       color: white;
       height: 3em;
@@ -151,7 +149,7 @@ header {
 
     // input[type="checkbox"]:required:invalid + label {
     input[type="checkbox"]:not(:checked) + label {
-      color: red; 
+      color: red;
     }
     input[type="checkbox"]:checked + label {
       color: green;
@@ -162,27 +160,22 @@ header {
     }
 
     .facebook_bg {
-      background-color: #3B5998;
+      background-color: #3b5998;
     }
-
   }
-
 }
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  
 }
 
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
-
   header {
-    
     logo {
       min-width: $width-sidebar;
     }
-    
+
     avatar {
       img {
         max-height: $height-header_desktop;

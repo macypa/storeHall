@@ -6,7 +6,7 @@
 
   <avatar>
     <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
-      <img class="lazy" data-src="<%= @comment.author.image %>" alt="<%= @comment.author.id %>">
+      <img class="lazy" data-src="<%= get_user_image(@comment.author) %>" alt="<%= @comment.author.id %>">
     <% end %>
   </avatar>
 
@@ -33,7 +33,7 @@
 
   <actions>
 
-    <% current_user_id = get_logged_user_id(@conn) 
+    <% current_user_id = get_logged_user_id(@conn)
       am_author = Map.has_key?(@comment, :author_id) and @comment.author_id == current_user_id %>
     <%= unless am_author do %>
 

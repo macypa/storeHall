@@ -28,6 +28,14 @@ defmodule StoreHall.FilterAcceptedOptions do
       {Gettext.gettext("name asc"), "name:аsc"}
     ]
 
+  def accepted_marketing_mail_type(),
+    do: [
+      {Gettext.gettext("Coupon mail"), "coupon_mail"},
+      {Gettext.gettext("Informative mail"), "Info_mail"},
+      {Gettext.gettext("Call to action mail"), "action_mail"}
+      # , {Gettext.gettext("Survey mail -- comming soon"), "disabled"}
+    ]
+
   def accepted_user_sorting(),
     do: [
       {Gettext.gettext("mail_credits_askprice desc"), "mail_credits_ask:desc"},

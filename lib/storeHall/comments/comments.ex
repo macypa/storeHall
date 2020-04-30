@@ -28,7 +28,6 @@ defmodule StoreHall.Comments do
             current_user_id,
             params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
           )
-          |> Repo.all()
       ]
     )
   end
@@ -83,7 +82,6 @@ defmodule StoreHall.Comments do
     |> Ecto.assoc(:comments)
     |> where_comment_id(params, comment_id)
     |> apply_filters(current_user_id, params)
-    |> Repo.all()
   end
 
   def list_comments(module, current_user_id, params = %{"id" => id}) do
@@ -94,11 +92,10 @@ defmodule StoreHall.Comments do
       current_user_id,
       params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
     )
-    |> Repo.all()
   end
 
   def apply_filters(comments, current_user_id, params) do
-    author_preload_query = from(u in User) |> Users.add_select_fields([])
+    author_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
 
     comments
     |> preload(author: ^author_preload_query)
@@ -108,6 +105,8 @@ defmodule StoreHall.Comments do
     |> DefaultFilter.hide_guests_filter(current_user_id)
     |> DefaultFilter.sort_filter(params)
     |> DefaultFilter.paging_filter(params)
+    |> Repo.all()
+    |> Users.clean_preloaded_user(:author, [:info, :marketing_info])
   end
 
   def where_comment_id(query, _params, comment_id) do

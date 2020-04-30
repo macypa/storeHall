@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
-    
+
     <meta name="description" content="<%= page_description(assigns) %>">
     <title><%= page_title_with_suffix(assigns) %></title>
 
@@ -31,22 +31,15 @@
     </header>
 
     <main>
-      
+
     </main>
 
     <sidebar>
-      
+
     </sidebar>
 
     <footer>
     </footer>
-
-    <% logged_user_id = get_logged_user_id(@conn) %>
-    <script>window.userToken = "<%= assigns[:user_token] %>";</script>
-    <script>window.loggedUserId = "<%= logged_user_id %>";</script>
-    <script>window.loggedUserChannel = "<%= StoreHallWeb.UsersChannel.topic_prefix() <> if logged_user_id != nil do "/" <> logged_user_id else "/guest_channel" end %>";</script>
-
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 
   </body>
 </html>

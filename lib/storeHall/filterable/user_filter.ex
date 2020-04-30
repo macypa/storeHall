@@ -6,6 +6,13 @@ defmodule StoreHall.UserFilter do
     |> where([u], fragment("?->>? = ?", u.marketing_info, "marketing_consent", "agreed"))
   end
 
+  def except_user_id(query, nil), do: query
+
+  def except_user_id(query, logged_user_id) do
+    query
+    |> where([u], u.id != ^logged_user_id)
+  end
+
   defp filter_q(search_string, dynamic) when is_binary(search_string) do
     search_string = "%#{search_string}%"
 

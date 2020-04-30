@@ -2,6 +2,13 @@ defmodule StoreHall.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @base_fields [
+    :id,
+    :name,
+    :image,
+    :details
+  ]
+
   @fields [
     :id,
     :email,
@@ -9,15 +16,24 @@ defmodule StoreHall.Users.User do
     :image,
     :details,
     :info,
-    :marketing_info,
     :provider,
+    :inserted_at,
+    :updated_at
+  ]
+
+  @encode_fields [
+    :id,
+    :name,
+    :image,
+    :details,
+    :info,
     :inserted_at,
     :updated_at
   ]
 
   @primary_key {:id, :string, []}
   @derive {Phoenix.Param, key: :id}
-  @derive {Jason.Encoder, only: @fields}
+  @derive {Jason.Encoder, only: @encode_fields}
   schema "users" do
     field :email, :string, unique: true
     field :name, :string
@@ -72,4 +88,5 @@ defmodule StoreHall.Users.User do
   end
 
   def fields(), do: @fields
+  def base_fields(), do: @base_fields
 end

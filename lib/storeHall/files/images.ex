@@ -74,15 +74,19 @@ defmodule StoreHall.Images do
 
   @cover_image_not_found nil
 
-  def cover_image(model) do
-    case model.details["images"] do
+  def cover_image(model, version \\ :thumb)
+
+  def cover_image(model = %{details: %{"images" => images}}, version) do
+    case images do
       nil -> @cover_image_not_found
       "[]" -> @cover_image_not_found
       "null" -> @cover_image_not_found
       [] -> @cover_image_not_found
-      images -> Enum.at(images, 0)
+      images -> image_url(model, Enum.at(images, 0), version)
     end
   end
+
+  def cover_image(_model, _version), do: @cover_image_not_found
 
   def prepare_images(model) do
     case model["images"] do

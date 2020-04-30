@@ -4,6 +4,7 @@ defmodule StoreHallWeb.ViewHelpers do
   """
 
   use Phoenix.HTML
+  alias StoreHall.Users
   alias StoreHallWeb.AuthController
 
   def get_logged_user_id(conn) do
@@ -16,8 +17,16 @@ defmodule StoreHallWeb.ViewHelpers do
     logged_user_id != nil and logged_user_id == user_id
   end
 
+  def get_user_image(user) do
+    Users.get_user_image(user)
+  end
+
   def get_logged_user_image(conn) do
     AuthController.get_logged_user_image(conn)
+  end
+
+  def get_logged_user_unread_mails(conn) do
+    AuthController.get_logged_user_unread_mails(conn)
   end
 
   def obfuscate(data) when is_binary(data) do

@@ -6,9 +6,9 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import { Socket } from "phoenix"
+import { Socket } from "phoenix";
 
-let socket = new Socket("/socket", { params: { token: window.userToken } })
+let socket = new Socket("/socket", { params: { token: window.userToken } });
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -52,12 +52,20 @@ let socket = new Socket("/socket", { params: { token: window.userToken } })
 //     end
 //
 // Finally, connect to the socket:
-socket.connect()
+socket.connect();
 
-window.channel_user = socket.channel(window.loggedUserChannel, {})
-channel_user.join()
-  .receive("ok", resp => { console.log("Logged user channel joined successfully " + window.loggedUserChannel, resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+window.channel_user = socket.channel(window.loggedUserChannel, {});
+channel_user
+  .join()
+  .receive("ok", (resp) => {
+    console.log(
+      "Logged user channel joined successfully " + window.loggedUserChannel,
+      resp
+    );
+  })
+  .receive("error", (resp) => {
+    console.log("Unable to join", resp);
+  });
 
 window.channel_topic_from_url = function () {
   let url = window.location.pathname;
@@ -71,28 +79,43 @@ window.channel_topic_from_url = function () {
       return "/items";
     }
   }
-  return url
+  return url;
 };
 // Now that you are connected, you can join channels with a topic:
-window.channel_topic = decodeURI(channel_topic_from_url())
-window.channel = socket.channel(channel_topic, {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully " + channel_topic, resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+window.channel_topic = decodeURI(channel_topic_from_url());
+window.channel = socket.channel(channel_topic, {});
+channel
+  .join()
+  .receive("ok", (resp) => {
+    console.log("Joined successfully " + channel_topic, resp);
+  })
+  .receive("error", (resp) => {
+    console.log("Unable to join", resp);
+  });
 
 window.channel_push = function (topic, data) {
-  channel.push(topic, { data: data })
+  channel.push(topic, { data: data });
 };
 
-channel_user.on("error", payload => {
-  alert(payload.message)
-  check_if_logged();
-})
+window.flash_info = function (str) {
+  document.querySelector(".flash.error").innerHTML = "";
+  document.querySelector(".flash.info").innerHTML = str;
+};
 
-channel.on("error", payload => {
-  alert(payload.message)
+window.flash_error = function (str) {
+  document.querySelector(".flash.info").innerHTML = "";
+  document.querySelector(".flash.error").innerHTML = str;
+};
+
+channel_user.on("error", (payload) => {
+  flash_error(payload.message);
   check_if_logged();
-})
+});
+
+channel.on("error", (payload) => {
+  flash_error(payload.message);
+  check_if_logged();
+});
 
 window.check_if_logged = function () {
   if (window.loggedUserId == "") {
@@ -116,14 +139,22 @@ window.add_marketing_consent_event = function () {
   add_events("[marketing_consent]", "click", function () {
     let xhttp = new XMLHttpRequest();
     if (this.checked) {
-      xhttp.open("GET", "/put_session?key=marketing_consent&value=agreed", true);
+      xhttp.open(
+        "GET",
+        "/put_session?key=marketing_consent&value=agreed",
+        true
+      );
       xhttp.send();
     } else {
-      xhttp.open("GET", "/put_session?key=marketing_consent&value=not_agreed", true);
+      xhttp.open(
+        "GET",
+        "/put_session?key=marketing_consent&value=not_agreed",
+        true
+      );
       xhttp.send();
     }
   });
 };
 add_marketing_consent_event();
 
-export default socket
+export default socket;

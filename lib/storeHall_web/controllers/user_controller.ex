@@ -3,6 +3,7 @@ defmodule StoreHallWeb.UserController do
 
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
+  alias StoreHall.Marketing.Mails
   alias StoreHall.Chats
   alias StoreHall.Ratings
   alias StoreHall.Comments
@@ -13,9 +14,10 @@ defmodule StoreHallWeb.UserController do
   plug :check_owner when action in [:edit, :delete]
 
   def index(conn, _params) do
-    users = Users.list_users(conn.params)
+    changeset = Mails.changeset()
+    users = Users.list_users(conn.params, AuthController.get_logged_user_id(conn))
 
-    render(conn, :index, users: users)
+    render(conn, :index, users: users, changeset: changeset)
   end
 
   @storehall_id Application.get_env(:storeHall, :about)[:user_id]

@@ -10,7 +10,7 @@
     <div class='<%= me_you %>'>
       <div>
         <div class='name'><%= @chat_msg.author_id %></div>
-        <div class='img'><img class="lazy" class="w-3r bdrs-50p" data-src="<%= @chat_msg.user.image %>" alt=""></div>
+        <div class='img'><img class="lazy" class="w-3r bdrs-50p" data-src="<%= get_user_image(@chat_msg.user) %>" alt=""></div>
         <div class='text'>
           <div>
             <%= @chat_msg.details["body"] %>

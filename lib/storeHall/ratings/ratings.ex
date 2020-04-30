@@ -93,7 +93,6 @@ defmodule StoreHall.Ratings do
             current_user_id,
             params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
           )
-          |> Repo.all()
       ]
     )
   end
@@ -149,7 +148,6 @@ defmodule StoreHall.Ratings do
     |> Ecto.assoc(:ratings)
     |> where_rating_id(params, rating_id)
     |> apply_filters(current_user_id, params)
-    |> Repo.all()
   end
 
   def list_ratings(module, current_user_id, params = %{"id" => id}) do
@@ -160,11 +158,10 @@ defmodule StoreHall.Ratings do
       current_user_id,
       params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
     )
-    |> Repo.all()
   end
 
   def apply_filters(item_user, current_user_id, params) do
-    author_preload_query = from(u in User) |> Users.add_select_fields([])
+    author_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
 
     item_user
     |> preload(author: ^author_preload_query)
@@ -174,6 +171,8 @@ defmodule StoreHall.Ratings do
     |> DefaultFilter.order_first_for(current_user_id)
     |> DefaultFilter.sort_filter(params)
     |> DefaultFilter.paging_filter(params)
+    |> Repo.all()
+    |> Users.clean_preloaded_user(:author, [:info, :marketing_info])
   end
 
   def where_rating_id(query, _params, rating_id) do

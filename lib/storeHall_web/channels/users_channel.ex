@@ -12,6 +12,7 @@ defmodule StoreHallWeb.UsersChannel do
   alias StoreHall.Chats
   alias StoreHall.Users
   alias StoreHall.Users.Action
+  alias StoreHall.Marketing.Mails
 
   @topic_prefix "/users"
 
@@ -20,9 +21,11 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   defp decode_filter(filter) do
-    filter
-    |> Plug.Conn.Query.decode()
-    |> Map.merge(%{"id" => Application.get_env(:storeHall, :about)[:user_id]})
+    %{"id" => Application.get_env(:storeHall, :about)[:user_id]}
+    |> Map.merge(
+      filter
+      |> Plug.Conn.Query.decode()
+    )
   end
 
   def join("/about" <> _id, _message, socket) do
@@ -76,7 +79,8 @@ defmodule StoreHallWeb.UsersChannel do
       Comments.list_comments(
         Users,
         socket.assigns.current_user_id,
-        filter |> decode_filter
+        filter
+        |> decode_filter
       )
 
     push(socket, "show_for_comment", %{filter: filter, filtered: Jason.encode!(filtered)})
@@ -106,7 +110,7 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Users.list_users(filter |> decode_filter)
+    filtered = Users.list_users(filter |> decode_filter, socket.assigns.current_user_id)
 
     push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
 
@@ -184,6 +188,57 @@ defmodule StoreHallWeb.UsersChannel do
                 new_msg: Jason.encode!(chat_msg)
               }
             )
+        end
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "marketing-mail:add",
+        %{"filter_params" => filter, "mail_params" => mail_params},
+        socket
+      ) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
+
+      logged_user_id ->
+        # Mails.list_mails(%{}, [socket.assigns.current_user_id])
+        # |> hd
+        # |> Mails.remove_user_id_from_mail(logged_user_id)
+
+        filtered_ids = Users.list_user_ids(filter |> decode_filter, logged_user_id)
+
+        mail_params
+        |> decode_filter
+        |> Map.get("mail")
+        |> Map.put("to_users", filtered_ids)
+        |> Map.put("from_user_id", logged_user_id)
+        |> Mails.create_mail()
+        |> case do
+          {:ok, mail} ->
+            mail = mail |> Mails.preload_sender()
+
+            filtered_ids
+            |> Enum.each(fn to_user_id ->
+              broadcast_msg!(
+                to_user_id,
+                "new_mail",
+                %{
+                  new_mail: Jason.encode!(mail)
+                }
+              )
+            end)
+
+            push(socket, "mail_sent", %{
+              message: Gettext.gettext("mail sent.")
+            })
+
+          {:error, _} ->
+            push(socket, "error", %{
+              message: Gettext.gettext("mail not sent!")
+            })
         end
     end
 

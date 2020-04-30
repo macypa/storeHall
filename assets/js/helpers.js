@@ -1,6 +1,14 @@
+import * as $ from "jquery";
+import jqueryLazy from "jquery-lazy";
 
-import * as $ from 'jquery';
-import jqueryLazy from 'jquery-lazy';
+window.get_form = function (css_query) {
+  return $(css_query).filter(function () {
+    if (!this.value || this.value == "{}" || this.value == "[]") {
+      return false;
+    }
+    return true;
+  });
+};
 
 window.objToString = function (obj) {
   const getCircularReplacer = () => {
@@ -16,24 +24,24 @@ window.objToString = function (obj) {
     };
   };
 
-  return JSON.stringify(obj, getCircularReplacer(), ' ');
-}
+  return JSON.stringify(obj, getCircularReplacer(), " ");
+};
 
 window.regExp_escape = function (s) {
-  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 };
 
 window.isNumeric = function (num) {
-  return num != null && !isNaN(num) && (num + "").trim() != ""
-}
+  return num != null && !isNaN(num) && (num + "").trim() != "";
+};
 
 window.isString = function (obj) {
   if (obj == null) return true;
   return typeof obj === "string";
-}
+};
 window.contains_string = function (testData, lookup) {
   return testData.toLowerCase().indexOf(lookup) != -1;
-}
+};
 window.isEmpty = function (obj) {
   if (obj == null) return true;
   if (typeof obj === "string" && (obj == "" || obj.trim() == "")) return true;
@@ -44,11 +52,14 @@ window.isEmpty = function (obj) {
     }
   }
 
-  return JSON.stringify(obj) === JSON.stringify({}) || JSON.stringify(obj) === JSON.stringify([]);
-}
+  return (
+    JSON.stringify(obj) === JSON.stringify({}) ||
+    JSON.stringify(obj) === JSON.stringify([])
+  );
+};
 
-window.Handlebars = require('handlebars');
-Handlebars.registerHelper('json', function (context) {
+window.Handlebars = require("handlebars");
+Handlebars.registerHelper("json", function (context) {
   return JSON.stringify(context);
 });
 
@@ -78,19 +89,19 @@ window.show_hide = function (element_id) {
   } else {
     x.style.display = "none";
   }
-}
+};
 
 window.throttled = function (delay, fn) {
   let lastCall = 0;
   return function (...args) {
-    const now = (new Date).getTime();
+    const now = new Date().getTime();
     if (now - lastCall < delay) {
       return;
     }
     lastCall = now;
     return fn(...args);
-  }
-}
+  };
+};
 
 window.debounced = function (delay, fn) {
   let timerId;
@@ -102,8 +113,8 @@ window.debounced = function (delay, fn) {
       fn(...args);
       timerId = null;
     }, delay);
-  }
-}
+  };
+};
 
 // window.get_city = function () {
 //   $.ajax({
@@ -122,25 +133,27 @@ window.debounced = function (delay, fn) {
 //   });
 // }
 
-$("input").not($(":button")).keypress(function (evt) {
-  if (evt.keyCode == 13) {
-    let iname = $(this).val();
-    if (iname !== 'Submit') {
-      let fields = $(this).parents('form:eq(0),body').find('button, input, textarea, select');
-      let index = fields.index(this);
-      if (index > -1 && (index + 1) < fields.length) {
-        fields.eq(index + 1).focus();
+$("input")
+  .not($(":button"))
+  .keypress(function (evt) {
+    if (evt.keyCode == 13) {
+      let iname = $(this).val();
+      if (iname !== "Submit") {
+        let fields = $(this)
+          .parents("form:eq(0),body")
+          .find("button, input, textarea, select");
+        let index = fields.index(this);
+        if (index > -1 && index + 1 < fields.length) {
+          fields.eq(index + 1).focus();
+        }
+        return false;
       }
-      return false;
     }
-  }
-});
+  });
 
 window.deobfuscated = function (string) {
-  return string
-    .replace(/\|dot\|/g, ".")
-    .replace(/\|at\|/g, "@");
-}
+  return string.replace(/\|dot\|/g, ".").replace(/\|at\|/g, "@");
+};
 
 $(".obfuscated").each(function (evt) {
   this.innerHTML = deobfuscated(this.innerHTML);

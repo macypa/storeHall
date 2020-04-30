@@ -5,11 +5,11 @@
     <div id="title">
       <%= @item.name %>
     </div>
-    
+
     <item_user_info>
       <avatar>
         <%= link to: Routes.user_path(@conn, :show, @item.user_id || "") do %>
-          <img class="lazy" data-src="<%= @item.user.image %>" alt="<%= @item.user.name %>">
+          <img class="lazy" data-src="<%= get_user_image(@item.user) %>" alt="<%= @item.user.name %>">
           <name><%= "#{@item.user.name}" %></name>
         <% end %>
       </avatar>
@@ -35,7 +35,7 @@
             <span class="info_content discount"><%= @item.details["discount"] %><%= Gettext.gettext("% discount") %></span>
           </span>
         <% end %>
-        
+
         <span>
           <span class="info_title"><%= Gettext.gettext("Cities") %> </span>
           <span class="info_content cities">

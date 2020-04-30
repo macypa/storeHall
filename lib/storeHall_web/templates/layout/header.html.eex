@@ -13,11 +13,27 @@
   <div class="dropdown">
     <ul>
       <li>
-        <ul class="chats">
+        <ul class="mails">
           <li>
-            <chats>
-              <!-- comming soon -->
-            </chats>
+            <mails>
+              <%= if logged_user_id do %>
+                <ul>
+                <%= for mail <- get_logged_user_unread_mails(@conn) do %>
+                  <li>
+                    <div class='mail'>
+                      <div>
+                        <div class='name'><%= mail.sender %></div>
+                        <avatar class='img'><img class='lazy' data-src='<%= mail.sender_image %>'></avatar>
+                        <div class='text'>
+                          <%= mail.title %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+                </ul>
+              <% end %>
+            </mails>
           </li>
         </ul>
       </li>
@@ -56,7 +72,7 @@
     </svg>
   <% end %>
   <div class="dropdown">
-    
+
     <%= if logged_user_id do %>
 
       <ul>
@@ -153,7 +169,7 @@
             <%= Gettext.gettext("I accept the ") %><span class="underline"><%= link to: Routes.about_path(@conn, :privacy) do %><%= Gettext.gettext("Privacy policy") %><% end %></span>
           </label>
         </div>
-        
+
         <div class="checkbox_terms">
           <input id="field_marketing" marketing_consent="agree" type="checkbox" name="terms">
           <label for="field_marketing">
@@ -164,7 +180,7 @@
           </label>
         </div>
       </form>
-    
+
     <% end %>
 
   </div>

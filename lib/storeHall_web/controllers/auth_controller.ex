@@ -130,10 +130,14 @@ defmodule StoreHallWeb.AuthController do
     get_session(conn, :logged_user_image)
   end
 
+  def get_logged_user_unread_mails(conn) do
+    get_session(conn, :logged_user_unread_mail)
+  end
+
   def put_user_props_in_session(conn, user) do
     conn
     |> put_session(:logged_user_id, user.id)
-    |> put_session(:logged_user_image, user.image)
+    |> put_session(:logged_user_image, Users.get_user_image(user))
     |> put_session(:logged_user_settings, user.settings)
     |> put_session(
       :logged_user_marketing_info,

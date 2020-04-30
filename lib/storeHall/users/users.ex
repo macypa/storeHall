@@ -12,28 +12,70 @@ defmodule StoreHall.Users do
   alias StoreHall.UserFilter
   alias StoreHall.DefaultFilter
 
-  def list_users(params) do
-    apply_filters(params)
-    |> Repo.aggregate(:count, :id)
+  def list_users(params, current_user_id \\ nil) do
+    %{count: 0, max_credits: 10}
+    |> DeepMerge.merge(
+      apply_filters(params, current_user_id)
+      |> subquery()
+      |> select([u], %{
+        count: count(u.id),
+        max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
+      })
+      |> Repo.one()
+    )
   end
 
-  def apply_filters(params) do
+  def list_user_ids(params, current_user_id \\ nil) do
+    apply_filters(params, current_user_id)
+    |> subquery()
+    |> select([u], u.id)
+    |> Repo.all()
+  end
+
+  def apply_filters(params, current_user_id) do
     User
-    # |> add_select_fields([:marketing_info])
+    |> UserFilter.except_user_id(current_user_id)
     |> UserFilter.with_marketing_consent()
     |> DefaultFilter.paging_filter(params, -1)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> UserFilter.search_filter(params)
   end
 
-  def preload_users(query, repo) do
-    query
-    |> repo.preload(user: from(u in User) |> add_select_fields([]))
+  def preload_users(model, repo) do
+    model
+    |> repo.preload(user: from(u in User) |> add_select_fields_for_preload([]))
+    |> clean_preloaded_user(:user, [])
   end
 
-  def preload_author(query, repo) do
-    query
-    |> repo.preload(author: from(u in User) |> add_select_fields([]))
+  def preload_author(model, repo) do
+    model
+    |> repo.preload(author: from(u in User) |> add_select_fields_for_preload([]))
+    |> clean_preloaded_user(:author, [:info])
+  end
+
+  def preload_sender(model, repo) do
+    model
+    |> repo.preload(from_user: from(u in User) |> add_select_fields_for_preload([]))
+    |> clean_preloaded_user(:from_user, [:info])
+  end
+
+  def clean_preloaded_user(model_list, user_field, user_fields_to_drop)
+      when is_list(model_list) do
+    model_list
+    |> Enum.map(fn model ->
+      clean_preloaded_user(model, user_field, user_fields_to_drop)
+    end)
+  end
+
+  def clean_preloaded_user(model, user_field, user_fields_to_drop) do
+    model
+    |> Map.put(
+      user_field,
+      model
+      |> Map.get(user_field)
+      |> Map.merge(user_fields_to_drop |> Enum.map(fn key -> {key, nil} end) |> Map.new())
+      |> Map.put(:image, get_user_image(Map.get(model, user_field)))
+    )
   end
 
   def get!(id, select_fields \\ [], repo \\ Repo) do
@@ -52,21 +94,20 @@ defmodule StoreHall.Users do
     |> repo.get(id)
   end
 
+  def add_select_fields_for_preload(query, []) do
+    query
+    |> select(^User.base_fields())
+  end
+
   def add_select_fields(query, []) do
     query
-    |> select(
-      ^(User.fields()
-        |> List.delete(:marketing_info)
-        |> List.delete(:info))
-    )
+    |> select(^User.fields())
   end
 
   def add_select_fields(query, select_fields) do
     query
     |> select(
       ^(User.fields()
-        |> List.delete(:marketing_info)
-        |> List.delete(:info)
         |> Kernel.++(select_fields))
     )
   end
@@ -115,9 +156,15 @@ defmodule StoreHall.Users do
   end
 
   defp default_values_instead_of_nil(attrs) do
-    case attrs["marketing_info"]["mail_credits_ask"] do
-      nil -> attrs |> put_in(["marketing_info", "mail_credits_ask"], 0)
-      _ -> attrs
+    case attrs["marketing_info"] do
+      nil ->
+        attrs
+
+      _ ->
+        case attrs["marketing_info"]["mail_credits_ask"] do
+          nil -> attrs |> put_in(["marketing_info", "mail_credits_ask"], 0)
+          _ -> attrs
+        end
     end
   end
 
@@ -212,6 +259,13 @@ defmodule StoreHall.Users do
     |> Enum.each(fn item ->
       Items.delete_item(item)
     end)
+  end
+
+  def get_user_image(user) do
+    case Images.cover_image(user) do
+      nil -> user.image
+      image -> image
+    end
   end
 
   def change_user(%User{} = user) do

@@ -2,6 +2,7 @@ defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
+  alias StoreHall.Marketing.Mails
 
   def init(_params) do
   end
@@ -18,14 +19,15 @@ defmodule StoreHall.Plugs.SetUser do
         set_locale(get_session(conn, :logged_user_settings), params)
 
         conn
-        |> update_marketing_info(params)
+        |> update_marketing_info()
+        |> fetch_first_unread_mails()
         # |> assign(:logged_user_id, user_id)
         |> assign(:user_token, token)
         |> StoreHallWeb.CookieConsentController.set_cookie_consent(user_id)
     end
   end
 
-  def update_marketing_info(conn, _params) do
+  defp update_marketing_info(conn) do
     case get_session(conn, :logged_user_marketing_info)["marketing_consent"] do
       "agreed" ->
         update_marketing_last_activity(
@@ -36,6 +38,49 @@ defmodule StoreHall.Plugs.SetUser do
       _ ->
         conn
     end
+  end
+
+  @one_minute 60
+  defp fetch_first_unread_mails(conn) do
+    logged_user_id = get_session(conn, :logged_user_id)
+
+    last_mail_check = get_session(conn, :last_mail_check) || DateTime.utc_now()
+    time_threshold = DateTime.utc_now() |> DateTime.add(-@one_minute)
+
+    case DateTime.compare(last_mail_check, time_threshold) do
+      :lt ->
+        conn
+        |> put_session(
+          :logged_user_unread_mail,
+          Mails.list_mails(%{"page-size" => Mails.unread_mails_to_load()}, [logged_user_id])
+          |> Enum.map(fn mail ->
+            %{
+              id: mail.id,
+              title: mail.details["title"],
+              sender: mail.from_user.name,
+              sender_image: mail.from_user.image
+            }
+          end)
+        )
+        |> put_session(:last_mail_check, last_mail_check)
+
+      _ ->
+        conn
+    end
+
+    conn
+    |> put_session(
+      :logged_user_unread_mail,
+      Mails.list_mails(%{"page-size" => Mails.unread_mails_to_load()}, [logged_user_id])
+      |> Enum.map(fn mail ->
+        %{
+          id: mail.id,
+          title: mail.details["title"],
+          sender: mail.from_user.name,
+          sender_image: mail.from_user.image
+        }
+      end)
+    )
   end
 
   def update_marketing_last_activity(conn, 0), do: update_marketing_last_activity(conn)
