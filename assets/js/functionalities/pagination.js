@@ -6,9 +6,8 @@ channel_push_filter = function (elem) {
   } else if (elem.href.indexOf("?more_") != -1) {
     page_for = elem.href.slice(elem.href.indexOf("?more_") + 6);
   }
-  channel.push("filter", { data: next_page, page_for: page_for });
+  channel_push_debounced("filter", { data: next_page, page_for: page_for });
 };
-const channel_push_filter_debounced = debounced(200, channel_push_filter);
 
 params_from_href = function (href) {
   let params = href.slice(href.indexOf("?") + 1);
@@ -33,7 +32,7 @@ $(".page-link").on("click", (e) => {
 load_next_items = function () {
   let next_page_link = $(".next-page-link");
   if (next_page_link.is(":visible")) {
-    channel_push_filter_debounced(next_page_link[0]);
+    channel_push_filter(next_page_link[0]);
     rating_badge_color();
   }
 };
@@ -47,15 +46,6 @@ reload_next_items = function () {
 };
 
 jQuery(function ($) {
-  $("main").scroll(function () {
-    if (
-      $(this).scrollTop() + $(this).innerHeight() + 1 >=
-      $(this)[0].scrollHeight
-    ) {
-      load_next_items();
-    }
-  });
-
   let callback = function (entries, observer) {
     entries.forEach((entry) => {
       if (entry.intersectionRatio > 0) {
@@ -89,7 +79,7 @@ window.add_load_more_events = function () {
     } else if (params_attr.indexOf("?show_for_") != -1) {
       show_for = params_attr.slice(params_attr.indexOf("?show_for_") + 10);
     }
-    channel.push(this.getAttribute("load-more-topic"), {
+    channel_push_debounced(this.getAttribute("load-more-topic"), {
       data: params,
       show_for: show_for,
     });

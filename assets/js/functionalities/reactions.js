@@ -1,19 +1,22 @@
-
 window.add_reaction_events = function () {
   add_events("[reaction-topic]", "click", function () {
-    channel_user.push(this.getAttribute("reaction-topic"), { data: this.getAttribute("data") })
+    channel_user_push_debounced(this.getAttribute("reaction-topic"), {
+      data: this.getAttribute("data"),
+    });
   });
 };
 add_reaction_events();
 
-$('.alerts_panel').click(function () {
-  let pos = $(this).position();
-  let dropdown = $(this).find('.dropdown');
-  dropdown.css("top", $(this).position().top + $(this).height());
-  dropdown.toggle();
-}).mouseleave(function () {
-  $(this).find('.dropdown').hide();
-});
+$(".alerts_panel")
+  .click(function () {
+    let pos = $(this).position();
+    let dropdown = $(this).find(".dropdown");
+    dropdown.css("top", $(this).position().top + $(this).height());
+    dropdown.toggle();
+  })
+  .mouseleave(function () {
+    $(this).find(".dropdown").hide();
+  });
 
 window.reaction_persisted_event = function (payload) {
   let reaction_class = payload.reaction;
@@ -34,22 +37,28 @@ window.reaction_persisted_event = function (payload) {
     }
 
     removeClassStartingWith($(this), "alert_");
-  })
+  });
 
-  $("." + reaction_class + "z_type[data='" + payload.data + "']").toggleClass(payload.reaction);
-  $("." + reaction_class + "z_icon[data='" + payload.data + "']").toggleClass(payload.reaction);
+  $("." + reaction_class + "z_type[data='" + payload.data + "']").toggleClass(
+    payload.reaction
+  );
+  $("." + reaction_class + "z_icon[data='" + payload.data + "']").toggleClass(
+    payload.reaction
+  );
 };
 
 function removeClassStartingWith(node, begin) {
   node.removeClass(function (index, className) {
-    return (className.match(new RegExp("\\b" + begin + "\\S+", "g")) || []).join(' ');
+    return (
+      className.match(new RegExp("\\b" + begin + "\\S+", "g")) || []
+    ).join(" ");
   });
 }
 
-channel.on("reaction_persisted", payload => {
+channel.on("reaction_persisted", (payload) => {
   reaction_persisted_event(payload);
 });
 
-channel_user.on("reaction_persisted", payload => {
+channel_user.on("reaction_persisted", (payload) => {
   reaction_persisted_event(payload);
 });

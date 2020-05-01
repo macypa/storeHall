@@ -28,7 +28,7 @@ window.add_marketing_mail_events = function () {
         let filter_form = get_form("#form-filter :input");
         let filter_params = filter_form.serialize();
 
-        channel_user.push(this.getAttribute("marketing-mail-topic"), {
+        channel_user_push_debounced(this.getAttribute("marketing-mail-topic"), {
           filter_params: filter_params,
           mail_params: mail_form.serialize(),
         });

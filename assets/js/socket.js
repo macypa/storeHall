@@ -94,8 +94,14 @@ channel
   });
 
 window.channel_push = function (topic, data) {
-  channel.push(topic, { data: data });
+  channel.push(topic, data);
 };
+window.channel_push_debounced = debounced(200, channel_push);
+
+window.channel_user_push = function (topic, data) {
+  channel_user.push(topic, data);
+};
+window.hannel_user_push_debounced = debounced(200, channel_user_push);
 
 window.flash_info = function (str) {
   document.querySelector(".flash.error").innerHTML = "";
