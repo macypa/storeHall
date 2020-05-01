@@ -23,7 +23,7 @@ window.onpopstate = function (event) {
 //  filter_params: $("#form-filter").serialize()}, document.title, location.pathname + "?" + $("#form-filter").serialize());
 
 function render(state) {
-  channel.push("filter", { data: state.filter_params });
+  channel_push_debounced("filter", { data: state.filter_params });
 }
 
 $("#form-filter").submit(function (event) {
@@ -33,7 +33,7 @@ $("#form-filter").submit(function (event) {
 add_events(".auto-submit-item", "change", function () {
   let form = get_form("#form-filter :input");
   let filter_params = form.serialize();
-  channel.push("filter", { data: filter_params });
+  channel_push_debounced("filter", { data: filter_params });
 
   window.history.pushState(
     {
