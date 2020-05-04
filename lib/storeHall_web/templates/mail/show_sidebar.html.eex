@@ -1,0 +1,37 @@
+
+<sidebar-show>
+
+  <div class="tab">
+    <a href="./#info" class="tab-label">
+      <%= Gettext.gettext("Info") %>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="./#comments" class="tab-label">
+      <%= Gettext.gettext("Comments") %>
+    </a>
+  </div>
+
+  <div class="tab">
+    <a href="./#ratings" class="tab-label">
+      <%= Gettext.gettext("Ratings") %>
+    </a>
+  </div>
+
+  <%= if is_logged_user?(@conn, @conn.assigns.mail.from_user_id) do %>
+
+    <div class="tab">
+      <%= link Gettext.gettext("Mails"), class: "tab-label",
+              to: Routes.user_mail_path(@conn, :index, @conn.assigns.mail.from_user_id) %>
+    </div>
+
+    <div class="tab">
+      <%= link to: Routes.user_path(@conn, :index), class: "tab-label" do %>
+        <%= Gettext.gettext("Add mail") %>
+      <% end %>
+    </div>
+
+  <% end %>
+
+</sidebar-show>

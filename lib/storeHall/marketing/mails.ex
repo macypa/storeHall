@@ -13,17 +13,48 @@ defmodule StoreHall.Marketing.Mails do
   @unread_mails_to_load 2
   def unread_mails_to_load(), do: @unread_mails_to_load
 
-  def list_mails(params, current_user_id \\ nil) do
-    apply_filters(params, current_user_id)
+  def get_mail!(id, repo \\ Repo) do
+    {id, _} = to_string(id) |> Integer.parse()
+
+    Mail |> repo.get!(id)
   end
 
-  def apply_filters(params, current_user_id) do
+  def all_mails(params, current_user_id) do
+    Mail
+    |> where([u], u.from_user_id == ^current_user_id)
+    |> or_where([u], fragment("? \\?| ?", u.to_users, [^current_user_id]))
+    |> apply_filters(params)
+  end
+
+  def list_mails(params, current_user_id \\ nil) do
+    Mail
+    |> where([u], fragment("? \\?| ?", u.to_users, [^current_user_id]))
+    |> apply_filters(params)
+  end
+
+  def list_mails_for_header_notifications(params, current_user_id \\ nil) do
+    list_mails(params, current_user_id)
+    |> Enum.map(fn mail ->
+      %{
+        id: mail.id,
+        details: %{"title" => mail.details["title"]},
+        inserted_at: mail.inserted_at,
+        updated_at: mail.updated_at,
+        from_user: %{
+          id: mail.from_user.id,
+          name: mail.from_user.name,
+          image: mail.from_user.image
+        }
+      }
+    end)
+  end
+
+  def apply_filters(mail_query, params) do
     from_user_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
 
-    Mail
+    mail_query
     |> preload(from_user: ^from_user_preload_query)
-    |> where([u], fragment("? \\?| ?", u.to_users, ^current_user_id))
-    |> DefaultFilter.paging_filter(params, -1)
+    |> DefaultFilter.paging_filter(params)
     |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
     |> Repo.all()
     |> Users.clean_preloaded_user(:from_user, [:info, :marketing_info])
@@ -41,6 +72,19 @@ defmodule StoreHall.Marketing.Mails do
     |> case do
       {:ok, multi} ->
         {:ok, multi.insert}
+
+      {:error, _op, value, _changes} ->
+        {:error, value}
+    end
+  end
+
+  def delete_mail(%Mail{} = mail) do
+    Ecto.Multi.new()
+    |> Multi.delete(:delete_mail, mail)
+    |> Repo.transaction()
+    |> case do
+      {:ok, multi} ->
+        {:ok, multi.delete_mail}
 
       {:error, _op, value, _changes} ->
         {:error, value}

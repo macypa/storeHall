@@ -41,19 +41,19 @@ defmodule StoreHall.Users do
     |> UserFilter.search_filter(params)
   end
 
-  def preload_users(model, repo) do
+  def preload_users(model, repo \\ Repo) do
     model
     |> repo.preload(user: from(u in User) |> add_select_fields_for_preload([]))
     |> clean_preloaded_user(:user, [])
   end
 
-  def preload_author(model, repo) do
+  def preload_author(model, repo \\ Repo) do
     model
     |> repo.preload(author: from(u in User) |> add_select_fields_for_preload([]))
     |> clean_preloaded_user(:author, [:info])
   end
 
-  def preload_sender(model, repo) do
+  def preload_sender(model, repo \\ Repo) do
     model
     |> repo.preload(from_user: from(u in User) |> add_select_fields_for_preload([]))
     |> clean_preloaded_user(:from_user, [:info])

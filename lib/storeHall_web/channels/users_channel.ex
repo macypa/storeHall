@@ -72,6 +72,22 @@ defmodule StoreHallWeb.UsersChannel do
 
   def handle_in(
         "filter",
+        %{"data" => filter, "page_for" => "mails" <> _},
+        socket
+      ) do
+    filtered =
+      Mails.list_mails(
+        filter |> decode_filter,
+        socket.assigns.current_user_id
+      )
+
+    push(socket, "filtered_mails", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
         %{"data" => filter, "show_for" => "comment" <> _},
         socket
       ) do

@@ -19,7 +19,7 @@ defmodule StoreHall.AlertsMail do
       new_mail(
         Application.get_env(:storeHall, :about)[:user],
         "alert report",
-        Phoenix.View.render_to_string(StoreHallWeb.MailView, "index.html", %{
+        Phoenix.View.render_to_string(StoreHallWeb.MailView, "items_with_alerts.html", %{
           reactions: reactions
         })
       )

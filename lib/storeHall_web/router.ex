@@ -23,6 +23,7 @@ defmodule StoreHallWeb.Router do
 
     resources "/users", UserController, only: [:edit, :update, :delete] do
       resources "/items", ItemController, only: [:new, :create, :edit, :update, :delete]
+      resources "/mails", MailController, only: [:index, :show, :delete]
     end
   end
 

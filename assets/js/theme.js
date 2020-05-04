@@ -7,7 +7,8 @@ window.update_notifications_counter_alert = function () {
   let counter = document.querySelector("#alert_new_notification");
   counter.classList.add("counter");
   counter.innerHTML =
-    $("#new_notifications").children().length + $("mails").children().length;
+    $("#new_notifications").children().length +
+    $("#unread_mails").children().length;
   load_lazy_imgs();
 };
 
@@ -115,4 +116,5 @@ $(document).ready(function () {
   format_money();
   hide_empty_tags();
   load_lazy_imgs();
+  update_notifications_counter_alert();
 });

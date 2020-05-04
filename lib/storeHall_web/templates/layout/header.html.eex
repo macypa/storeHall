@@ -13,43 +13,26 @@
   <div class="dropdown">
     <ul>
       <li>
-        <ul class="mails">
-          <li>
-            <mails>
-              <%= if logged_user_id do %>
-                <ul>
-                <%= for mail <- get_logged_user_unread_mails(@conn) do %>
-                  <li>
-                    <div class='mail'>
-                      <div>
-                        <div class='name'><%= mail.sender %></div>
-                        <avatar class='img'><img class='lazy' data-src='<%= mail.sender_image %>'></avatar>
-                        <div class='text'>
-                          <%= mail.title %>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                <% end %>
-                </ul>
-              <% end %>
-            </mails>
-          </li>
+        <ul id="unread_mails">
+          <%= if logged_user_id do %>
+            <%= for mail <- get_logged_user_unread_mails(@conn) do %>
+              <li>
+                <div class='mail'>
+                  <%= render StoreHallWeb.MailView, "show.html", mail: mail, conn: @conn %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
         </ul>
       </li>
 
       <li>
-        <ul>
-          <li>
-            <div id="new_notifications">
-            </div>
-          </li>
-        </ul>
+        <div id="new_notifications">
       </li>
 
       <%= if logged_user_id do %>
         <li>
-          <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
+          <%= link to: Routes.user_mail_path(@conn, :index, logged_user_id) do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
             </svg>
@@ -103,7 +86,7 @@
 
       <% if false do %>
         <li>
-          <%= link to: Routes.user_path(@conn, :show, logged_user_id) <> "#messages" do %>
+          <%= link to: Routes.user_mail_path(@conn, :index, logged_user_id) do %>
             <svg class="svg_icon">
               <use xlink:href="/images/sprite.svg#si-awesome-envelope"></use>
             </svg>

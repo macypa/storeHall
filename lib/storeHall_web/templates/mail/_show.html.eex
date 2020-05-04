@@ -1,0 +1,13 @@
+
+  <div class='name' mail-id="<%= @mail.id %>"><%= @mail.from_user.id %></div>
+  <avatar class='img'><img class='lazy' data-src='<%= @mail.from_user.image %>'></avatar>
+
+  <time class="timeago" datetime="<%= @mail.inserted_at %>">
+    <%= @mail.inserted_at  %>
+  </time>
+
+  <div class='text'>
+    <%= @mail.details["title"] %>
+  </div>
+
+

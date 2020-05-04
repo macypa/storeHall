@@ -1,0 +1,14 @@
+<%= if Map.has_key?(@mail.details, "mail_template_tag_id") do %>
+  <template id='mail_template' class='template'>
+<% else %>
+  <mail>
+<% end %>
+
+  <%= render "_show.html", mail: @mail, conn: @conn %>
+
+<%= if Map.has_key?(@mail.details, "mail_template_tag_id") do %>
+  </template>
+<% else %>
+  </mail>
+<% end %>
+

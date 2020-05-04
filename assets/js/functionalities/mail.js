@@ -1,3 +1,9 @@
+function on_mail_events() {
+  timeago();
+  load_lazy_imgs();
+  add_load_more_events();
+}
+
 channel.on("filtered_users", (payload) => {
   let filtered_users = JSON.parse(payload.filtered);
   credits_per_mail = filtered_users.max_credits;
@@ -5,6 +11,30 @@ channel.on("filtered_users", (payload) => {
   document.querySelector("#mail_credits_per_mail").value = credits_per_mail;
   document.querySelector("#mail_total_cost").value =
     credits_per_mail * filtered_users.count;
+});
+
+//import mails_template from "../hbs/mails.hbs"
+channel.on("filtered_mails", (payload) => {
+  let mails_template_source =
+    "{{#each this}}<mail>" +
+    unescape(document.getElementById("mail_template").innerHTML).replace(
+      /\{"\w+_template_tag_id":"\w+_template"\}/g,
+      "{{json details}}"
+    ) +
+    "</mail>{{/each}}";
+  let mails_template = Handlebars.compile(mails_template_source);
+
+  let filtered_mails = mails_template(JSON.parse(payload.filtered));
+  if (payload.filter.indexOf("page=") == -1) {
+    document.querySelector("mails").innerHTML = filtered_mails;
+  } else {
+    document
+      .querySelector("mails")
+      .insertAdjacentHTML("beforeend", filtered_mails);
+  }
+
+  on_mail_events();
+  update_next_page_link(payload);
 });
 
 $("#mail_details_content").on("input", function () {
@@ -42,13 +72,10 @@ function get_mail_template() {
   return Handlebars.compile(
     "<li> \
     <div class='mail'> \
-        <div>\
-          <div class='name'>{{json from_user_id}}</div>\
-          <avatar class='img'><img class='lazy' data-src='{{from_user.image}}'></avatar>\
-          <div class='text'>\
-            {{json details.title}}\
-          </div>\
-        </div>\
+      <div class='name'>{{json from_user.name}}</div>\
+      <avatar class='img'><img class='lazy' data-src='{{from_user.image}}'></avatar>\
+      <time class='timeago' datetime='{{inserted_at}}'>{{inserted_at}}</time>\
+      <div class='text'>{{json details.title}}</div>\
     </div>\
   </li>"
   );
@@ -60,7 +87,7 @@ function on_new_mail_event(payload) {
   let new_mail_html = mail_template(new_mail);
 
   document
-    .querySelector("mails")
+    .querySelector("#unread_mails")
     .insertAdjacentHTML("beforeend", new_mail_html);
 
   update_notifications_counter_alert();

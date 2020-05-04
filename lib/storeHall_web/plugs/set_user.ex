@@ -43,8 +43,7 @@ defmodule StoreHall.Plugs.SetUser do
   @one_minute 60
   defp fetch_first_unread_mails(conn) do
     logged_user_id = get_session(conn, :logged_user_id)
-
-    last_mail_check = get_session(conn, :last_mail_check) || DateTime.utc_now()
+    last_mail_check = get_session(conn, :last_mail_check) || DateTime.from_unix!(0)
     time_threshold = DateTime.utc_now() |> DateTime.add(-@one_minute)
 
     case DateTime.compare(last_mail_check, time_threshold) do
@@ -52,35 +51,16 @@ defmodule StoreHall.Plugs.SetUser do
         conn
         |> put_session(
           :logged_user_unread_mail,
-          Mails.list_mails(%{"page-size" => Mails.unread_mails_to_load()}, [logged_user_id])
-          |> Enum.map(fn mail ->
-            %{
-              id: mail.id,
-              title: mail.details["title"],
-              sender: mail.from_user.name,
-              sender_image: mail.from_user.image
-            }
-          end)
+          Mails.list_mails_for_header_notifications(
+            %{"page-size" => Mails.unread_mails_to_load()},
+            logged_user_id
+          )
         )
         |> put_session(:last_mail_check, last_mail_check)
 
       _ ->
         conn
     end
-
-    conn
-    |> put_session(
-      :logged_user_unread_mail,
-      Mails.list_mails(%{"page-size" => Mails.unread_mails_to_load()}, [logged_user_id])
-      |> Enum.map(fn mail ->
-        %{
-          id: mail.id,
-          title: mail.details["title"],
-          sender: mail.from_user.name,
-          sender_image: mail.from_user.image
-        }
-      end)
-    )
   end
 
   def update_marketing_last_activity(conn, 0), do: update_marketing_last_activity(conn)
