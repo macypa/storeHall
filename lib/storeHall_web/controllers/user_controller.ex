@@ -4,7 +4,6 @@ defmodule StoreHallWeb.UserController do
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
   alias StoreHall.Marketing.Mails
-  alias StoreHall.Chats
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Images
