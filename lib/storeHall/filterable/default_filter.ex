@@ -243,4 +243,10 @@ defmodule StoreHall.DefaultFilter do
 
   defp order_by_details_field(query, "last_activity", _),
     do: order_by_details_field_fragment(query, "(?.marketing_info->>'last_activity')::timestamp")
+
+  defp order_by_details_field(query, "credits", :desc),
+    do: order_by_details_field_fragment(query, "(?.details->>'credits')::numeric DESC NULLS LAST")
+
+  defp order_by_details_field(query, "credits", _),
+    do: order_by_details_field_fragment(query, "(?.details->>'credits')::numeric")
 end

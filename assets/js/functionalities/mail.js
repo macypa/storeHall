@@ -8,19 +8,19 @@ channel.on("filtered_users", (payload) => {
   let filtered_users = JSON.parse(payload.filtered);
   credits_per_mail = filtered_users.max_credits;
   document.querySelector("#mail_users_count").value = filtered_users.count;
-  document.querySelector("#mail_credits_per_mail").value = credits_per_mail;
+  document.querySelector("#mail_details_credits").value = credits_per_mail;
+  document.querySelector("#mail_details_credits").min = credits_per_mail;
   document.querySelector("#mail_total_cost").value =
     credits_per_mail * filtered_users.count;
 });
 
+let mails_template_source =
+  "{{#each this}}" +
+  unescape(document.getElementById("mail_template").innerHTML) +
+  "{{/each}}";
+let mails_template = Handlebars.compile(mails_template_source);
 //import mails_template from "../hbs/mails.hbs"
 channel.on("filtered_mails", (payload) => {
-  let mails_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("mail_template").innerHTML) +
-    "{{/each}}";
-  let mails_template = Handlebars.compile(mails_template_source);
-
   let filtered_mails = mails_template(JSON.parse(payload.filtered));
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("mails").innerHTML = filtered_mails;
@@ -45,8 +45,8 @@ window.add_marketing_mail_events = function () {
     let mail_form = get_form("#mail_form :input");
     if (
       !(
-        mail_form.serialize().includes("mail[details]") ||
-        mail_form.serialize().includes("mail%5Bdetails")
+        mail_form.serialize().includes("mail[details][title") ||
+        mail_form.serialize().includes("mail%5Bdetails%5D%5Btitle")
       )
     ) {
       flash_error(this.getAttribute("required"));
@@ -65,22 +65,12 @@ window.add_marketing_mail_events = function () {
 };
 add_marketing_mail_events();
 
-function get_mail_template() {
-  return Handlebars.compile(
-    "<li> \
-    <div class='mail'> \
-      <div class='name'>{{json from_user.name}}</div>\
-      <avatar class='img'><img class='lazy' data-src='{{from_user.image}}'></avatar>\
-      <time class='timeago' datetime='{{inserted_at}}'>{{inserted_at}}</time>\
-      <div class='text'>{{json details.title}}</div>\
-    </div>\
-  </li>"
-  );
-}
-
+let mail_template_source = unescape(
+  document.getElementById("mail_template").innerHTML
+);
+let mail_template = Handlebars.compile(mail_template_source);
 function on_new_mail_event(payload) {
   let new_mail = JSON.parse(payload.new_mail);
-  let mail_template = get_mail_template(new_mail);
   let new_mail_html = mail_template(new_mail);
 
   document

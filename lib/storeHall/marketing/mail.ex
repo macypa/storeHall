@@ -10,6 +10,7 @@ defmodule StoreHall.Marketing.Mail do
 
     field :details, :map,
       default: %{
+        "credits" => "",
         "type" => "",
         "title" => "",
         "link" => "",

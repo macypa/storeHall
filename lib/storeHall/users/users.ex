@@ -2,6 +2,7 @@ defmodule StoreHall.Users do
   import Ecto.Query, warn: false
   alias StoreHall.Repo
   alias StoreHall.DeepMerge
+  alias StoreHall.ParseNumbers
   alias Ecto.Multi
 
   alias StoreHall.Images
@@ -13,16 +14,13 @@ defmodule StoreHall.Users do
   alias StoreHall.DefaultFilter
 
   def list_users(params, current_user_id \\ nil) do
-    %{count: 0, max_credits: 10}
-    |> DeepMerge.merge(
-      apply_filters(params, current_user_id)
-      |> subquery()
-      |> select([u], %{
-        count: count(u.id),
-        max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
-      })
-      |> Repo.one()
-    )
+    apply_filters(params, current_user_id)
+    |> subquery()
+    |> select([u], %{
+      count: count(u.id),
+      max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
+    })
+    |> Repo.one()
   end
 
   def list_user_ids(params, current_user_id \\ nil) do
@@ -173,7 +171,7 @@ defmodule StoreHall.Users do
 
     Ecto.Multi.new()
     |> upsert_settings_on_multi(user, Map.get(attrs, "settings"))
-    |> Multi.update(:update, User.changeset(user, Images.prepare_images(attrs)))
+    |> Multi.update(:update, User.changeset(user, prepare_for_insert(attrs)))
     |> Images.clean_images(user, details_to_remove(user, attrs, "images"))
     |> Images.upsert_images(attrs, :update)
     |> Repo.transaction()
@@ -184,6 +182,12 @@ defmodule StoreHall.Users do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  defp prepare_for_insert(user) do
+    user
+    |> Images.prepare_images()
+    |> ParseNumbers.prepare_number(["marketing_info", "mail_credits_ask"])
   end
 
   defp upsert_settings(user, changes \\ %{}, repo \\ Repo) do

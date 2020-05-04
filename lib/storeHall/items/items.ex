@@ -8,6 +8,7 @@ defmodule StoreHall.Items do
 
   alias StoreHall.Repo
   alias Ecto.Multi
+  alias StoreHall.ParseNumbers
 
   alias StoreHall.Items.Item
   alias StoreHall.Items.Filters
@@ -112,45 +113,9 @@ defmodule StoreHall.Items do
   defp prepare_for_insert(item) do
     item
     |> Images.prepare_images()
-    |> prepare_number(["details", "price"])
-    |> prepare_number(["details", "price_orig"])
-    |> prepare_number(["details", "discount"])
-  end
-
-  defp prepare_number(item, map_key) do
-    number =
-      item
-      |> get_in(map_key)
-      |> case do
-        nil ->
-          0
-
-        number ->
-          number
-          |> parse_number()
-      end
-
-    item |> put_in(map_key, number)
-  end
-
-  defp parse_number(int) when is_integer(int), do: int
-  defp parse_number(float) when is_float(float), do: float |> Float.round(2)
-
-  defp parse_number(str) when is_binary(str) do
-    str
-    |> Float.parse()
-    |> case do
-      :error ->
-        str
-        |> Integer.parse()
-        |> case do
-          :error -> 0
-          {number, _} -> number
-        end
-
-      {number, _} ->
-        parse_number(number)
-    end
+    |> ParseNumbers.prepare_number(["details", "price"])
+    |> ParseNumbers.prepare_number(["details", "price_orig"])
+    |> ParseNumbers.prepare_number(["details", "discount"])
   end
 
   defp init_rating(item) do

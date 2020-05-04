@@ -3,6 +3,7 @@ defmodule StoreHall.Marketing.Mails do
 
   alias StoreHall.Repo
   alias Ecto.Multi
+  alias StoreHall.ParseNumbers
 
   alias StoreHall.Users
   alias StoreHall.Users.User
@@ -33,7 +34,9 @@ defmodule StoreHall.Marketing.Mails do
   end
 
   def list_mails_for_header_notifications(params, current_user_id \\ nil) do
-    params = %{"page-size" => unread_mails_to_load()} |> Map.merge(params)
+    params =
+      %{"page-size" => unread_mails_to_load(), "filter" => %{"sort" => "credits:desc"}}
+      |> Map.merge(params)
 
     list_mails(params, current_user_id)
     |> Enum.map(fn mail ->
@@ -69,7 +72,7 @@ defmodule StoreHall.Marketing.Mails do
 
   def create_mail(mail \\ %{}) do
     Ecto.Multi.new()
-    |> Multi.insert(:insert, Mail.changeset(%Mail{}, mail))
+    |> Multi.insert(:insert, Mail.changeset(%Mail{}, prepare_for_insert(mail)))
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -78,6 +81,11 @@ defmodule StoreHall.Marketing.Mails do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  defp prepare_for_insert(mail) do
+    mail
+    |> ParseNumbers.prepare_number(["details", "credits"])
   end
 
   def delete_mail(%Mail{} = mail) do
@@ -115,6 +123,7 @@ defmodule StoreHall.Marketing.Mails do
         image: "{{from_user.image}}"
       },
       details: %{
+        "credits" => "{{json details.credits}}",
         "type" => "{{json details.type}}",
         "title" => "{{json details.title}}",
         "link" => "{{json details.link}}",

@@ -21,17 +21,18 @@ total_cost = users_count * credits_per_mail %>
         <%= text_input f, :users_count, name: "users_count", value: users_count, readonly: true %>
       </span>
 
-      <label><%= Gettext.gettext("Cost for one mail in credits: ") %></label>
-      <span>
-        <%= text_input f, :credits_per_mail, name: "credits_per_mail", value: credits_per_mail, readonly: true %>
-      </span>
-
       <label><%= Gettext.gettext("Total cost for all mails: ") %></label>
       <span>
         <%= text_input f, :total_cost, name: "total_cost", value: total_cost, readonly: true %>
       </span>
+    </div>
 
-      <%# hidden_input f, :filter_params, name: "filter_params", value: @conn.query_string %>
+    <div class="form-group">
+      <%= label f, :credits, Gettext.gettext("Cost for one mail in credits") %>
+      <%= number_input f, :details_credits,
+            min: credits_per_mail,
+            name: input_name(f, :details) <> "[credits]",
+            value: credits_per_mail %>
     </div>
 
     <div class="form-group">
