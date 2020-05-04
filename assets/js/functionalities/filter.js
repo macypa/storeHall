@@ -47,18 +47,18 @@ add_events(".auto-submit-item", "change", function () {
   );
 });
 
-channel.on("filtered_items", (payload) => {
-  let items_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("item_template").innerHTML)
-      .replace(
-        "<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
-        "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"
-      )
-      .replace(/{{id}}-name/g, "{{id}}") +
-    "{{/each}}";
-  let items_template = Handlebars.compile(items_template_source);
+let items_template_source =
+  "{{#each this}}" +
+  unescape(document.getElementById("item_template").innerHTML)
+    .replace(
+      "<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
+      "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"
+    )
+    .replace(/{{id}}-name/g, "{{id}}") +
+  "{{/each}}";
+let items_template = Handlebars.compile(items_template_source);
 
+channel.on("filtered_items", (payload) => {
   let json_payload = JSON.parse(payload.filtered);
   json_payload.csrf_token = $("meta[name='csrf-token']").attr("content");
 

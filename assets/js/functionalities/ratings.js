@@ -82,12 +82,12 @@ function add_rating_events() {
 }
 add_rating_events();
 
-channel.on("new_rating", (payload) => {
-  let rating_template_source = unescape(
-    document.getElementById("rating_template").innerHTML
-  );
-  let rating_template = Handlebars.compile(rating_template_source);
+let rating_template_source = unescape(
+  document.getElementById("rating_template").innerHTML
+);
+let rating_template = Handlebars.compile(rating_template_source);
 
+channel.on("new_rating", (payload) => {
   let new_rating = JSON.parse(payload.new_rating);
   let new_rating_html = rating_template(new_rating);
 
@@ -126,13 +126,13 @@ channel.on("new_rating", (payload) => {
   on_rating_events();
 });
 
-channel.on("show_for_rating", (payload) => {
-  let ratings_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("rating_template").innerHTML) +
-    "{{/each}}";
-  let ratings_template = Handlebars.compile(ratings_template_source);
+let ratings_template_source =
+  "{{#each this}}" +
+  unescape(document.getElementById("rating_template").innerHTML) +
+  "{{/each}}";
+let ratings_template = Handlebars.compile(ratings_template_source);
 
+channel.on("show_for_rating", (payload) => {
   let filtered_ratings = ratings_template(JSON.parse(payload.filtered));
   if (payload.filter.indexOf("show_for_rating_id=") == -1) {
     document
@@ -152,12 +152,6 @@ channel.on("show_for_rating", (payload) => {
 
 // import ratings_template from "../hbs/ratings.hbs"
 channel.on("filtered_ratings", (payload) => {
-  let ratings_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("rating_template").innerHTML) +
-    "{{/each}}";
-  let ratings_template = Handlebars.compile(ratings_template_source);
-
   let filtered_ratings = ratings_template(JSON.parse(payload.filtered));
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("ratings").innerHTML = filtered_ratings;

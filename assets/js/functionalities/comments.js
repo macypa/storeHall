@@ -28,12 +28,12 @@ function add_comment_events() {
 }
 add_comment_events();
 
+let comment_template_source = unescape(
+  document.getElementById("comment_template").innerHTML
+);
+let comment_template = Handlebars.compile(comment_template_source);
 //import comment_template from "../hbs/comment.hbs"
 channel.on("new_comment", (payload) => {
-  let comment_template_source = unescape(
-    document.getElementById("comment_template").innerHTML
-  );
-  let comment_template = Handlebars.compile(comment_template_source);
   let new_comment = JSON.parse(payload.new_comment);
   let new_comment_html = comment_template(new_comment);
 
@@ -67,13 +67,13 @@ channel.on("new_comment", (payload) => {
   on_comment_events();
 });
 
-channel.on("show_for_comment", (payload) => {
-  let comments_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("comment_template").innerHTML) +
-    "{{/each}}";
-  let comments_template = Handlebars.compile(comments_template_source);
+let comments_template_source =
+  "{{#each this}}" +
+  unescape(document.getElementById("comment_template").innerHTML) +
+  "{{/each}}";
+let comments_template = Handlebars.compile(comments_template_source);
 
+channel.on("show_for_comment", (payload) => {
   let filtered_comments = comments_template(JSON.parse(payload.filtered));
   if (payload.filter.indexOf("show_for_comment_id=") == -1) {
     document
@@ -93,12 +93,6 @@ channel.on("show_for_comment", (payload) => {
 
 //import comments_template from "../hbs/comments.hbs"
 channel.on("filtered_comments", (payload) => {
-  let comments_template_source =
-    "{{#each this}}" +
-    unescape(document.getElementById("comment_template").innerHTML) +
-    "{{/each}}";
-  let comments_template = Handlebars.compile(comments_template_source);
-
   let filtered_comments = comments_template(JSON.parse(payload.filtered));
   if (payload.filter.indexOf("page=") == -1) {
     document.querySelector("comments").innerHTML = filtered_comments;
