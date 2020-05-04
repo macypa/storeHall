@@ -30,16 +30,12 @@ add_comment_events();
 
 //import comment_template from "../hbs/comment.hbs"
 channel.on("new_comment", (payload) => {
-  let comment_template_source =
-    "<comment>" +
-    unescape(document.getElementById("comment_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</comment>";
+  let comment_template_source = unescape(
+    document.getElementById("comment_template").innerHTML
+  );
   let comment_template = Handlebars.compile(comment_template_source);
-
-  let new_comment_html = comment_template(JSON.parse(payload.new_comment));
+  let new_comment = JSON.parse(payload.new_comment);
+  let new_comment_html = comment_template(new_comment);
 
   if (payload.comment_parent_id == null) {
     document
@@ -48,35 +44,34 @@ channel.on("new_comment", (payload) => {
   } else {
     let comment_parent = document.querySelector(
       "#comment-" + payload.comment_parent_id
-    ).parentNode.parentNode;
+    );
     if (comment_parent !== null) {
-      comment_parent
+      comment_parent.parentNode.parentNode
         .getElementsByTagName("replies")[0]
         .insertAdjacentHTML("beforeend", new_comment_html);
     }
   }
 
-  document
-    .querySelector("#new_notifications")
-    .insertAdjacentHTML(
-      "beforeend",
-      new_comment_html
-        .replace(/(<actions>(.|\n)*<\/actions>)/m, "")
-        .replace(/(<replies>(.|\n)*<\/replies>)/m, "")
-    );
-  update_notifications_counter_alert();
+  if (window.loggedUserId != new_comment.author_id) {
+    document
+      .querySelector("#new_notifications")
+      .insertAdjacentHTML(
+        "beforeend",
+        new_comment_html
+          .replace(/(<actions>(.|\n)*<\/actions>)/m, "")
+          .replace(/(<replies>(.|\n)*<\/replies>)/m, "")
+      );
+    update_notifications_counter_alert();
+  }
 
   on_comment_events();
 });
 
 channel.on("show_for_comment", (payload) => {
   let comments_template_source =
-    "{{#each this}}<comment>" +
-    unescape(document.getElementById("comment_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</comment>{{/each}}";
+    "{{#each this}}" +
+    unescape(document.getElementById("comment_template").innerHTML) +
+    "{{/each}}";
   let comments_template = Handlebars.compile(comments_template_source);
 
   let filtered_comments = comments_template(JSON.parse(payload.filtered));
@@ -99,12 +94,9 @@ channel.on("show_for_comment", (payload) => {
 //import comments_template from "../hbs/comments.hbs"
 channel.on("filtered_comments", (payload) => {
   let comments_template_source =
-    "{{#each this}}<comment>" +
-    unescape(document.getElementById("comment_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</comment>{{/each}}";
+    "{{#each this}}" +
+    unescape(document.getElementById("comment_template").innerHTML) +
+    "{{/each}}";
   let comments_template = Handlebars.compile(comments_template_source);
 
   let filtered_comments = comments_template(JSON.parse(payload.filtered));

@@ -20,19 +20,16 @@ defmodule StoreHall.Comments do
     item_user
     |> Map.put(
       :comments,
-      [
-        comment_template(item_user)
-        | Ecto.assoc(item_user, :comments)
-          |> where([c], is_nil(c.comment_id))
-          |> apply_filters(
-            current_user_id,
-            params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
-          )
-      ]
+      Ecto.assoc(item_user, :comments)
+      |> where([c], is_nil(c.comment_id))
+      |> apply_filters(
+        current_user_id,
+        params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
+      )
     )
   end
 
-  defp comment_template_params() do
+  def comment_template() do
     %{
       id: "{{id}}",
       author_id: "{{author_id}}",
@@ -59,18 +56,9 @@ defmodule StoreHall.Comments do
         reaction: "{{reaction.reaction}}"
       },
       details: %{
-        "comment_template_tag_id" => "comment_template",
         "body" => "{{details.body}}"
       }
     }
-  end
-
-  def comment_template(%Item{}) do
-    %ItemComment{} |> Map.merge(comment_template_params())
-  end
-
-  def comment_template(%User{}) do
-    %UserComment{} |> Map.merge(comment_template_params())
   end
 
   def list_comments(

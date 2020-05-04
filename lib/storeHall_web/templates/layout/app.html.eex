@@ -3,7 +3,7 @@
   <head>
     <%= csrf_meta_tag() %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
-    
+
     <meta property="og:site_name" content="<%= Application.get_env(:storeHall, :about)[:title] %>">
     <meta name="description" content="<%= page_description(assigns) %>">
     <meta property="og:image" content="<%= page_image(assigns) %>">
@@ -47,12 +47,14 @@
       <%= render "footer.html", conn: @conn %>
     </footer>
 
+    <%= render "templates.html", conn: @conn %>
+
     <% logged_user_id = get_logged_user_id(@conn) %>
     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
     <script>window.loggedUserId = "<%= logged_user_id %>";</script>
     <script>window.loggedUserChannel = "<%= StoreHallWeb.UsersChannel.topic_prefix() <> if logged_user_id != nil do "/" <> logged_user_id else "/guest_channel" end %>";</script>
 
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    
+
   </body>
 </html>

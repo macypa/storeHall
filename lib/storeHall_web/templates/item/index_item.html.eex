@@ -1,0 +1,54 @@
+
+
+
+<item>
+  <div class="cover">
+    <rating_scores>
+      <%= link to: Routes.user_item_path(@conn, :show, @item.user_id, @item) <> "#ratings" do %>
+        <%= render StoreHallWeb.RatingView, "_rating_block.html", model: @item %>
+      <% end %>
+    </rating_scores>
+
+    <%= link to: Routes.user_item_path(@conn, :show, @item.user_id, @item) do %>
+
+      <div class="fotorama"
+          data-autoplay="false"
+          data-nav="false"
+          data-arrows="false"
+          data-width="100%"
+          data-height="259px">
+
+        <%= case @item.details["images"] do %>
+          <% [] -> %>
+          <% images -> %>
+            <%= for image <- images do %>
+              <div data-img='<%= get_thumb_image(image) %>'> </div>
+            <% end %>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+  <div class="title">
+    <%= link to: Routes.user_item_path(@conn, :show, @item.user_id, @item) do %>
+      <%= @item.name %>
+    <% end %>
+  </div>
+  <div class="merchant">
+    От
+    <%= link to: Routes.user_path(@conn, :show, @item.user_id) do %>
+      <%= @item.user.name %>
+    <% end %>
+  </div>
+
+  <div class='price value_<%= @item.details["price"] %>'><span class="money_value"><%= @item.details["price"] %></span> <%= @item.details["currency"] || Gettext.gettext("lv") %></div>
+
+  <div class='price_orig value_<%= @item.details["price_orig"] %> strike'><span class="money_value"><%= @item.details["price_orig"] %></span> <%= @item.details["currency"] || Gettext.gettext("lv") %></div>
+  <div class='discount value_<%= @item.details["discount"] %>'>-<%= @item.details["discount"] %><%= Gettext.gettext("%") %></div>
+  <div class="comments">
+    <%= link to: Routes.user_item_path(@conn, :show, @item.user_id, @item) <> "#comments" do %>
+      <%= Gettext.gettext("Comments") %>: <%= @item.details["comments_count"] %>
+    <% end %>
+  </div>
+
+</item>

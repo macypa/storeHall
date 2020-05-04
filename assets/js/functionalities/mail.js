@@ -16,12 +16,9 @@ channel.on("filtered_users", (payload) => {
 //import mails_template from "../hbs/mails.hbs"
 channel.on("filtered_mails", (payload) => {
   let mails_template_source =
-    "{{#each this}}<mail>" +
-    unescape(document.getElementById("mail_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</mail>{{/each}}";
+    "{{#each this}}" +
+    unescape(document.getElementById("mail_template").innerHTML) +
+    "{{/each}}";
   let mails_template = Handlebars.compile(mails_template_source);
 
   let filtered_mails = mails_template(JSON.parse(payload.filtered));

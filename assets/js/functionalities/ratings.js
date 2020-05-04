@@ -83,13 +83,9 @@ function add_rating_events() {
 add_rating_events();
 
 channel.on("new_rating", (payload) => {
-  let rating_template_source =
-    "<rating>" +
-    unescape(document.getElementById("rating_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</rating>";
+  let rating_template_source = unescape(
+    document.getElementById("rating_template").innerHTML
+  );
   let rating_template = Handlebars.compile(rating_template_source);
 
   let new_rating = JSON.parse(payload.new_rating);
@@ -107,35 +103,34 @@ channel.on("new_rating", (payload) => {
   } else {
     let rating_parent = document.querySelector(
       "#rating-" + payload.rating_parent_id
-    ).parentNode.parentNode;
+    );
     if (rating_parent !== null) {
-      rating_parent
+      rating_parent.parentNode.parentNode
         .getElementsByTagName("replies")[0]
         .insertAdjacentHTML("beforeend", new_rating_html);
     }
   }
 
-  document
-    .querySelector("#new_notifications")
-    .insertAdjacentHTML(
-      "beforeend",
-      new_rating_html
-        .replace(/(<actions>(.|\n)*<\/actions>)/m, "")
-        .replace(/(<replies>(.|\n)*<\/replies>)/m, "")
-    );
-  update_notifications_counter_alert();
+  if (window.loggedUserId != new_rating.author_id) {
+    document
+      .querySelector("#new_notifications")
+      .insertAdjacentHTML(
+        "beforeend",
+        new_rating_html
+          .replace(/(<actions>(.|\n)*<\/actions>)/m, "")
+          .replace(/(<replies>(.|\n)*<\/replies>)/m, "")
+      );
+    update_notifications_counter_alert();
+  }
 
   on_rating_events();
 });
 
 channel.on("show_for_rating", (payload) => {
   let ratings_template_source =
-    "{{#each this}}<rating>" +
-    unescape(document.getElementById("rating_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</rating>{{/each}}";
+    "{{#each this}}" +
+    unescape(document.getElementById("rating_template").innerHTML) +
+    "{{/each}}";
   let ratings_template = Handlebars.compile(ratings_template_source);
 
   let filtered_ratings = ratings_template(JSON.parse(payload.filtered));
@@ -158,12 +153,9 @@ channel.on("show_for_rating", (payload) => {
 // import ratings_template from "../hbs/ratings.hbs"
 channel.on("filtered_ratings", (payload) => {
   let ratings_template_source =
-    "{{#each this}}<rating>" +
-    unescape(document.getElementById("rating_template").innerHTML).replace(
-      /\{"\w+_template_tag_id":"\w+_template"\}/g,
-      "{{json details}}"
-    ) +
-    "</rating>{{/each}}";
+    "{{#each this}}" +
+    unescape(document.getElementById("rating_template").innerHTML) +
+    "{{/each}}";
   let ratings_template = Handlebars.compile(ratings_template_source);
 
   let filtered_ratings = ratings_template(JSON.parse(payload.filtered));

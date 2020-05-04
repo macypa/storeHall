@@ -1,0 +1,16 @@
+
+<template id='item_template' class='template'>
+  <%= render StoreHallWeb.ItemView, "index_item.html", item: Items.item_template(), conn: @conn %>
+</template>
+
+<template id='mail_template' class='template'>
+  <%= render StoreHallWeb.MailView, "show.html", mail: Mails.mail_template(), conn: @conn %>
+</template>
+
+<template id='comment_template' class='template'>
+  <%= render StoreHallWeb.CommentView, "show.html", comment: Comments.comment_template(), conn: @conn %>
+</template>
+
+<template id='rating_template' class='template'>
+  <%= render StoreHallWeb.RatingView, "show.html", rating: Ratings.rating_template(), conn: @conn %>
+</template>

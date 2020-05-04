@@ -49,14 +49,14 @@ add_events(".auto-submit-item", "change", function () {
 
 channel.on("filtered_items", (payload) => {
   let items_template_source =
-    "{{#each this}}<item>" +
+    "{{#each this}}" +
     unescape(document.getElementById("item_template").innerHTML)
       .replace(
         "<div data-img=\"{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}\"> </div>",
         "{{#each details.images}}<div data-img='{{this}}'> </div>{{/each}}"
       )
       .replace(/{{id}}-name/g, "{{id}}") +
-    "</item>{{/each}}";
+    "{{/each}}";
   let items_template = Handlebars.compile(items_template_source);
 
   let json_payload = JSON.parse(payload.filtered);

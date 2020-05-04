@@ -52,7 +52,7 @@ defmodule StoreHall.Plugs.SetUser do
         |> put_session(
           :logged_user_unread_mail,
           Mails.list_mails_for_header_notifications(
-            %{"page-size" => Mails.unread_mails_to_load()},
+            %{},
             logged_user_id
           )
         )

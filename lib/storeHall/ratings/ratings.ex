@@ -85,19 +85,16 @@ defmodule StoreHall.Ratings do
     item_user
     |> Map.put(
       :ratings,
-      [
-        rating_template(item_user)
-        | Ecto.assoc(item_user, :ratings)
-          |> where([r], is_nil(r.rating_id))
-          |> apply_filters(
-            current_user_id,
-            params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
-          )
-      ]
+      Ecto.assoc(item_user, :ratings)
+      |> where([r], is_nil(r.rating_id))
+      |> apply_filters(
+        current_user_id,
+        params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"})
+      )
     )
   end
 
-  defp rating_template_params() do
+  def rating_template() do
     %{
       id: "{{id}}",
       author_id: "{{author_id}}",
@@ -124,19 +121,10 @@ defmodule StoreHall.Ratings do
         reaction: "{{reaction.reaction}}"
       },
       details: %{
-        "rating_template_tag_id" => "rating_template",
         "scores" => "{{json details.scores}}",
         "body" => "{{details.body}}"
       }
     }
-  end
-
-  def rating_template(%Item{}) do
-    %ItemRating{} |> Map.merge(rating_template_params())
-  end
-
-  def rating_template(%User{}) do
-    %UserRating{} |> Map.merge(rating_template_params())
   end
 
   def list_ratings(

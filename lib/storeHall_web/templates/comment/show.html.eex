@@ -1,8 +1,5 @@
-<%= if Map.has_key?(@comment.details, "comment_template_tag_id") do %>
-  <template id='comment_template' class='template'>
-<% else %>
-  <comment>
-<% end %>
+
+<comment>
 
   <avatar>
     <%= link to: Routes.user_path(@conn, :show, @comment.author_id || "") do %>
@@ -54,8 +51,5 @@
             model: @comment,
             add_params: "show_for_comment_id=#{@comment.id}" %>
   </replies>
-<%= if Map.has_key?(@comment.details, "comment_template_tag_id") do %>
-  </template>
-<% else %>
-  </comment>
-<% end %>
+
+</comment>

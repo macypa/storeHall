@@ -3,33 +3,13 @@ defmodule StoreHallWeb.MailController do
 
   alias StoreHallWeb.AuthController
   alias StoreHall.Marketing.Mails
-  alias StoreHall.Marketing.Mail
   alias StoreHall.Users
 
   plug :check_viewer when action in [:show]
   plug :check_owner when action in [:delete]
 
   def index(conn, _params) do
-    mails = [
-      %Mail{
-        id: "{{id}}",
-        inserted_at: "{{inserted_at}}",
-        updated_at: "{{updated_at}}",
-        from_user: %{
-          id: "{{from_user.id}}",
-          name: "{{from_user.name}}",
-          image: "{{from_user.image}}"
-        },
-        details: %{
-          "mail_template_tag_id" => "mail_template",
-          "type" => "{{json details.type}}",
-          "title" => "{{json details.title}}",
-          "link" => "{{json details.link}}",
-          "content" => "{{json details.content}}"
-        }
-      }
-      | Mails.all_mails(conn.params, AuthController.get_logged_user_id(conn))
-    ]
+    mails = Mails.all_mails(conn.params, AuthController.get_logged_user_id(conn))
 
     render(conn, :index, mails: mails)
   end

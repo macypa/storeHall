@@ -10,7 +10,7 @@ defmodule StoreHall.Marketing.Mails do
   require StoreHallWeb.Gettext
   alias StoreHall.DefaultFilter
 
-  @unread_mails_to_load 2
+  @unread_mails_to_load 3
   def unread_mails_to_load(), do: @unread_mails_to_load
 
   def get_mail!(id, repo \\ Repo) do
@@ -33,6 +33,8 @@ defmodule StoreHall.Marketing.Mails do
   end
 
   def list_mails_for_header_notifications(params, current_user_id \\ nil) do
+    params = %{"page-size" => unread_mails_to_load()} |> Map.merge(params)
+
     list_mails(params, current_user_id)
     |> Enum.map(fn mail ->
       %{
@@ -100,6 +102,25 @@ defmodule StoreHall.Marketing.Mails do
       Ecto.Changeset.change(mail, to_users: mail.to_users |> List.delete(user_id))
     end)
     |> Repo.transaction()
+  end
+
+  def mail_template() do
+    %Mail{
+      id: "{{id}}",
+      inserted_at: "{{inserted_at}}",
+      updated_at: "{{updated_at}}",
+      from_user: %{
+        id: "{{from_user.id}}",
+        name: "{{from_user.name}}",
+        image: "{{from_user.image}}"
+      },
+      details: %{
+        "type" => "{{json details.type}}",
+        "title" => "{{json details.title}}",
+        "link" => "{{json details.link}}",
+        "content" => "{{json details.content}}"
+      }
+    }
   end
 
   def changeset() do
