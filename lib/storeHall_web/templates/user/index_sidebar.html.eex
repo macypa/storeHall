@@ -20,23 +20,23 @@
           <div class="rangeValues">
             <%= number_input f, :mail_credits_ask_min,
               class: "min",
-              min: 0, step: 0.01,
+              min: 0, step: 1,
               name: "filter[mail_credits_ask][min]",
               value: f.params["mail_credits_ask"]["min"] %>
             <%= number_input f, :mail_credits_ask_max,
               class: "max",
-              min: 0, step: 0.01,
+              min: 0, step: 1,
               name: "filter[mail_credits_ask][max]",
               value: f.params["mail_credits_ask"]["max"] %>
           </div>
           <div class="rangeSliders">
             <%= range_input f, :mail_credits_ask_min_slider,
-              min: 0, max: 1000, step: 1,
+              min: 0, max: 100, step: 1,
               class: "min-slider auto-submit-item",
               value: f.params["mail_credits_ask"]["min"] || 0 %>
 
             <%= range_input f, :mail_credits_ask_max_slider,
-              min: 0, max: 1000, step: 1,
+              min: 0, max: 100, step: 1,
               class: "max-slider auto-submit-item",
               value: f.params["mail_credits_ask"]["max"] || 1000 %>
           </div>
