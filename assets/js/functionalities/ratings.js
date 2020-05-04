@@ -111,6 +111,22 @@ channel.on("new_rating", (payload) => {
     }
   }
 
+  if (window.loggedUserChannel == window.channel_topic) {
+    add_rating_to_notifications(new_rating_html, new_rating);
+  }
+
+  on_rating_events();
+});
+
+channel_user.on("new_rating", (payload) => {
+  let new_rating = JSON.parse(payload.new_rating);
+  let new_rating_html = rating_template(new_rating);
+
+  add_rating_to_notifications(new_rating_html, new_rating);
+  on_rating_events();
+});
+
+function add_rating_to_notifications(new_rating_html, new_rating) {
   if (window.loggedUserId != new_rating.author_id) {
     document
       .querySelector("#new_notifications")
@@ -122,9 +138,7 @@ channel.on("new_rating", (payload) => {
       );
     update_notifications_counter_alert();
   }
-
-  on_rating_events();
-});
+}
 
 let ratings_template_source =
   "{{#each this}}" +

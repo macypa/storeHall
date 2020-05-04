@@ -52,6 +52,22 @@ channel.on("new_comment", (payload) => {
     }
   }
 
+  if (window.loggedUserChannel == window.channel_topic) {
+    add_comment_to_notifications(new_comment_html, new_comment);
+  }
+
+  on_comment_events();
+});
+
+channel_user.on("new_comment", (payload) => {
+  let new_comment = JSON.parse(payload.new_comment);
+  let new_comment_html = comment_template(new_comment);
+
+  add_comment_to_notifications(new_comment_html, new_comment);
+  on_comment_events();
+});
+
+function add_comment_to_notifications(new_comment_html, new_comment) {
   if (window.loggedUserId != new_comment.author_id) {
     document
       .querySelector("#new_notifications")
@@ -63,9 +79,7 @@ channel.on("new_comment", (payload) => {
       );
     update_notifications_counter_alert();
   }
-
-  on_comment_events();
-});
+}
 
 let comments_template_source =
   "{{#each this}}" +

@@ -8,6 +8,7 @@ defmodule StoreHallWeb.ItemsChannel do
   alias StoreHall.Ratings
   alias StoreHall.Comments
   alias StoreHall.Items
+  alias StoreHallWeb.UsersChannel
 
   @topic_prefix "/items"
 
@@ -132,6 +133,15 @@ defmodule StoreHallWeb.ItemsChannel do
                 new_comment: Jason.encode!(comment)
               }
             )
+
+            UsersChannel.broadcast_msg!(
+              comment.user_id,
+              "new_comment",
+              %{
+                comment_parent_id: comment.comment_id,
+                new_comment: Jason.encode!(comment)
+              }
+            )
         end
     end
 
@@ -181,12 +191,21 @@ defmodule StoreHallWeb.ItemsChannel do
                     }
                   )
 
-                  StoreHallWeb.UsersChannel.broadcast_updated_rating_item(
+                  UsersChannel.broadcast_msg!(
+                    rating.user_id,
+                    "new_comment",
+                    %{
+                      rating_parent_id: rating.rating_id,
+                      new_rating: Jason.encode!(rating)
+                    }
+                  )
+
+                  UsersChannel.broadcast_updated_rating_item(
                     Items.get_item!(rating.item_id),
                     item_rating
                   )
 
-                  StoreHallWeb.UsersChannel.broadcast_updated_rating_user(
+                  UsersChannel.broadcast_updated_rating_user(
                     rating.user_id,
                     user_rating
                   )
