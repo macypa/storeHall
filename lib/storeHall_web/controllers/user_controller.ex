@@ -32,7 +32,8 @@ defmodule StoreHallWeb.UserController do
       |> Images.append_images(:image)
       |> Comments.preload_for(AuthController.get_logged_user_id(conn), params)
       |> Ratings.preload_for(AuthController.get_logged_user_id(conn), params)
-      |> Chats.preload_for(AuthController.get_logged_user_id(conn))
+
+    # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
 
     render(conn, :show, user: user)
   end
