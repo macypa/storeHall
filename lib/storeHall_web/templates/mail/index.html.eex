@@ -4,7 +4,7 @@
 
 <mails>
   <%= for mail <- @mails do %>
-    <%= render "show.html", mail: mail, conn: @conn %>
+    <%= render "index_mail.html", mail: mail, conn: @conn %>
   <% end %>
 </mails>
 

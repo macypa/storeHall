@@ -28,7 +28,7 @@ defmodule StoreHallWeb.MailController do
 
     conn
     |> put_flash(:info, Gettext.gettext("Mail deleted successfully."))
-    |> redirect(to: Routes.user_mail_path(conn, :index, mail.from_user))
+    |> redirect(to: Routes.user_mail_path(conn, :index, mail.from_user_id))
   end
 
   defp check_owner(conn, _params) do
