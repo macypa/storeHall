@@ -56,7 +56,7 @@ defmodule StoreHall.Plugs.SetUser do
             logged_user_id
           )
         )
-        |> put_session(:last_mail_check, last_mail_check)
+        |> put_session(:last_mail_check, DateTime.utc_now())
 
       _ ->
         conn
