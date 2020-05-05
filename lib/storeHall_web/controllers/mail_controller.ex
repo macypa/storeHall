@@ -47,16 +47,29 @@ defmodule StoreHallWeb.MailController do
 
   defp check_viewer(conn, _params) do
     %{params: %{"id" => mail_id, "user_id" => user_id}} = conn
-    to_user_ids = Mails.get_mail!(mail_id).to_users
-    logged_user_id = AuthController.get_logged_user_id(conn)
 
-    if in_user_ids?(logged_user_id, to_user_ids) do
-      conn
-    else
-      conn
-      |> put_flash(:error, Gettext.gettext("You cannot do that"))
-      |> redirect(to: Routes.user_mail_path(conn, :index, user_id))
-      |> halt()
+    Mails.get_mail(mail_id)
+    |> case do
+      nil ->
+        StoreHallWeb.Redirector.call(conn, to: "/users/#{user_id}/mails")
+
+      mail ->
+        to_user_ids = mail.to_users
+
+        logged_user_id = AuthController.get_logged_user_id(conn)
+
+        can_view =
+          in_user_ids?(logged_user_id, to_user_ids) or
+            AuthController.check_owner?(conn, user_id)
+
+        if can_view do
+          conn
+        else
+          conn
+          |> put_flash(:error, Gettext.gettext("You cannot do that"))
+          |> redirect(to: Routes.user_mail_path(conn, :index, user_id))
+          |> halt()
+        end
     end
   end
 

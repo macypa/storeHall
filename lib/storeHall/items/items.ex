@@ -68,10 +68,10 @@ defmodule StoreHall.Items do
     Item |> repo.get!(id)
   end
 
-  def get_item_with_reactions!(id, params, repo \\ Repo) do
+  def get_item_with_reactions(id, params, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 
-    Item |> Reactions.preload_reaction(params["user_id"], "item") |> repo.get!(id)
+    Item |> Reactions.preload_reaction(params["user_id"], "item") |> repo.get(id)
   end
 
   def preload_user(item) do

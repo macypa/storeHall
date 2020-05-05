@@ -14,6 +14,12 @@ defmodule StoreHall.Marketing.Mails do
   @unread_mails_to_load 3
   def unread_mails_to_load(), do: @unread_mails_to_load
 
+  def get_mail(id, repo \\ Repo) do
+    {id, _} = to_string(id) |> Integer.parse()
+
+    Mail |> repo.get(id)
+  end
+
   def get_mail!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 

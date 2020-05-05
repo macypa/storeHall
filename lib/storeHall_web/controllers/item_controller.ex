@@ -45,27 +45,34 @@ defmodule StoreHallWeb.ItemController do
   def show(conn, params = %{"id" => id}) do
     logged_user_id = AuthController.get_logged_user_id(conn)
 
-    item =
-      Items.get_item_with_reactions!(
-        id,
-        params |> Map.put("user_id", logged_user_id)
-      )
-      |> Items.preload_user()
-      |> Images.append_images(:image)
-      |> Comments.preload_for(logged_user_id, params)
-      |> Ratings.preload_for(logged_user_id, params)
+    Items.get_item_with_reactions(
+      id,
+      params |> Map.put("user_id", logged_user_id)
+    )
+    |> case do
+      nil ->
+        StoreHallWeb.Redirector.call(conn, to: "/")
 
-    # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
+      item ->
+        item =
+          item
+          |> Items.preload_user()
+          |> Images.append_images(:image)
+          |> Comments.preload_for(logged_user_id, params)
+          |> Ratings.preload_for(logged_user_id, params)
 
-    if item.reaction == nil and logged_user_id != nil do
-      Action.init_item_reaction(
-        Items.get_item_id(id),
-        logged_user_id,
-        item.user_id
-      )
+        # |> Chats.preload_for(AuthController.get_logged_user_id(conn))
+
+        if item.reaction == nil and logged_user_id != nil do
+          Action.init_item_reaction(
+            Items.get_item_id(id),
+            logged_user_id,
+            item.user_id
+          )
+        end
+
+        render(conn, :show, item: item)
     end
-
-    render(conn, :show, item: item)
   end
 
   def edit(conn, %{"id" => id}) do
