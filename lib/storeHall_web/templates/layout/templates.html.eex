@@ -4,7 +4,7 @@
 </template>
 
 <template id='mail_template' class='template'>
-  <%= render StoreHallWeb.MailView, "show.html", mail: Mails.mail_template(), conn: @conn %>
+  <%= render StoreHallWeb.MailView, "index_mail.html", mail: Mails.mail_template(), conn: @conn %>
 </template>
 
 <template id='comment_template' class='template'>
