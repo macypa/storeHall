@@ -45,6 +45,17 @@ defmodule StoreHall.Marketing.Mails do
       |> Map.merge(params)
 
     list_mails(params, current_user_id)
+  end
+
+  def apply_filters(mail_query, params) do
+    from_user_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
+
+    mail_query
+    |> preload(from_user: ^from_user_preload_query)
+    |> DefaultFilter.paging_filter(params)
+    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
+    |> Repo.all()
+    |> Users.clean_preloaded_user(:from_user, [:info, :marketing_info])
     |> Enum.map(fn mail ->
       %{
         id: mail.id,
@@ -58,17 +69,6 @@ defmodule StoreHall.Marketing.Mails do
         }
       }
     end)
-  end
-
-  def apply_filters(mail_query, params) do
-    from_user_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
-
-    mail_query
-    |> preload(from_user: ^from_user_preload_query)
-    |> DefaultFilter.paging_filter(params)
-    |> DefaultFilter.sort_filter(params |> Map.put_new("filter", %{"sort" => "inserted_at:desc"}))
-    |> Repo.all()
-    |> Users.clean_preloaded_user(:from_user, [:info, :marketing_info])
   end
 
   def preload_sender(mail) do

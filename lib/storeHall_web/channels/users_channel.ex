@@ -76,7 +76,7 @@ defmodule StoreHallWeb.UsersChannel do
         socket
       ) do
     filtered =
-      Mails.list_mails(
+      Mails.all_mails(
         filter |> decode_filter,
         socket.assigns.current_user_id
       )
