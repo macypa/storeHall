@@ -5,8 +5,7 @@ defmodule StoreHallWeb.MailController do
   alias StoreHall.Marketing.Mails
   alias StoreHall.Users
 
-  plug :check_viewer when action in [:show]
-  plug :check_owner when action in [:delete]
+  plug :check_viewer when action in [:show, :delete]
 
   def index(conn, _params) do
     mails = Mails.all_mails(conn.params, AuthController.get_logged_user_id(conn))
@@ -24,25 +23,11 @@ defmodule StoreHallWeb.MailController do
 
   def delete(conn, %{"id" => id}) do
     mail = Mails.get_mail!(id)
-    {:ok, _mail} = Mails.delete_mail(mail)
+    {:ok, _mail} = Mails.delete_mail(mail, AuthController.get_logged_user_id(conn))
 
     conn
     |> put_flash(:info, Gettext.gettext("Mail deleted successfully."))
     |> redirect(to: Routes.user_mail_path(conn, :index, mail.from_user_id))
-  end
-
-  defp check_owner(conn, _params) do
-    %{params: %{"id" => mail_id}} = conn
-    user_id = Mails.get_mail!(mail_id).from_user_id
-
-    if AuthController.check_owner?(conn, user_id) do
-      conn
-    else
-      conn
-      |> put_flash(:error, Gettext.gettext("You cannot do that"))
-      |> redirect(to: Routes.user_mail_path(conn, :index, user_id))
-      |> halt()
-    end
   end
 
   defp check_viewer(conn, _params) do

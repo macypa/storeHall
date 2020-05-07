@@ -31,12 +31,8 @@
     <% end %>
   </div>
 
-  <%= if is_logged_user?(@conn, @conn.assigns.mail.from_user_id) do %>
-
-    <div class="tab">
-      <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_mail_path(@conn, :delete, @conn.assigns.mail.from_user_id, @conn.assigns.mail), method: :delete, data: [confirm: Gettext.gettext("Are you sure you want to delete the mail?")] %>
-    </div>
-
-  <% end %>
+  <div class="tab">
+    <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_mail_path(@conn, :delete, @conn.assigns.mail.from_user_id, @conn.assigns.mail), method: :delete, data: [confirm: Gettext.gettext("Are you sure you want to delete the mail?")] %>
+  </div>
 
 </sidebar-show>

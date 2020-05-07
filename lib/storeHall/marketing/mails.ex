@@ -94,16 +94,22 @@ defmodule StoreHall.Marketing.Mails do
     |> ParseNumbers.prepare_number(["details", "credits"])
   end
 
-  def delete_mail(%Mail{} = mail) do
-    Ecto.Multi.new()
-    |> Multi.delete(:delete_mail, mail)
-    |> Repo.transaction()
-    |> case do
-      {:ok, multi} ->
-        {:ok, multi.delete_mail}
+  def delete_mail(%Mail{} = mail, current_user_id) do
+    case mail.from_user_id == current_user_id do
+      true ->
+        Ecto.Multi.new()
+        |> Multi.delete(:delete_mail, mail)
+        |> Repo.transaction()
+        |> case do
+          {:ok, multi} ->
+            {:ok, multi.delete_mail}
 
-      {:error, _op, value, _changes} ->
-        {:error, value}
+          {:error, _op, value, _changes} ->
+            {:error, value}
+        end
+
+      false ->
+        mail |> remove_user_id_from_mail(current_user_id)
     end
   end
 
@@ -130,10 +136,10 @@ defmodule StoreHall.Marketing.Mails do
       },
       details: %{
         "credits" => "{{json details.credits}}",
-        "type" => "{{json details.type}}",
-        "title" => "{{json details.title}}",
-        "link" => "{{json details.link}}",
-        "content" => "{{json details.content}}"
+        "type" => "{{details.type}}",
+        "title" => "{{details.title}}",
+        "link" => "{{details.link}}",
+        "content" => "{{details.content}}"
       }
     }
   end
