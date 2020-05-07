@@ -220,10 +220,6 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user_id ->
-        # Mails.list_mails(%{}, [socket.assigns.current_user_id])
-        # |> hd
-        # |> Mails.remove_user_id_from_mail(logged_user_id)
-
         filtered_ids = Users.list_user_ids(filter |> decode_filter, logged_user_id)
 
         mail_params
