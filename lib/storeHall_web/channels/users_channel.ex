@@ -211,6 +211,23 @@ defmodule StoreHallWeb.UsersChannel do
   end
 
   def handle_in(
+        "marketing-mail:claim",
+        %{"data" => mail_id},
+        socket
+      ) do
+    case socket.assigns.current_user_id do
+      nil ->
+        push(socket, "error", %{message: Gettext.gettext("must be logged in")})
+
+      logged_user_id ->
+        Mails.get_mail!(mail_id)
+        |> Mails.claim_mail_credits(logged_user_id)
+    end
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
         "marketing-mail:add",
         %{"filter_params" => filter, "mail_params" => mail_params},
         socket
@@ -225,7 +242,8 @@ defmodule StoreHallWeb.UsersChannel do
         mail_params
         |> decode_filter
         |> Map.get("mail")
-        |> Map.put("to_users", filtered_ids)
+        |> Map.put("sent_to_user_ids", filtered_ids)
+        |> Map.put("unread_by_user_ids", filtered_ids)
         |> Map.put("from_user_id", logged_user_id)
         |> Mails.create_mail()
         |> case do

@@ -16,14 +16,14 @@ defmodule StoreHallWeb.MailController do
   def show(conn, _params = %{"id" => id}) do
     mail =
       Mails.get_mail!(id)
-      |> Users.preload_sender()
+      |> Mails.read_mail(AuthController.get_logged_user_id(conn))
 
-    render(conn, :show, mail: mail)
+    render(conn, :show, mail: mail |> Users.preload_sender())
   end
 
   def delete(conn, %{"id" => id}) do
     mail = Mails.get_mail!(id)
-    {:ok, _mail} = Mails.delete_mail(mail, AuthController.get_logged_user_id(conn))
+    Mails.delete_mail(mail, AuthController.get_logged_user_id(conn))
 
     conn
     |> put_flash(:info, Gettext.gettext("Mail deleted successfully."))
@@ -39,7 +39,7 @@ defmodule StoreHallWeb.MailController do
         StoreHallWeb.Redirector.call(conn, to: "/users/#{user_id}/mails")
 
       mail ->
-        to_user_ids = mail.to_users
+        to_user_ids = mail.sent_to_user_ids
 
         logged_user_id = AuthController.get_logged_user_id(conn)
 

@@ -28,14 +28,14 @@ defmodule StoreHall.Marketing.Mails do
 
   def all_mails(params, current_user_id) do
     Mail
-    |> where([u], u.from_user_id == ^current_user_id)
-    |> or_where([u], fragment("? \\?| ?", u.to_users, [^current_user_id]))
+    |> where([m], m.from_user_id == ^current_user_id)
+    |> or_where([m], fragment("? \\?| ?", m.sent_to_user_ids, [^current_user_id]))
     |> apply_filters(params)
   end
 
   def list_inbox_mails(params, current_user_id \\ nil) do
     Mail
-    |> where([u], fragment("? \\?| ?", u.to_users, [^current_user_id]))
+    |> where([m], fragment("? \\?| ?", m.sent_to_user_ids, [^current_user_id]))
     |> apply_filters(params)
   end
 
@@ -44,7 +44,9 @@ defmodule StoreHall.Marketing.Mails do
       %{"page-size" => unread_mails_to_load(), "filter" => %{"sort" => "credits:desc"}}
       |> Map.merge(params)
 
-    list_inbox_mails(params, current_user_id)
+    Mail
+    |> where([m], fragment("? \\?| ?", m.unread_by_user_ids, [^current_user_id]))
+    |> apply_filters(params)
   end
 
   def apply_filters(mail_query, params) do
@@ -94,32 +96,68 @@ defmodule StoreHall.Marketing.Mails do
     |> ParseNumbers.prepare_number(["details", "credits"])
   end
 
-  def delete_mail(%Mail{} = mail, current_user_id) do
-    case mail.from_user_id == current_user_id do
-      true ->
-        Ecto.Multi.new()
-        |> Multi.delete(:delete_mail, mail)
-        |> Repo.transaction()
-        |> case do
-          {:ok, multi} ->
-            {:ok, multi.delete_mail}
+  def read_mail(mail = %Mail{from_user_id: from_user_id}, current_user_id)
+      when from_user_id == current_user_id do
+    mail
+  end
 
-          {:error, _op, value, _changes} ->
-            {:error, value}
-        end
-
+  def read_mail(%Mail{} = mail, current_user_id) do
+    case Enum.member?(mail.unread_by_user_ids, current_user_id) do
       false ->
-        mail |> remove_user_id_from_mail(current_user_id)
+        mail
+
+      true ->
+        Multi.new()
+        |> Multi.insert_or_update(:update, fn %{} ->
+          Ecto.Changeset.change(mail,
+            unread_by_user_ids: mail.unread_by_user_ids |> List.delete(current_user_id)
+          )
+        end)
+        |> Repo.transaction()
+
+        mail
     end
   end
 
-  def remove_user_id_from_mail(%Mail{} = mail, user_id) do
+  def claim_mail_credits(%Mail{from_user_id: from_user_id}, current_user_id)
+      when from_user_id == current_user_id,
+      do: nil
+
+  def claim_mail_credits(%Mail{} = mail, current_user_id) do
+    case Enum.member?(mail.claimed_by_user_ids, current_user_id) do
+      true ->
+        nil
+
+      false ->
+        Multi.new()
+        |> Multi.insert_or_update(:update, fn %{} ->
+          Ecto.Changeset.change(mail,
+            claimed_by_user_ids: mail.claimed_by_user_ids ++ [current_user_id]
+          )
+        end)
+        |> Repo.transaction()
+    end
+  end
+
+  def delete_mail(mail = %Mail{from_user_id: from_user_id}, current_user_id)
+      when from_user_id == current_user_id do
+    Ecto.Multi.new()
+    |> Multi.delete(:delete_mail, mail)
+    |> Repo.transaction()
+  end
+
+  def delete_mail(%Mail{} = mail, current_user_id) do
+    mail
+    |> remove_mail_from_user_inbox(current_user_id)
+  end
+
+  defp remove_mail_from_user_inbox(%Mail{} = mail, user_id) do
     Multi.new()
-    |> Multi.run(:mail, fn repo, %{} ->
-      {:ok, repo.get!(Mail, mail.id)}
-    end)
-    |> Multi.insert_or_update(:update, fn %{mail: mail} ->
-      Ecto.Changeset.change(mail, to_users: mail.to_users |> List.delete(user_id))
+    |> Multi.insert_or_update(:update, fn %{} ->
+      Ecto.Changeset.change(mail,
+        sent_to_user_ids: mail.sent_to_user_ids |> List.delete(user_id),
+        deleted_by_user_ids: mail.deleted_by_user_ids ++ [user_id]
+      )
     end)
     |> Repo.transaction()
   end
