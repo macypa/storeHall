@@ -222,6 +222,21 @@ defmodule StoreHallWeb.UsersChannel do
       logged_user_id ->
         Mails.get_mail!(mail_id)
         |> Mails.claim_mail_credits(logged_user_id)
+        |> case do
+          nil ->
+            nil
+
+          {:ok, _mail} ->
+            push(socket, "mail_credits_claimed", %{
+              message: Gettext.gettext("mail credits claimed"),
+              data: mail_id
+            })
+
+          {:error, _} ->
+            push(socket, "error", %{
+              message: Gettext.gettext("mail credits not claimed!")
+            })
+        end
     end
 
     {:reply, :ok, socket}

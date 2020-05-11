@@ -1,8 +1,6 @@
-
 @import "./main_show_info.css.scss";
 
 show {
-
   .profile_image {
     width: 5em;
     height: auto;
@@ -30,19 +28,6 @@ reactions {
     background-color: $reactionIconBackgroundColor;
   }
 
-  @mixin activate_icon {
-    .inactive_icon {
-      display: none;
-    }
-    .active_icon {
-      display: block;
-    }
-  }
-
-  .active_icon {
-    display: none;
-  }
-
   .alertz_spam.alert_spam,
   .alertz_hate.alert_hate,
   .alertz_fraud.alert_fraud,
@@ -54,7 +39,9 @@ reactions {
 
   .alertz_icon {
     background-color: $reactionIconBackgroundColor;
-    &[class^='alert_'], &[class*=' alert_'], &.alert {  
+    &[class^="alert_"],
+    &[class*=" alert_"],
+    &.alert {
       @include activate_icon;
     }
     fill: darkred;
@@ -87,7 +74,7 @@ reactions {
     background-color: #fff;
     border-radius: 4px;
     transform: translateY(-5px);
-    transition: all .3s;
+    transition: all 0.3s;
     @include box-shadow;
 
     ul {
@@ -101,7 +88,7 @@ reactions {
       //color: $color-abbey;
 
       &:hover {
-        background-color: rgba(0,0,0, .1);
+        background-color: rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -109,10 +96,8 @@ reactions {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-
 }
 
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
-
 }

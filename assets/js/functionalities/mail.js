@@ -3,6 +3,14 @@ function on_mail_events() {
   load_lazy_imgs();
   add_load_more_events();
 }
+window.add_mail_events = function () {
+  add_events("[mail-topic]", "click", function () {
+    channel_user_push_debounced(this.getAttribute("mail-topic"), {
+      data: this.getAttribute("data"),
+    });
+  });
+};
+add_mail_events();
 
 channel.on("filtered_users", (payload) => {
   let filtered_users = JSON.parse(payload.filtered);
@@ -86,4 +94,8 @@ channel_user.on("mail_sent", (payload) => {
 
 channel_user.on("new_mail", (payload) => {
   on_new_mail_event(payload);
+});
+
+channel_user.on("mail_credits_claimed", (payload) => {
+  $(".claim_icon[data='" + payload.data + "']").toggleClass("claimed");
 });

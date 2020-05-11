@@ -1,76 +1,80 @@
-mails {
-  mail {
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    grid-template-areas:
-      "avatar author"
-      "avatar time"
-      "avatar actions"
-      "avatar text";
-    padding: 0.3em;
+mail {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-areas:
+    "avatar author"
+    "avatar time"
+    "avatar actions"
+    "avatar text";
+  padding: 0.3em;
 
-    a {
-      text-decoration: none;
-      color: black;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  avatar {
+    grid-area: avatar;
+    padding: 0.2em;
+
+    img {
+      max-width: 3em;
+      border-radius: 50%;
     }
+  }
 
-    avatar {
-      grid-area: avatar;
-      padding: 0.2em;
+  author {
+    grid-area: author;
 
-      img {
-        max-width: 3em;
-        border-radius: 50%;
+    font-size: 1em;
+    font-weight: 700;
+
+    mail {
+      font-size: 0.5em;
+      font-weight: 400;
+    }
+  }
+
+  time {
+    grid-area: time;
+    // text-align: left;
+
+    font-size: 0.9em;
+    padding-left: 0.5em;
+  }
+
+  text {
+    grid-area: text;
+    max-height: 80vh;
+    overflow: auto;
+
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    @include pre-wrap;
+  }
+
+  actions {
+    grid-area: actions;
+
+    .claim_icon {
+      &.claimed {
+        @include activate_icon;
       }
-    }
-
-    author {
-      grid-area: author;
-
-      font-size: 1em;
-      font-weight: 700;
-
-      mail {
-        font-size: 0.5em;
-        font-weight: 400;
-      }
-    }
-
-    time {
-      grid-area: time;
-      // text-align: left;
-
-      font-size: 0.9em;
-      padding-left: 0.5em;
-    }
-
-    text {
-      grid-area: text;
-      max-height: 80vh;
-      overflow: auto;
-
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-      @include pre-wrap;
-    }
-
-    actions {
-      grid-area: actions;
+      background-color: $reactionIconBackgroundColor;
+      fill: green;
     }
   }
 }
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  mails {
-    mail {
-      grid-template-columns: min-content min-content 1fr;
-      grid-template-areas:
-        "avatar author time ."
-        "avatar text . scores"
-        "avatar actions actions actions"
-        "avatar replies replies replies";
-    }
+  mail {
+    grid-template-columns: min-content min-content 1fr;
+    grid-template-areas:
+      "avatar author time ."
+      "avatar text . scores"
+      "avatar actions actions actions"
+      "avatar replies replies replies";
   }
 }
 

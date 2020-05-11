@@ -13,10 +13,17 @@
 
   <actions>
     <% current_user_id = get_logged_user_id(@conn)
-       claimed = Enum.member?(@mail.claimed_by_user_ids, current_user_id) %>
-    <svg class="svg_icon claim_icon <%= claimed %>" reaction-topic="marketing-mail:claim" data="<%= @mail.id %>">
-      <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
-      <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
-    </svg>
+       am_not_author = Map.has_key?(@mail, :from_user_id)  and @mail.from_user_id != current_user_id %>
+    <%= if am_not_author do %>
+
+      <% claimed = case Enum.member?(@mail.claimed_by_user_ids, current_user_id) do
+        true -> "claimed"
+        false -> "unclaimed"
+      end %>
+      <svg class="svg_icon claim_icon <%= claimed %>" mail-topic="marketing-mail:claim" data="<%= @mail.id %>">
+        <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
+        <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
+      </svg>
+    <% end %>
   </actions>
 </mail>
