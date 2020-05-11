@@ -51,7 +51,7 @@ defmodule StoreHall.Plugs.SetUser do
         conn
         |> put_session(
           :logged_user_unread_mail,
-          Mails.list_mails_for_header_notifications(
+          Mails.list_inbox_mails_for_header_notifications(
             %{},
             logged_user_id
           )

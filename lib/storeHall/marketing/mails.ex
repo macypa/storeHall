@@ -33,18 +33,18 @@ defmodule StoreHall.Marketing.Mails do
     |> apply_filters(params)
   end
 
-  def list_mails(params, current_user_id \\ nil) do
+  def list_inbox_mails(params, current_user_id \\ nil) do
     Mail
     |> where([u], fragment("? \\?| ?", u.to_users, [^current_user_id]))
     |> apply_filters(params)
   end
 
-  def list_mails_for_header_notifications(params, current_user_id \\ nil) do
+  def list_inbox_mails_for_header_notifications(params, current_user_id \\ nil) do
     params =
       %{"page-size" => unread_mails_to_load(), "filter" => %{"sort" => "credits:desc"}}
       |> Map.merge(params)
 
-    list_mails(params, current_user_id)
+    list_inbox_mails(params, current_user_id)
   end
 
   def apply_filters(mail_query, params) do
