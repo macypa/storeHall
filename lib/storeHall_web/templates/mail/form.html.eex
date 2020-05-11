@@ -1,0 +1,71 @@
+
+<marketing-mail-form>
+
+<% users_count = @users.count
+credits_per_mail = @users.max_credits
+total_cost = users_count * credits_per_mail %>
+
+  <%= form_for @changeset, "", [id: "mail_form",class: "edit_form", csrf_token: false], fn f -> %>
+
+    <div class="submit_button">
+      <%= submit Gettext.gettext("Send"),
+                class: "marketing-mail-button",
+                "marketing-mail-topic": "marketing-mail:add",
+                confirm: Gettext.gettext("Are you sure?"),
+                required: Gettext.gettext("Title is required!") %>
+    </div>
+
+    <div class="form-group">
+      <label><%= Gettext.gettext("Number of profiles corresponding to these filters: ") %></label>
+      <span>
+        <%= text_input f, :users_count, name: "users_count", value: users_count, readonly: true %>
+      </span>
+
+      <label><%= Gettext.gettext("Total cost for all mails: ") %></label>
+      <span>
+        <%= text_input f, :total_cost, name: "total_cost", value: total_cost, readonly: true %>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :credits, Gettext.gettext("Cost for one mail in credits") %>
+      <%= number_input f, :details_credits,
+            min: credits_per_mail,
+            name: input_name(f, :details) <> "[credits]",
+            value: credits_per_mail %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :title, Gettext.gettext("Title") %>
+      <%= text_input f, :details_title, name: input_name(f, :details) <> "[title]", value: input_value(f, :details)["title"] %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :link, Gettext.gettext("Link") %>
+      <%= text_input f, :details_link, name: input_name(f, :details) <> "[link]", value: input_value(f, :details)["link"] %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :coupon, Gettext.gettext("Coupon") %>
+      <%= text_input f, :details_coupon, name: input_name(f, :details) <> "[coupon]", value: input_value(f, :details)["coupon"] %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :content, Gettext.gettext("Content") %>
+      <%= textarea f, :details_content, name: input_name(f, :details) <> "[content]", value: input_value(f, :details)["content"] %>
+        <div class="hint">
+          <%= sanitize to_string(Gettext.gettext("form edit hint for content")) %>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :content, Gettext.gettext("Preview") %>
+      <div id="marketing_mail_preview">
+
+      </div>
+    </div>
+
+  <% end %>
+
+</marketing-mail-form>
+
