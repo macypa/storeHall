@@ -3,7 +3,6 @@ defmodule StoreHall.Marketing.Mails do
 
   alias StoreHall.Repo
   alias Ecto.Multi
-  alias StoreHall.ParseNumbers
 
   alias StoreHall.Users
   alias StoreHall.Users.User
@@ -95,9 +94,13 @@ defmodule StoreHall.Marketing.Mails do
     end
   end
 
-  defp format_credits(mail) do
-    put_in(mail.details["credits"], mail.details["credits"] |> round())
+  defp format_credits(nil), do: nil
+
+  defp format_credits(mail = %{details: %{"credits" => credits}}) do
+    put_in(mail.details["credits"], credits |> round())
   end
+
+  defp format_credits(mail), do: mail
 
   def read_mail(mail = %Mail{from_user_id: from_user_id}, current_user_id)
       when from_user_id == current_user_id do
