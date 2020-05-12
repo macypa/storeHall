@@ -11,5 +11,8 @@
     <%= link to: Routes.user_mail_path(@conn, :show, @mail.from_user.id, @mail.id) do %>
       <%= @mail.details["title"] %>
     <% end %>
+    <div class="credits_format">
+      <%= @mail.details["credits"] %>
+    </div>
   </text>
 </mail>

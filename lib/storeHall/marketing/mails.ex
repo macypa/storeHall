@@ -17,13 +17,13 @@ defmodule StoreHall.Marketing.Mails do
   def get_mail(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 
-    Mail |> repo.get(id)
+    Mail |> repo.get(id) |> format_credits()
   end
 
   def get_mail!(id, repo \\ Repo) do
     {id, _} = to_string(id) |> Integer.parse()
 
-    Mail |> repo.get!(id)
+    Mail |> repo.get!(id) |> format_credits()
   end
 
   def all_mails(params, current_user_id) do
@@ -61,7 +61,10 @@ defmodule StoreHall.Marketing.Mails do
     |> Enum.map(fn mail ->
       %{
         id: mail.id,
-        details: %{"title" => mail.details["title"]},
+        details: %{
+          "title" => mail.details["title"],
+          "credits" => mail.details["credits"]
+        },
         inserted_at: mail.inserted_at,
         updated_at: mail.updated_at,
         from_user: %{
@@ -70,6 +73,7 @@ defmodule StoreHall.Marketing.Mails do
           image: mail.from_user.image
         }
       }
+      |> format_credits()
     end)
   end
 
@@ -80,7 +84,7 @@ defmodule StoreHall.Marketing.Mails do
 
   def create_mail(mail \\ %{}) do
     Ecto.Multi.new()
-    |> Multi.insert(:insert, Mail.changeset(%Mail{}, prepare_for_insert(mail)))
+    |> Multi.insert(:insert, Mail.changeset(%Mail{}, format_credits(mail)))
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -91,9 +95,8 @@ defmodule StoreHall.Marketing.Mails do
     end
   end
 
-  defp prepare_for_insert(mail) do
-    mail
-    |> ParseNumbers.prepare_number(["details", "credits"])
+  defp format_credits(mail) do
+    put_in(mail.details["credits"], mail.details["credits"] |> round())
   end
 
   def read_mail(mail = %Mail{from_user_id: from_user_id}, current_user_id)

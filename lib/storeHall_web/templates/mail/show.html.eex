@@ -24,6 +24,8 @@
         <use class="inactive_icon" xlink:href="/images/sprite.svg#si-ant-smile"></use>
         <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
       </svg>
+
+      <%= @mail.details["credits"] %>
     <% end %>
   </actions>
 </mail>
