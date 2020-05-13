@@ -2056,7 +2056,7 @@ msgstr "Лимит"
 #: lib/storeHall_web/templates/mail/index_sidebar.html.eex:32
 #: lib/storeHall_web/templates/mail/show_sidebar.html.eex:30
 msgid "Add mail"
-msgstr "Прати рекламно писмо"
+msgstr "Прати писмо"
 
 #, elixir-format
 #: lib/storeHall_web/templates/mail/show_sidebar.html.eex:35
