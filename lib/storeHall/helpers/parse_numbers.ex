@@ -1,20 +1,17 @@
 defmodule StoreHall.ParseNumbers do
   def prepare_number(item, map_key) do
-    number =
-      item
-      |> get_in(map_key)
-      |> case do
-        nil ->
-          0
+    item
+    |> get_in(map_key)
+    |> case do
+      nil ->
+        item
 
-        number ->
-          number
-          |> parse_number()
-      end
-
-    item |> put_in(map_key, number)
+      number ->
+        item |> put_in(map_key, parse_number(number))
+    end
   end
 
+  def parse_number(nil), do: 0
   def parse_number(int) when is_integer(int), do: int
   def parse_number(float) when is_float(float), do: float |> Float.round(2)
 
