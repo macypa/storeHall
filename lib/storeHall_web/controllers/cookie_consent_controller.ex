@@ -20,7 +20,7 @@ defmodule StoreHallWeb.CookieConsentController do
   def update_cookie_consent_to_agreed(conn, user_id) do
     {:ok, user} =
       Users.update_user(Users.get_user_with_settings(user_id), %{
-        "settings" => %{"cookie_consent" => "agreed"}
+        settings: %{"cookie_consent" => "agreed"}
       })
 
     conn |> AuthController.put_user_props_in_session(user)
