@@ -37,6 +37,9 @@ defmodule StoreHall.UserFilter do
   defp filter(:work_experience, dynamic, params),
     do: filter_range(:work_experience, dynamic, :marketing_info, params)
 
+  defp filter(:age, dynamic, params),
+    do: filter_range(:age, dynamic, :marketing_info, params)
+
   defp filter(:height, dynamic, params),
     do: filter_range(:height, dynamic, :marketing_info, params)
 

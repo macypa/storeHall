@@ -140,6 +140,39 @@
     </div>
 
     <div class="tab">
+      <input type="checkbox" id="age-min" class="collapsible">
+      <label class="tab-label" for="age-min"><%= Gettext.gettext("Age") %></label>
+      <div class="tab-content">
+
+        <div class="range-slider">
+          <div class="rangeValues">
+            <%= number_input f, :age_min,
+              class: "min",
+              step: 1,
+              name: "filter[age][min]",
+              value: f.params["age"]["min"] %>
+            <%= number_input f, :age_max,
+              class: "max",
+              step: 1,
+              name: "filter[age][max]",
+              value: f.params["age"]["max"] %>
+          </div>
+          <div class="rangeSliders">
+            <%= range_input f, :age_min_slider,
+              class: "min-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["age"]["min"] || 0 %>
+            <%= range_input f, :age_max_slider,
+              class: "max-slider auto-submit-item",
+              min: 0, max: 1000, step: 1,
+              value: f.params["age"]["max"] || 1000 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab">
       <input type="checkbox" id="height-min" class="collapsible">
       <label class="tab-label" for="height-min"><%= Gettext.gettext("Height") %></label>
       <div class="tab-content">
