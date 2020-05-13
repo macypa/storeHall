@@ -14,13 +14,17 @@ defmodule StoreHall.Users do
   alias StoreHall.DefaultFilter
 
   def list_users(params, current_user_id \\ nil) do
-    apply_filters(params, current_user_id)
-    |> subquery()
-    |> select([u], %{
-      count: count(u.id),
-      max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
-    })
-    |> Repo.one()
+    users_info =
+      apply_filters(params, current_user_id)
+      |> subquery()
+      |> select([u], %{
+        count: count(u.id),
+        max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
+      })
+      |> Repo.one()
+
+    users_info
+    |> Map.put(:total_cost_credits, users_info.count * users_info.max_credits)
   end
 
   def list_user_ids(params, current_user_id \\ nil) do
