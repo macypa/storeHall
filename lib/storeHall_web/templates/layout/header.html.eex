@@ -62,7 +62,7 @@
         <li>
           <%= link to: Routes.about_path(@conn, :howto) <> "#credits", id: "credits_banner" do %>
             <span class="text">
-              <%= Plug.Conn.get_session(@conn, :logged_user_settings)["credits"] || 0 %><%= Gettext.gettext(" credits") %>
+              <span id="balance_credits"><%= Plug.Conn.get_session(@conn, :logged_user_settings)["credits"] || 0 %><span><%= Gettext.gettext(" credits") %>
             </span>
           <% end %>
         </li>

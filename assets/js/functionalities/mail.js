@@ -19,7 +19,7 @@ channel.on("filtered_users", (payload) => {
   document.querySelector("#mail_details_credits").value = credits_per_mail;
   document.querySelector("#mail_details_credits").min = credits_per_mail;
   document.querySelector("#mail_total_cost").value =
-    credits_per_mail * filtered_users.count;
+    filtered_users.total_cost_credits;
 });
 
 let mails_template_source =
@@ -88,14 +88,32 @@ function on_new_mail_event(payload) {
   update_notifications_counter_alert();
 }
 
-channel_user.on("mail_sent", (payload) => {
-  flash_info(payload.message);
-});
-
 channel_user.on("new_mail", (payload) => {
   on_new_mail_event(payload);
 });
 
+channel_user.on("mail_sent", (payload) => {
+  flash_info(payload.message);
+
+  update_session();
+  update_balance_credits(
+    -parseInt(document.querySelector("#mail_total_cost").value)
+  );
+});
+
+function update_balance_credits(credits) {
+  let current_balance = parseInt(
+    document.querySelector("#balance_credits").innerHTML
+  );
+  document.querySelector("#balance_credits").innerHTML =
+    current_balance + credits;
+}
+
 channel_user.on("mail_credits_claimed", (payload) => {
   $(".claim_icon[data='" + payload.data + "']").toggleClass("claimed");
+
+  update_session();
+  update_balance_credits(
+    parseInt(document.querySelector("#credits_for_mail").innerText)
+  );
 });

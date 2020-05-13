@@ -25,7 +25,10 @@
         <use class="active_icon" xlink:href="/images/sprite.svg#si-ant-smile-circle"></use>
       </svg>
 
-      <%= @mail.details["credits"] %>
+      <div id="credits_for_mail">
+        <%= @mail.details["credits"] %>
+      </div>
+
     <% end %>
   </actions>
 </mail>

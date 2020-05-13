@@ -252,6 +252,7 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user_id ->
+        filtered_users = Users.list_users(filter |> decode_filter, logged_user_id)
         filtered_ids = Users.list_user_ids(filter |> decode_filter, logged_user_id)
 
         mail_params
@@ -260,7 +261,7 @@ defmodule StoreHallWeb.UsersChannel do
         |> Map.put("sent_to_user_ids", filtered_ids)
         |> Map.put("unread_by_user_ids", filtered_ids)
         |> Map.put("from_user_id", logged_user_id)
-        |> Mails.create_mail()
+        |> Mails.create_mail(logged_user_id, filtered_users)
         |> case do
           {:ok, mail} ->
             mail = mail |> Mails.preload_sender()
@@ -280,7 +281,7 @@ defmodule StoreHallWeb.UsersChannel do
               message: Gettext.gettext("mail sent.")
             })
 
-          {:error, _} ->
+          {:error, error} ->
             push(socket, "error", %{
               message: Gettext.gettext("mail not sent!")
             })

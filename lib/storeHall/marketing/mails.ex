@@ -1,14 +1,17 @@
 defmodule StoreHall.Marketing.Mails do
   import Ecto.Query, warn: false
 
+  require StoreHallWeb.Gettext
+  alias StoreHallWeb.Gettext, as: Gettext
   alias StoreHall.Repo
   alias Ecto.Multi
 
   alias StoreHall.Users
   alias StoreHall.Users.User
+  alias StoreHall.Users.Settings
   alias StoreHall.Marketing.Mail
-  require StoreHallWeb.Gettext
   alias StoreHall.DefaultFilter
+  alias StoreHall.ParseNumbers
 
   @unread_mails_to_load 3
   def unread_mails_to_load(), do: @unread_mails_to_load
@@ -81,9 +84,49 @@ defmodule StoreHall.Marketing.Mails do
     |> Users.preload_sender(Repo)
   end
 
-  def create_mail(mail \\ %{}) do
+  defp update_credits_balance(multi, user_id, credits_to_add_or_remove) do
+    multi
+    |> Multi.run(:label_count, fn repo, _ ->
+      query =
+        from f in Settings,
+          where: f.id == ^user_id,
+          update: [
+            set: [
+              settings:
+                fragment(
+                  " jsonb_set(settings, '{credits}',
+                 (COALESCE(settings->>'credits','0')::int + ?)::text::jsonb) ",
+                  ^credits_to_add_or_remove
+                )
+            ]
+          ]
+
+      {:ok, repo.update_all(query, [])}
+    end)
+  end
+
+  def create_mail(mail, logged_user_id, filtered_users) do
     Ecto.Multi.new()
-    |> Multi.insert(:insert, Mail.changeset(%Mail{}, format_credits(mail)))
+    |> Multi.insert(
+      :insert,
+      Mail.changeset(%Mail{}, format_credits(mail))
+    )
+    |> Multi.run(:check_balance, fn _, _ ->
+      (Users.get_user_with_settings!(logged_user_id).settings["credits"] -
+         ParseNumbers.parse_number(filtered_users.total_cost_credits))
+      |> round()
+      |> case do
+        x when x < 0 ->
+          {:error, Gettext.gettext("insufficient balance")}
+
+        x ->
+          {:ok, x}
+      end
+    end)
+    |> update_credits_balance(
+      logged_user_id,
+      -ParseNumbers.parse_number(filtered_users.total_cost_credits) |> round()
+    )
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -97,7 +140,11 @@ defmodule StoreHall.Marketing.Mails do
   defp format_credits(nil), do: nil
 
   defp format_credits(mail = %{details: %{"credits" => credits}}) do
-    put_in(mail.details["credits"], credits |> round())
+    put_in(mail.details["credits"], ParseNumbers.parse_number(credits) |> round())
+  end
+
+  defp format_credits(mail = %{"details" => %{"credits" => credits}}) do
+    put_in(mail["details"]["credits"], ParseNumbers.parse_number(credits) |> round())
   end
 
   defp format_credits(mail), do: mail
@@ -141,6 +188,10 @@ defmodule StoreHall.Marketing.Mails do
             claimed_by_user_ids: mail.claimed_by_user_ids ++ [current_user_id]
           )
         end)
+        |> update_credits_balance(
+          current_user_id,
+          ParseNumbers.parse_number(mail.details["credits"])
+        )
         |> Repo.transaction()
     end
   end
