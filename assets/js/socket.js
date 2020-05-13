@@ -143,24 +143,19 @@ add_cookie_consent_event();
 
 window.add_marketing_consent_event = function () {
   add_events("[marketing_consent]", "click", function () {
-    let xhttp = new XMLHttpRequest();
     if (this.checked) {
-      xhttp.open(
-        "GET",
-        "/put_session?key=marketing_consent&value=agreed",
-        true
-      );
-      xhttp.send();
+      update_session("key=marketing_consent&value=agreed");
     } else {
-      xhttp.open(
-        "GET",
-        "/put_session?key=marketing_consent&value=not_agreed",
-        true
-      );
-      xhttp.send();
+      update_session("key=marketing_consent&value=not_agreed");
     }
   });
 };
 add_marketing_consent_event();
+
+window.update_session = function (key_value = "update=") {
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "/put_session?" + key_value, true);
+  xhttp.send();
+};
 
 export default socket;
