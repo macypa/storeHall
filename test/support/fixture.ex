@@ -13,6 +13,7 @@ defmodule StoreHall.Fixture do
   @items_count 100
   @item_comments_count 100
 
+  @dialyzer {:no_return, ueberauth_generator: 0}
   def ueberauth_generator() do
     ExUnitProperties.gen all(
                            token <- StreamData.string(:alphanumeric),
@@ -31,11 +32,13 @@ defmodule StoreHall.Fixture do
     end
   end
 
+  @dialyzer {:no_return, generate_ueberauth: 0}
   def generate_ueberauth() do
     ExUnitProperties.pick(ueberauth_generator())
   end
 
-  @spec user_generator(any) :: none
+  @dialyzer {:no_return, user_generator: 0}
+  @dialyzer {:no_return, user_generator: 1}
   def user_generator(fun \\ &Repo.insert/1) do
     ExUnitProperties.gen all(
                            seed <- StreamData.string(:alphanumeric),
@@ -63,14 +66,18 @@ defmodule StoreHall.Fixture do
     end
   end
 
+  @dialyzer {:no_return, insert_users: 0}
+  @dialyzer {:no_return, insert_users: 1}
   def insert_users(count \\ @users_count) do
     Enum.take(user_generator(), count)
   end
 
+  @dialyzer {:no_return, generate_user: 0}
   def generate_user() do
     ExUnitProperties.pick(user_generator())
   end
 
+  @dialyzer {:no_return, delete_users: 0}
   def delete_users() do
     Repo.all(User)
     |> Enum.each(fn u ->
@@ -82,6 +89,9 @@ defmodule StoreHall.Fixture do
     item_attrs
   end
 
+  @dialyzer {:no_return, item_generator: 0}
+  @dialyzer {:no_return, item_generator: 1}
+  @dialyzer {:no_return, item_generator: 2}
   def item_generator(user \\ nil, fun \\ &create_item/2) do
     user =
       case user do
@@ -137,14 +147,23 @@ defmodule StoreHall.Fixture do
     end
   end
 
+  @dialyzer {:no_return, insert_items: 0}
+  @dialyzer {:no_return, insert_items: 1}
   def insert_items(count \\ @items_count) do
     Enum.take(item_generator(), count)
   end
 
+  @dialyzer {:no_return, generate_item: 0}
+  @dialyzer {:no_return, generate_item: 1}
   def generate_item(user \\ nil) do
     ExUnitProperties.pick(item_generator(user))
   end
 
+  @dialyzer {:no_return, item_comment_generator: 1}
+  @dialyzer {:no_return, item_comment_generator: 2}
+  @dialyzer {:no_return, item_comment_generator: 3}
+  @dialyzer {:no_return, item_comment_generator: 4}
+  @dialyzer {:no_return, item_comment_generator: 5}
   def item_comment_generator(
         author,
         item \\ nil,
@@ -177,6 +196,11 @@ defmodule StoreHall.Fixture do
     end
   end
 
+  @dialyzer {:no_return, insert_item_comments: 1}
+  @dialyzer {:no_return, insert_item_comments: 2}
+  @dialyzer {:no_return, insert_item_comments: 3}
+  @dialyzer {:no_return, insert_item_comments: 4}
+  @dialyzer {:no_return, insert_item_comments: 5}
   def insert_item_comments(
         author,
         item \\ nil,
@@ -187,10 +211,18 @@ defmodule StoreHall.Fixture do
     Enum.take(item_comment_generator(author, item, user, comment_id), count)
   end
 
+  @dialyzer {:no_return, generate_item_comment: 1}
+  @dialyzer {:no_return, generate_item_comment: 2}
+  @dialyzer {:no_return, generate_item_comment: 3}
+  @dialyzer {:no_return, generate_item_comment: 4}
   def generate_item_comment(author, item \\ nil, user \\ nil, comment_id \\ nil) do
     ExUnitProperties.pick(item_comment_generator(author, item, user, comment_id))
   end
 
+  @dialyzer {:no_return, user_comment_generator: 1}
+  @dialyzer {:no_return, user_comment_generator: 2}
+  @dialyzer {:no_return, user_comment_generator: 3}
+  @dialyzer {:no_return, user_comment_generator: 4}
   def user_comment_generator(author, user \\ nil, comment_id \\ nil, fun \\ &Repo.insert/1) do
     user =
       case user do
@@ -216,10 +248,17 @@ defmodule StoreHall.Fixture do
     end
   end
 
+  @dialyzer {:no_return, insert_user_comments: 1}
+  @dialyzer {:no_return, insert_user_comments: 2}
+  @dialyzer {:no_return, insert_user_comments: 3}
+  @dialyzer {:no_return, insert_user_comments: 4}
   def insert_user_comments(author, user \\ nil, comment_id \\ nil, count \\ @item_comments_count) do
     Enum.take(user_comment_generator(author, user, comment_id), count)
   end
 
+  @dialyzer {:no_return, generate_user_comment: 1}
+  @dialyzer {:no_return, generate_user_comment: 2}
+  @dialyzer {:no_return, generate_user_comment: 3}
   def generate_user_comment(author, user \\ nil, comment_id \\ nil) do
     ExUnitProperties.pick(user_comment_generator(author, user, comment_id))
   end
