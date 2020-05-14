@@ -1,6 +1,6 @@
 
 <mail>
-  <div class='name' mail-id="<%= @mail.id %>"><%= @mail.from_user.id %></div>
+  <author><%= @mail.from_user.id %></author>
   <avatar class='img'><img class='lazy' data-src='<%= @mail.from_user.image %>'></avatar>
 
   <time class="timeago" datetime="<%= @mail.inserted_at %>">
@@ -11,8 +11,11 @@
     <%= link to: Routes.user_mail_path(@conn, :show, @mail.from_user.id, @mail.id) do %>
       <%= @mail.details["title"] %>
     <% end %>
-    <div class="credits_format">
+  </text>
+
+  <credits>
+    <div>
       <%= @mail.details["credits"] %>
     </div>
-  </text>
+  </credits>
 </mail>

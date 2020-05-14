@@ -2,10 +2,9 @@ mail {
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-areas:
-    "avatar author"
-    "avatar time"
-    "avatar actions"
-    "avatar text";
+    "avatar text credits"
+    "avatar author credits"
+    "avatar time credits";
   padding: 0.3em;
 
   a {
@@ -26,8 +25,7 @@ mail {
   author {
     grid-area: author;
 
-    font-size: 1em;
-    font-weight: 700;
+    font-size: 0.8em;
 
     mail {
       font-size: 0.5em;
@@ -39,7 +37,7 @@ mail {
     grid-area: time;
     // text-align: left;
 
-    font-size: 0.9em;
+    font-size: 0.7em;
     padding-left: 0.5em;
   }
 
@@ -50,16 +48,27 @@ mail {
 
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    @include pre-wrap;
+
+    .title {
+      font-size: 1em;
+      font-weight: 900;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .content {
+      @include pre-wrap;
+    }
   }
 
-  actions {
-    grid-area: actions;
+  credits {
+    grid-area: credits;
+    margin: auto;
 
     .claim_icon {
-      &.claimed {
-        @include activate_icon;
-      }
+      border-radius: 0;
       background-color: $reactionIconBackgroundColor;
       fill: green;
     }
@@ -68,13 +77,13 @@ mail {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  mail {
-    grid-template-columns: min-content min-content 1fr;
-    grid-template-areas:
-      "avatar author time ."
-      "avatar text . scores"
-      "avatar actions actions actions"
-      "avatar replies replies replies";
+  main {
+    mail {
+      grid-template-columns: min-content min-content 1fr;
+      grid-template-areas:
+        "avatar text text  credits"
+        "avatar author time  credits";
+    }
   }
 }
 

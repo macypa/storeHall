@@ -18,7 +18,7 @@
             <%= for mail <- get_logged_user_unread_mails(@conn) do %>
               <li>
                 <div class='mail'>
-                  <%= render StoreHallWeb.MailView, "show.html", mail: mail, conn: @conn %>
+                  <%= render StoreHallWeb.MailView, "index_mail.html", mail: mail, conn: @conn %>
                 </div>
               </li>
             <% end %>

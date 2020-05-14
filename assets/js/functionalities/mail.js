@@ -110,7 +110,7 @@ function update_balance_credits(credits) {
 }
 
 channel_user.on("mail_credits_claimed", (payload) => {
-  $(".claim_icon[data='" + payload.data + "']").toggleClass("claimed");
+  $(".claim_icon[data='" + payload.data + "']").remove();
 
   update_session();
   update_balance_credits(
