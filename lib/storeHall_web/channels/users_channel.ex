@@ -281,7 +281,7 @@ defmodule StoreHallWeb.UsersChannel do
               message: Gettext.gettext("mail sent.")
             })
 
-          {:error, error} ->
+          {:error, _error} ->
             push(socket, "error", %{
               message: Gettext.gettext("mail not sent!")
             })
