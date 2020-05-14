@@ -13,7 +13,7 @@ defmodule StoreHall.Marketing.Mails do
   alias StoreHall.DefaultFilter
   alias StoreHall.ParseNumbers
 
-  @unread_mails_to_load 3
+  @unread_mails_to_load 2
   def unread_mails_to_load(), do: @unread_mails_to_load
 
   def get_mail(id, repo \\ Repo) do
@@ -32,13 +32,13 @@ defmodule StoreHall.Marketing.Mails do
     Mail
     |> where([m], m.from_user_id == ^current_user_id)
     |> or_where([m], fragment("? \\?| ?", m.sent_to_user_ids, [^current_user_id]))
-    |> apply_filters(params)
+    |> apply_filters(params, current_user_id)
   end
 
   def list_inbox_mails(params, current_user_id \\ nil) do
     Mail
     |> where([m], fragment("? \\?| ?", m.sent_to_user_ids, [^current_user_id]))
-    |> apply_filters(params)
+    |> apply_filters(params, current_user_id)
   end
 
   def list_inbox_mails_for_header_notifications(params, current_user_id \\ nil) do
@@ -48,10 +48,10 @@ defmodule StoreHall.Marketing.Mails do
 
     Mail
     |> where([m], fragment("? \\?| ?", m.unread_by_user_ids, [^current_user_id]))
-    |> apply_filters(params)
+    |> apply_filters(params, current_user_id)
   end
 
-  def apply_filters(mail_query, params) do
+  defp apply_filters(mail_query, params, current_user_id) do
     from_user_preload_query = from(u in User) |> Users.add_select_fields_for_preload([])
 
     mail_query
@@ -67,6 +67,7 @@ defmodule StoreHall.Marketing.Mails do
           "title" => mail.details["title"],
           "credits" => mail.details["credits"]
         },
+        claimed: is_claimed(mail, current_user_id),
         inserted_at: mail.inserted_at,
         updated_at: mail.updated_at,
         from_user: %{
@@ -77,6 +78,21 @@ defmodule StoreHall.Marketing.Mails do
       }
       |> format_credits()
     end)
+  end
+
+  defp is_claimed(mail, current_user_id) do
+    case mail.from_user_id do
+      u when u == current_user_id ->
+        "claimed"
+
+      _ ->
+        mail.claimed_by_user_ids
+        |> Enum.find_value("unclaimed", fn x ->
+          if x == current_user_id do
+            "claimed"
+          end
+        end)
+    end
   end
 
   def preload_sender(mail) do
@@ -220,8 +236,9 @@ defmodule StoreHall.Marketing.Mails do
   end
 
   def mail_template() do
-    %Mail{
+    %{
       id: "{{id}}",
+      claimed: "{{claimed}}",
       inserted_at: "{{inserted_at}}",
       updated_at: "{{updated_at}}",
       from_user: %{

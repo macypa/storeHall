@@ -1,24 +1,6 @@
 
 <sidebar-show>
 
-  <div class="tab">
-    <a href="./#info" class="tab-label">
-      <%= Gettext.gettext("Info") %>
-    </a>
-  </div>
-
-  <div class="tab">
-    <a href="./#comments" class="tab-label">
-      <%= Gettext.gettext("Comments") %>
-    </a>
-  </div>
-
-  <div class="tab">
-    <a href="./#ratings" class="tab-label">
-      <%= Gettext.gettext("Ratings") %>
-    </a>
-  </div>
-
   <% logged_user_id = get_logged_user_id(@conn) || "guest" %>
   <div class="tab">
     <%= link Gettext.gettext("Mails"), class: "tab-label",

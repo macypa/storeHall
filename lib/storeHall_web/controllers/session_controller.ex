@@ -21,3 +21,8 @@ defmodule StoreHallWeb.SessionController do
     |> send_resp(:ok, "")
   end
 end
+
+# cookie = ""
+# [_, payload, _] = String.split(cookie, ".", parts: 3)
+# {:ok, encoded_term } = Base.url_decode64(payload, padding: false)
+# :erlang.binary_to_term(encoded_term)

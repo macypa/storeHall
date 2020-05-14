@@ -67,6 +67,10 @@ mail {
     grid-area: credits;
     margin: auto;
 
+    &.claimed {
+      display: none;
+    }
+
     .claim_icon {
       border-radius: 0;
       background-color: $reactionIconBackgroundColor;
