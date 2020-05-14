@@ -2,6 +2,27 @@ defmodule StoreHall.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  defimpl Inspect do
+    @sensitive_fields [
+      :image,
+      :email,
+      :name,
+      :settings,
+      :messages,
+      :provider,
+      :ratings,
+      :comments,
+      :details,
+      :info,
+      :marketing_info
+    ]
+    def inspect(user, opts) do
+      user
+      |> Map.drop(@sensitive_fields)
+      |> Inspect.Any.inspect(opts)
+    end
+  end
+
   @base_fields [
     :id,
     :name,
