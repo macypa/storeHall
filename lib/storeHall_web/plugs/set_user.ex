@@ -49,18 +49,23 @@ defmodule StoreHall.Plugs.SetUser do
     case DateTime.compare(last_mail_check, time_threshold) do
       :lt ->
         conn
-        |> put_session(
-          :logged_user_unread_mail,
-          Mails.list_inbox_mails_for_header_notifications(
-            %{},
-            logged_user_id
-          )
-        )
-        |> put_session(:last_mail_check, DateTime.utc_now())
+        |> fetch_first_unread_mails(logged_user_id)
 
       _ ->
         conn
     end
+  end
+
+  def fetch_first_unread_mails(conn, logged_user_id) do
+    conn
+    |> put_session(
+      :logged_user_unread_mail,
+      Mails.list_inbox_mails_for_header_notifications(
+        %{},
+        logged_user_id
+      )
+    )
+    |> put_session(:last_mail_check, DateTime.utc_now())
   end
 
   def update_marketing_last_activity(conn, 0), do: update_marketing_last_activity(conn)

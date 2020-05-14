@@ -9,6 +9,10 @@ window.update_notifications_counter_alert = function () {
   counter.innerHTML =
     $("#new_notifications").children().length +
     $("#unread_mails").children().length;
+
+  if (counter.innerHTML == "0") {
+    counter.innerHTML = "";
+  }
   load_lazy_imgs();
 };
 
