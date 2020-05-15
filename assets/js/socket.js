@@ -152,6 +152,17 @@ window.add_marketing_consent_event = function () {
 };
 add_marketing_consent_event();
 
+window.add_checkbox_terms_event = function () {
+  $(".checkbox_terms input").each(function () {
+    this.checked = JSON.parse(localStorage.getItem(this.id));
+  });
+
+  add_events(".checkbox_terms input", "click", function () {
+    localStorage.setItem(this.id, this.checked);
+  });
+};
+add_checkbox_terms_event();
+
 window.update_session = function (key_value = "update=") {
   let xhttp = new XMLHttpRequest();
   xhttp.open("GET", "/put_session?" + key_value, true);
