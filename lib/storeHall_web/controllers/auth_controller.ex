@@ -1,12 +1,14 @@
 defmodule StoreHallWeb.AuthController do
   use StoreHallWeb, :controller
   plug Ueberauth
+
+  alias StoreHall.Repo
   import Ecto.Query, warn: false
   import Plug.Conn
 
   alias StoreHall.Users
   alias StoreHall.Users.User
-  alias StoreHall.Repo
+  alias StoreHall.Marketing.Mails
   alias StoreHallWeb.CookieConsentController
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
@@ -28,6 +30,11 @@ defmodule StoreHallWeb.AuthController do
   def create(conn, user_params) do
     case insert_or_update_user(conn, user_params) do
       {:ok, user} ->
+        spawn(fn ->
+          :timer.sleep(5000)
+          Mails.broadcast_first_unread_mails(user.id)
+        end)
+
         conn
         |> clear_session()
         |> configure_session(renew: true)

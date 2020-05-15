@@ -97,15 +97,17 @@ let mail_template_source = unescape(
 let mail_template = Handlebars.compile(mail_template_source);
 function on_new_mail_event(payload) {
   let new_mail = JSON.parse(payload.new_mail);
-  let new_mail_html = mail_template(new_mail);
+  if (!localStorage.getItem("mail_" + new_mail.id)) {
+    let new_mail_html = mail_template(new_mail);
 
-  localStorage.setItem("mail_" + new_mail.id, new_mail_html);
+    localStorage.setItem("mail_" + new_mail.id, new_mail_html);
 
-  document
-    .querySelector("#unread_mails")
-    .insertAdjacentHTML("afterbegin", new_mail_html);
+    document
+      .querySelector("#unread_mails")
+      .insertAdjacentHTML("afterbegin", new_mail_html);
 
-  update_notifications_counter_alert();
+    update_notifications_counter_alert();
+  }
 }
 
 channel_user.on("new_mail", (payload) => {
@@ -138,4 +140,18 @@ channel_user.on("mail_credits_claimed", (payload) => {
   update_balance_credits(
     parseInt(document.querySelector("#credits_for_mail").innerText)
   );
+});
+
+$(document).ready(function () {
+  if (window.loggedUserId == "") {
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      if (key.startsWith("mail_")) {
+        localStorage.removeItem(key);
+      }
+    }
+
+    document.querySelector("#unread_mails").innerHTML = "";
+    update_notifications_counter_alert();
+  }
 });

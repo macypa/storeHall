@@ -100,6 +100,22 @@ defmodule StoreHall.Marketing.Mails do
     |> Users.preload_sender(Repo)
   end
 
+  def broadcast_first_unread_mails(logged_user_id) do
+    list_inbox_mails_for_header_notifications(
+      %{},
+      logged_user_id
+    )
+    |> Enum.each(fn mail ->
+      StoreHallWeb.UsersChannel.broadcast_msg!(
+        logged_user_id,
+        "new_mail",
+        %{
+          new_mail: Jason.encode!(mail)
+        }
+      )
+    end)
+  end
+
   defp update_credits_balance(multi, user_id, credits_to_add_or_remove) do
     multi
     |> Multi.run(:label_count, fn repo, _ ->
