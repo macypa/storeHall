@@ -14,7 +14,7 @@ defmodule StoreHallWeb.SessionController do
   end
 
   def put_session(conn, %{"update" => _}) do
-    case get_session(conn, :logged_user_id) do
+    case get_session(conn, :cu_id) do
       nil ->
         conn
 

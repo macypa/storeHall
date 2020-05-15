@@ -43,7 +43,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "exists", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
 
@@ -82,7 +82,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "editing foreign user redirects to items list", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Fixture.generate_user())
+        |> init_test_session(cu_id: Fixture.generate_user())
 
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
@@ -93,7 +93,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
@@ -106,7 +106,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "restrict editing other user", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = get(conn, Routes.user_path(conn, :edit, Fixture.generate_user()))
 
@@ -121,7 +121,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "redirects when data is valid", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = put(conn, Routes.user_path(conn, :update, user), user: @user_attrs)
 
@@ -135,7 +135,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
 
@@ -150,7 +150,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = delete(conn, Routes.user_path(conn, :delete, user))
 
@@ -165,7 +165,7 @@ defmodule StoreHallWeb.UserControllerTest do
     test "restrict deleting other user", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = delete(conn, Routes.user_path(conn, :delete, Fixture.generate_user()))
 

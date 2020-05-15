@@ -1,5 +1,5 @@
 
-<% settings_social_buttons = case Plug.Conn.get_session(@conn, :logged_user_settings)["social_buttons"] do
+<% settings_social_buttons = case Plug.Conn.get_session(@conn, :cu_settings)["social_buttons"] do
   list when is_list(list) -> list
   _ -> nil
 end || ["facebook", "pinterest", "copy_link"] %>

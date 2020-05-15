@@ -16,22 +16,21 @@ defmodule StoreHall.Plugs.SetUser do
       user_id ->
         token = Phoenix.Token.sign(conn, "user token", user_id)
 
-        set_locale(get_session(conn, :logged_user_settings), params)
+        set_locale(get_session(conn, :cu_settings), params)
 
         conn
         |> update_marketing_info()
         |> fetch_first_unread_mails()
-        # |> assign(:logged_user_id, user_id)
         |> assign(:user_token, token)
     end
   end
 
   defp update_marketing_info(conn) do
-    case get_session(conn, :logged_user_marketing_info)["marketing_consent"] do
+    case get_session(conn, :cu_market_info)["marketing_consent"] do
       "agreed" ->
         update_marketing_last_activity(
           conn,
-          get_session(conn, :logged_user_marketing_info)["last_activity"]
+          get_session(conn, :cu_market_info)["last_activity"]
         )
 
       _ ->
@@ -41,8 +40,8 @@ defmodule StoreHall.Plugs.SetUser do
 
   @one_minute 60
   defp fetch_first_unread_mails(conn) do
-    logged_user_id = get_session(conn, :logged_user_id)
-    last_mail_check = get_session(conn, :last_mail_check) || DateTime.from_unix!(0)
+    logged_user_id = get_session(conn, :cu_id)
+    last_mail_check = get_session(conn, :cu_last_mail_check) || DateTime.from_unix!(0)
     time_threshold = DateTime.utc_now() |> DateTime.add(-@one_minute)
 
     case DateTime.compare(last_mail_check, time_threshold) do
@@ -58,13 +57,13 @@ defmodule StoreHall.Plugs.SetUser do
   def fetch_first_unread_mails(conn, logged_user_id) do
     conn
     |> put_session(
-      :logged_user_unread_mail,
+      :cu_unread_mail,
       Mails.list_inbox_mails_for_header_notifications(
         %{},
         logged_user_id
       )
     )
-    |> put_session(:last_mail_check, DateTime.utc_now())
+    |> put_session(:cu_last_mail_check, DateTime.utc_now())
   end
 
   def update_marketing_last_activity(conn, 0), do: update_marketing_last_activity(conn)
@@ -82,7 +81,7 @@ defmodule StoreHall.Plugs.SetUser do
   end
 
   def update_marketing_last_activity(conn) do
-    get_session(conn, :logged_user_id)
+    get_session(conn, :cu_id)
     |> Users.get_user!([:marketing_info])
     |> Users.update_user(%{
       "marketing_info" => %{"last_activity" => DateTime.utc_now()}
@@ -90,8 +89,8 @@ defmodule StoreHall.Plugs.SetUser do
 
     conn
     |> put_session(
-      :logged_user_marketing_info,
-      get_session(conn, :logged_user_marketing_info)
+      :cu_market_info,
+      get_session(conn, :cu_market_info)
       |> Map.put("last_activity", DateTime.to_iso8601(DateTime.utc_now()))
     )
   end

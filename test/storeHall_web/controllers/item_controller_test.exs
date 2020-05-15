@@ -52,7 +52,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "exists", %{conn: conn, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+        |> init_test_session(cu_id: Users.get_user!(item.user_id).id)
 
       conn = get(conn, Routes.user_item_path(conn, :show, item.user_id, item))
 
@@ -93,7 +93,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "when data is valid", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = post(conn, Routes.user_item_path(conn, :create, user, %{"item" => @item_attrs}))
 
@@ -104,7 +104,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = post(conn, Routes.user_item_path(conn, :create, user, %{"item" => @invalid_attrs}))
 
@@ -121,7 +121,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "editing foreign item redirects to items list", %{conn: conn, user: user, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = get(conn, Routes.user_item_path(conn, :edit, user, item))
 
@@ -132,7 +132,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "renders form for editing chosen item", %{conn: conn, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+        |> init_test_session(cu_id: Users.get_user!(item.user_id).id)
 
       conn = get(conn, Routes.user_item_path(conn, :edit, item.user_id, item))
 
@@ -146,7 +146,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "restrict editing foreign item", %{conn: conn, user: user, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = get(conn, Routes.user_item_path(conn, :edit, user, item))
 
@@ -168,7 +168,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "redirects when data is valid", %{conn: conn, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+        |> init_test_session(cu_id: Users.get_user!(item.user_id).id)
 
       conn =
         put(conn, Routes.user_item_path(conn, :update, item.user_id, item), item: @item_attrs)
@@ -184,7 +184,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "renders errors when data is invalid", %{conn: conn, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+        |> init_test_session(cu_id: Users.get_user!(item.user_id).id)
 
       conn =
         put(conn, Routes.user_item_path(conn, :update, item.user_id, item), item: @invalid_attrs)
@@ -203,7 +203,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "deletes chosen item", %{conn: conn, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: Users.get_user!(item.user_id).id)
+        |> init_test_session(cu_id: Users.get_user!(item.user_id).id)
 
       conn = delete(conn, Routes.user_item_path(conn, :delete, item.user_id, item))
       assert redirected_to(conn) == Routes.item_path(conn, :index)
@@ -217,7 +217,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     test "restrict deleting foreign item", %{conn: conn, user: user, item: item} do
       conn =
         conn
-        |> init_test_session(logged_user_id: user.id)
+        |> init_test_session(cu_id: user.id)
 
       conn = delete(conn, Routes.user_item_path(conn, :delete, item.user_id, item))
 

@@ -6,10 +6,10 @@ defmodule StoreHallWeb.CookieConsentController do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    case get_session(conn, :logged_user_id) do
+    case get_session(conn, :cu_id) do
       nil ->
         conn
-        |> put_session(:logged_user_settings, %{"cookie_consent" => "agreed"})
+        |> put_session(:cu_settings, %{"cookie_consent" => "agreed"})
 
       user_id ->
         conn

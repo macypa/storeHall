@@ -37,7 +37,7 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> init_test_session(logged_user_id: user.id)
+      |> init_test_session(cu_id: user.id)
       |> get("/users")
 
     assert get_flash(conn, :error) == nil
@@ -49,7 +49,7 @@ defmodule StoreHallWeb.AuthControllerTest do
 
     conn =
       conn
-      |> init_test_session(logged_user_id: user.id)
+      |> init_test_session(cu_id: user.id)
       |> get("/auth/delete")
       |> get("/")
 

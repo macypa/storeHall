@@ -8,7 +8,7 @@ defmodule StoreHallWeb.SetUserTest do
   test "assign nil as user, guest as token", %{conn: conn} do
     conn = get(conn, Routes.user_path(conn, :index))
 
-    case conn.private.plug_session["logged_user_id"] do
+    case conn.private.plug_session["cu_id"] do
       nil ->
         assert AuthController.get_logged_user_id(conn) == nil
         assert conn.assigns.user_token == "guest"

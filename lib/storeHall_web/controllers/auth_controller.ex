@@ -30,6 +30,7 @@ defmodule StoreHallWeb.AuthController do
     case insert_or_update_user(conn, user_params) do
       {:ok, user} ->
         conn
+        |> clear_session()
         |> configure_session(renew: true)
         |> CookieConsentController.update_cookie_consent_to_agreed(user.id)
         |> put_flash(:info, Gettext.gettext("Thank you for signing in!"))
@@ -63,11 +64,11 @@ defmodule StoreHallWeb.AuthController do
             end
             |> elem(1)
             |> Users.update_user(%{
-              "marketing_info" => get_session(conn, :logged_user_marketing_info) || %{}
+              "marketing_info" => get_session(conn, :cu_market_info) || %{}
             })
 
           user ->
-            case get_session(conn, :logged_user_marketing_info)["marketing_consent"] == "agreed" do
+            case get_session(conn, :cu_market_info)["marketing_consent"] == "agreed" do
               true ->
                 user
                 |> Users.update_user(%{"marketing_info" => %{"marketing_consent" => "agreed"}})
@@ -115,8 +116,8 @@ defmodule StoreHallWeb.AuthController do
   end
 
   def check_owner?(conn, user_id) do
-    if get_session(conn, :logged_user_id) &&
-         (user_id == get_session(conn, :logged_user_id) || user_id == nil) do
+    if get_session(conn, :cu_id) &&
+         (user_id == get_session(conn, :cu_id) || user_id == nil) do
       true
     else
       false
@@ -124,24 +125,24 @@ defmodule StoreHallWeb.AuthController do
   end
 
   def get_logged_user_id(conn) do
-    get_session(conn, :logged_user_id)
+    get_session(conn, :cu_id)
   end
 
   def get_logged_user_image(conn) do
-    get_session(conn, :logged_user_image)
+    get_session(conn, :cu_image)
   end
 
   def get_logged_user_unread_mails(conn) do
-    get_session(conn, :logged_user_unread_mail)
+    get_session(conn, :cu_unread_mail)
   end
 
   def put_user_props_in_session(conn, user) do
     conn
-    |> put_session(:logged_user_id, user.id)
-    |> put_session(:logged_user_image, Users.get_user_image(user))
-    |> put_session(:logged_user_settings, user.settings)
+    |> put_session(:cu_id, user.id)
+    |> put_session(:cu_image, Users.get_user_image(user))
+    |> put_session(:cu_settings, user.settings)
     |> put_session(
-      :logged_user_marketing_info,
+      :cu_market_info,
       user.marketing_info |> Map.take(["marketing_consent", "last_activity"])
     )
     |> SetUser.fetch_first_unread_mails(user.id)

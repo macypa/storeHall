@@ -144,13 +144,9 @@ add_cookie_consent_event();
 window.add_marketing_consent_event = function () {
   add_events("[marketing_consent]", "click", function () {
     if (this.checked) {
-      update_session(
-        "key=logged_user_marketing_info:marketing_consent&value=agreed"
-      );
+      update_session("key=cu_market_info:marketing_consent&value=agreed");
     } else {
-      update_session(
-        "key=logged_user_marketing_info:marketing_consent&value=not_agreed"
-      );
+      update_session("key=cu_market_info:marketing_consent&value=not_agreed");
     }
   });
 };
