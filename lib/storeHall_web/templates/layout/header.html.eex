@@ -125,6 +125,7 @@
 
     <% else %>
 
+    <div class="login_form_container">
       <form class="login_form" action="<%= Routes.auth_path(@conn, :request, "") %>">
 
         <button type="submit" class="link-button google_bg" formaction='<%= Routes.auth_path(@conn, :request, "google") %>'>
@@ -143,13 +144,29 @@
         <div class="checkbox_terms">
           <input id="field_terms" type="checkbox" required name="terms">
           <label for="field_terms">
-            <%= Gettext.gettext("I accept the ") %><%= link to: Routes.about_path(@conn, :terms) do %><span class="underline"><%= Gettext.gettext("Terms and Conditions") %></span><% end %>
+            <%= Gettext.gettext("I accept the ") %>
+            <span class="underline">
+              <%= Gettext.gettext("Terms and Conditions") %>
+              <%= link to: Routes.about_path(@conn, :terms) do %>
+                <svg class="svg_icon info_icon">
+                  <use xlink:href="/images/sprite.svg#si-awesome-question-circle"></use>
+                </svg>
+              <% end %>
+            </span>
           </label>
         </div>
         <div class="checkbox_terms">
           <input id="field_privacy" type="checkbox" required name="terms">
           <label for="field_privacy">
-            <%= Gettext.gettext("I accept the ") %><span class="underline"><%= link to: Routes.about_path(@conn, :privacy) do %><%= Gettext.gettext("Privacy policy") %><% end %></span>
+            <%= Gettext.gettext("I accept the ") %>
+            <span class="underline">
+              <%= Gettext.gettext("Privacy policy") %>
+              <%= link to: Routes.about_path(@conn, :privacy) do %>
+                <svg class="svg_icon info_icon">
+                  <use xlink:href="/images/sprite.svg#si-awesome-question-circle"></use>
+                </svg>
+              <% end %>
+            </span>
           </label>
         </div>
 
@@ -157,12 +174,27 @@
           <input id="field_marketing" marketing_consent="agree" type="checkbox" name="terms">
           <label for="field_marketing">
             <%= Gettext.gettext("I want to participate in the marketing compains by giving my consent for my information to be used acording to the ") %>
-            <%= link to: Routes.about_path(@conn, :privacy) do %><span class="underline"><%= Gettext.gettext("Privacy policy") %></span><% end %>
+            <span class="underline">
+              <%= Gettext.gettext("Privacy policy") %>
+              <%= link to: Routes.about_path(@conn, :privacy) do %>
+                <svg class="svg_icon info_icon">
+                  <use xlink:href="/images/sprite.svg#si-awesome-question-circle"></use>
+                </svg>
+              <% end %>
+            </span>
             <%= Gettext.gettext(" and ") %>
-            <%= link to: Routes.about_path(@conn, :terms) do %><span class="underline"><%= Gettext.gettext("Terms and Conditions") %></span><% end %>
+            <span class="underline">
+              <%= Gettext.gettext("Terms and Conditions") %>
+              <%= link to: Routes.about_path(@conn, :terms) do %>
+                <svg class="svg_icon info_icon">
+                  <use xlink:href="/images/sprite.svg#si-awesome-question-circle"></use>
+                </svg>
+              <% end %>
+            </span>
           </label>
         </div>
       </form>
+    </div>
 
     <% end %>
 
