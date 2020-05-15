@@ -40,6 +40,14 @@ channel.on("filtered_users", (payload) => {
     filtered_users.total_cost_credits;
 });
 
+window.add_mail_details_credits_events = function () {
+  add_events("#mail_details_credits", "change", function () {
+    document.querySelector("#mail_total_cost").value =
+      document.querySelector("#mail_users_count").value * this.value;
+  });
+};
+add_mail_details_credits_events();
+
 let mails_template_source =
   "{{#each this}}" +
   unescape(document.getElementById("mail_template").innerHTML) +

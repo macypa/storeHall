@@ -138,6 +138,8 @@ defmodule StoreHall.Marketing.Mails do
   end
 
   def create_mail(mail, logged_user_id, filtered_users) do
+    total_cost_credits = get_total_cost_credits(mail, filtered_users)
+
     Ecto.Multi.new()
     |> Multi.insert(
       :insert,
@@ -145,8 +147,7 @@ defmodule StoreHall.Marketing.Mails do
     )
     |> Multi.run(:check_balance, fn _, _ ->
       (Users.get_user_with_settings!(logged_user_id).settings["credits"] -
-         ParseNumbers.parse_number(filtered_users.total_cost_credits))
-      |> round()
+         total_cost_credits)
       |> case do
         x when x < 0 ->
           {:error, Gettext.gettext("insufficient balance")}
@@ -155,10 +156,7 @@ defmodule StoreHall.Marketing.Mails do
           {:ok, x}
       end
     end)
-    |> update_credits_balance(
-      logged_user_id,
-      -ParseNumbers.parse_number(filtered_users.total_cost_credits) |> round()
-    )
+    |> update_credits_balance(logged_user_id, -total_cost_credits)
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
@@ -167,6 +165,15 @@ defmodule StoreHall.Marketing.Mails do
       {:error, _op, value, _changes} ->
         {:error, value}
     end
+  end
+
+  defp get_total_cost_credits(mail, filtered_users) do
+    total_cost_credits = ParseNumbers.parse_number(filtered_users.total_cost_credits) |> round()
+
+    ParseNumbers.parse_number(mail["details"]["credits"])
+    |> round()
+    |> Kernel.*(filtered_users.count)
+    |> max(total_cost_credits)
   end
 
   defp format_credits(nil), do: nil
