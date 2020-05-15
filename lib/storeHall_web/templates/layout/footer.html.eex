@@ -3,7 +3,7 @@
   <%= @conn.assigns[:sponsor].id %>
 <% end %>
 
-<%= if @conn.private.plug_session["cookie_consent_agreed"] == nil do %>
+<%= if @conn.private.plug_session["logged_user_settings"]["cookie_consent"] == nil do %>
   <div id="cookie_consent">
   	<div>
       <svg class="svg_icon" id="cookie_consent_icon">

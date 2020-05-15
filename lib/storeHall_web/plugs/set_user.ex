@@ -23,7 +23,6 @@ defmodule StoreHall.Plugs.SetUser do
         |> fetch_first_unread_mails()
         # |> assign(:logged_user_id, user_id)
         |> assign(:user_token, token)
-        |> StoreHallWeb.CookieConsentController.set_cookie_consent(user_id)
     end
   end
 
