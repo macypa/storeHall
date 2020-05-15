@@ -310,7 +310,7 @@
               %{Gettext.gettext("agreed") => "agreed", Gettext.gettext("not agreed") => "not_agreed"},
               class: "form_field_value",
               name: input_name(f, :settings) <>"[cookie_consent]",
-              value: input_value(f, :settings)["cookie_consent"] %>
+              value: "agreed" %>
     </div>
   </div>
 
