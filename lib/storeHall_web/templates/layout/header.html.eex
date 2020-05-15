@@ -14,15 +14,6 @@
     <ul>
       <li>
         <ul id="unread_mails">
-          <%= if logged_user_id do %>
-            <%= for mail <- get_logged_user_unread_mails(@conn) do %>
-              <li>
-                <div class='mail'>
-                  <%= render StoreHallWeb.MailView, "index_mail.html", mail: mail, conn: @conn %>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
         </ul>
       </li>
 

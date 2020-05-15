@@ -8,7 +8,6 @@ defmodule StoreHallWeb.AuthController do
   alias StoreHall.Users.User
   alias StoreHall.Repo
   alias StoreHallWeb.CookieConsentController
-  alias StoreHall.Plugs.SetUser
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
@@ -132,10 +131,6 @@ defmodule StoreHallWeb.AuthController do
     get_session(conn, :cu_image)
   end
 
-  def get_logged_user_unread_mails(conn) do
-    get_session(conn, :cu_unread_mail)
-  end
-
   def put_user_props_in_session(conn, user) do
     conn
     |> put_session(:cu_id, user.id)
@@ -145,6 +140,5 @@ defmodule StoreHallWeb.AuthController do
       :cu_market_info,
       user.marketing_info |> Map.take(["marketing_consent", "last_activity"])
     )
-    |> SetUser.fetch_first_unread_mails(user.id)
   end
 end

@@ -25,10 +25,6 @@ defmodule StoreHallWeb.ViewHelpers do
     AuthController.get_logged_user_image(conn)
   end
 
-  def get_logged_user_unread_mails(conn) do
-    AuthController.get_logged_user_unread_mails(conn)
-  end
-
   def obfuscate(data) when is_binary(data) do
     data
     |> String.replace(~r"\.", "|dot|")

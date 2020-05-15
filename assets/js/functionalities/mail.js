@@ -12,6 +12,24 @@ window.add_mail_events = function () {
 };
 add_mail_events();
 
+window.update_unread_mail_to_header_notification = function () {
+  let mail_content_div = document.querySelector("mail text .content");
+  if (mail_content_div) {
+    localStorage.removeItem("mail_" + mail_content_div.getAttribute("data"));
+  }
+
+  let unread_mails = document.querySelector("#unread_mails");
+
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    if (key.startsWith("mail_")) {
+      let new_mail_html = localStorage.getItem(key);
+      unread_mails.insertAdjacentHTML("beforeend", new_mail_html);
+    }
+  }
+};
+update_unread_mail_to_header_notification();
+
 channel.on("filtered_users", (payload) => {
   let filtered_users = JSON.parse(payload.filtered);
   credits_per_mail = filtered_users.max_credits;
@@ -81,9 +99,11 @@ function on_new_mail_event(payload) {
   let new_mail = JSON.parse(payload.new_mail);
   let new_mail_html = mail_template(new_mail);
 
+  localStorage.setItem("mail_" + new_mail.id, new_mail_html);
+
   document
     .querySelector("#unread_mails")
-    .insertAdjacentHTML("beforeend", new_mail_html);
+    .insertAdjacentHTML("afterbegin", new_mail_html);
 
   update_notifications_counter_alert();
 }
@@ -111,6 +131,8 @@ function update_balance_credits(credits) {
 
 channel_user.on("mail_credits_claimed", (payload) => {
   $(".claim_icon[data='" + payload.data + "']").remove();
+
+  localStorage.removeItem("mail_" + payload.data);
 
   update_session();
   update_balance_credits(

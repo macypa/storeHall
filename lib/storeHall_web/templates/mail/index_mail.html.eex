@@ -8,18 +8,20 @@
   </time>
 
   <text>
-    <%= link to: Routes.user_mail_path(@conn, :show, @mail.from_user.id, @mail.id) do %>
-      <%= @mail.details["title"] %>
-    <% end %>
+    <div class="title">
+      <%= link to: Routes.user_mail_path(@conn, :show, @mail.from_user.id, @mail.id) do %>
+        <%= @mail.details["title"] %>
+      <% end %>
+    </div>
   </text>
 
-  <credits class="<%= @mail.claimed %>">
+  <credits class="mail_credits <%= @mail.claimed %>">
     <%= link to: Routes.user_mail_path(@conn, :show, @mail.from_user.id, @mail.id) do %>
       <svg class="svg_icon claim_icon" data="<%= @mail.id %>">
         <use class="inactive_icon" xlink:href="/images/sprite.svg#claim"></use>
       </svg>
 
-      <div id="credits_for_mail">
+      <div class="credits_for_mail">
         <%= @mail.details["credits"] %>
       </div>
     <% end %>

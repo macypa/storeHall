@@ -11,12 +11,12 @@
     <div class="title">
       <%= @mail.details["title"] %>
     </div>
-    <div class="content">
+    <div class="content" data="<%= @mail.id %>">
       <%= sanitize to_string(@mail.details["content"]) %>
     </div>
   </text>
 
-  <credits>
+  <credits class="mail_credits">
     <% current_user_id = get_logged_user_id(@conn)
        am_not_author = Map.has_key?(@mail, :from_user_id)  and @mail.from_user_id != current_user_id %>
     <%= if am_not_author do %>

@@ -2,7 +2,6 @@ defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
-  alias StoreHall.Marketing.Mails
 
   def init(_params) do
   end
@@ -20,7 +19,6 @@ defmodule StoreHall.Plugs.SetUser do
 
         conn
         |> update_marketing_info()
-        |> fetch_first_unread_mails()
         |> assign(:user_token, token)
     end
   end
@@ -36,34 +34,6 @@ defmodule StoreHall.Plugs.SetUser do
       _ ->
         conn
     end
-  end
-
-  @one_minute 60
-  defp fetch_first_unread_mails(conn) do
-    logged_user_id = get_session(conn, :cu_id)
-    last_mail_check = get_session(conn, :cu_last_mail_check) || DateTime.from_unix!(0)
-    time_threshold = DateTime.utc_now() |> DateTime.add(-@one_minute)
-
-    case DateTime.compare(last_mail_check, time_threshold) do
-      :lt ->
-        conn
-        |> fetch_first_unread_mails(logged_user_id)
-
-      _ ->
-        conn
-    end
-  end
-
-  def fetch_first_unread_mails(conn, logged_user_id) do
-    conn
-    |> put_session(
-      :cu_unread_mail,
-      Mails.list_inbox_mails_for_header_notifications(
-        %{},
-        logged_user_id
-      )
-    )
-    |> put_session(:cu_last_mail_check, DateTime.utc_now())
   end
 
   def update_marketing_last_activity(conn, 0), do: update_marketing_last_activity(conn)
