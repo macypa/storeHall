@@ -25,7 +25,7 @@ reactions {
   }
 
   .svg_icon {
-    background-color: $reactionIconBackgroundColor;
+    background-color: $reversedBackgroundColor;
   }
 
   .alertz_spam.alert_spam,
@@ -38,7 +38,7 @@ reactions {
   }
 
   .alertz_icon {
-    background-color: $reactionIconBackgroundColor;
+    background-color: $reversedBackgroundColor;
     &[class^="alert_"],
     &[class*=" alert_"],
     &.alert {
