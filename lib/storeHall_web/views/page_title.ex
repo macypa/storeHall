@@ -80,8 +80,8 @@ defmodule StoreHallWeb.PageTitle do
   defp get(%{users: _users}), do: StoreHallWeb.Gettext.gettext("Add mail")
   defp get(%{mails: _mails}), do: StoreHallWeb.Gettext.gettext("Listing Mails")
 
-  defp get(%{user: user}) do
-    "#{user.name}"
+  defp get(%{mail: mail}) do
+    mail.details["title"]
   end
 
   defp get(%{item: item}) do
