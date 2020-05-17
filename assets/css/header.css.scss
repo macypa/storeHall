@@ -98,7 +98,8 @@ header {
   .dropdown {
     position: absolute;
     right: 1px;
-    width: $width-sidebar;
+    width: calc(#{$width-sidebar} * 2);
+    max-width: calc(100vw / 1.5);
     height: auto;
     z-index: 10;
     background-color: #fff;
@@ -136,6 +137,18 @@ header {
     #unread_mails {
       width: 100%;
       overflow: auto;
+
+      .title {
+        white-space: nowrap;
+        overflow: scroll;
+        text-overflow: ellipsis;
+
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+          display: none; /* Safari and Chrome */
+        }
+      }
     }
 
     .login_form {
