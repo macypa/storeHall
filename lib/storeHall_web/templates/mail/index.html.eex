@@ -1,7 +1,4 @@
 
-
-<div class="panel_title"><%= Gettext.gettext("Listing Mails") %></div>
-
 <mails>
   <%= for mail <- @mails do %>
     <%= render "index_mail.html", mail: mail, conn: @conn %>

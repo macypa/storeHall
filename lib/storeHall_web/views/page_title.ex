@@ -77,12 +77,8 @@ defmodule StoreHallWeb.PageTitle do
     StoreHallWeb.Gettext.gettext(" Page ") <> page
   end
 
-  defp get(%{users: _users, conn: %{params: %{"page" => page}}}) do
-    StoreHallWeb.Gettext.gettext("Listing users") <>
-      StoreHallWeb.Gettext.gettext(" Page ") <> page
-  end
-
-  defp get(%{users: _users}), do: StoreHallWeb.Gettext.gettext("Listing users")
+  defp get(%{users: _users}), do: StoreHallWeb.Gettext.gettext("Add mail")
+  defp get(%{mails: _mails}), do: StoreHallWeb.Gettext.gettext("Listing Mails")
 
   defp get(%{user: user}) do
     "#{user.name}"
