@@ -12,7 +12,7 @@
   <span id="alert_new_notification" class="badge"></span>
   <div class="dropdown">
     <ul>
-      <li>
+      <li class="unread_mails_container">
         <ul id="unread_mails">
         </ul>
       </li>

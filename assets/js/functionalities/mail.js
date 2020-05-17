@@ -27,6 +27,7 @@ window.update_unread_mail_to_header_notification = function () {
       unread_mails.insertAdjacentHTML("beforeend", new_mail_html);
     }
   }
+  timeago();
 };
 update_unread_mail_to_header_notification();
 

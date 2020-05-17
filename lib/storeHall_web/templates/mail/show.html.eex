@@ -1,7 +1,15 @@
 
 <mail>
-  <author><%= @mail.from_user.id %></author>
-  <avatar class='img'><img class='lazy' data-src='<%= @mail.from_user.image %>'></avatar>
+  <author>
+    <%= link to: Routes.user_path(@conn, :show, @mail.from_user.id) do %>
+      <%= @mail.from_user.id %>
+    <% end %>
+  </author>
+  <avatar class='img'>
+    <%= link to: Routes.user_path(@conn, :show, @mail.from_user.id) do %>
+      <img class="lazy" data-src="<%= @mail.from_user.image %>" alt="<%= @mail.from_user.id %>">
+    <% end %>
+  </avatar>
 
   <time class="timeago" datetime="<%= @mail.inserted_at %>">
     <%= @mail.inserted_at  %>

@@ -54,7 +54,6 @@ header {
 
   notifications {
     position: relative;
-    cursor: pointer;
     // display: none;
     display: inline-block;
 
@@ -129,8 +128,14 @@ header {
       }
     }
 
+    .unread_mails_container,
     .login_form_container {
-      height: calc(100vh - #{$height-header});
+      max-height: calc(100vh - #{$height-header} - 1em);
+    }
+
+    #unread_mails {
+      width: 100%;
+      overflow: auto;
     }
 
     .login_form {
