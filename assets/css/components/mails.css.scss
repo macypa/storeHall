@@ -66,6 +66,7 @@ mail {
   credits {
     grid-area: credits;
     margin: auto;
+    cursor: pointer;
 
     &.claimed {
       display: none;
