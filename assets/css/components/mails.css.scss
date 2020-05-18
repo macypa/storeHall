@@ -1,11 +1,32 @@
-mail {
-  display: grid;
+header mail {
   grid-template-columns: min-content 1fr;
   grid-template-areas:
     "avatar text credits"
     "avatar author credits"
     "avatar time credits";
   padding: 0.3em;
+}
+
+main mail {
+  grid-template-areas:
+    "avatar author time"
+    "text text text"
+    ". credits .";
+  padding: 0.3em;
+  text {
+    // overflow: visible;
+    overflow: auto;
+
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+  }
+}
+
+mail {
+  display: grid;
 
   a {
     text-decoration: none;
@@ -17,7 +38,7 @@ mail {
     padding: 0.2em;
 
     img {
-      max-width: 3em;
+      max-width: 2em;
       border-radius: 50%;
     }
   }
@@ -44,7 +65,6 @@ mail {
   text {
     grid-area: text;
     max-height: 80vh;
-    overflow: auto;
 
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -84,10 +104,19 @@ mail {
 @media only screen and (min-width: $width-header) {
   main {
     mail {
-      grid-template-columns: min-content min-content 1fr;
+      grid-gap: 1em;
       grid-template-areas:
-        "avatar text text  credits"
-        "avatar author time  credits";
+        "avatar text"
+        "author text"
+        "time text"
+        ". text"
+        ". credits";
+
+      avatar {
+        img {
+          max-width: 5em;
+        }
+      }
     }
   }
 }
