@@ -1,28 +1,23 @@
+mails mail,
 header mail {
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: min-content min-content 1fr min-content;
   grid-template-areas:
-    "avatar text credits"
-    "avatar author credits"
-    "avatar time credits";
+    "avatar author time credits"
+    "avatar text text credits";
   padding: 0.3em;
+  text {
+    // overflow: visible;
+    overflow: auto;
+    padding-right: 0.5em;
+  }
 }
 
-main mail {
+#show_mail {
   grid-template-areas:
     "avatar author time"
     "text text text"
     ". credits .";
   padding: 0.3em;
-  text {
-    // overflow: visible;
-    overflow: auto;
-
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
-    }
-  }
 }
 
 mail {
@@ -69,6 +64,12 @@ mail {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+
     .title {
       font-size: 1em;
       font-weight: 900;
@@ -102,20 +103,18 @@ mail {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  main {
-    mail {
-      grid-gap: 1em;
-      grid-template-areas:
-        "avatar text"
-        "author text"
-        "time text"
-        ". text"
-        ". credits";
+  #show_mail {
+    grid-gap: 1em;
+    grid-template-areas:
+      "avatar text"
+      "author text"
+      "time text"
+      ". text"
+      ". credits";
 
-      avatar {
-        img {
-          max-width: 5em;
-        }
+    avatar {
+      img {
+        max-width: 5em;
       }
     }
   }

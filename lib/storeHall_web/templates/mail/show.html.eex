@@ -1,5 +1,5 @@
 
-<mail>
+<mail id="show_mail">
   <author>
     <%= link to: Routes.user_path(@conn, :show, @mail.from_user.id) do %>
       <%= @mail.from_user.id %>
