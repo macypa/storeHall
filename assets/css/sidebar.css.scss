@@ -167,11 +167,7 @@ sidebar-filters {
       height: -webkit-fit-content;
 
       overflow: -moz-scrollbars-none;
-      -ms-overflow-style: none;
-
-      &::-webkit-scrollbar {
-        width: 0 !important;
-      }
+      @include hidden_scroll;
     }
   }
 }

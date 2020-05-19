@@ -33,6 +33,14 @@ $height-footer: 2em;
   hyphens: auto;
 }
 
+@mixin hidden_scroll {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}
+
 @mixin spinner_number_input {
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,

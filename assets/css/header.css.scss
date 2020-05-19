@@ -45,11 +45,7 @@ header {
     overflow: scroll;
     text-overflow: ellipsis;
 
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
-    }
+    @include hidden_scroll;
   }
 
   notifications {
@@ -143,11 +139,7 @@ header {
         overflow: scroll;
         text-overflow: ellipsis;
 
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
-        scrollbar-width: none; /* Firefox */
-        &::-webkit-scrollbar {
-          display: none; /* Safari and Chrome */
-        }
+        @include hidden_scroll;
       }
     }
 

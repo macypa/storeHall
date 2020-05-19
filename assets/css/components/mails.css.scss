@@ -59,16 +59,11 @@ mail {
 
   text {
     grid-area: text;
-    max-height: 80vh;
 
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
-    }
+    @include hidden_scroll;
 
     .title {
       font-size: 1em;
@@ -80,6 +75,10 @@ mail {
     }
 
     .content {
+      max-height: 80vh;
+      overflow: scroll;
+
+      @include hidden_scroll;
       @include pre-wrap;
     }
   }
@@ -105,6 +104,7 @@ mail {
 @media only screen and (min-width: $width-header) {
   #show_mail {
     grid-gap: 1em;
+    grid-template-columns: min-content 1fr;
     grid-template-areas:
       "avatar text"
       "author text"
