@@ -10,9 +10,9 @@
     <use xlink:href="/images/sprite.svg#si-awesome-bell"></use>
   </svg>
   <span id="alert_new_notification" class="badge"></span>
-  <div class="dropdown">
+  <div class="dropdown wider_container">
     <ul>
-      <li class="unread_mails_container">
+      <li>
         <ul id="unread_mails">
         </ul>
       </li>

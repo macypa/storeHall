@@ -94,7 +94,7 @@ header {
   .dropdown {
     position: absolute;
     right: 1px;
-    width: calc(#{$width-sidebar} * 2);
+    width: $width-sidebar;
     max-width: calc(100vw / 1.5);
     height: auto;
     z-index: 10;
@@ -125,8 +125,11 @@ header {
       }
     }
 
-    .unread_mails_container,
-    .login_form_container {
+    &.wider_container {
+      width: calc(#{$width-sidebar} * 2);
+    }
+
+    & > * {
       max-height: calc(100vh - #{$height-header} - 1em);
     }
 
