@@ -8,7 +8,6 @@ defmodule StoreHall.Marketing.Mails do
 
   alias StoreHall.Users
   alias StoreHall.Users.User
-  alias StoreHall.Users.Settings
   alias StoreHall.Marketing.Mail
   alias StoreHall.DefaultFilter
   alias StoreHall.ParseNumbers
@@ -116,22 +115,10 @@ defmodule StoreHall.Marketing.Mails do
     end)
   end
 
-  defp update_credits_balance(multi, user_id, credits_to_add_or_remove) do
+  def update_credits_balance(multi, user_id, credits_to_add_or_remove) do
     multi
     |> Multi.run(:label_count, fn repo, _ ->
-      query =
-        from f in Settings,
-          where: f.id == ^user_id,
-          update: [
-            set: [
-              settings:
-                fragment(
-                  " jsonb_set(settings, '{credits}',
-                 (COALESCE(settings->>'credits','0')::int + ?)::text::jsonb) ",
-                  ^credits_to_add_or_remove
-                )
-            ]
-          ]
+      query = Users.construct_update_credits_query(user_id, credits_to_add_or_remove)
 
       {:ok, repo.update_all(query, [])}
     end)

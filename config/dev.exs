@@ -97,6 +97,16 @@ config :storeHall, :about,
     info: %{"mail" => ["storeHall@gmail.com:storeHall@gmail.com"]}
   }
 
+config :storeHall, :payment,
+  epay_url: "https://demo.epay.bg",
+  start_invoice_number: 000_001,
+  currency: "BGN",
+  exp_time_sec_add: 60 * 60 * 24,
+  encoding: "utf-8"
+
+# epay_MIN: "", in dev.secret.exs
+# epay_secret_key: "" in dev.secret.exs
+
 import_config "dev.secret.exs"
 
 # in dev.secret.exs set client_id and client_secret for oath

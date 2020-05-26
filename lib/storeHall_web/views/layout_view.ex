@@ -5,4 +5,5 @@ defmodule StoreHallWeb.LayoutView do
   alias StoreHall.Items
   alias StoreHall.Comments
   alias StoreHall.Ratings
+  alias StoreHall.Payments
 end

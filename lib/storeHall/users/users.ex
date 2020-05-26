@@ -276,6 +276,21 @@ defmodule StoreHall.Users do
     end
   end
 
+  def construct_update_credits_query(user_id, credits_to_add_or_remove) do
+    from f in Settings,
+      where: f.id == ^user_id,
+      update: [
+        set: [
+          settings:
+            fragment(
+              " jsonb_set(settings, '{credits}',
+                 (COALESCE(settings->>'credits','0')::int + ?)::text::jsonb) ",
+              ^credits_to_add_or_remove
+            )
+        ]
+      ]
+  end
+
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end

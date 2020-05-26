@@ -138,6 +138,17 @@ defmodule StoreHallWeb.AuthController do
     get_session(conn, :cu_image)
   end
 
+  def update_user_props_in_session(conn) do
+    case get_session(conn, :cu_id) do
+      nil ->
+        conn
+
+      user_id ->
+        conn
+        |> put_user_props_in_session(Users.get_user_with_settings!(user_id))
+    end
+  end
+
   def put_user_props_in_session(conn, user) do
     conn
     |> put_session(:cu_id, user.id)

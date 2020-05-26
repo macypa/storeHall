@@ -1,0 +1,18 @@
+
+
+<sidebar-show>
+
+  <%= render "_sidebar.html", conn: @conn %>
+
+  <% user_id = @conn.path_params["user_id"] %>
+  <%= if is_logged_user?(@conn, user_id) do %>
+
+    <%= if @conn.assigns.payment.details["STATUS"] == "waiting" do %>
+      <div class="tab">
+        <%= link Gettext.gettext("Delete"), class: "tab-label", to: Routes.user_payment_path(@conn, :delete, @conn.assigns.payment.user_id, @conn.assigns.payment), method: :delete, data: [confirm: Gettext.gettext("Are you sure you want to delete the payment?")] %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+</sidebar-show>

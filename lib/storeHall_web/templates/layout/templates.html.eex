@@ -14,3 +14,7 @@
 <template id='rating_template' class='template'>
   <%= render StoreHallWeb.RatingView, "show.html", rating: Ratings.rating_template(), conn: @conn %>
 </template>
+
+<template id='payment_template' class='template'>
+  <%= render StoreHallWeb.PaymentView, "index_payment.html", payment: Payments.payment_template(), conn: @conn %>
+</template>

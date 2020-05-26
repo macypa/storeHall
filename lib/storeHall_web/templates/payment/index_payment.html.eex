@@ -1,0 +1,16 @@
+
+<payment>
+
+  <time class="timeago" datetime="<%= @payment.inserted_at %>">
+    <%= @payment.inserted_at  %>
+  </time>
+
+  <text>
+    <div class="title">
+      <%= link to: Routes.user_payment_path(@conn, :show, @payment.user_id, @payment.id) do %>
+        <%= @payment.invoice %>
+      <% end %>
+    </div>
+  </text>
+
+</payment>

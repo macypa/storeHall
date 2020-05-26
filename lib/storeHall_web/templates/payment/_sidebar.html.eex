@@ -1,0 +1,23 @@
+
+  <% user_id = @conn.path_params["user_id"] %>
+  <%= if is_logged_user?(@conn, user_id) do %>
+
+    <div class="tab">
+      <%= link to: Routes.user_payment_path(@conn, :withdraw, user_id), class: "tab-label" do %>
+        <%= Gettext.gettext("Withdraw") %>
+      <% end %>
+    </div>
+
+    <div class="tab">
+      <%= link to: Routes.user_payment_path(@conn, :index, user_id), class: "tab-label" do %>
+        <%= Gettext.gettext("Payments") %>
+      <% end %>
+    </div>
+
+    <div class="tab">
+      <%= link to: Routes.user_payment_path(@conn, :new, user_id), class: "tab-label" do %>
+        <%= Gettext.gettext("Add credits") %>
+      <% end %>
+    </div>
+
+  <% end %>

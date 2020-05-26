@@ -13,6 +13,7 @@ defmodule StoreHallWeb.UsersChannel do
   alias StoreHall.Users
   alias StoreHall.Users.Action
   alias StoreHall.Marketing.Mails
+  alias StoreHall.Payments
 
   @topic_prefix "/users"
 
@@ -82,6 +83,22 @@ defmodule StoreHallWeb.UsersChannel do
       )
 
     push(socket, "filtered_mails", %{filter: filter, filtered: Jason.encode!(filtered)})
+
+    {:reply, :ok, socket}
+  end
+
+  def handle_in(
+        "filter",
+        %{"data" => filter, "page_for" => "payments" <> _},
+        socket
+      ) do
+    filtered =
+      Payments.all_payments(
+        filter |> decode_filter,
+        socket.assigns.current_user_id
+      )
+
+    push(socket, "filtered_payments", %{filter: filter, filtered: Jason.encode!(filtered)})
 
     {:reply, :ok, socket}
   end

@@ -1,0 +1,7 @@
+
+
+<sidebar-show>
+
+  <%= render "_sidebar.html", conn: @conn %>
+
+</sidebar-show>

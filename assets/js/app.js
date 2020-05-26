@@ -27,3 +27,4 @@ import comments from "./functionalities/comments";
 import ratings from "./functionalities/ratings";
 import reactions from "./functionalities/reactions";
 import mail from "./functionalities/mail";
+import payments from "./functionalities/payments";

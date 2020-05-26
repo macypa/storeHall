@@ -1,0 +1,27 @@
+
+
+
+  <% user_id = @conn.path_params["user_id"] %>
+  <%# <form action="https://www.epay.bg/" method=post> %>
+  <form action="<%= @data.url %>" method=post>
+    <input type=hidden name=PAGE value="paylogin">
+    <%# <input type="number" name="TOTAL" min="0.01" value="0.01"> %>
+    <input type=hidden name=ENCODED value="<%= @data.encoded %>">
+    <input type=hidden name=CHECKSUM value="<%= @data.checksum %>">
+    <input type=hidden name=URL_OK value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :thanks, user_id) %>">
+    <input type=hidden name=URL_CANCEL value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :cancel, user_id)%>">
+    <input type="image" src="https://online.datamax.bg/epaynow/a04.gif" alt="ePay">
+  </form>
+
+
+  <%# <form method="POST" action="https://www.epay.bg/v3main/paylogin">
+    <input type="hidden" name="MIN" value="9293878004">
+    <input type="number" name="TOTAL" min="0.01" value="0.01">
+    <input type="hidden" name="DESCR" value="Кредити">
+    <input type="hidden" name="URL_OK" value="https://shlqk.dlinkddns.com/payment/thanks">
+    <input type="hidden" name="URL_CANCEL" value="https://shlqk.dlinkddns.com/payment/cancel">
+    <input type="hidden" name="ENCODING" value="utf8">
+    <input type="hidden" name="CHECKSUM" value="317ba303470bf2676b5414ac79db6a8b50e13d4f">
+    <input type="image" src="https://online.datamax.bg/epaynow/a04.gif" alt="ePay">
+  </form> %>
+

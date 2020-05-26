@@ -1,0 +1,8 @@
+
+<payments>
+  <%= for payment <- @payments do %>
+    <%= render "index_payment.html", payment: payment, conn: @conn %>
+  <% end %>
+</payments>
+
+<%= render StoreHallWeb.LayoutView, "pagination.html", conn: @conn, model: @payments, add_params: "payments" %>

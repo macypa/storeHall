@@ -5,9 +5,12 @@ defmodule StoreHallWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug StoreHall.Plugs.SetUser
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
   end
 
   pipeline :api do
@@ -19,16 +22,22 @@ defmodule StoreHallWeb.Router do
   end
 
   scope "/", StoreHallWeb do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser, :csrf, :auth]
 
     resources "/users", UserController, only: [:edit, :update, :delete] do
       resources "/items", ItemController, only: [:new, :create, :edit, :update, :delete]
       resources "/mails", MailController, only: [:index, :show, :delete]
+      resources "/payments", PaymentController, only: [:index, :delete, :show, :new, :create]
+
+      get "/withdraw", PaymentController, :withdraw
+
+      get "/payment/thanks", PaymentController, :thanks
+      get "/payment/cancel", PaymentController, :cancel
     end
   end
 
   scope "/", StoreHallWeb do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/robots.txt", SitemapController, :robots
     get "/sitemap.xml.gz", SitemapController, :sitemap
@@ -42,8 +51,14 @@ defmodule StoreHallWeb.Router do
     end
   end
 
+  scope "/", StoreHallWeb do
+    pipe_through [:browser]
+
+    post "/payment/status", PaymentController, :status
+  end
+
   scope "/about", StoreHallWeb do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/", AboutController, :index
     get "/terms", AboutController, :terms
@@ -56,7 +71,7 @@ defmodule StoreHallWeb.Router do
   end
 
   scope "/auth", StoreHallWeb do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/delete", AuthController, :delete
     get "/:provider", AuthController, :request
@@ -64,7 +79,7 @@ defmodule StoreHallWeb.Router do
   end
 
   scope "/", StoreHallWeb do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/*path", Redirector, to: "/"
   end

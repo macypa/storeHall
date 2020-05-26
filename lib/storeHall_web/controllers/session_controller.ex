@@ -1,6 +1,5 @@
 defmodule StoreHallWeb.SessionController do
   use StoreHallWeb, :controller
-  alias StoreHall.Users
   alias StoreHallWeb.AuthController
 
   def put_session(conn, %{"key" => key, "value" => value}) do
@@ -14,14 +13,8 @@ defmodule StoreHallWeb.SessionController do
   end
 
   def put_session(conn, %{"update" => _}) do
-    case get_session(conn, :cu_id) do
-      nil ->
-        conn
-
-      user_id ->
-        conn
-        |> AuthController.put_user_props_in_session(Users.get_user_with_settings!(user_id))
-    end
+    conn
+    |> AuthController.update_user_props_in_session()
     |> send_resp(:ok, "")
   end
 end

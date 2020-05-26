@@ -1,0 +1,4 @@
+
+<%= render "form.html", Map.put(assigns,
+                        :action,
+                        Routes.user_payment_path(@conn, :create, get_logged_user_id(@conn))) %>
