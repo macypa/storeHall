@@ -86,19 +86,8 @@ defmodule StoreHall.Payments do
     end
   end
 
-  def update_payment_state(data = %{"STATUS" => "PAID"}) do
-    Ecto.Multi.new()
-    |> Multi.run(:payment, fn repo, %{} ->
-      {:ok,
-       data["INVOICE"]
-       |> get_payment_by_invoice!(repo)}
-    end)
-    |> Multi.run(:validate, fn _repo, %{payment: payment} ->
-      case payment.details["STATUS"] do
-        "waiting" -> {:ok, "status: waiting"}
-        _ -> {:error, Gettext.gettext("already received response from epay!")}
-      end
-    end)
+  defp update_payment_state(multi, data = %{"STATUS" => "PAID"}) do
+    multi
     |> Multi.run(:user_settings, fn repo, %{payment: payment} ->
       {:ok, Settings |> repo.get!(payment.user_id)}
     end)
@@ -129,14 +118,13 @@ defmodule StoreHall.Payments do
           )
       })
     end)
-    |> Repo.transaction()
-    |> case do
-      {:ok, multi} ->
-        multi.update
+  end
 
-      {:error, _op, value, _changes} ->
-        {:error, value}
-    end
+  defp update_payment_state(multi, data) do
+    multi
+    |> Multi.update(:update, fn %{payment: payment} ->
+      Payment.changeset(payment, %{details: payment.details |> Map.merge(data)})
+    end)
   end
 
   def update_payment_state(data) do
@@ -152,21 +140,7 @@ defmodule StoreHall.Payments do
         _ -> {:error, Gettext.gettext("already received response from epay!")}
       end
     end)
-    # |> Multi.run(:user_settings, fn repo, %{payment: payment} ->
-    #   {:ok, Settings |> repo.get!(payment.user_id)}
-    # end)
-    # |> Multi.run(:update_settings_credits, fn repo, %{payment: payment} ->
-    #   query =
-    #     Users.construct_update_credits_query(
-    #       payment.user_id,
-    #       payment.details["credits"]
-    #     )
-
-    #   {:ok, repo.update(query, [])}
-    # end)
-    |> Multi.update(:update, fn %{payment: payment} ->
-      Payment.changeset(payment, %{details: payment.details |> Map.merge(data)})
-    end)
+    |> update_payment_state(data)
     |> Repo.transaction()
     |> case do
       {:ok, multi} ->
