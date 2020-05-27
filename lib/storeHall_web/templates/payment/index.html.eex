@@ -1,5 +1,7 @@
 
 <payments>
+  <%= render "index_payment_headers.html", payment: Payments.payment_header_names(), conn: @conn %>
+
   <%= for payment <- @payments do %>
     <%= render "index_payment.html", payment: payment, conn: @conn %>
   <% end %>

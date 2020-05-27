@@ -161,7 +161,26 @@ defmodule StoreHall.Payments do
       details: %{
         "amount" => "{{json details.amount}}",
         "credits" => "{{json details.credits}}",
-        "STATUS" => "{{json details.STATUS}}"
+        "STATUS" => "{{details.STATUS}}",
+        "credits_before" => "{{json details.credits_before}}",
+        "credits_after" => "{{json details.credits_after}}"
+      }
+    }
+  end
+
+  def payment_header_names() do
+    %{
+      id: Gettext.gettext("id"),
+      user_id: Gettext.gettext("user"),
+      invoice: Gettext.gettext("invoice"),
+      inserted_at: Gettext.gettext("inserted_at"),
+      updated_at: Gettext.gettext("updated_at"),
+      details: %{
+        "amount" => Gettext.gettext("amount"),
+        "credits" => Gettext.gettext("credits"),
+        "STATUS" => Gettext.gettext("status"),
+        "credits_before" => Gettext.gettext("credits_before"),
+        "credits_after" => Gettext.gettext("credits_after")
       }
     }
   end

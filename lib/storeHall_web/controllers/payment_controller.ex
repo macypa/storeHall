@@ -99,8 +99,9 @@ defmodule StoreHallWeb.PaymentController do
       conn
     else
       conn
-      |> put_flash(:error, Gettext.gettext("You cannot do that"))
-      |> redirect(to: Routes.user_payment_path(conn, :index, user_id))
+      |> redirect(
+        to: Routes.user_payment_path(conn, :index, AuthController.get_logged_user_id(conn))
+      )
       |> halt()
     end
   end

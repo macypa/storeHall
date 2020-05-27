@@ -1,33 +1,31 @@
 
 <payment>
 
-  <time class="timeago" datetime="<%= @payment.inserted_at %>">
+  <time class="header timeago" datetime="<%= @payment.inserted_at %>">
     <%= @payment.inserted_at %>
   </time>
 
-  <invoice>
-    <%= link to: Routes.user_payment_path(@conn, :show, @payment.user_id, @payment.id) do %>
-      <%= @payment.invoice %>
-    <% end %>
+  <invoice class="header">
+    <%= @payment.invoice %>
   </invoice>
 
-  <status>
+  <status class="header">
     <%= @payment.details["STATUS"] %>
   </status>
 
-  <amount>
+  <amount class="header">
     <%= @payment.details["amount"] %>
   </amount>
 
-  <credits>
+  <credits class="header">
     <%= @payment.details["credits"] %>
   </credits>
 
-  <credits_before>
+  <credits_before class="header">
     <%= @payment.details["credits_before"] %>
   </credits_before>
 
-  <credits_after>
+  <credits_after class="header">
     <%= @payment.details["credits_after"] %>
   </credits_after>
 

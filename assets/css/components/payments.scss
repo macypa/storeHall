@@ -1,0 +1,69 @@
+payments payment,
+#show_payment {
+  grid-gap: 1em;
+  grid-template-areas:
+    "invoice time time"
+    "invoice amount status";
+  padding: 1em;
+}
+
+payment {
+  display: grid;
+
+  .header,
+  credits,
+  credits_before,
+  credits_after {
+    display: none;
+  }
+
+  invoice {
+    grid-area: invoice;
+  }
+
+  status {
+    grid-area: status;
+  }
+
+  amount {
+    grid-area: amount;
+  }
+
+  credits {
+    grid-area: credits;
+  }
+
+  credits_before {
+    grid-area: credits_before;
+  }
+
+  credits_after {
+    grid-area: credits_after;
+  }
+
+  time {
+    grid-area: time;
+  }
+}
+
+// tablet view
+@media only screen and (min-width: $width-header) {
+  payments payment,
+  #show_payment {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas: "invoice status amount credits credits_before credits_after time";
+  }
+
+  payment {
+    .header,
+    credits,
+    credits_before,
+    credits_after {
+      display: block;
+    }
+  }
+}
+
+//desktop view
+@media only screen and (min-width: $width-header_desktop) {
+}
