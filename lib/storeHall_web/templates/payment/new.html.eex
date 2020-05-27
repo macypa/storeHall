@@ -1,3 +1,4 @@
+<div class="panel_title"><%= Gettext.gettext("New payment") %></div>
 
 <%= render "form.html", Map.put(assigns,
                         :action,

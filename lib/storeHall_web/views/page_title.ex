@@ -84,6 +84,12 @@ defmodule StoreHallWeb.PageTitle do
     mail.details["title"]
   end
 
+  defp get(%{payments: _payments}), do: StoreHallWeb.Gettext.gettext("Listing Payments")
+
+  defp get(%{payment: payment}) do
+    to_string(payment.invoice)
+  end
+
   defp get(%{item: item}) do
     item.name
   end

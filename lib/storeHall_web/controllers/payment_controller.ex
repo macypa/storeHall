@@ -81,11 +81,18 @@ defmodule StoreHallWeb.PaymentController do
   def thanks(conn, _params) do
     conn
     |> AuthController.update_user_props_in_session()
-    |> render("thanks.html")
+    |> put_flash(:info, Gettext.gettext("Payment successful"))
+    |> redirect(
+      to: Routes.user_payment_path(conn, :index, AuthController.get_logged_user_id(conn))
+    )
   end
 
   def cancel(conn, _params) do
-    render(conn, "cancel.html")
+    conn
+    |> put_flash(:info, Gettext.gettext("Payment is canceled"))
+    |> redirect(
+      to: Routes.user_payment_path(conn, :index, AuthController.get_logged_user_id(conn))
+    )
   end
 
   def withdraw(conn, _params) do

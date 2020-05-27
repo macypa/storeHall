@@ -1,6 +1,5 @@
-payments payment,
-#show_payment {
-  grid-gap: 1em;
+payments payment {
+  grid-gap: 0.5em;
   grid-template-areas:
     "invoice time time"
     "invoice amount status";
@@ -48,22 +47,56 @@ payment {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-  payments payment,
-  #show_payment {
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-areas: "invoice status amount credits credits_before credits_after time";
+  payments payment {
+    grid-template-columns: repeat(4, minmax(5em, 1fr));
+    grid-template-areas: "invoice status amount time";
+    width: calc(100% - 3em);
+  }
+
+  show_payment {
+    & > * {
+      display: grid;
+      grid-template-columns: 20vw 1fr;
+
+      padding: 0.2em;
+
+      label {
+        text-align: right;
+        padding-right: 1em;
+        grid-column: 1 / 2;
+      }
+
+      span {
+        grid-column: 2 / 6;
+      }
+    }
   }
 
   payment {
-    .header,
-    credits,
-    credits_before,
-    credits_after {
+    .header {
       display: block;
+    }
+
+    credits.header,
+    credits_before.header,
+    credits_after.header {
+      display: none;
     }
   }
 }
 
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
+  payments payment {
+    grid-template-columns: repeat(5, minmax(5em, 1fr));
+    grid-template-areas: "invoice status amount credits time";
+    width: calc(100% - 3em);
+  }
+
+  payment {
+    credits,
+    credits.header {
+      display: block;
+    }
+  }
 }
