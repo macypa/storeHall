@@ -23,3 +23,12 @@ channel.on("filtered_payments", (payload) => {
   on_payment_events();
   update_next_page_link(payload);
 });
+
+window.add_payment_amount_events = function () {
+  add_events("#payment_details_credits", "change", function () {
+    document.querySelector("#payment_details_amount").value = (
+      this.value * 0.01
+    ).toFixed(2);
+  });
+};
+add_payment_amount_events();

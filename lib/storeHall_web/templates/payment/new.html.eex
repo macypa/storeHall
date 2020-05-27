@@ -1,4 +1,6 @@
-<div class="panel_title"><%= Gettext.gettext("New payment") %></div>
+<div class="panel_title"><%= Gettext.gettext("Add credits") %></div>
+
+<div class="add_credits_info"><%= Gettext.gettext("Here you can add credits to your balance.") %></div>
 
 <%= render "form.html", Map.put(assigns,
                         :action,

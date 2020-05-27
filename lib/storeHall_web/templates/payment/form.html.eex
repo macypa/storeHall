@@ -22,7 +22,9 @@
                 name: input_name(f, :details) <> "[credits]",
                 value: input_value(f, :details)["credits"] || 10 %>
       </span>
+    </div>
 
+    <div class="form-group">
       <%= label f, :amount, Gettext.gettext("Amount") %>
       <span>
         <%= number_input f, :details_amount,
