@@ -8,6 +8,7 @@ defmodule StoreHall.FilterablesTest do
   alias StoreHall.Users.User
 
   describe "paging" do
+    @tag :skip
     property "filter for users returns all users with page-size = -1" do
       check all(_ <- Fixture.user_generator()) do
         params = %{"page-size" => -1}
@@ -24,6 +25,7 @@ defmodule StoreHall.FilterablesTest do
   end
 
   describe "sorting" do
+    @tag :skip
     test "filter for users" do
       check all(
               _ <- Fixture.user_generator(),
@@ -56,6 +58,7 @@ defmodule StoreHall.FilterablesTest do
   end
 
   describe "search user" do
+    @tag :skip
     property "by first/last name returns at least one result" do
       check all(user <- Fixture.user_generator()) do
         params = %{"filter" => %{"q" => user.name}}
@@ -64,6 +67,7 @@ defmodule StoreHall.FilterablesTest do
       end
     end
 
+    @tag :skip
     property "by unexisting first/last name returns empty result" do
       check all(_ <- Fixture.user_generator()) do
         params = %{"filter" => %{"q" => "K^&#\{$%!asfw$%$!"}}

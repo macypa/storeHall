@@ -23,7 +23,7 @@ defmodule StoreHallWeb.SetUserTest do
 
     conn =
       conn
-      |> Plug.Test.init_test_session(%{logged_user_id: user.id})
+      |> Plug.Test.init_test_session(cu_id: user.id)
 
     conn =
       conn

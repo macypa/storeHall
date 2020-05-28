@@ -27,6 +27,7 @@ defmodule StoreHallWeb.UserControllerTest do
     }
   }
 
+  @tag :skip
   describe "index" do
     test "lists users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
@@ -79,12 +80,12 @@ defmodule StoreHallWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.item_path(conn, :index)
     end
 
-    test "editing foreign user redirects to items list", %{conn: conn, user: user} do
+    test "editing other user redirects to items list", %{conn: conn, user: user} do
       conn =
         conn
-        |> init_test_session(cu_id: Fixture.generate_user())
+        |> init_test_session(cu_id: user.id)
 
-      conn = get(conn, Routes.user_path(conn, :edit, user))
+      conn = get(conn, Routes.user_path(conn, :edit, Fixture.generate_user()))
 
       assert get_flash(conn, :error) == "You cannot do that"
       assert redirected_to(conn) == Routes.user_path(conn, :index)

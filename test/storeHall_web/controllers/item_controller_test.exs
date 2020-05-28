@@ -42,7 +42,7 @@ defmodule StoreHallWeb.ItemControllerTest do
       conn = get(conn, "/")
 
       assert get_flash(conn, :error) == nil
-      assert redirected_to(conn) == Routes.item_path(conn, :index)
+      assert redirected_to(conn, 301) == Routes.item_path(conn, :index)
     end
   end
 
@@ -65,7 +65,7 @@ defmodule StoreHallWeb.ItemControllerTest do
     end
 
     test "does not exists", %{conn: conn, user: user} do
-      assert_error_sent 404, fn ->
+      conn =
         get(
           conn,
           Routes.user_item_path(conn, :show, "non_existing_user", %Item{
@@ -74,16 +74,18 @@ defmodule StoreHallWeb.ItemControllerTest do
           })
         )
 
-        assert_error_sent 404, fn ->
-          get(
-            conn,
-            Routes.user_item_path(conn, :show, user.id, %Item{
-              id: 1,
-              name: @item_attrs["name"]
-            })
-          )
-        end
-      end
+      assert redirected_to(conn, 301) == Routes.item_path(conn, :index)
+
+      conn =
+        get(
+          conn,
+          Routes.user_item_path(conn, :show, user.id, %Item{
+            id: 1,
+            name: @item_attrs["name"]
+          })
+        )
+
+      assert redirected_to(conn, 301) == Routes.item_path(conn, :index)
     end
   end
 
@@ -208,10 +210,6 @@ defmodule StoreHallWeb.ItemControllerTest do
       conn = delete(conn, Routes.user_item_path(conn, :delete, item.user_id, item))
       assert redirected_to(conn) == Routes.item_path(conn, :index)
       assert get_flash(conn, :info) == "Item deleted successfully."
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.user_item_path(conn, :show, item.user_id, item))
-      end
     end
 
     test "restrict deleting foreign item", %{conn: conn, user: user, item: item} do

@@ -19,7 +19,8 @@ defmodule StoreHall.Users do
       |> subquery()
       |> select([u], %{
         count: count(u.id),
-        max_credits: fragment("max((?.marketing_info->>'mail_credits_ask')::integer)", u)
+        max_credits:
+          fragment("coalesce(max((?.marketing_info->>'mail_credits_ask')::integer),0)", u)
       })
       |> Repo.one()
 
