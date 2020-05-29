@@ -13,7 +13,7 @@ defmodule StoreHall.Users do
   alias StoreHall.UserFilter
   alias StoreHall.DefaultFilter
 
-  def list_users(params, current_user_id \\ nil) do
+  def count_users(params, current_user_id \\ nil) do
     users_info =
       apply_filters(params, current_user_id)
       |> subquery()

@@ -19,7 +19,7 @@ defmodule StoreHall.UsersTest do
   @tag :skip
   test "list_users/0 returns all users" do
     users = Fixture.insert_users(@users_count)
-    assert length(Users.list_users(%{"page-size" => @users_count + 1})) == length(users)
+    assert length(Users.count_users(%{"page-size" => @users_count + 1})) == length(users)
   end
 
   describe "get" do

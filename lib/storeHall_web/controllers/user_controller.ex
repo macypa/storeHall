@@ -14,7 +14,7 @@ defmodule StoreHallWeb.UserController do
 
   def index(conn, _params) do
     changeset = Mails.changeset()
-    users = Users.list_users(conn.params, AuthController.get_logged_user_id(conn))
+    users = Users.count_users(conn.params, AuthController.get_logged_user_id(conn))
 
     render(conn, :index, users: users, changeset: changeset)
   end

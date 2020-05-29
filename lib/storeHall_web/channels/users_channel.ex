@@ -143,7 +143,7 @@ defmodule StoreHallWeb.UsersChannel do
         %{"data" => filter},
         socket
       ) do
-    filtered = Users.list_users(filter |> decode_filter, socket.assigns.current_user_id)
+    filtered = Users.count_users(filter |> decode_filter, socket.assigns.current_user_id)
 
     push(socket, "filtered_users", %{filter: filter, filtered: Jason.encode!(filtered)})
 
@@ -269,7 +269,7 @@ defmodule StoreHallWeb.UsersChannel do
         push(socket, "error", %{message: Gettext.gettext("must be logged in")})
 
       logged_user_id ->
-        filtered_users = Users.list_users(filter |> decode_filter, logged_user_id)
+        filtered_users = Users.count_users(filter |> decode_filter, logged_user_id)
         filtered_ids = Users.list_user_ids(filter |> decode_filter, logged_user_id)
 
         mail_params

@@ -12,7 +12,7 @@ defmodule StoreHall.FilterablesTest do
     property "filter for users returns all users with page-size = -1" do
       check all(_ <- Fixture.user_generator()) do
         params = %{"page-size" => -1}
-        assert length(Users.list_users(params)) <= Repo.all(User)
+        assert length(Users.count_users(params)) <= Repo.all(User)
       end
     end
 
@@ -33,8 +33,8 @@ defmodule StoreHall.FilterablesTest do
             ) do
         params = %{"filter" => %{"sort" => Atom.to_string(sort_field)}}
 
-        assert Users.list_users(params) ==
-                 Users.list_users(params)
+        assert Users.count_users(params) ==
+                 Users.count_users(params)
                  |> Enum.sort(
                    &(to_string(Map.get(&1, sort_field)) <= to_string(Map.get(&2, sort_field)))
                  )
@@ -63,7 +63,7 @@ defmodule StoreHall.FilterablesTest do
       check all(user <- Fixture.user_generator()) do
         params = %{"filter" => %{"q" => user.name}}
 
-        assert length(Users.list_users(params)) > 0
+        assert length(Users.count_users(params)) > 0
       end
     end
 
@@ -72,7 +72,7 @@ defmodule StoreHall.FilterablesTest do
       check all(_ <- Fixture.user_generator()) do
         params = %{"filter" => %{"q" => "K^&#\{$%!asfw$%$!"}}
 
-        assert length(Users.list_users(params)) == 0
+        assert length(Users.count_users(params)) == 0
       end
     end
   end
