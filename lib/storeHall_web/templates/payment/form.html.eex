@@ -34,9 +34,11 @@
       </span>
     </div>
 
+    <%= hidden_input f, :type, name:  input_name(f, :details) <> "[type]", value: @type, id: nil %>
+
     <div class="form-group">
       <label></label>
-      <%= submit Gettext.gettext("Buy credits"), id: "buy_credits_button" %>
+      <%= submit @button_text, id: "buy_credits_button" %>
     </div>
   <% end %>
 

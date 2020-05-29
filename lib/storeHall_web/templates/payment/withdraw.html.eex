@@ -1,0 +1,8 @@
+
+<div class="add_credits_info"><%= Gettext.gettext("Here you can request withdrawing credits from your balance.") %></div>
+
+<%= render "form.html", Map.put(assigns,
+                        :action,
+                        Routes.user_payment_path(@conn, :create, get_logged_user_id(@conn)))
+                        |> Map.put(:type, "withdraw")
+                        |> Map.put(:button_text, Gettext.gettext("Withdraw credits")) %>

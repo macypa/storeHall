@@ -18,23 +18,35 @@
     </span>
   </div>
 
+  <div class="type">
+    <label><%= Gettext.gettext("type") %></label>
+    <span>
+      <%= @payment.details["type"] %>
+    </span>
+  </div>
+
   <div class="status">
     <label><%= Gettext.gettext("status") %></label>
     <span>
       <%= if @payment.details["STATUS"] != "waiting" do %>
         <%= @payment.details["STATUS"] %>
       <% else %>
-        <% user_id = @conn.path_params["user_id"] %>
-        <%# <form action="https://www.epay.bg/" method=post> %>
-        <form action="<%= @data.url %>" method=post>
-          <input type=hidden name=PAGE value="paylogin">
-          <%# <input type="number" name="TOTAL" min="0.01" value="0.01"> %>
-          <input type=hidden name=ENCODED value="<%= @data.encoded %>">
-          <input type=hidden name=CHECKSUM value="<%= @data.checksum %>">
-          <input type=hidden name=URL_OK value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :thanks, user_id) %>">
-          <input type=hidden name=URL_CANCEL value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :cancel, user_id)%>">
-          <input type="image" src="https://online.datamax.bg/epaynow/a04.gif" alt="ePay">
-        </form>
+
+        <%= if @payment.details["type"] == "withdraw" do %>
+          <%= @payment.details["STATUS"] %>
+        <% else %>
+          <% user_id = @conn.path_params["user_id"] %>
+          <%# <form action="https://www.epay.bg/" method=post> %>
+          <form action="<%= @data.url %>" method=post>
+            <input type=hidden name=PAGE value="paylogin">
+            <%# <input type="number" name="TOTAL" min="0.01" value="0.01"> %>
+            <input type=hidden name=ENCODED value="<%= @data.encoded %>">
+            <input type=hidden name=CHECKSUM value="<%= @data.checksum %>">
+            <input type=hidden name=URL_OK value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :thanks, user_id) %>">
+            <input type=hidden name=URL_CANCEL value="<%= @data.url_ok_cancel_host <> Routes.user_payment_path(@conn, :cancel, user_id)%>">
+            <input type="image" src="https://online.datamax.bg/epaynow/a04.gif" alt="ePay">
+          </form>
+        <% end %>
       <% end %>
     </span>
   </div>

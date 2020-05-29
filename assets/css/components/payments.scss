@@ -5,7 +5,7 @@
 payments payment {
   grid-gap: 0.5em;
   grid-template-areas:
-    "invoice time time"
+    "invoice type time"
     "invoice amount status";
   padding: 1em;
 }
@@ -56,8 +56,8 @@ payment {
 // tablet view
 @media only screen and (min-width: $width-header) {
   payments payment {
-    grid-template-columns: repeat(4, minmax(5em, 1fr));
-    grid-template-areas: "invoice status amount time";
+    grid-template-columns: repeat(5, minmax(5em, 1fr));
+    grid-template-areas: "invoice type status amount time";
     width: calc(100% - 3em);
   }
 
@@ -96,8 +96,8 @@ payment {
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
   payments payment {
-    grid-template-columns: repeat(5, minmax(5em, 1fr));
-    grid-template-areas: "invoice status amount credits time";
+    grid-template-columns: repeat(6, minmax(5em, 1fr));
+    grid-template-areas: "invoice type status amount credits time";
     width: calc(100% - 3em);
   }
 

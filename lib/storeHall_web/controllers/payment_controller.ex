@@ -6,7 +6,7 @@ defmodule StoreHallWeb.PaymentController do
   alias StoreHall.Payments
   alias StoreHall.Payment
 
-  plug :check_owner when action in [:index, :delete, :show, :new, :create]
+  plug :check_owner when action in [:index, :delete, :show, :new, :create, :withdraw]
 
   def index(conn, _params) do
     payments = Payments.all_payments(conn.params, AuthController.get_logged_user_id(conn))
@@ -96,7 +96,8 @@ defmodule StoreHallWeb.PaymentController do
   end
 
   def withdraw(conn, _params) do
-    render(conn, "withdraw.html")
+    changeset = Payments.change_payment(%Payment{})
+    render(conn, "withdraw.html", changeset: changeset)
   end
 
   defp check_owner(conn, _params) do

@@ -9,6 +9,10 @@
     <%= @payment.invoice %>
   </invoice>
 
+  <type class="header">
+    <%= @payment.details["type"] %>
+  </type>
+
   <status class="header">
     <%= @payment.details["STATUS"] %>
   </status>

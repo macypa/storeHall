@@ -2,4 +2,6 @@
 
 <%= render "form.html", Map.put(assigns,
                         :action,
-                        Routes.user_payment_path(@conn, :create, get_logged_user_id(@conn))) %>
+                        Routes.user_payment_path(@conn, :create, get_logged_user_id(@conn)))
+                        |> Map.put(:type, "deposit")
+                        |> Map.put(:button_text, Gettext.gettext("Buy credits")) %>

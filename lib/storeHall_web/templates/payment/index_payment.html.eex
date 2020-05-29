@@ -11,6 +11,10 @@
     <% end %>
   </invoice>
 
+  <type>
+    <%= @payment.details["type"] %>
+  </type>
+
   <status>
     <%= @payment.details["STATUS"] %>
   </status>
