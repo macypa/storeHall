@@ -17,7 +17,7 @@ msgid "Item created successfully."
 msgstr "Създадено успешно."
 
 #, elixir-format
-#: lib/storeHall_web/controllers/auth_controller.ex:40
+#: lib/storeHall_web/controllers/auth_controller.ex:48
 msgid "Error signing in"
 msgstr "Не мога да те логна."
 
@@ -32,7 +32,7 @@ msgid "Item updated successfully."
 msgstr "Подновено успешно."
 
 #, elixir-format
-#: lib/storeHall_web/controllers/auth_controller.ex:34
+#: lib/storeHall_web/controllers/auth_controller.ex:42
 msgid "Thank you for signing in!"
 msgstr "Благодаря, че се логна."
 
@@ -48,30 +48,25 @@ msgstr "Профилът подновен успешно."
 
 #, elixir-format
 #: lib/storeHall_web/controllers/item_controller.ex:120
-#: lib/storeHall_web/controllers/mail_controller.ex:54 lib/storeHall_web/controllers/user_controller.ex:86
+#: lib/storeHall_web/controllers/mail_controller.ex:54 lib/storeHall_web/controllers/payment_controller.ex:31
+#: lib/storeHall_web/controllers/user_controller.ex:86
 msgid "You cannot do that"
 msgstr "Не може така :)"
 
 #, elixir-format
 #: lib/storeHall_web/channels/items_channel.ex:123
-#: lib/storeHall_web/channels/items_channel.ex:158 lib/storeHall_web/channels/users_channel.ex:143
-#: lib/storeHall_web/channels/users_channel.ex:166 lib/storeHall_web/channels/users_channel.ex:185
-#: lib/storeHall_web/channels/users_channel.ex:220 lib/storeHall_web/channels/users_channel.ex:252
-#: lib/storeHall_web/channels/users_channel.ex:300 lib/storeHall_web/channels/users_channel.ex:326
-#: lib/storeHall_web/channels/users_channel.ex:383
+#: lib/storeHall_web/channels/items_channel.ex:158 lib/storeHall_web/channels/users_channel.ex:160
+#: lib/storeHall_web/channels/users_channel.ex:183 lib/storeHall_web/channels/users_channel.ex:202
+#: lib/storeHall_web/channels/users_channel.ex:237 lib/storeHall_web/channels/users_channel.ex:269
+#: lib/storeHall_web/channels/users_channel.ex:318 lib/storeHall_web/channels/users_channel.ex:344
+#: lib/storeHall_web/channels/users_channel.ex:401
 msgid "must be logged in"
 msgstr "Първо се логнете."
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:409
+#: lib/storeHall_web/channels/users_channel.ex:427
 msgid "you already did it :)"
 msgstr "Вече си беше направено ;)"
-
-#, elixir-format
-#: lib/storeHall_web/views/page_title.ex:81
-#: lib/storeHall_web/views/page_title.ex:85
-msgid "Listing users"
-msgstr "Профили"
 
 #, elixir-format
 #: lib/storeHall_web/plugs/require_auth.ex:15
@@ -79,13 +74,8 @@ msgid "You must be logged in."
 msgstr "Първо се логнете."
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:2
-msgid "Latest sponsor"
-msgstr "Последен спонсор"
-
-#, elixir-format
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:26
-#: lib/storeHall_web/templates/layout/header.html.eex:112 lib/storeHall_web/templates/user/edit_sidebar.html.eex:30
+#: lib/storeHall_web/templates/layout/header.html.eex:103 lib/storeHall_web/templates/user/edit_sidebar.html.eex:30
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:30
 msgid "Add Item"
 msgstr "Добави обява"
@@ -107,7 +97,6 @@ msgstr "Сигурен ли си?"
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:42
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:12 lib/storeHall_web/templates/item/index_item.html.eex:50
 #: lib/storeHall_web/templates/item/new_sidebar.html.eex:14 lib/storeHall_web/templates/item/show_sidebar.html.eex:12
-#: lib/storeHall_web/templates/mail/index_sidebar.html.eex:12 lib/storeHall_web/templates/mail/show_sidebar.html.eex:12
 #: lib/storeHall_web/templates/user/edit_sidebar.html.eex:12 lib/storeHall_web/templates/user/show_sidebar.html.eex:12
 msgid "Comments"
 msgstr "Коментари"
@@ -115,8 +104,9 @@ msgstr "Коментари"
 #, elixir-format
 #: lib/storeHall_web/templates/chat/index.html.eex:34
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:29 lib/storeHall_web/templates/item/new_sidebar.html.eex:35
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:29 lib/storeHall_web/templates/mail/show_sidebar.html.eex:35
-#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:39 lib/storeHall_web/templates/user/show_sidebar.html.eex:39
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:29 lib/storeHall_web/templates/mail/show_sidebar.html.eex:17
+#: lib/storeHall_web/templates/payment/show_sidebar.html.eex:12 lib/storeHall_web/templates/user/edit_sidebar.html.eex:39
+#: lib/storeHall_web/templates/user/show_sidebar.html.eex:39
 msgid "Delete"
 msgstr "Изтрий"
 
@@ -133,40 +123,38 @@ msgstr "Редактирай профил"
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:6
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:6 lib/storeHall_web/templates/item/new_sidebar.html.eex:8
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:6 lib/storeHall_web/templates/mail/index_sidebar.html.eex:6
-#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:6 lib/storeHall_web/templates/user/edit_sidebar.html.eex:6
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:6 lib/storeHall_web/templates/user/edit_sidebar.html.eex:6
 #: lib/storeHall_web/templates/user/show_sidebar.html.eex:6
 msgid "Info"
 msgstr "Инфо"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:201
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:62 lib/storeHall_web/templates/layout/header.html.eex:93
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:62 lib/storeHall_web/templates/layout/header.html.eex:84
 msgid "Messages"
 msgstr "Съобщения"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:103
+#: lib/storeHall_web/templates/layout/header.html.eex:94
 msgid "My Items"
 msgstr "Моите обяви"
 
 #, elixir-format
 #: lib/storeHall_web/templates/item/form.html.eex:9
-#: lib/storeHall_web/templates/user/form.html.eex:9
+#: lib/storeHall_web/templates/payment/form.html.eex:8 lib/storeHall_web/templates/user/form.html.eex:9
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Нещо се обърка, моля провери грешките"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:29
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12 lib/storeHall_web/templates/layout/header.html.eex:74
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:12 lib/storeHall_web/templates/layout/header.html.eex:65
 msgid "Profile"
 msgstr "Профил"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/index_sidebar.html.eex:48
 #: lib/storeHall_web/templates/item/edit_sidebar.html.eex:18 lib/storeHall_web/templates/item/new_sidebar.html.eex:20
-#: lib/storeHall_web/templates/item/show_sidebar.html.eex:18 lib/storeHall_web/templates/mail/index_sidebar.html.eex:18
-#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:18 lib/storeHall_web/templates/rating/index.html.eex:2
+#: lib/storeHall_web/templates/item/show_sidebar.html.eex:18 lib/storeHall_web/templates/rating/index.html.eex:2
 #: lib/storeHall_web/templates/user/edit_sidebar.html.eex:18 lib/storeHall_web/templates/user/show_sidebar.html.eex:18
 msgid "Ratings"
 msgstr "Ревюта"
@@ -192,23 +180,23 @@ msgid "Send"
 msgstr "Прати"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:83
+#: lib/storeHall_web/templates/layout/header.html.eex:74
 #: lib/storeHall_web/templates/user/form.html.eex:290
 msgid "Settings"
 msgstr "Настройки"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:134
+#: lib/storeHall_web/templates/layout/header.html.eex:126
 msgid "Sign in with Google"
 msgstr "Логни се с Google"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:121
+#: lib/storeHall_web/templates/layout/header.html.eex:112
 msgid "Sign out"
 msgstr "Излез"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:39
+#: lib/storeHall_web/templates/layout/header.html.eex:30
 msgid "View all Messages"
 msgstr "Всички съобщения"
 
@@ -309,9 +297,9 @@ msgstr "Коментирай"
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:129 lib/storeHall_web/templates/item/index_sidebar.html.eex:145
 #: lib/storeHall_web/templates/item/index_sidebar.html.eex:159 lib/storeHall_web/templates/item/index_sidebar.html.eex:173
 #: lib/storeHall_web/templates/user/index_sidebar.html.eex:76 lib/storeHall_web/templates/user/index_sidebar.html.eex:87
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:133 lib/storeHall_web/templates/user/index_sidebar.html.eex:245
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:258 lib/storeHall_web/templates/user/index_sidebar.html.eex:271
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:317
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:133 lib/storeHall_web/templates/user/index_sidebar.html.eex:278
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:291 lib/storeHall_web/templates/user/index_sidebar.html.eex:304
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:350
 msgid "Choose"
 msgstr "Избери"
 
@@ -320,6 +308,7 @@ msgstr "Избери"
 #: lib/storeHall_web/templates/item/form.html.eex:36 lib/storeHall_web/templates/item/index_item.html.eex:44
 #: lib/storeHall_web/templates/item/index_item.html.eex:46 lib/storeHall_web/templates/item/index_sidebar.html.eex:42
 #: lib/storeHall_web/templates/item/show.html.eex:25 lib/storeHall_web/templates/item/show.html.eex:30
+#: lib/storeHall_web/templates/payment/form.html.eex:33
 msgid "lv"
 msgstr "лв."
 
@@ -339,17 +328,17 @@ msgid "Labels"
 msgstr "Лейбъли"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:18
+#: lib/storeHall_web/templates/layout/footer.html.eex:21
 msgid "Agree"
 msgstr "Разбрах"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:21
+#: lib/storeHall_web/templates/layout/footer.html.eex:24
 msgid "Learn more"
 msgstr "Научи повече"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/footer.html.eex:13
+#: lib/storeHall_web/templates/layout/footer.html.eex:16
 msgid "We use cookies."
 msgstr "С използването на сайта приемате употребата на 'бисквитки' от наша страна. С тях ние подобряваме качеството на услугите си."
 
@@ -397,7 +386,7 @@ msgstr "Адрес"
 
 #, elixir-format
 #: lib/storeHall_web/channels/items_channel.ex:166
-#: lib/storeHall_web/channels/users_channel.ex:334 lib/storeHall_web/templates/rating/_form.html.eex:13
+#: lib/storeHall_web/channels/users_channel.ex:352 lib/storeHall_web/templates/rating/_form.html.eex:13
 msgid "All Scores absolute values should add up to max %{max_score} !"
 msgstr "Сборът от абсолютните стойности на всички точки трябва да е до %{max_score} !"
 
@@ -614,7 +603,7 @@ msgid "locale"
 msgstr "Език"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:140
+#: lib/storeHall_web/templates/layout/header.html.eex:132
 msgid "Sign in with Facebook"
 msgstr "Логни се с Facebook"
 
@@ -637,8 +626,8 @@ msgid "cookie_consent"
 msgstr "Съгласие за бисквитки"
 
 #, elixir-format
-#: lib/storeHall_web/controllers/auth_controller.ex:50
-#: lib/storeHall_web/controllers/auth_controller.ex:82
+#: lib/storeHall_web/controllers/auth_controller.ex:58
+#: lib/storeHall_web/controllers/auth_controller.ex:90
 msgid "no email"
 msgstr "липсва е-мейл"
 
@@ -650,12 +639,11 @@ msgstr "не приемам"
 
 #, elixir-format
 #: lib/storeHall_web/views/page_title.ex:77
-#: lib/storeHall_web/views/page_title.ex:82
 msgid " Page "
 msgstr " Страница "
 
 #, elixir-format
-#: lib/storeHall_web/router.ex:87
+#: lib/storeHall_web/router.ex:102
 msgid "Page not found"
 msgstr "Не намирам такава страница"
 
@@ -696,7 +684,7 @@ msgstr "Търсене"
 
 #, elixir-format
 #: lib/storeHall_web/channels/items_channel.ex:215
-#: lib/storeHall_web/channels/users_channel.ex:366
+#: lib/storeHall_web/channels/users_channel.ex:384
 msgid "Something unexpected happened"
 msgstr "Неочаквана грешка"
 
@@ -713,30 +701,30 @@ msgid "Мarketing"
 msgstr "Маркетинг"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:161
+#: lib/storeHall_web/templates/layout/header.html.eex:176
 msgid " and "
 msgstr " и "
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:146
+#: lib/storeHall_web/templates/layout/header.html.eex:138
 #: lib/storeHall_web/templates/layout/header.html.eex:152
 msgid "I accept the "
 msgstr "Запознат/а съм и приемам "
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:159
+#: lib/storeHall_web/templates/layout/header.html.eex:167
 msgid "I want to participate in the marketing compains by giving my consent for my information to be used acording to the "
 msgstr "Искам да участвам в маркетинг кампании, съгласявайки се да предоставя данните ми за използване както е описано в "
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:152
-#: lib/storeHall_web/templates/layout/header.html.eex:160
+#: lib/storeHall_web/templates/layout/header.html.eex:154
+#: lib/storeHall_web/templates/layout/header.html.eex:169
 msgid "Privacy policy"
 msgstr "Политиката за поверителност"
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:146
-#: lib/storeHall_web/templates/layout/header.html.eex:162
+#: lib/storeHall_web/templates/layout/header.html.eex:140
+#: lib/storeHall_web/templates/layout/header.html.eex:178
 msgid "Terms and Conditions"
 msgstr "Общите условия"
 
@@ -913,7 +901,7 @@ msgstr "Общи условия на КУПО ЕООД за използване
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:195
-#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:58
+#: lib/storeHall_web/templates/about/howto_sidebar.html.eex:58 lib/storeHall_web/templates/payment/form.html.eex:15
 msgid "Credits"
 msgstr "Кредити"
 
@@ -1095,6 +1083,7 @@ msgstr "Добави бутон за споделяне"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:175
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:144
 msgid "Age"
 msgstr "Години"
 
@@ -1106,31 +1095,31 @@ msgstr "Пол"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:186
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:144
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:177
 msgid "Height"
 msgstr "Височина"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:253
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:269
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:302
 msgid "Interests"
 msgstr "Интереси"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:277
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:315
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:348
 msgid "Job sector"
 msgstr "Категория работа"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:218
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:210
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:243
 msgid "Kids"
 msgstr "Деца"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:242
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:256
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:289
 msgid "Marital status"
 msgstr "Семейно положение"
 
@@ -1146,13 +1135,13 @@ msgstr "Целеви маркетинг"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:197
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:177
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:210
 msgid "Weight"
 msgstr "Тегло"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:266
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:282
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:315
 msgid "Work experience"
 msgstr "Трудов стаж"
 
@@ -1162,7 +1151,7 @@ msgid "form edit hint for social buttons"
 msgstr "Добавете контакт, като въведете първо името (телефон, скайп, фейсбук и т.н.) и натиснете клавиша Enter. След това в полето попълнете съответната информация. HTML тагове могат да се използват."
 
 #, elixir-format
-#: lib/storeHall_web/templates/layout/header.html.eex:65
+#: lib/storeHall_web/templates/layout/header.html.eex:56
 msgid " credits"
 msgstr " кредити"
 
@@ -1198,7 +1187,7 @@ msgstr "Кредити за писмо"
 
 #, elixir-format
 #: lib/storeHall_web/templates/user/form.html.eex:229
-#: lib/storeHall_web/templates/user/index_sidebar.html.eex:243
+#: lib/storeHall_web/templates/user/index_sidebar.html.eex:276
 msgid "Kids age"
 msgstr "Възраст на децата"
 
@@ -2053,13 +2042,13 @@ msgid "Page"
 msgstr "Лимит"
 
 #, elixir-format
-#: lib/storeHall_web/templates/mail/index_sidebar.html.eex:32
-#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:30
+#: lib/storeHall_web/templates/mail/index_sidebar.html.eex:8
+#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:12 lib/storeHall_web/views/page_title.ex:80
 msgid "Add mail"
 msgstr "Прати писмо"
 
 #, elixir-format
-#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:35
+#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:17
 msgid "Are you sure you want to delete the mail?"
 msgstr "Сигурен ли си"
 
@@ -2098,20 +2087,19 @@ msgstr "Информативно писмо"
 msgid "Link"
 msgstr "Линк"
 
-#, elixir-format, fuzzy
-#: lib/storeHall_web/templates/mail/index.html.eex:3
+#, elixir-format
+#: lib/storeHall_web/views/page_title.ex:81
 msgid "Listing Mails"
 msgstr "Писма"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/controllers/mail_controller.ex:29
 msgid "Mail deleted successfully."
 msgstr "Изтрито успешно."
 
 #, elixir-format
-#: lib/storeHall_web/templates/mail/index_sidebar.html.eex:26
-#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:24 lib/storeHall_web/templates/user/edit_sidebar.html.eex:25
-#: lib/storeHall_web/templates/user/show_sidebar.html.eex:25
+#: lib/storeHall_web/templates/mail/show_sidebar.html.eex:6
+#: lib/storeHall_web/templates/user/edit_sidebar.html.eex:25 lib/storeHall_web/templates/user/show_sidebar.html.eex:25
 msgid "Mails"
 msgstr "Писма"
 
@@ -2140,27 +2128,179 @@ msgstr "Заглавието е задължително"
 msgid "Total cost for all mails: "
 msgstr "Обща цена за всички писма"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/storeHall_web/templates/mail/form.html.eex:57
 msgid "form edit hint for content"
 msgstr "HTML тагове могат да се използват."
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:231
+#: lib/storeHall_web/channels/users_channel.ex:248
 msgid "mail credits claimed"
 msgstr "Кредитите получени"
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:237
+#: lib/storeHall_web/channels/users_channel.ex:254
 msgid "mail credits not claimed!"
 msgstr "Кредитите не са получени"
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:285
+#: lib/storeHall_web/channels/users_channel.ex:303
 msgid "mail not sent!"
 msgstr "Писмото не беше пратено"
 
 #, elixir-format
-#: lib/storeHall_web/channels/users_channel.ex:280
+#: lib/storeHall_web/channels/users_channel.ex:298
 msgid "mail sent."
 msgstr "Писмото е пратено успешно"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/payment/_sidebar.html.eex:19
+msgid "Add credits"
+msgstr "Добави кредити"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/form.html.eex:25
+msgid "Amount"
+msgstr "Сума"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/payment/show_sidebar.html.eex:12
+msgid "Are you sure you want to delete the payment?"
+msgstr "Сигурен ли си"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/payment/new.html.eex:7
+msgid "Buy credits"
+msgstr "Купи кредити"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/new.html.eex:1
+msgid "Here you can add credits to your balance."
+msgstr "Добавете кредити, които да използвате за маркетинг писма към потенциални клиенти"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/withdraw.html.eex:2
+msgid "Here you can request withdrawing credits from your balance."
+msgstr "Изтеглете вашите кредити във ваша реална сметка."
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/templates/layout/footer.html.eex:5
+msgid "Items"
+msgstr "Обяви"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/views/page_title.ex:87
+msgid "Listing Payments"
+msgstr "Коментари"
+
+#, elixir-format
+#: lib/storeHall_web/templates/layout/footer.html.eex:3
+msgid "Marketing participants"
+msgstr "Участници в маркетинг кампании"
+
+#, elixir-format, fuzzy
+#: lib/storeHall_web/controllers/payment_controller.ex:37
+msgid "Payment deleted successfully."
+msgstr "Изтрито успешно."
+
+#, elixir-format
+#: lib/storeHall_web/controllers/payment_controller.ex:92
+msgid "Payment is canceled"
+msgstr "Плащането е отказано"
+
+#, elixir-format
+#: lib/storeHall_web/controllers/payment_controller.ex:84
+msgid "Payment successful"
+msgstr "Плащането е извършено успешно"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/_sidebar.html.eex:13
+msgid "Payments"
+msgstr "Плащания"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/_sidebar.html.eex:7
+msgid "Withdraw"
+msgstr "Теглене"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/withdraw.html.eex:8
+msgid "Withdraw credits"
+msgstr "Изтегли"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:140
+msgid "already received response from epay!"
+msgstr "вече е получен отговор от epay"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:180
+#: lib/storeHall_web/templates/payment/show.html.eex:55
+msgid "amount"
+msgstr "сума"
+
+#, elixir-format, fuzzy
+#: lib/storeHall/payments/payments.ex:181
+#: lib/storeHall_web/templates/payment/show.html.eex:62
+msgid "credits"
+msgstr "кредити"
+
+#, elixir-format, fuzzy
+#: lib/storeHall/payments/payments.ex:185
+#: lib/storeHall_web/templates/payment/show.html.eex:76
+msgid "credits_after"
+msgstr "кредити след"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:184
+#: lib/storeHall_web/templates/payment/show.html.eex:69
+msgid "credits_before"
+msgstr "кредити преди"
+
+#, elixir-format, fuzzy
+#: lib/storeHall/payments/payments.ex:174
+msgid "id"
+msgstr "номер"
+
+#, elixir-format, fuzzy
+#: lib/storeHall/payments/payments.ex:177
+#: lib/storeHall_web/templates/payment/show.html.eex:6
+msgid "inserted_at"
+msgstr "добавени на"
+
+#, elixir-format
+#: lib/storeHall/marketing/mails.ex:140
+msgid "insufficient balance"
+msgstr "Недостатъчно кредити"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:176
+#: lib/storeHall_web/templates/payment/show.html.eex:15
+msgid "invoice"
+msgstr "номер"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:183
+#: lib/storeHall_web/templates/payment/show.html.eex:29
+msgid "status"
+msgstr "статус"
+
+#, elixir-format
+#: lib/storeHall_web/templates/payment/show.html.eex:22
+msgid "type"
+msgstr "тип"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:178
+msgid "updated_at"
+msgstr "подновено на "
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:175
+msgid "user"
+msgstr "потребител"
+
+#, elixir-format
+#: lib/storeHall/payments/payments.ex:182
+msgid "withdraw"
+msgstr "теглене"

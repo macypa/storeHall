@@ -1,6 +1,11 @@
-<%= if @conn.assigns[:sponsor] != nil do %>
-  <%= Gettext.gettext("Latest sponsor") %>:
-  <%= @conn.assigns[:sponsor].id %>
+
+<%= if @conn.private.plug_session["cuf_info"] != nil do %>
+  <div id="footer_info">
+	  <%= Gettext.gettext("Marketing participants") %>:
+		<%= @conn.private.plug_session["cuf_info"][:user_count] %>
+		, <%= Gettext.gettext("Items") %>:
+		<%= @conn.private.plug_session["cuf_info"][:item_count] %>
+	</div>
 <% end %>
 
 <%= if @conn.private.plug_session["cu_settings"]["cookie_consent"] == nil do %>

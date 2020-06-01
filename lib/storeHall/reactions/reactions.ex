@@ -28,6 +28,8 @@ defmodule StoreHall.Reactions do
     |> select_merge([c, ra: r], %{alertz_count: count(r.id)})
   end
 
+  def preload_reaction(query, nil, _type), do: query
+
   def preload_reaction(query, current_user_id, type) do
     reactions_query =
       Reaction

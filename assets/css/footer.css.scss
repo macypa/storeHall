@@ -1,5 +1,9 @@
-
 footer {
+  #footer_info {
+    margin-left: 1em;
+    font-size: 0.6em;
+    font-weight: 600;
+  }
 
   #cookie_consent {
     position: absolute;
@@ -27,16 +31,16 @@ footer {
 
     .button {
       font: bold 11px Arial;
-      
+
       background-color: $baseColor;
-      border-radius: 5px;      
+      border-radius: 5px;
       cursor: pointer;
-    
+
       padding: 2px 6px 2px 6px;
-      border-top: 1px solid #CCCCCC;
+      border-top: 1px solid #cccccc;
       border-right: 1px solid #333333;
       border-bottom: 1px solid #333333;
-      border-left: 1px solid #CCCCCC;
+      border-left: 1px solid #cccccc;
     }
 
     #cookie_consent_info_link {
@@ -47,10 +51,8 @@ footer {
 
 // tablet view
 @media only screen and (min-width: $width-header) {
-
 }
 
 //desktop view
 @media only screen and (min-width: $width-header_desktop) {
-
 }

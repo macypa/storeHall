@@ -22,6 +22,15 @@ defmodule StoreHall.Items do
   @doc """
   Returns the list of items.
   """
+  def count_items(params, current_user_id \\ nil) do
+    apply_filters(params, current_user_id)
+    |> subquery()
+    |> select([i], %{
+      count: count(i.id)
+    })
+    |> Repo.one()
+  end
+
   def list_items(params, current_user_id \\ nil) do
     apply_filters(params, current_user_id)
     |> Repo.all()

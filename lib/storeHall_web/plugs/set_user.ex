@@ -2,6 +2,7 @@ defmodule StoreHall.Plugs.SetUser do
   import Plug.Conn
   alias StoreHallWeb.AuthController
   alias StoreHall.Users
+  alias StoreHall.Items
 
   alias StoreHall.Marketing.Mails
 
@@ -23,6 +24,26 @@ defmodule StoreHall.Plugs.SetUser do
         |> update_marketing_info()
         |> fetch_first_unread_mails()
         |> assign(:user_token, token)
+    end
+    |> update_footer_info()
+  end
+
+  @one_minute 60 * 60
+  defp update_footer_info(conn) do
+    last_footer_check = get_session(conn, :cu_last_footer_check) || DateTime.from_unix!(0)
+    time_threshold = DateTime.utc_now() |> DateTime.add(-@one_minute)
+
+    case DateTime.compare(last_footer_check, time_threshold) do
+      :lt ->
+        users_info = Users.count_users(%{})
+        items_info = Items.count_items(%{})
+
+        conn
+        |> put_session(:cuf_info, %{user_count: users_info.count, item_count: items_info.count})
+        |> put_session(:cu_last_footer_check, DateTime.utc_now())
+
+      _ ->
+        conn
     end
   end
 

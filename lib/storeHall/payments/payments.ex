@@ -179,7 +179,7 @@ defmodule StoreHall.Payments do
       details: %{
         "amount" => Gettext.gettext("amount"),
         "credits" => Gettext.gettext("credits"),
-        "type" => Gettext.gettext("withdraw"),
+        "type" => Gettext.gettext("type"),
         "STATUS" => Gettext.gettext("status"),
         "credits_before" => Gettext.gettext("credits_before"),
         "credits_after" => Gettext.gettext("credits_after")
