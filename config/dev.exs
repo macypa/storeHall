@@ -87,8 +87,11 @@ config :storeHall, :about,
   title: "StoreHall",
   user_id: "storeHall",
   host: "https://shlqk.dlinkddns.com",
+  host_text: "shlqk.dlinkddns.com",
   user: %{
     token: "",
+    company_number: "111111eik",
+    name_company: "StoreHall EOOD",
     name: "StoreHall",
     email: "storeHall@gmail.com",
     image: "/images/logo.png",
@@ -104,8 +107,9 @@ config :storeHall, :payment,
   exp_time_sec_add: 60 * 60 * 24,
   encoding: "utf-8"
 
-# epay_MIN: "", in dev.secret.exs
-# epay_secret_key: "" in dev.secret.exs
+# config :storeHall, :payment,
+#   epay_MIN: "", in dev.secret.exs
+#   epay_secret_key: "" in dev.secret.exs
 
 import_config "dev.secret.exs"
 

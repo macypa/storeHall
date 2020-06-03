@@ -897,7 +897,7 @@ msgstr "Политика за поверителност и използване
 #, elixir-format
 #: lib/storeHall_web/views/page_title.ex:66
 msgid "Terms Title"
-msgstr "Общи условия на КУПО ЕООД за използване на сайта quupo.com и платформата на сайта"
+msgstr "Общи условия за използване на сайта и платформата на сайта"
 
 #, elixir-format
 #: lib/storeHall_web/templates/about/howto.html.eex:195
