@@ -5,14 +5,13 @@ defmodule StoreHall.FilterablesTest do
   alias StoreHall.Fixture
   alias StoreHall.Items
   alias StoreHall.Users
-  alias StoreHall.Users.User
+  alias StoreHall.Items.Item
 
   describe "paging" do
-    @tag :skip
-    property "filter for users returns all users with page-size = -1" do
-      check all(_ <- Fixture.user_generator()) do
+    property "filter for items returns all items with page-size = -1" do
+      check all(_ <- Fixture.item_generator()) do
         params = %{"page-size" => -1}
-        assert length(Users.count_users(params)) <= Repo.all(User)
+        assert Items.count_items(params).count <= Repo.all(Item)
       end
     end
 

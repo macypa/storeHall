@@ -13,14 +13,16 @@ defmodule StoreHall.CommentsTest do
     test "list_comments returns all comments" do
       author = Fixture.generate_user()
 
-      check all item <- Fixture.item_generator(),
-                comments_count <- StreamData.positive_integer() do
+      check all(
+              item <- Fixture.item_generator(),
+              comments_count <- StreamData.positive_integer()
+            ) do
         item_comments = Fixture.insert_item_comments(author, item, nil, nil, comments_count)
 
         assert length(
                  Comments.list_comments(Items, author.id, %{
                    "id" => item.id,
-                   "page-size" => "1111"
+                   "page-size" => "-1"
                  })
                ) == length(item_comments)
       end
@@ -29,7 +31,7 @@ defmodule StoreHall.CommentsTest do
     test "create_comment/1 updates comment count for item" do
       author = Fixture.generate_user()
 
-      check all item <- Fixture.item_generator() do
+      check all(item <- Fixture.item_generator()) do
         item_comments_count = Items.get_item!(item.id).details["comments_count"]
         user_comments_count = Users.get_user!(item.user_id).details["comments_count"]
 
@@ -56,14 +58,16 @@ defmodule StoreHall.CommentsTest do
     test "list_comments returns all comments" do
       author = Fixture.generate_user()
 
-      check all user <- Fixture.user_generator(),
-                comments_count <- StreamData.positive_integer() do
+      check all(
+              user <- Fixture.user_generator(),
+              comments_count <- StreamData.positive_integer()
+            ) do
         user_comments = Fixture.insert_user_comments(author, user, nil, comments_count)
 
         assert length(
                  Comments.list_comments(Users, author.id, %{
                    "id" => user.id,
-                   "page-size" => "1111"
+                   "page-size" => "-1"
                  })
                ) == length(user_comments)
       end
@@ -72,7 +76,7 @@ defmodule StoreHall.CommentsTest do
     test "create_comment/1 updates comment count for user" do
       author = Fixture.generate_user()
 
-      check all user <- Fixture.user_generator() do
+      check all(user <- Fixture.user_generator()) do
         user_comments_count = Users.get_user!(user.id).details["comments_count"]
 
         assert {:ok, %UserComment{} = comment} =

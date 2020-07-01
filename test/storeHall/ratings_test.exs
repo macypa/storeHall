@@ -17,7 +17,7 @@ defmodule StoreHall.RatingsTest do
           length(
             Ratings.list_ratings(Items, author.id, %{
               "id" => item.id,
-              "page-size" => "1111"
+              "page-size" => "-1"
             })
           )
 
@@ -29,7 +29,7 @@ defmodule StoreHall.RatingsTest do
         })
 
         assert length(
-                 Ratings.list_ratings(Items, author.id, %{"id" => item.id, "page-size" => "1111"})
+                 Ratings.list_ratings(Items, author.id, %{"id" => item.id, "page-size" => "-1"})
                ) ==
                  item_ratings_count + 1
       end
@@ -104,9 +104,7 @@ defmodule StoreHall.RatingsTest do
 
       check all(author <- Fixture.user_generator()) do
         user_ratings_count =
-          length(
-            Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "1111"})
-          )
+          length(Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "-1"}))
 
         Ratings.upsert_user_rating(%{
           "user_id" => user.id,
@@ -115,7 +113,7 @@ defmodule StoreHall.RatingsTest do
         })
 
         assert length(
-                 Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "1111"})
+                 Ratings.list_ratings(Users, author.id, %{"id" => user.id, "page-size" => "-1"})
                ) == user_ratings_count + 1
       end
     end
